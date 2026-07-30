@@ -47,6 +47,7 @@ model Account {
   normalBalance NormalBalance
   isPostable    Boolean        @default(true)
   isActive      Boolean        @default(true)
+  lines         JournalLine[]
 
   parentId      String?
   parent        Account?       @relation("AccountHierarchy", fields: [parentId], references: [id])
@@ -57,4 +58,55 @@ model Account {
 
   @@index([type])
   @@index([parentId])
+}
+
+enum EntryStatus {
+  DRAFT
+  POSTED
+  REVERSED
+}
+
+model JournalEntry {
+  id           String        @id @default(cuid())
+  entryNumber  Int           @unique
+  entryDate    DateTime      @db.Date
+  serviceDate  DateTime?     @db.Date
+  description  String
+  status       EntryStatus   @default(DRAFT)
+  postedAt     DateTime?
+
+  reversalOfId String?       @unique
+  reversalOf   JournalEntry? @relation("EntryReversal", fields: [reversalOfId], references: [id])
+  reversedBy   JournalEntry? @relation("EntryReversal")
+
+  lines        JournalLine[]
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([entryDate])
+  @@index([status])
+}
+
+model JournalLine {
+  id           String       @id @default(cuid())
+
+  entryId      String
+  entry        JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+
+  accountId    String
+  account      Account      @relation(fields: [accountId], references: [id])
+
+  lineNumber   Int
+  description  String?
+
+  debit        Decimal      @default(0) @db.Decimal(12, 2)
+  credit       Decimal      @default(0) @db.Decimal(12, 2)
+
+  currency     String       @default("CAD")
+  exchangeRate Decimal      @default(1) @db.Decimal(18, 8)
+
+  @@unique([entryId, lineNumber])
+  @@index([accountId])
+  @@index([entryId])
 }
