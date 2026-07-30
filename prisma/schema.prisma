@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+enum NormalBalance {
+  DEBIT
+  CREDIT
+}
+
+enum AccountSubType {
+  CURRENT_ASSET
+  FIXED_ASSET
+  CURRENT_LIABILITY
+  LONG_TERM_LIABILITY
+  OWNERS_EQUITY
+  OPERATING_REVENUE
+  OTHER_INCOME
+  COST_OF_SERVICES
+  OPERATING_EXPENSE
+  OTHER_EXPENSE
+}
+
+model Account {
+  id            String         @id @default(cuid())
+  code          String         @unique
+  name          String
+  type          AccountType
+  subType       AccountSubType
+  normalBalance NormalBalance
+  isPostable    Boolean        @default(true)
+  isActive      Boolean        @default(true)
+
+  parentId      String?
+  parent        Account?       @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children      Account[]      @relation("AccountHierarchy")
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([type])
+  @@index([parentId])
+}
