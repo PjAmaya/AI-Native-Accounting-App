@@ -1,4 +1,4 @@
-import { validateEntry } from "../lib/ledger/balance.ts";
+import { validateEntry } from "../lib/ledger/balance";
 
 let passed = 0;
 let failed = 0;
