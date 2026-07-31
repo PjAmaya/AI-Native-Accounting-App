@@ -51,6 +51,7 @@ model Account {
   taxCollectedFor   TaxRate[]     @relation("TaxCollected")
   taxRecoverableFor TaxRate[]     @relation("TaxRecoverable")
   invoiceLines      InvoiceLine[] @relation("InvoiceLineRevenue")
+  paymentsReceived  Payment[]     @relation("PaymentBankAccount")
 
   parentId      String?
   parent        Account?       @relation("AccountHierarchy", fields: [parentId], references: [id])
@@ -84,6 +85,7 @@ model JournalEntry {
 
   lines        JournalLine[]
   invoice      Invoice?
+  payment      Payment?
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -146,6 +148,7 @@ model Contact {
   lines            JournalLine[]
   projects         Project[]
   invoices         Invoice[]
+  payments         Payment[]
 
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
@@ -237,6 +240,7 @@ model Invoice {
   pdfHash        String?
 
   lines          InvoiceLine[]
+  applications   PaymentApplication[]
 
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -268,5 +272,60 @@ model InvoiceLine {
   taxAmount   Decimal  @default(0) @db.Decimal(12, 2)
 
   @@unique([invoiceId, lineNumber])
+  @@index([invoiceId])
+}
+
+enum PaymentDirection {
+  RECEIVED
+  SENT
+}
+
+model Payment {
+  id             String               @id @default(cuid())
+  paymentNumber  Int                  @unique
+  direction      PaymentDirection
+
+  contactId      String
+  contact        Contact              @relation(fields: [contactId], references: [id])
+
+  paymentDate    DateTime             @db.Date
+  amount         Decimal              @db.Decimal(12, 2)
+  currency       String               @default("CAD")
+  exchangeRate   Decimal              @default(1) @db.Decimal(18, 8)
+
+  bankAccountId  String
+  bankAccount    Account              @relation("PaymentBankAccount", fields: [bankAccountId], references: [id])
+
+  method         String?
+  reference      String?
+  notes          String?
+
+  journalEntryId String?              @unique
+  journalEntry   JournalEntry?        @relation(fields: [journalEntryId], references: [id])
+
+  applications   PaymentApplication[]
+
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  @@index([contactId])
+  @@index([paymentDate])
+  @@index([direction])
+}
+
+model PaymentApplication {
+  id            String   @id @default(cuid())
+
+  paymentId     String
+  payment       Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  invoiceId     String
+  invoice       Invoice  @relation(fields: [invoiceId], references: [id])
+
+  amountApplied Decimal  @db.Decimal(12, 2)
+  appliedAt     DateTime @default(now())
+
+  @@unique([paymentId, invoiceId])
+  @@index([paymentId])
   @@index([invoiceId])
 }

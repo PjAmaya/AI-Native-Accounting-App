@@ -21,6 +21,7 @@ const accounts = [
   { code: "2010", name: "Accounts Payable",                     type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "2020", name: "Business Credit Card",                 type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "2050", name: "Deferred / Unearned Revenue",          type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "2060", name: "Customer Overpayments (unapplied)",     type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "2100", name: "HST Collected on Sales",               type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "2150", name: "HST Payable to CRA (filed)",           type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "3010", name: "Owner's Capital - Contributions",      type: "EQUITY",    subType: "OWNERS_EQUITY",       normalBalance: "CREDIT", isPostable: true,  parentCode: null },
