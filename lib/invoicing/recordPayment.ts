@@ -133,6 +133,8 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     include: { applications: true },
   });
 
+  await markInvoicesPaidTx(tx, drafts.map((a) => byNumber.get(a.invoiceNumber)!.id));
+
   const label = `Payment #${paymentNumber} - ${contact.name}`;
   const lines: DraftLine[] = [];
 
@@ -207,4 +209,24 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
 
 export async function recordPayment(draft: PaymentDraft) {
   return prisma.$transaction((tx) => recordPaymentTx(tx, draft));
+}
+
+async function markInvoicesPaidTx(tx: TxClient, invoiceIds: string[]) {
+  for (const invoiceId of Array.from(new Set(invoiceIds))) {
+    const invoice = await tx.invoice.findUnique({
+      where: { id: invoiceId },
+      select: { id: true, status: true, total: true },
+    });
+    if (!invoice || invoice.status !== "ISSUED") continue;
+
+    const agg = await tx.paymentApplication.aggregate({
+      where: { invoiceId },
+      _sum: { amountApplied: true },
+    });
+    const applied = new Decimal(agg._sum.amountApplied?.toString() ?? "0");
+
+    if (applied.greaterThanOrEqualTo(new Decimal(invoice.total.toString()))) {
+      await tx.invoice.update({ where: { id: invoiceId }, data: { status: "PAID" } });
+    }
+  }
 }
