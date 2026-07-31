@@ -5,6 +5,8 @@ export type DraftLine = {
   debit: string;
   credit: string;
   description?: string;
+  contactId?: string;
+  projectId?: string;
 };
 
 export type ValidationResult = {
