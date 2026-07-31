@@ -73,6 +73,7 @@ async function main() {
 
     console.log("seeded", a.code, a.name);
   }
+  await seedTaxRates();
 }
 
 main()
@@ -84,3 +85,38 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+async function seedTaxRates() {
+  const collected = await prisma.account.findUnique({ where: { code: "2100" } });
+  const recoverable = await prisma.account.findUnique({ where: { code: "1250" } });
+
+  if (!collected || !recoverable) {
+    throw new Error("HST accounts 2100 and 1250 must be seeded before tax rates.");
+  }
+
+  const rates = [
+    { code: "HST_ON", name: "HST Ontario 13%", ratePercent: "13.0000" },
+    { code: "ZERO_RATED", name: "Zero-rated (0%)", ratePercent: "0.0000" },
+  ];
+
+  for (const r of rates) {
+    await prisma.taxRate.upsert({
+      where: { code: r.code },
+      create: {
+        code: r.code,
+        name: r.name,
+        ratePercent: r.ratePercent,
+        effectiveFrom: new Date("2010-07-01"),
+        collectedAccountId: collected.id,
+        recoverableAccountId: recoverable.id,
+      },
+      update: {
+        name: r.name,
+        ratePercent: r.ratePercent,
+        collectedAccountId: collected.id,
+        recoverableAccountId: recoverable.id,
+      },
+    });
+    console.log("seeded tax rate", r.code, r.name);
+  }
+}

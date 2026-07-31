@@ -48,6 +48,9 @@ model Account {
   isPostable    Boolean        @default(true)
   isActive      Boolean        @default(true)
   lines         JournalLine[]
+  taxCollectedFor   TaxRate[]     @relation("TaxCollected")
+  taxRecoverableFor TaxRate[]     @relation("TaxRecoverable")
+  invoiceLines      InvoiceLine[] @relation("InvoiceLineRevenue")
 
   parentId      String?
   parent        Account?       @relation("AccountHierarchy", fields: [parentId], references: [id])
@@ -80,6 +83,7 @@ model JournalEntry {
   reversedBy   JournalEntry? @relation("EntryReversal")
 
   lines        JournalLine[]
+  invoice      Invoice?
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -97,6 +101,12 @@ model JournalLine {
   accountId    String
   account      Account      @relation(fields: [accountId], references: [id])
 
+  contactId    String?
+  contact      Contact?     @relation(fields: [contactId], references: [id])
+
+  projectId    String?
+  project      Project?     @relation(fields: [projectId], references: [id])
+  
   lineNumber   Int
   description  String?
 
@@ -109,4 +119,154 @@ model JournalLine {
   @@unique([entryId, lineNumber])
   @@index([accountId])
   @@index([entryId])
+  @@index([contactId])
+  @@index([projectId])
+}
+model Contact {
+  id               String        @id @default(cuid())
+  name             String
+  isCustomer       Boolean       @default(false)
+  isVendor         Boolean       @default(false)
+  isActive         Boolean       @default(true)
+
+  email            String?
+  phone            String?
+  addressLine1     String?
+  addressLine2     String?
+  city             String?
+  province         String?
+  postalCode       String?
+  country          String        @default("CA")
+
+  businessNumber   String?
+  isHstRegistered  Boolean       @default(false)
+  paymentTermsDays Int           @default(30)
+  notes            String?
+
+  lines            JournalLine[]
+  projects         Project[]
+  invoices         Invoice[]
+
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([isCustomer])
+  @@index([isVendor])
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  code        String        @unique
+  name        String
+  isActive    Boolean       @default(true)
+
+  contactId   String?
+  contact     Contact?      @relation(fields: [contactId], references: [id])
+
+  startDate   DateTime?     @db.Date
+  endDate     DateTime?     @db.Date
+  notes       String?
+
+  lines       JournalLine[]
+  invoices    Invoice[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([contactId])
+}
+
+model TaxRate {
+  id            String        @id @default(cuid())
+  code          String        @unique
+  name          String
+  ratePercent   Decimal       @db.Decimal(6, 4)
+  isActive      Boolean       @default(true)
+  effectiveFrom DateTime      @db.Date
+
+  collectedAccountId   String
+  collectedAccount     Account @relation("TaxCollected", fields: [collectedAccountId], references: [id])
+
+  recoverableAccountId String
+  recoverableAccount   Account @relation("TaxRecoverable", fields: [recoverableAccountId], references: [id])
+
+  invoiceLines  InvoiceLine[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PAID
+  VOID
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  invoiceNumber  String        @unique
+  status         InvoiceStatus @default(DRAFT)
+
+  contactId      String
+  contact        Contact       @relation(fields: [contactId], references: [id])
+
+  projectId      String?
+  project        Project?      @relation(fields: [projectId], references: [id])
+
+  invoiceDate    DateTime      @db.Date
+  dueDate        DateTime      @db.Date
+  servicePeriodStart DateTime? @db.Date
+  servicePeriodEnd   DateTime? @db.Date
+
+  clientReference String?
+  notes           String?
+
+  currency       String        @default("CAD")
+  exchangeRate   Decimal       @default(1) @db.Decimal(18, 8)
+
+  subtotal       Decimal       @default(0) @db.Decimal(12, 2)
+  taxTotal       Decimal       @default(0) @db.Decimal(12, 2)
+  total          Decimal       @default(0) @db.Decimal(12, 2)
+
+  journalEntryId String?       @unique
+  journalEntry   JournalEntry? @relation(fields: [journalEntryId], references: [id])
+
+  issuedAt       DateTime?
+  pdfPath        String?
+  pdfHash        String?
+
+  lines          InvoiceLine[]
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([contactId])
+  @@index([projectId])
+  @@index([status])
+  @@index([invoiceDate])
+}
+
+model InvoiceLine {
+  id          String   @id @default(cuid())
+
+  invoiceId   String
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  lineNumber  Int
+  description String
+
+  quantity    Decimal? @db.Decimal(12, 4)
+  unitRate    Decimal? @db.Decimal(12, 2)
+  amount      Decimal  @db.Decimal(12, 2)
+
+  revenueAccountId String
+  revenueAccount   Account @relation("InvoiceLineRevenue", fields: [revenueAccountId], references: [id])
+
+  taxRateId   String?
+  taxRate     TaxRate? @relation(fields: [taxRateId], references: [id])
+  taxAmount   Decimal  @default(0) @db.Decimal(12, 2)
+
+  @@unique([invoiceId, lineNumber])
+  @@index([invoiceId])
 }
