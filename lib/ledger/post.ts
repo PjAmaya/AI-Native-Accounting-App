@@ -103,3 +103,57 @@ export async function postEntry(draft: DraftEntry) {
   const created = await createDraftEntry(draft);
   return postDraft(created.id);
 }
+export async function reverseEntry(entryId: string, reason?: string) {
+  return prisma.$transaction(async (tx) => {
+    const original = await tx.journalEntry.findUnique({
+      where: { id: entryId },
+      include: { lines: true },
+    });
+
+    if (!original) throw new Error(`Entry ${entryId} does not exist.`);
+    if (original.status === "DRAFT") {
+      throw new Error(`Entry #${original.entryNumber} is a draft — delete it instead of reversing it.`);
+    }
+    if (original.status === "REVERSED") {
+      throw new Error(`Entry #${original.entryNumber} has already been reversed.`);
+    }
+
+    const last = await tx.journalEntry.findFirst({
+      orderBy: { entryNumber: "desc" },
+      select: { entryNumber: true },
+    });
+
+    const reversal = await tx.journalEntry.create({
+      data: {
+        entryNumber: (last?.entryNumber ?? 0) + 1,
+        entryDate: original.entryDate,
+        serviceDate: original.serviceDate,
+        description:
+          `Reversal of #${original.entryNumber} - ${original.description}` +
+          (reason ? ` (${reason})` : ""),
+        status: "POSTED",
+        postedAt: new Date(),
+        reversalOfId: original.id,
+        lines: {
+          create: original.lines.map((line, index) => ({
+            lineNumber: index + 1,
+            accountId: line.accountId,
+            description: line.description,
+            debit: line.credit,
+            credit: line.debit,
+            currency: line.currency,
+            exchangeRate: line.exchangeRate,
+          })),
+        },
+      },
+      include: { lines: true },
+    });
+
+    await tx.journalEntry.update({
+      where: { id: original.id },
+      data: { status: "REVERSED" },
+    });
+
+    return reversal;
+  });
+}

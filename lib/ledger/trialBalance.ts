@@ -19,7 +19,7 @@ export async function trialBalance(asOf: Date): Promise<TrialBalance> {
   const grouped = await prisma.journalLine.groupBy({
     by: ["accountId"],
     where: {
-      entry: { status: "POSTED", entryDate: { lte: asOf } },
+      entry: { status: { in: ["POSTED", "REVERSED"] }, entryDate: { lte: asOf } },
     },
     _sum: { debit: true, credit: true },
   });
