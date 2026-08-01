@@ -75,6 +75,8 @@ async function main() {
     console.log("seeded", a.code, a.name);
   }
   await seedTaxRates();
+  await seedOrgProfile();
+  await seedCapitalCandidates();
 }
 
 main()
@@ -120,4 +122,48 @@ async function seedTaxRates() {
     });
     console.log("seeded tax rate", r.code, r.name);
   }
+}
+
+async function seedOrgProfile() {
+  await prisma.orgProfile.upsert({
+    where: { id: "default" },
+    create: {
+      id: "default",
+      legalName: "TODO - legal name",
+      tradeName: null,
+      email: null,
+      phone: null,
+      addressLine1: null,
+      city: null,
+      province: "ON",
+      postalCode: null,
+      country: "CA",
+      businessNumber: null,
+      hstRegisteredFrom: null,
+      paymentInstructions: "TODO - e-transfer address or bank details",
+      capitalizationThreshold: "500.00",
+    },
+    update: {},
+  });
+
+  const profile = await prisma.orgProfile.findUniqueOrThrow({ where: { id: "default" } });
+  console.log(
+    `org profile: ${profile.legalName} | HST registered: ${
+      profile.hstRegisteredFrom ? profile.hstRegisteredFrom.toISOString().slice(0, 10) : "no"
+    } | cap threshold ${profile.capitalizationThreshold.toString()}`,
+  );
+}
+
+const CAPITAL_CANDIDATE_CODES = ["6030"];
+
+async function seedCapitalCandidates() {
+  await prisma.account.updateMany({
+    where: { code: { in: CAPITAL_CANDIDATE_CODES } },
+    data: { capitalCandidate: true },
+  });
+  await prisma.account.updateMany({
+    where: { code: { notIn: CAPITAL_CANDIDATE_CODES } },
+    data: { capitalCandidate: false },
+  });
+  console.log(`capital candidates: ${CAPITAL_CANDIDATE_CODES.join(", ")}`);
 }

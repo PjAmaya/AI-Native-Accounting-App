@@ -47,11 +47,13 @@ model Account {
   normalBalance NormalBalance
   isPostable    Boolean        @default(true)
   isActive      Boolean        @default(true)
+  capitalCandidate Boolean     @default(false)
   lines         JournalLine[]
   taxCollectedFor   TaxRate[]     @relation("TaxCollected")
   taxRecoverableFor TaxRate[]     @relation("TaxRecoverable")
   invoiceLines      InvoiceLine[] @relation("InvoiceLineRevenue")
   paymentsReceived  Payment[]     @relation("PaymentBankAccount")
+  billLines         BillLine[]    @relation("BillLineExpense")
 
   parentId      String?
   parent        Account?       @relation("AccountHierarchy", fields: [parentId], references: [id])
@@ -86,6 +88,7 @@ model JournalEntry {
   lines        JournalLine[]
   invoice      Invoice?
   payment      Payment?
+  bill         Bill?
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -149,6 +152,7 @@ model Contact {
   projects         Project[]
   invoices         Invoice[]
   payments         Payment[]
+  bills            Bill[]
 
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
@@ -172,6 +176,8 @@ model Project {
 
   lines       JournalLine[]
   invoices    Invoice[]
+  bills       Bill[]
+  billLines   BillLine[] @relation("BillLineProject")
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -194,6 +200,7 @@ model TaxRate {
   recoverableAccount   Account @relation("TaxRecoverable", fields: [recoverableAccountId], references: [id])
 
   invoiceLines  InvoiceLine[]
+  billLines     BillLine[]
 
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -304,6 +311,7 @@ model Payment {
   journalEntry   JournalEntry?        @relation(fields: [journalEntryId], references: [id])
 
   applications   PaymentApplication[]
+  billApplications BillApplication[]
 
   createdAt      DateTime             @default(now())
   updatedAt      DateTime             @updatedAt
@@ -328,4 +336,128 @@ model PaymentApplication {
   @@unique([paymentId, invoiceId])
   @@index([paymentId])
   @@index([invoiceId])
+}
+
+enum BillStatus {
+  DRAFT
+  APPROVED
+  PAID
+  VOID
+}
+
+model Bill {
+  id                    String            @id @default(cuid())
+  billNumber            Int               @unique
+  supplierInvoiceNumber String
+  status                BillStatus        @default(DRAFT)
+
+  contactId             String
+  contact               Contact           @relation(fields: [contactId], references: [id])
+
+  projectId             String?
+  project               Project?          @relation(fields: [projectId], references: [id])
+
+  billDate              DateTime          @db.Date
+  dueDate               DateTime          @db.Date
+  servicePeriodStart    DateTime?         @db.Date
+  servicePeriodEnd      DateTime?         @db.Date
+
+  notes                 String?
+  currency              String            @default("CAD")
+  exchangeRate          Decimal           @default(1) @db.Decimal(18, 8)
+
+  subtotal              Decimal           @default(0) @db.Decimal(12, 2)
+  taxTotal              Decimal           @default(0) @db.Decimal(12, 2)
+  total                 Decimal           @default(0) @db.Decimal(12, 2)
+
+  journalEntryId        String?           @unique
+  journalEntry          JournalEntry?     @relation(fields: [journalEntryId], references: [id])
+
+  approvedAt            DateTime?
+  documentPath          String?
+  documentHash          String?
+
+  lines                 BillLine[]
+  applications          BillApplication[]
+
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@unique([contactId, supplierInvoiceNumber])
+  @@index([contactId])
+  @@index([projectId])
+  @@index([status])
+  @@index([billDate])
+}
+
+model BillLine {
+  id             String   @id @default(cuid())
+
+  billId         String
+  bill           Bill     @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  lineNumber     Int
+  description    String
+
+  quantity       Decimal? @db.Decimal(12, 4)
+  unitRate       Decimal? @db.Decimal(12, 2)
+  amount         Decimal  @db.Decimal(12, 2)
+
+  expenseAccountId String
+  expenseAccount   Account @relation("BillLineExpense", fields: [expenseAccountId], references: [id])
+
+  projectId      String?
+  project        Project? @relation("BillLineProject", fields: [projectId], references: [id])
+
+  taxRateId      String?
+  taxRate        TaxRate? @relation(fields: [taxRateId], references: [id])
+  taxAmount      Decimal  @default(0) @db.Decimal(12, 2)
+
+  @@unique([billId, lineNumber])
+  @@index([billId])
+}
+
+model BillApplication {
+  id            String   @id @default(cuid())
+
+  paymentId     String
+  payment       Payment  @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+
+  billId        String
+  bill          Bill     @relation(fields: [billId], references: [id])
+
+  amountApplied Decimal  @db.Decimal(12, 2)
+  appliedAt     DateTime @default(now())
+
+  @@unique([paymentId, billId])
+  @@index([paymentId])
+  @@index([billId])
+}
+
+model OrgProfile {
+  id                  String    @id @default("default")
+
+  legalName           String
+  tradeName           String?
+  email               String?
+  phone               String?
+
+  addressLine1        String?
+  addressLine2        String?
+  city                String?
+  province            String?
+  postalCode          String?
+  country             String    @default("CA")
+
+  businessNumber      String?
+  hstRegisteredFrom   DateTime? @db.Date
+
+  logoPath            String?
+  paymentInstructions String?
+  invoiceFooter       String?
+
+  capitalizationThreshold Decimal @default(500) @db.Decimal(12, 2)
+
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 }
