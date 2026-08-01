@@ -178,6 +178,7 @@ model Project {
   invoices    Invoice[]
   bills       Bill[]
   billLines   BillLine[] @relation("BillLineProject")
+  invoiceLines InvoiceLine[] @relation("InvoiceLineProject")
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -273,6 +274,9 @@ model InvoiceLine {
 
   revenueAccountId String
   revenueAccount   Account @relation("InvoiceLineRevenue", fields: [revenueAccountId], references: [id])
+
+  projectId   String?
+  project     Project? @relation("InvoiceLineProject", fields: [projectId], references: [id])
 
   taxRateId   String?
   taxRate     TaxRate? @relation(fields: [taxRateId], references: [id])

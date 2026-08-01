@@ -150,6 +150,7 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
           unitRate: line.unitRate ?? null,
           amount: line.amount,
           revenueAccountId: revenueByCode.get(line.revenueAccountCode)!.id,
+          projectId: line.projectCode ? projectByCode.get(line.projectCode)!.id : invoiceProjectId,
           taxRateId: line.taxRateCode ? taxByCode.get(line.taxRateCode)!.id : null,
           taxAmount: totals.lineTax[index].toFixed(2),
         })),
