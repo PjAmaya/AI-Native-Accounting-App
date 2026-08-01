@@ -2,14 +2,20 @@ import Decimal from "decimal.js";
 import { prisma } from "../db";
 import { createDraftEntryTx, type TxClient } from "../ledger/post";
 import type { DraftLine } from "../ledger/balance";
+import { assertNotOverApplied, sumApplied } from "./applications";
 
 const AR_CODE = "1200";
 const AP_CODE = "2010";
 const OVERPAYMENT_CODE = "2060";
 const PREPAID_CODE = "1300";
 
-export type PaymentApplicationDraft = {
+export type InvoiceApplicationDraft = {
   invoiceNumber: string;
+  amount: string;
+};
+
+export type BillApplicationDraft = {
+  billNumber: number;
   amount: string;
 };
 
@@ -23,13 +29,24 @@ export type PaymentDraft = {
   reference?: string;
   notes?: string;
   currency?: string;
-  applications?: PaymentApplicationDraft[];
+  applications?: InvoiceApplicationDraft[];
+  billApplications?: BillApplicationDraft[];
 };
 
 export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
   const amount = new Decimal(draft.amount);
   if (amount.lessThanOrEqualTo(0)) {
     throw new Error("Payment amount must be greater than zero.");
+  }
+
+  const invoiceDrafts = draft.applications ?? [];
+  const billDrafts = draft.billApplications ?? [];
+
+  if (draft.direction === "RECEIVED" && billDrafts.length > 0) {
+    throw new Error("A received payment cannot be applied to bills.");
+  }
+  if (draft.direction === "SENT" && invoiceDrafts.length > 0) {
+    throw new Error("A sent payment cannot be applied to invoices.");
   }
 
   const contact = await tx.contact.findUnique({ where: { id: draft.contactId } });
@@ -50,22 +67,20 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     throw new Error(`Account ${bank.code} is ${bank.type}; a payment must move through an asset or liability account.`);
   }
 
-  const drafts = draft.applications ?? [];
-  const numbers = drafts.map((a) => a.invoiceNumber);
-  if (new Set(numbers).size !== numbers.length) {
-    throw new Error("The same invoice appears twice in the applications.");
-  }
-
-  const invoices = await tx.invoice.findMany({
-    where: { invoiceNumber: { in: numbers } },
-    include: { applications: true },
-  });
-  const byNumber = new Map(invoices.map((i) => [i.invoiceNumber, i]));
-
   let totalApplied = new Decimal(0);
 
-  for (const application of drafts) {
-    const invoice = byNumber.get(application.invoiceNumber);
+  const invoiceNumbers = invoiceDrafts.map((a) => a.invoiceNumber);
+  if (new Set(invoiceNumbers).size !== invoiceNumbers.length) {
+    throw new Error("The same invoice appears twice in the applications.");
+  }
+  const invoices = await tx.invoice.findMany({
+    where: { invoiceNumber: { in: invoiceNumbers } },
+    include: { applications: true },
+  });
+  const invoiceByNumber = new Map(invoices.map((i) => [i.invoiceNumber, i]));
+
+  for (const application of invoiceDrafts) {
+    const invoice = invoiceByNumber.get(application.invoiceNumber);
     if (!invoice) throw new Error(`Invoice ${application.invoiceNumber} does not exist.`);
     if (invoice.contactId !== contact.id) {
       throw new Error(`Invoice ${invoice.invoiceNumber} belongs to a different contact.`);
@@ -77,24 +92,47 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
       throw new Error(`Invoice ${invoice.invoiceNumber} is void.`);
     }
 
-    const applied = new Decimal(application.amount);
-    if (applied.lessThanOrEqualTo(0)) {
-      throw new Error(`Applied amount for ${invoice.invoiceNumber} must be greater than zero.`);
+    assertNotOverApplied({
+      label: invoice.invoiceNumber,
+      total: new Decimal(invoice.total.toString()),
+      alreadyApplied: sumApplied(invoice.applications),
+      requested: new Decimal(application.amount),
+    });
+
+    totalApplied = totalApplied.plus(application.amount);
+  }
+
+  const billNumbers = billDrafts.map((a) => a.billNumber);
+  if (new Set(billNumbers).size !== billNumbers.length) {
+    throw new Error("The same bill appears twice in the applications.");
+  }
+  const bills = await tx.bill.findMany({
+    where: { billNumber: { in: billNumbers } },
+    include: { applications: true },
+  });
+  const billByNumber = new Map(bills.map((b) => [b.billNumber, b]));
+
+  for (const application of billDrafts) {
+    const bill = billByNumber.get(application.billNumber);
+    if (!bill) throw new Error(`Bill #${application.billNumber} does not exist.`);
+    if (bill.contactId !== contact.id) {
+      throw new Error(`Bill #${bill.billNumber} belongs to a different contact.`);
+    }
+    if (bill.status === "DRAFT") {
+      throw new Error(`Bill #${bill.billNumber} is not approved and cannot be paid.`);
+    }
+    if (bill.status === "VOID") {
+      throw new Error(`Bill #${bill.billNumber} is void.`);
     }
 
-    const alreadyApplied = invoice.applications.reduce(
-      (sum, a) => sum.plus(a.amountApplied.toString()),
-      new Decimal(0),
-    );
-    const outstanding = new Decimal(invoice.total.toString()).minus(alreadyApplied);
+    assertNotOverApplied({
+      label: `bill #${bill.billNumber}`,
+      total: new Decimal(bill.total.toString()),
+      alreadyApplied: sumApplied(bill.applications),
+      requested: new Decimal(application.amount),
+    });
 
-    if (applied.greaterThan(outstanding)) {
-      throw new Error(
-        `Cannot apply ${applied.toFixed(2)} to ${invoice.invoiceNumber} - only ${outstanding.toFixed(2)} is outstanding.`,
-      );
-    }
-
-    totalApplied = totalApplied.plus(applied);
+    totalApplied = totalApplied.plus(application.amount);
   }
 
   if (totalApplied.greaterThan(amount)) {
@@ -124,16 +162,23 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
       reference: draft.reference ?? null,
       notes: draft.notes ?? null,
       applications: {
-        create: drafts.map((a) => ({
-          invoiceId: byNumber.get(a.invoiceNumber)!.id,
+        create: invoiceDrafts.map((a) => ({
+          invoiceId: invoiceByNumber.get(a.invoiceNumber)!.id,
+          amountApplied: new Decimal(a.amount).toFixed(2),
+        })),
+      },
+      billApplications: {
+        create: billDrafts.map((a) => ({
+          billId: billByNumber.get(a.billNumber)!.id,
           amountApplied: new Decimal(a.amount).toFixed(2),
         })),
       },
     },
-    include: { applications: true },
+    include: { applications: true, billApplications: true },
   });
 
-  await markInvoicesPaidTx(tx, drafts.map((a) => byNumber.get(a.invoiceNumber)!.id));
+  await markInvoicesPaidTx(tx, invoiceDrafts.map((a) => invoiceByNumber.get(a.invoiceNumber)!.id));
+  await markBillsPaidTx(tx, billDrafts.map((a) => billByNumber.get(a.billNumber)!.id));
 
   const label = `Payment #${paymentNumber} - ${contact.name}`;
   const lines: DraftLine[] = [];
@@ -201,7 +246,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
   const linked = await tx.payment.update({
     where: { id: payment.id },
     data: { journalEntryId: entry.id },
-    include: { applications: true, contact: true },
+    include: { applications: true, billApplications: true, contact: true },
   });
 
   return { payment: linked, entry, totalApplied, unapplied };
@@ -227,6 +272,26 @@ async function markInvoicesPaidTx(tx: TxClient, invoiceIds: string[]) {
 
     if (applied.greaterThanOrEqualTo(new Decimal(invoice.total.toString()))) {
       await tx.invoice.update({ where: { id: invoiceId }, data: { status: "PAID" } });
+    }
+  }
+}
+
+async function markBillsPaidTx(tx: TxClient, billIds: string[]) {
+  for (const billId of Array.from(new Set(billIds))) {
+    const bill = await tx.bill.findUnique({
+      where: { id: billId },
+      select: { id: true, status: true, total: true },
+    });
+    if (!bill || bill.status !== "APPROVED") continue;
+
+    const agg = await tx.billApplication.aggregate({
+      where: { billId },
+      _sum: { amountApplied: true },
+    });
+    const applied = new Decimal(agg._sum.amountApplied?.toString() ?? "0");
+
+    if (applied.greaterThanOrEqualTo(new Decimal(bill.total.toString()))) {
+      await tx.bill.update({ where: { id: billId }, data: { status: "PAID" } });
     }
   }
 }
