@@ -79,3 +79,14 @@ export const BillStatus = {
 } as const
 
 export type BillStatus = (typeof BillStatus)[keyof typeof BillStatus]
+
+
+export const EbitdaAddBack = {
+  NONE: 'NONE',
+  DEPRECIATION: 'DEPRECIATION',
+  AMORTIZATION: 'AMORTIZATION',
+  INTEREST: 'INTEREST',
+  INCOME_TAX: 'INCOME_TAX'
+} as const
+
+export type EbitdaAddBack = (typeof EbitdaAddBack)[keyof typeof EbitdaAddBack]

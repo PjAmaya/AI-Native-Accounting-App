@@ -55,6 +55,13 @@ export type BoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type EnumEbitdaAddBackFilter<$PrismaModel = never> = {
+  equals?: $Enums.EbitdaAddBack | Prisma.EnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  in?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEbitdaAddBackFilter<$PrismaModel> | $Enums.EbitdaAddBack
+}
+
 export type StringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -140,6 +147,16 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type EnumEbitdaAddBackWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EbitdaAddBack | Prisma.EnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  in?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEbitdaAddBackWithAggregatesFilter<$PrismaModel> | $Enums.EbitdaAddBack
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEbitdaAddBackFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEbitdaAddBackFilter<$PrismaModel>
 }
 
 export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -388,6 +405,13 @@ export type NestedBoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
+export type NestedEnumEbitdaAddBackFilter<$PrismaModel = never> = {
+  equals?: $Enums.EbitdaAddBack | Prisma.EnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  in?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEbitdaAddBackFilter<$PrismaModel> | $Enums.EbitdaAddBack
+}
+
 export type NestedStringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -477,6 +501,16 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumEbitdaAddBackWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EbitdaAddBack | Prisma.EnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  in?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  notIn?: $Enums.EbitdaAddBack[] | Prisma.ListEnumEbitdaAddBackFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumEbitdaAddBackWithAggregatesFilter<$PrismaModel> | $Enums.EbitdaAddBack
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEbitdaAddBackFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEbitdaAddBackFilter<$PrismaModel>
 }
 
 export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {

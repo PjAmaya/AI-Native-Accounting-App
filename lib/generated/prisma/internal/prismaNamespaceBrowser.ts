@@ -93,6 +93,7 @@ export const AccountScalarFieldEnum = {
   isPostable: 'isPostable',
   isActive: 'isActive',
   capitalCandidate: 'capitalCandidate',
+  ebitdaAddBack: 'ebitdaAddBack',
   parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

@@ -24,6 +24,10 @@ const accounts = [
   { code: "2060", name: "Customer Overpayments (unapplied)",     type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "2100", name: "HST Collected on Sales",               type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "2150", name: "HST Payable to CRA (filed)",           type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "2200", name: "Income Taxes Payable",                 type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "2210", name: "CPP Payable",                          type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "2220", name: "EI Payable",                           type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "2230", name: "Employee Income Tax Withheld",         type: "LIABILITY", subType: "CURRENT_LIABILITY",   normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "3010", name: "Owner's Capital - Contributions",      type: "EQUITY",    subType: "OWNERS_EQUITY",       normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "3020", name: "Owner's Draws",                        type: "EQUITY",    subType: "OWNERS_EQUITY",       normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "3900", name: "Accumulated Earnings",                 type: "EQUITY",    subType: "OWNERS_EQUITY",       normalBalance: "CREDIT", isPostable: true,  parentCode: null },
@@ -36,13 +40,19 @@ const accounts = [
   { code: "6040", name: "Business-Use-of-Home",                 type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "6050", name: "Professional Fees",                    type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "6060", name: "Merchant & Processing Fees",           type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
-  { code: "6065", name: "Bank Charges & Interest",              type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
+  { code: "6065", name: "Bank Charges",                         type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "6070", name: "Travel",                               type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "6075", name: "Meals & Entertainment (50% limited)",  type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "6080", name: "General Office Supplies",              type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
   { code: "6090", name: "Depreciation Expense",                 type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
-  { code: "7010", name: "Interest & Other Income",              type: "REVENUE",   subType: "OTHER_INCOME",        normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "6100", name: "Salaries & Wages",                     type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
+  { code: "6110", name: "Employer CPP Contributions",           type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
+  { code: "6120", name: "Employer EI Premiums",                 type: "EXPENSE",   subType: "OPERATING_EXPENSE",   normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
+  { code: "7010", name: "Interest Income",                      type: "REVENUE",   subType: "OTHER_INCOME",        normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "7020", name: "Other Income",                         type: "REVENUE",   subType: "OTHER_INCOME",        normalBalance: "CREDIT", isPostable: true,  parentCode: null },
   { code: "7050", name: "FX Gain / (Loss)",                     type: "REVENUE",   subType: "OTHER_INCOME",        normalBalance: "CREDIT", isPostable: true,  parentCode: null },
+  { code: "7060", name: "Interest Expense",                     type: "EXPENSE",   subType: "OTHER_EXPENSE",       normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
+  { code: "7090", name: "Income Tax Expense",                   type: "EXPENSE",   subType: "OTHER_EXPENSE",       normalBalance: "DEBIT",  isPostable: true,  parentCode: null },
 ] as const;
 
 async function main() {
@@ -77,6 +87,7 @@ async function main() {
   await seedTaxRates();
   await seedOrgProfile();
   await seedCapitalCandidates();
+  await seedEbitdaAddBacks();
 }
 
 main()
@@ -166,4 +177,28 @@ async function seedCapitalCandidates() {
     data: { capitalCandidate: false },
   });
   console.log(`capital candidates: ${CAPITAL_CANDIDATE_CODES.join(", ")}`);
+}
+
+const EBITDA_ADD_BACKS: Record<string, "DEPRECIATION" | "AMORTIZATION" | "INTEREST" | "INCOME_TAX"> = {
+  "6090": "DEPRECIATION",
+  "7010": "INTEREST",
+  "7060": "INTEREST",
+  "7090": "INCOME_TAX",
+};
+
+async function seedEbitdaAddBacks() {
+  await prisma.account.updateMany({
+    where: { code: { notIn: Object.keys(EBITDA_ADD_BACKS) } },
+    data: { ebitdaAddBack: "NONE" },
+  });
+
+  for (const [code, addBack] of Object.entries(EBITDA_ADD_BACKS)) {
+    await prisma.account.updateMany({ where: { code }, data: { ebitdaAddBack: addBack } });
+  }
+
+  console.log(
+    `ebitda add-backs: ${Object.entries(EBITDA_ADD_BACKS)
+      .map(([code, addBack]) => `${code}=${addBack}`)
+      .join(", ")}`,
+  );
 }

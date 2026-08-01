@@ -34,6 +34,7 @@ export type AccountMinAggregateOutputType = {
   isPostable: boolean | null
   isActive: boolean | null
   capitalCandidate: boolean | null
+  ebitdaAddBack: $Enums.EbitdaAddBack | null
   parentId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +50,7 @@ export type AccountMaxAggregateOutputType = {
   isPostable: boolean | null
   isActive: boolean | null
   capitalCandidate: boolean | null
+  ebitdaAddBack: $Enums.EbitdaAddBack | null
   parentId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,6 +66,7 @@ export type AccountCountAggregateOutputType = {
   isPostable: number
   isActive: number
   capitalCandidate: number
+  ebitdaAddBack: number
   parentId: number
   createdAt: number
   updatedAt: number
@@ -81,6 +84,7 @@ export type AccountMinAggregateInputType = {
   isPostable?: true
   isActive?: true
   capitalCandidate?: true
+  ebitdaAddBack?: true
   parentId?: true
   createdAt?: true
   updatedAt?: true
@@ -96,6 +100,7 @@ export type AccountMaxAggregateInputType = {
   isPostable?: true
   isActive?: true
   capitalCandidate?: true
+  ebitdaAddBack?: true
   parentId?: true
   createdAt?: true
   updatedAt?: true
@@ -111,6 +116,7 @@ export type AccountCountAggregateInputType = {
   isPostable?: true
   isActive?: true
   capitalCandidate?: true
+  ebitdaAddBack?: true
   parentId?: true
   createdAt?: true
   updatedAt?: true
@@ -199,6 +205,7 @@ export type AccountGroupByOutputType = {
   isPostable: boolean
   isActive: boolean
   capitalCandidate: boolean
+  ebitdaAddBack: $Enums.EbitdaAddBack
   parentId: string | null
   createdAt: Date
   updatedAt: Date
@@ -235,6 +242,7 @@ export type AccountWhereInput = {
   isPostable?: Prisma.BoolFilter<"Account"> | boolean
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   capitalCandidate?: Prisma.BoolFilter<"Account"> | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFilter<"Account"> | $Enums.EbitdaAddBack
   parentId?: Prisma.StringNullableFilter<"Account"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
@@ -258,6 +266,7 @@ export type AccountOrderByWithRelationInput = {
   isPostable?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   capitalCandidate?: Prisma.SortOrder
+  ebitdaAddBack?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -284,6 +293,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   isPostable?: Prisma.BoolFilter<"Account"> | boolean
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   capitalCandidate?: Prisma.BoolFilter<"Account"> | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFilter<"Account"> | $Enums.EbitdaAddBack
   parentId?: Prisma.StringNullableFilter<"Account"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
@@ -307,6 +317,7 @@ export type AccountOrderByWithAggregationInput = {
   isPostable?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   capitalCandidate?: Prisma.SortOrder
+  ebitdaAddBack?: Prisma.SortOrder
   parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -328,6 +339,7 @@ export type AccountScalarWhereWithAggregatesInput = {
   isPostable?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
   capitalCandidate?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackWithAggregatesFilter<"Account"> | $Enums.EbitdaAddBack
   parentId?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
@@ -343,6 +355,7 @@ export type AccountCreateInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -365,6 +378,7 @@ export type AccountUncheckedCreateInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -387,6 +401,7 @@ export type AccountUpdateInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -409,6 +424,7 @@ export type AccountUncheckedUpdateInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -431,6 +447,7 @@ export type AccountCreateManyInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -446,6 +463,7 @@ export type AccountUpdateManyMutationInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -460,6 +478,7 @@ export type AccountUncheckedUpdateManyInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -490,6 +509,7 @@ export type AccountCountOrderByAggregateInput = {
   isPostable?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   capitalCandidate?: Prisma.SortOrder
+  ebitdaAddBack?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -505,6 +525,7 @@ export type AccountMaxOrderByAggregateInput = {
   isPostable?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   capitalCandidate?: Prisma.SortOrder
+  ebitdaAddBack?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -520,6 +541,7 @@ export type AccountMinOrderByAggregateInput = {
   isPostable?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   capitalCandidate?: Prisma.SortOrder
+  ebitdaAddBack?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -568,6 +590,10 @@ export type EnumNormalBalanceFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type EnumEbitdaAddBackFieldUpdateOperationsInput = {
+  set?: $Enums.EbitdaAddBack
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -710,6 +736,7 @@ export type AccountCreateWithoutChildrenInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -731,6 +758,7 @@ export type AccountUncheckedCreateWithoutChildrenInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -757,6 +785,7 @@ export type AccountCreateWithoutParentInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -778,6 +807,7 @@ export type AccountUncheckedCreateWithoutParentInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutAccountInput
@@ -820,6 +850,7 @@ export type AccountUpdateWithoutChildrenInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -841,6 +872,7 @@ export type AccountUncheckedUpdateWithoutChildrenInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -881,6 +913,7 @@ export type AccountScalarWhereInput = {
   isPostable?: Prisma.BoolFilter<"Account"> | boolean
   isActive?: Prisma.BoolFilter<"Account"> | boolean
   capitalCandidate?: Prisma.BoolFilter<"Account"> | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFilter<"Account"> | $Enums.EbitdaAddBack
   parentId?: Prisma.StringNullableFilter<"Account"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
@@ -896,6 +929,7 @@ export type AccountCreateWithoutLinesInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   taxCollectedFor?: Prisma.TaxRateCreateNestedManyWithoutCollectedAccountInput
@@ -917,6 +951,7 @@ export type AccountUncheckedCreateWithoutLinesInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -954,6 +989,7 @@ export type AccountUpdateWithoutLinesInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   taxCollectedFor?: Prisma.TaxRateUpdateManyWithoutCollectedAccountNestedInput
@@ -975,6 +1011,7 @@ export type AccountUncheckedUpdateWithoutLinesInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -996,6 +1033,7 @@ export type AccountCreateWithoutTaxCollectedForInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -1017,6 +1055,7 @@ export type AccountUncheckedCreateWithoutTaxCollectedForInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1043,6 +1082,7 @@ export type AccountCreateWithoutTaxRecoverableForInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -1064,6 +1104,7 @@ export type AccountUncheckedCreateWithoutTaxRecoverableForInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1101,6 +1142,7 @@ export type AccountUpdateWithoutTaxCollectedForInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -1122,6 +1164,7 @@ export type AccountUncheckedUpdateWithoutTaxCollectedForInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1154,6 +1197,7 @@ export type AccountUpdateWithoutTaxRecoverableForInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -1175,6 +1219,7 @@ export type AccountUncheckedUpdateWithoutTaxRecoverableForInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1196,6 +1241,7 @@ export type AccountCreateWithoutInvoiceLinesInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -1217,6 +1263,7 @@ export type AccountUncheckedCreateWithoutInvoiceLinesInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1254,6 +1301,7 @@ export type AccountUpdateWithoutInvoiceLinesInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -1275,6 +1323,7 @@ export type AccountUncheckedUpdateWithoutInvoiceLinesInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1296,6 +1345,7 @@ export type AccountCreateWithoutPaymentsReceivedInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -1317,6 +1367,7 @@ export type AccountUncheckedCreateWithoutPaymentsReceivedInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1354,6 +1405,7 @@ export type AccountUpdateWithoutPaymentsReceivedInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -1375,6 +1427,7 @@ export type AccountUncheckedUpdateWithoutPaymentsReceivedInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1396,6 +1449,7 @@ export type AccountCreateWithoutBillLinesInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
@@ -1417,6 +1471,7 @@ export type AccountUncheckedCreateWithoutBillLinesInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   parentId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1454,6 +1509,7 @@ export type AccountUpdateWithoutBillLinesInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -1475,6 +1531,7 @@ export type AccountUncheckedUpdateWithoutBillLinesInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1496,6 +1553,7 @@ export type AccountCreateManyParentInput = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1510,6 +1568,7 @@ export type AccountUpdateWithoutParentInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
@@ -1531,6 +1590,7 @@ export type AccountUncheckedUpdateWithoutParentInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutAccountNestedInput
@@ -1552,6 +1612,7 @@ export type AccountUncheckedUpdateManyWithoutParentInput = {
   isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1651,6 +1712,7 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: boolean
   parentId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1675,6 +1737,7 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: boolean
   parentId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1691,6 +1754,7 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: boolean
   parentId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1707,12 +1771,13 @@ export type AccountSelectScalar = {
   isPostable?: boolean
   isActive?: boolean
   capitalCandidate?: boolean
+  ebitdaAddBack?: boolean
   parentId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "type" | "subType" | "normalBalance" | "isPostable" | "isActive" | "capitalCandidate" | "parentId" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "type" | "subType" | "normalBalance" | "isPostable" | "isActive" | "capitalCandidate" | "ebitdaAddBack" | "parentId" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lines?: boolean | Prisma.Account$linesArgs<ExtArgs>
   taxCollectedFor?: boolean | Prisma.Account$taxCollectedForArgs<ExtArgs>
@@ -1753,6 +1818,7 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     isPostable: boolean
     isActive: boolean
     capitalCandidate: boolean
+    ebitdaAddBack: $Enums.EbitdaAddBack
     parentId: string | null
     createdAt: Date
     updatedAt: Date
@@ -2196,6 +2262,7 @@ export interface AccountFieldRefs {
   readonly isPostable: Prisma.FieldRef<"Account", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"Account", 'Boolean'>
   readonly capitalCandidate: Prisma.FieldRef<"Account", 'Boolean'>
+  readonly ebitdaAddBack: Prisma.FieldRef<"Account", 'EbitdaAddBack'>
   readonly parentId: Prisma.FieldRef<"Account", 'String'>
   readonly createdAt: Prisma.FieldRef<"Account", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Account", 'DateTime'>

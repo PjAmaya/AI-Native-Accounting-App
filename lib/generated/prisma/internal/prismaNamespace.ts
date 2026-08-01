@@ -1515,6 +1515,7 @@ export const AccountScalarFieldEnum = {
   isPostable: 'isPostable',
   isActive: 'isActive',
   capitalCandidate: 'capitalCandidate',
+  ebitdaAddBack: 'ebitdaAddBack',
   parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1861,6 +1862,20 @@ export type ListEnumNormalBalanceFieldRefInput<$PrismaModel> = FieldRefInputType
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'EbitdaAddBack'
+ */
+export type EnumEbitdaAddBackFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EbitdaAddBack'>
+    
+
+
+/**
+ * Reference to a field of type 'EbitdaAddBack[]'
+ */
+export type ListEnumEbitdaAddBackFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EbitdaAddBack[]'>
     
 
 

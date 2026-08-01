@@ -48,6 +48,7 @@ model Account {
   isPostable    Boolean        @default(true)
   isActive      Boolean        @default(true)
   capitalCandidate Boolean     @default(false)
+  ebitdaAddBack EbitdaAddBack  @default(NONE)
   lines         JournalLine[]
   taxCollectedFor   TaxRate[]     @relation("TaxCollected")
   taxRecoverableFor TaxRate[]     @relation("TaxRecoverable")
@@ -464,4 +465,12 @@ model OrgProfile {
 
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
+}
+
+enum EbitdaAddBack {
+  NONE
+  DEPRECIATION
+  AMORTIZATION
+  INTEREST
+  INCOME_TAX
 }
