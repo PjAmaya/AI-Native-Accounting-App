@@ -1,13 +1,14 @@
 import { prisma } from "../db";
 import { postDraftTx, type TxClient } from "../ledger/post";
+import { renderInvoicePdf } from "./renderInvoicePdf";
+import { storeFile } from "../storage";
 
-export async function issueInvoiceTx(tx: TxClient, invoiceId: string) {
-  const invoice = await tx.invoice.findUnique({
-    where: { id: invoiceId },
-    include: { lines: true, contact: true },
-  });
-
-  if (!invoice) throw new Error(`Invoice ${invoiceId} does not exist.`);
+function assertIssuable(invoice: {
+  invoiceNumber: string;
+  status: string;
+  journalEntryId: string | null;
+  lines: unknown[];
+}) {
   if (invoice.status === "ISSUED") throw new Error(`Invoice ${invoice.invoiceNumber} is already issued.`);
   if (invoice.status === "PAID") throw new Error(`Invoice ${invoice.invoiceNumber} is already paid.`);
   if (invoice.status === "VOID") throw new Error(`Invoice ${invoice.invoiceNumber} is void.`);
@@ -17,8 +18,22 @@ export async function issueInvoiceTx(tx: TxClient, invoiceId: string) {
   if (invoice.lines.length === 0) {
     throw new Error(`Invoice ${invoice.invoiceNumber} has no lines.`);
   }
+}
 
-  const entry = await postDraftTx(tx, invoice.journalEntryId);
+export async function issueInvoiceTx(
+  tx: TxClient,
+  invoiceId: string,
+  pdf?: { path: string; sha256: string },
+) {
+  const invoice = await tx.invoice.findUnique({
+    where: { id: invoiceId },
+    include: { lines: true, contact: true },
+  });
+
+  if (!invoice) throw new Error(`Invoice ${invoiceId} does not exist.`);
+  assertIssuable(invoice);
+
+  const entry = await postDraftTx(tx, invoice.journalEntryId!);
 
   const arDebit = entry.lines.reduce(
     (sum, line) => sum.plus(line.debit),
@@ -32,11 +47,35 @@ export async function issueInvoiceTx(tx: TxClient, invoiceId: string) {
 
   return tx.invoice.update({
     where: { id: invoice.id },
-    data: { status: "ISSUED", issuedAt: new Date() },
+    data: {
+      status: "ISSUED",
+      issuedAt: new Date(),
+      pdfPath: pdf?.path ?? null,
+      pdfHash: pdf?.sha256 ?? null,
+    },
     include: { lines: true, contact: true, journalEntry: { include: { lines: true } } },
   });
 }
 
-export async function issueInvoice(invoiceId: string) {
-  return prisma.$transaction((tx) => issueInvoiceTx(tx, invoiceId));
+export async function issueInvoice(invoiceId: string, options?: { skipPdf?: boolean }) {
+  const preflight = await prisma.invoice.findUnique({
+    where: { id: invoiceId },
+    include: { lines: true },
+  });
+  if (!preflight) throw new Error(`Invoice ${invoiceId} does not exist.`);
+  assertIssuable(preflight);
+
+  let pdf: { path: string; sha256: string } | undefined;
+
+  if (!options?.skipPdf) {
+    const rendered = await renderInvoicePdf(invoiceId);
+    const year = preflight.invoiceDate.getUTCFullYear();
+    const stored = await storeFile(
+      `invoices/${year}/${preflight.invoiceNumber}.pdf`,
+      rendered.bytes,
+    );
+    pdf = { path: stored.path, sha256: stored.sha256 };
+  }
+
+  return prisma.$transaction((tx) => issueInvoiceTx(tx, invoiceId, pdf));
 }
