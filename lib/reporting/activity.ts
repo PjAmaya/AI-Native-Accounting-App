@@ -43,8 +43,9 @@ export async function accountActivity(window: ActivityWindow): Promise<AccountAc
     const s = sums.get(account.id);
     const debits = new Decimal(s?._sum.debit?.toString() ?? "0");
     const credits = new Decimal(s?._sum.credit?.toString() ?? "0");
+    const debitNatured = account.type === "ASSET" || account.type === "EXPENSE";
     const balance =
-      account.normalBalance === "DEBIT" ? debits.minus(credits) : credits.minus(debits);
+      debitNatured ? debits.minus(credits) : credits.minus(debits);
 
     return {
       id: account.id,
