@@ -456,6 +456,8 @@ model OrgProfile {
 
   businessNumber      String?
   hstRegisteredFrom   DateTime? @db.Date
+  softLockThrough     DateTime? @db.Date
+  hardLockThrough     DateTime? @db.Date
 
   logoPath            String?
   paymentInstructions String?
@@ -473,4 +475,25 @@ enum EbitdaAddBack {
   AMORTIZATION
   INTEREST
   INCOME_TAX
+}
+
+enum PeriodLockAction {
+  SOFT_LOCK_SET
+  SOFT_LOCK_RELEASED
+  HARD_LOCK_SET
+  SOFT_LOCK_OVERRIDE
+}
+
+model PeriodLockEvent {
+  id           String           @id @default(cuid())
+  action       PeriodLockAction
+  previousDate DateTime?        @db.Date
+  newDate      DateTime?        @db.Date
+  entryDate    DateTime?        @db.Date
+  reason       String
+  performedBy  String
+  createdAt    DateTime         @default(now())
+
+  @@index([createdAt])
+  @@index([action])
 }

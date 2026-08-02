@@ -64,7 +64,8 @@ export const ModelName = {
   Bill: 'Bill',
   BillLine: 'BillLine',
   BillApplication: 'BillApplication',
-  OrgProfile: 'OrgProfile'
+  OrgProfile: 'OrgProfile',
+  PeriodLockEvent: 'PeriodLockEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -339,6 +340,8 @@ export const OrgProfileScalarFieldEnum = {
   country: 'country',
   businessNumber: 'businessNumber',
   hstRegisteredFrom: 'hstRegisteredFrom',
+  softLockThrough: 'softLockThrough',
+  hardLockThrough: 'hardLockThrough',
   logoPath: 'logoPath',
   paymentInstructions: 'paymentInstructions',
   invoiceFooter: 'invoiceFooter',
@@ -348,6 +351,20 @@ export const OrgProfileScalarFieldEnum = {
 } as const
 
 export type OrgProfileScalarFieldEnum = (typeof OrgProfileScalarFieldEnum)[keyof typeof OrgProfileScalarFieldEnum]
+
+
+export const PeriodLockEventScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  previousDate: 'previousDate',
+  newDate: 'newDate',
+  entryDate: 'entryDate',
+  reason: 'reason',
+  performedBy: 'performedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type PeriodLockEventScalarFieldEnum = (typeof PeriodLockEventScalarFieldEnum)[keyof typeof PeriodLockEventScalarFieldEnum]
 
 
 export const SortOrder = {

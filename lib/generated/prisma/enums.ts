@@ -90,3 +90,13 @@ export const EbitdaAddBack = {
 } as const
 
 export type EbitdaAddBack = (typeof EbitdaAddBack)[keyof typeof EbitdaAddBack]
+
+
+export const PeriodLockAction = {
+  SOFT_LOCK_SET: 'SOFT_LOCK_SET',
+  SOFT_LOCK_RELEASED: 'SOFT_LOCK_RELEASED',
+  HARD_LOCK_SET: 'HARD_LOCK_SET',
+  SOFT_LOCK_OVERRIDE: 'SOFT_LOCK_OVERRIDE'
+} as const
+
+export type PeriodLockAction = (typeof PeriodLockAction)[keyof typeof PeriodLockAction]

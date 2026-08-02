@@ -48,6 +48,8 @@ export type OrgProfileMinAggregateOutputType = {
   country: string | null
   businessNumber: string | null
   hstRegisteredFrom: Date | null
+  softLockThrough: Date | null
+  hardLockThrough: Date | null
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
@@ -70,6 +72,8 @@ export type OrgProfileMaxAggregateOutputType = {
   country: string | null
   businessNumber: string | null
   hstRegisteredFrom: Date | null
+  softLockThrough: Date | null
+  hardLockThrough: Date | null
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
@@ -92,6 +96,8 @@ export type OrgProfileCountAggregateOutputType = {
   country: number
   businessNumber: number
   hstRegisteredFrom: number
+  softLockThrough: number
+  hardLockThrough: number
   logoPath: number
   paymentInstructions: number
   invoiceFooter: number
@@ -124,6 +130,8 @@ export type OrgProfileMinAggregateInputType = {
   country?: true
   businessNumber?: true
   hstRegisteredFrom?: true
+  softLockThrough?: true
+  hardLockThrough?: true
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
@@ -146,6 +154,8 @@ export type OrgProfileMaxAggregateInputType = {
   country?: true
   businessNumber?: true
   hstRegisteredFrom?: true
+  softLockThrough?: true
+  hardLockThrough?: true
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
@@ -168,6 +178,8 @@ export type OrgProfileCountAggregateInputType = {
   country?: true
   businessNumber?: true
   hstRegisteredFrom?: true
+  softLockThrough?: true
+  hardLockThrough?: true
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
@@ -277,6 +289,8 @@ export type OrgProfileGroupByOutputType = {
   country: string
   businessNumber: string | null
   hstRegisteredFrom: Date | null
+  softLockThrough: Date | null
+  hardLockThrough: Date | null
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
@@ -322,6 +336,8 @@ export type OrgProfileWhereInput = {
   country?: Prisma.StringFilter<"OrgProfile"> | string
   businessNumber?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   hstRegisteredFrom?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
+  softLockThrough?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
+  hardLockThrough?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
   logoPath?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
@@ -344,6 +360,8 @@ export type OrgProfileOrderByWithRelationInput = {
   country?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   hstRegisteredFrom?: Prisma.SortOrderInput | Prisma.SortOrder
+  softLockThrough?: Prisma.SortOrderInput | Prisma.SortOrder
+  hardLockThrough?: Prisma.SortOrderInput | Prisma.SortOrder
   logoPath?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -369,6 +387,8 @@ export type OrgProfileWhereUniqueInput = Prisma.AtLeast<{
   country?: Prisma.StringFilter<"OrgProfile"> | string
   businessNumber?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   hstRegisteredFrom?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
+  softLockThrough?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
+  hardLockThrough?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
   logoPath?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
@@ -391,6 +411,8 @@ export type OrgProfileOrderByWithAggregationInput = {
   country?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   hstRegisteredFrom?: Prisma.SortOrderInput | Prisma.SortOrder
+  softLockThrough?: Prisma.SortOrderInput | Prisma.SortOrder
+  hardLockThrough?: Prisma.SortOrderInput | Prisma.SortOrder
   logoPath?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -421,6 +443,8 @@ export type OrgProfileScalarWhereWithAggregatesInput = {
   country?: Prisma.StringWithAggregatesFilter<"OrgProfile"> | string
   businessNumber?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   hstRegisteredFrom?: Prisma.DateTimeNullableWithAggregatesFilter<"OrgProfile"> | Date | string | null
+  softLockThrough?: Prisma.DateTimeNullableWithAggregatesFilter<"OrgProfile"> | Date | string | null
+  hardLockThrough?: Prisma.DateTimeNullableWithAggregatesFilter<"OrgProfile"> | Date | string | null
   logoPath?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
@@ -443,6 +467,8 @@ export type OrgProfileCreateInput = {
   country?: string
   businessNumber?: string | null
   hstRegisteredFrom?: Date | string | null
+  softLockThrough?: Date | string | null
+  hardLockThrough?: Date | string | null
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
@@ -465,6 +491,8 @@ export type OrgProfileUncheckedCreateInput = {
   country?: string
   businessNumber?: string | null
   hstRegisteredFrom?: Date | string | null
+  softLockThrough?: Date | string | null
+  hardLockThrough?: Date | string | null
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
@@ -487,6 +515,8 @@ export type OrgProfileUpdateInput = {
   country?: Prisma.StringFieldUpdateOperationsInput | string
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hstRegisteredFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  softLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hardLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -509,6 +539,8 @@ export type OrgProfileUncheckedUpdateInput = {
   country?: Prisma.StringFieldUpdateOperationsInput | string
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hstRegisteredFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  softLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hardLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -531,6 +563,8 @@ export type OrgProfileCreateManyInput = {
   country?: string
   businessNumber?: string | null
   hstRegisteredFrom?: Date | string | null
+  softLockThrough?: Date | string | null
+  hardLockThrough?: Date | string | null
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
@@ -553,6 +587,8 @@ export type OrgProfileUpdateManyMutationInput = {
   country?: Prisma.StringFieldUpdateOperationsInput | string
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hstRegisteredFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  softLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hardLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -575,6 +611,8 @@ export type OrgProfileUncheckedUpdateManyInput = {
   country?: Prisma.StringFieldUpdateOperationsInput | string
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   hstRegisteredFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  softLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hardLockThrough?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -597,6 +635,8 @@ export type OrgProfileCountOrderByAggregateInput = {
   country?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   hstRegisteredFrom?: Prisma.SortOrder
+  softLockThrough?: Prisma.SortOrder
+  hardLockThrough?: Prisma.SortOrder
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
@@ -623,6 +663,8 @@ export type OrgProfileMaxOrderByAggregateInput = {
   country?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   hstRegisteredFrom?: Prisma.SortOrder
+  softLockThrough?: Prisma.SortOrder
+  hardLockThrough?: Prisma.SortOrder
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
@@ -645,6 +687,8 @@ export type OrgProfileMinOrderByAggregateInput = {
   country?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   hstRegisteredFrom?: Prisma.SortOrder
+  softLockThrough?: Prisma.SortOrder
+  hardLockThrough?: Prisma.SortOrder
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
@@ -673,6 +717,8 @@ export type OrgProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   country?: boolean
   businessNumber?: boolean
   hstRegisteredFrom?: boolean
+  softLockThrough?: boolean
+  hardLockThrough?: boolean
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
@@ -695,6 +741,8 @@ export type OrgProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   country?: boolean
   businessNumber?: boolean
   hstRegisteredFrom?: boolean
+  softLockThrough?: boolean
+  hardLockThrough?: boolean
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
@@ -717,6 +765,8 @@ export type OrgProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   country?: boolean
   businessNumber?: boolean
   hstRegisteredFrom?: boolean
+  softLockThrough?: boolean
+  hardLockThrough?: boolean
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
@@ -739,6 +789,8 @@ export type OrgProfileSelectScalar = {
   country?: boolean
   businessNumber?: boolean
   hstRegisteredFrom?: boolean
+  softLockThrough?: boolean
+  hardLockThrough?: boolean
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
@@ -747,7 +799,7 @@ export type OrgProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrgProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "legalName" | "tradeName" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "hstRegisteredFrom" | "logoPath" | "paymentInstructions" | "invoiceFooter" | "capitalizationThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["orgProfile"]>
+export type OrgProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "legalName" | "tradeName" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "hstRegisteredFrom" | "softLockThrough" | "hardLockThrough" | "logoPath" | "paymentInstructions" | "invoiceFooter" | "capitalizationThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["orgProfile"]>
 
 export type $OrgProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OrgProfile"
@@ -766,6 +818,8 @@ export type $OrgProfilePayload<ExtArgs extends runtime.Types.Extensions.Internal
     country: string
     businessNumber: string | null
     hstRegisteredFrom: Date | null
+    softLockThrough: Date | null
+    hardLockThrough: Date | null
     logoPath: string | null
     paymentInstructions: string | null
     invoiceFooter: string | null
@@ -1208,6 +1262,8 @@ export interface OrgProfileFieldRefs {
   readonly country: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly businessNumber: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly hstRegisteredFrom: Prisma.FieldRef<"OrgProfile", 'DateTime'>
+  readonly softLockThrough: Prisma.FieldRef<"OrgProfile", 'DateTime'>
+  readonly hardLockThrough: Prisma.FieldRef<"OrgProfile", 'DateTime'>
   readonly logoPath: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly paymentInstructions: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly invoiceFooter: Prisma.FieldRef<"OrgProfile", 'String'>

@@ -1,16 +1,20 @@
 import { prisma } from "../db";
 import { validateEntry, type DraftLine } from "./balance";
-
-export type TxClient = Omit<
-  typeof prisma,
-  "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends"
->;
+import { assertPeriodOpenTx, type LockOverride } from "./periodLock";
+import type { TxClient } from "./txClient";
+export type { TxClient };
 
 export type DraftEntry = {
   entryDate: Date;
   description: string;
   serviceDate?: Date;
   lines: DraftLine[];
+  lockOverride?: LockOverride;
+};
+
+export type ReverseOptions = {
+  reversalDate?: Date;
+  lockOverride?: LockOverride;
 };
 
 type PostableAccount = {
@@ -47,6 +51,8 @@ export async function createDraftEntryTx(tx: TxClient, draft: DraftEntry) {
     throw new Error(`Cannot create entry:\n${validation.errors.join("\n")}`);
   }
 
+  await assertPeriodOpenTx(tx, draft.entryDate, draft.lockOverride, false);
+
   const codes = draft.lines.map((line) => line.accountCode);
   const accounts = await tx.account.findMany({ where: { code: { in: codes } } });
   const byCode = assertPostable(accounts, codes);
@@ -74,7 +80,7 @@ export async function createDraftEntryTx(tx: TxClient, draft: DraftEntry) {
   });
 }
 
-export async function postDraftTx(tx: TxClient, entryId: string) {
+export async function postDraftTx(tx: TxClient, entryId: string, lockOverride?: LockOverride) {
   const entry = await tx.journalEntry.findUnique({
     where: { id: entryId },
     include: { lines: { include: { account: true } } },
@@ -83,6 +89,8 @@ export async function postDraftTx(tx: TxClient, entryId: string) {
   if (!entry) throw new Error(`Entry ${entryId} does not exist.`);
   if (entry.status === "POSTED") throw new Error(`Entry #${entry.entryNumber} is already posted.`);
   if (entry.status === "REVERSED") throw new Error(`Entry #${entry.entryNumber} is reversed and cannot be posted.`);
+
+  await assertPeriodOpenTx(tx, entry.entryDate, lockOverride);
 
   const codes = entry.lines.map((line) => line.account.code);
   assertPostable(entry.lines.map((line) => line.account), codes);
@@ -105,7 +113,12 @@ export async function postDraftTx(tx: TxClient, entryId: string) {
   });
 }
 
-export async function reverseEntryTx(tx: TxClient, entryId: string, reason?: string) {
+export async function reverseEntryTx(
+  tx: TxClient,
+  entryId: string,
+  reason?: string,
+  options?: ReverseOptions,
+) {
   const original = await tx.journalEntry.findUnique({
     where: { id: entryId },
     include: { lines: true },
@@ -119,14 +132,23 @@ export async function reverseEntryTx(tx: TxClient, entryId: string, reason?: str
     throw new Error(`Entry #${original.entryNumber} has already been reversed.`);
   }
 
+  const reversalDate = options?.reversalDate ?? original.entryDate;
+  await assertPeriodOpenTx(tx, reversalDate, options?.lockOverride);
+
+  const samePeriod = reversalDate.getTime() === original.entryDate.getTime();
+  const dateNote = samePeriod
+    ? ""
+    : ` [reversed in ${reversalDate.toISOString().slice(0, 10)}]`;
+
   const reversal = await tx.journalEntry.create({
     data: {
       entryNumber: await nextEntryNumber(tx),
-      entryDate: original.entryDate,
+      entryDate: reversalDate,
       serviceDate: original.serviceDate,
       description:
         `Reversal of #${original.entryNumber} - ${original.description}` +
-        (reason ? ` (${reason})` : ""),
+        (reason ? ` (${reason})` : "") +
+        dateNote,
       status: "POSTED",
       postedAt: new Date(),
       reversalOfId: original.id,
@@ -159,17 +181,17 @@ export async function createDraftEntry(draft: DraftEntry) {
   return prisma.$transaction((tx) => createDraftEntryTx(tx, draft));
 }
 
-export async function postDraft(entryId: string) {
-  return prisma.$transaction((tx) => postDraftTx(tx, entryId));
+export async function postDraft(entryId: string, lockOverride?: LockOverride) {
+  return prisma.$transaction((tx) => postDraftTx(tx, entryId, lockOverride));
 }
 
-export async function reverseEntry(entryId: string, reason?: string) {
-  return prisma.$transaction((tx) => reverseEntryTx(tx, entryId, reason));
+export async function reverseEntry(entryId: string, reason?: string, options?: ReverseOptions) {
+  return prisma.$transaction((tx) => reverseEntryTx(tx, entryId, reason, options));
 }
 
 export async function postEntry(draft: DraftEntry) {
   return prisma.$transaction(async (tx) => {
     const created = await createDraftEntryTx(tx, draft);
-    return postDraftTx(tx, created.id);
+    return postDraftTx(tx, created.id, draft.lockOverride);
   });
 }

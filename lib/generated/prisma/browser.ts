@@ -87,3 +87,8 @@ export type BillApplication = Prisma.BillApplicationModel
  * 
  */
 export type OrgProfile = Prisma.OrgProfileModel
+/**
+ * Model PeriodLockEvent
+ * 
+ */
+export type PeriodLockEvent = Prisma.PeriodLockEventModel

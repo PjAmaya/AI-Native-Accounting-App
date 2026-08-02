@@ -365,6 +365,23 @@ export type EnumBillStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumBillStatusFilter<$PrismaModel>
 }
 
+export type EnumPeriodLockActionFilter<$PrismaModel = never> = {
+  equals?: $Enums.PeriodLockAction | Prisma.EnumPeriodLockActionFieldRefInput<$PrismaModel>
+  in?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPeriodLockActionFilter<$PrismaModel> | $Enums.PeriodLockAction
+}
+
+export type EnumPeriodLockActionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PeriodLockAction | Prisma.EnumPeriodLockActionFieldRefInput<$PrismaModel>
+  in?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPeriodLockActionWithAggregatesFilter<$PrismaModel> | $Enums.PeriodLockAction
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPeriodLockActionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPeriodLockActionFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -727,6 +744,23 @@ export type NestedEnumBillStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBillStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBillStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumPeriodLockActionFilter<$PrismaModel = never> = {
+  equals?: $Enums.PeriodLockAction | Prisma.EnumPeriodLockActionFieldRefInput<$PrismaModel>
+  in?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPeriodLockActionFilter<$PrismaModel> | $Enums.PeriodLockAction
+}
+
+export type NestedEnumPeriodLockActionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PeriodLockAction | Prisma.EnumPeriodLockActionFieldRefInput<$PrismaModel>
+  in?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PeriodLockAction[] | Prisma.ListEnumPeriodLockActionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPeriodLockActionWithAggregatesFilter<$PrismaModel> | $Enums.PeriodLockAction
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPeriodLockActionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPeriodLockActionFilter<$PrismaModel>
 }
 
 

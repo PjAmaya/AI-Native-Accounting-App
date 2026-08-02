@@ -410,7 +410,8 @@ export const ModelName = {
   Bill: 'Bill',
   BillLine: 'BillLine',
   BillApplication: 'BillApplication',
-  OrgProfile: 'OrgProfile'
+  OrgProfile: 'OrgProfile',
+  PeriodLockEvent: 'PeriodLockEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile"
+    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1466,6 +1467,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PeriodLockEvent: {
+      payload: Prisma.$PeriodLockEventPayload<ExtArgs>
+      fields: Prisma.PeriodLockEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PeriodLockEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PeriodLockEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>
+        }
+        findFirst: {
+          args: Prisma.PeriodLockEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PeriodLockEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>
+        }
+        findMany: {
+          args: Prisma.PeriodLockEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>[]
+        }
+        create: {
+          args: Prisma.PeriodLockEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>
+        }
+        createMany: {
+          args: Prisma.PeriodLockEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PeriodLockEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>[]
+        }
+        delete: {
+          args: Prisma.PeriodLockEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>
+        }
+        update: {
+          args: Prisma.PeriodLockEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.PeriodLockEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PeriodLockEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PeriodLockEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.PeriodLockEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PeriodLockEventPayload>
+        }
+        aggregate: {
+          args: Prisma.PeriodLockEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePeriodLockEvent>
+        }
+        groupBy: {
+          args: Prisma.PeriodLockEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PeriodLockEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PeriodLockEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PeriodLockEventCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1761,6 +1836,8 @@ export const OrgProfileScalarFieldEnum = {
   country: 'country',
   businessNumber: 'businessNumber',
   hstRegisteredFrom: 'hstRegisteredFrom',
+  softLockThrough: 'softLockThrough',
+  hardLockThrough: 'hardLockThrough',
   logoPath: 'logoPath',
   paymentInstructions: 'paymentInstructions',
   invoiceFooter: 'invoiceFooter',
@@ -1770,6 +1847,20 @@ export const OrgProfileScalarFieldEnum = {
 } as const
 
 export type OrgProfileScalarFieldEnum = (typeof OrgProfileScalarFieldEnum)[keyof typeof OrgProfileScalarFieldEnum]
+
+
+export const PeriodLockEventScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  previousDate: 'previousDate',
+  newDate: 'newDate',
+  entryDate: 'entryDate',
+  reason: 'reason',
+  performedBy: 'performedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type PeriodLockEventScalarFieldEnum = (typeof PeriodLockEventScalarFieldEnum)[keyof typeof PeriodLockEventScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1978,6 +2069,20 @@ export type ListEnumBillStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
+ * Reference to a field of type 'PeriodLockAction'
+ */
+export type EnumPeriodLockActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PeriodLockAction'>
+    
+
+
+/**
+ * Reference to a field of type 'PeriodLockAction[]'
+ */
+export type ListEnumPeriodLockActionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PeriodLockAction[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2155,6 +2260,7 @@ export type GlobalOmitConfig = {
   billLine?: Prisma.BillLineOmit
   billApplication?: Prisma.BillApplicationOmit
   orgProfile?: Prisma.OrgProfileOmit
+  periodLockEvent?: Prisma.PeriodLockEventOmit
 }
 
 /* Types for Logging */
