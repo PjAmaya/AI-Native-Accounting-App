@@ -13,6 +13,7 @@
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "decimal.js": "^10.6.0",
+    "lucide-react": "^1.28.0",
     "next": "16.2.12",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -37,6 +38,7 @@
     "@prisma/engines@7.9.1": true,
     "prisma@7.9.1": true,
     "esbuild@0.28.1": true,
-    "fsevents@2.3.3": true
+    "fsevents@2.3.3": true,
+    "puppeteer@25.4.0": true
   }
 }
