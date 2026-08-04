@@ -5,7 +5,7 @@ import path from "node:path";
 const STORAGE_ROOT = process.env.STORAGE_ROOT ?? "storage";
 
 export function storagePath(relativePath: string) {
-  return path.join(process.cwd(), STORAGE_ROOT, relativePath);
+  return path.join(/*turbopackIgnore: true*/ process.cwd(), STORAGE_ROOT, relativePath);
 }
 
 export async function storeFile(relativePath: string, bytes: Buffer) {
@@ -20,7 +20,7 @@ export async function storeFile(relativePath: string, bytes: Buffer) {
 }
 
 export async function readStoredFile(storedPath: string) {
-  return readFile(path.join(process.cwd(), storedPath));
+  return readFile(path.join(/*turbopackIgnore: true*/ process.cwd(), storedPath));
 }
 
 export async function verifyStoredFile(storedPath: string, expectedSha256: string) {

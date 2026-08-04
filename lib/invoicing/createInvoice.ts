@@ -26,6 +26,7 @@ export type InvoiceDraft = {
   clientReference?: string;
   notes?: string;
   currency?: string;
+  forceInvoiceNumber?: string;
   lines: InvoiceDraftLine[];
 };
 
@@ -120,7 +121,7 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
   const sequence = lastInvoice
     ? Number.parseInt(lastInvoice.invoiceNumber.slice(prefix.length), 10) + 1
     : 1;
-  const invoiceNumber = prefix + String(sequence).padStart(4, "0");
+  const invoiceNumber = draft.forceInvoiceNumber ?? prefix + String(sequence).padStart(4, "0");
 
   const invoiceProjectId = draft.projectCode
     ? projectByCode.get(draft.projectCode)!.id

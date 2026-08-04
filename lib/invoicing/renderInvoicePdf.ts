@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import puppeteer, { type Browser } from "puppeteer";
+import type { Browser } from "puppeteer";
 import { renderInvoiceHtml } from "./renderInvoice";
 
 export type RenderedPdf = {
@@ -11,10 +11,13 @@ let browserPromise: Promise<Browser> | null = null;
 
 async function getBrowser() {
   if (!browserPromise) {
-    browserPromise = puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
-    });
+    browserPromise = (async () => {
+      const puppeteer = (await import("puppeteer")).default;
+      return puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-dev-shm-usage"],
+      });
+    })();
   }
   return browserPromise;
 }

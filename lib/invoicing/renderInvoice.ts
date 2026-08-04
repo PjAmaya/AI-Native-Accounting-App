@@ -1,6 +1,5 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { renderToStaticMarkup } from "react-dom/server";
 import React from "react";
 import Decimal from "decimal.js";
 import { prisma } from "../db";
@@ -34,7 +33,7 @@ function quantity(value: unknown | null) {
 async function logoDataUri(logoPath: string | null) {
   const relative = logoPath ?? DEFAULT_LOGO_PATH;
   try {
-    const file = await readFile(path.join(process.cwd(), relative));
+    const file = await readFile(path.join(/*turbopackIgnore: true*/ process.cwd(), relative));
     const extension = path.extname(relative).toLowerCase();
     const mime = extension === ".svg" ? "image/svg+xml" : extension === ".jpg" || extension === ".jpeg" ? "image/jpeg" : "image/png";
     return `data:${mime};base64,${file.toString("base64")}`;
@@ -169,6 +168,7 @@ export async function buildInvoiceDocumentData(invoiceId: string): Promise<Invoi
 
 export async function renderInvoiceHtml(invoiceId: string) {
   const data = await buildInvoiceDocumentData(invoiceId);
+  const { renderToStaticMarkup } = await import("react-dom/server");
   const markup = renderToStaticMarkup(React.createElement(InvoiceDocument, { data }));
   return `<!DOCTYPE html>${markup}`;
 }
