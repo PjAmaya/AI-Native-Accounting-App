@@ -290,6 +290,7 @@ export const BillScalarFieldEnum = {
   total: 'total',
   journalEntryId: 'journalEntryId',
   approvedAt: 'approvedAt',
+  warnings: 'warnings',
   documentPath: 'documentPath',
   documentHash: 'documentHash',
   createdAt: 'createdAt',

@@ -111,6 +111,7 @@ export type BillCountAggregateOutputType = {
   total: number
   journalEntryId: number
   approvedAt: number
+  warnings: number
   documentPath: number
   documentHash: number
   createdAt: number
@@ -204,6 +205,7 @@ export type BillCountAggregateInputType = {
   total?: true
   journalEntryId?: true
   approvedAt?: true
+  warnings?: true
   documentPath?: true
   documentHash?: true
   createdAt?: true
@@ -316,6 +318,7 @@ export type BillGroupByOutputType = {
   total: runtime.Decimal
   journalEntryId: string | null
   approvedAt: Date | null
+  warnings: string[]
   documentPath: string | null
   documentHash: string | null
   createdAt: Date
@@ -364,6 +367,7 @@ export type BillWhereInput = {
   total?: Prisma.DecimalFilter<"Bill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.StringNullableFilter<"Bill"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Bill"> | Date | string | null
+  warnings?: Prisma.StringNullableListFilter<"Bill">
   documentPath?: Prisma.StringNullableFilter<"Bill"> | string | null
   documentHash?: Prisma.StringNullableFilter<"Bill"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Bill"> | Date | string
@@ -394,6 +398,7 @@ export type BillOrderByWithRelationInput = {
   total?: Prisma.SortOrder
   journalEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  warnings?: Prisma.SortOrder
   documentPath?: Prisma.SortOrderInput | Prisma.SortOrder
   documentHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -428,6 +433,7 @@ export type BillWhereUniqueInput = Prisma.AtLeast<{
   taxTotal?: Prisma.DecimalFilter<"Bill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFilter<"Bill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.DateTimeNullableFilter<"Bill"> | Date | string | null
+  warnings?: Prisma.StringNullableListFilter<"Bill">
   documentPath?: Prisma.StringNullableFilter<"Bill"> | string | null
   documentHash?: Prisma.StringNullableFilter<"Bill"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Bill"> | Date | string
@@ -458,6 +464,7 @@ export type BillOrderByWithAggregationInput = {
   total?: Prisma.SortOrder
   journalEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  warnings?: Prisma.SortOrder
   documentPath?: Prisma.SortOrderInput | Prisma.SortOrder
   documentHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -491,6 +498,7 @@ export type BillScalarWhereWithAggregatesInput = {
   total?: Prisma.DecimalWithAggregatesFilter<"Bill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.StringNullableWithAggregatesFilter<"Bill"> | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Bill"> | Date | string | null
+  warnings?: Prisma.StringNullableListFilter<"Bill">
   documentPath?: Prisma.StringNullableWithAggregatesFilter<"Bill"> | string | null
   documentHash?: Prisma.StringNullableWithAggregatesFilter<"Bill"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Bill"> | Date | string
@@ -513,6 +521,7 @@ export type BillCreateInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -543,6 +552,7 @@ export type BillUncheckedCreateInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -567,6 +577,7 @@ export type BillUpdateInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -597,6 +608,7 @@ export type BillUncheckedUpdateInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -624,6 +636,7 @@ export type BillCreateManyInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -646,6 +659,7 @@ export type BillUpdateManyMutationInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -671,6 +685,7 @@ export type BillUncheckedUpdateManyInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -690,6 +705,14 @@ export type BillListRelationFilter = {
 
 export type BillOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type BillContactIdSupplierInvoiceNumberCompoundUniqueInput = {
@@ -716,6 +739,7 @@ export type BillCountOrderByAggregateInput = {
   total?: Prisma.SortOrder
   journalEntryId?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
+  warnings?: Prisma.SortOrder
   documentPath?: Prisma.SortOrder
   documentHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -909,8 +933,17 @@ export type BillUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.BillScalarWhereInput | Prisma.BillScalarWhereInput[]
 }
 
+export type BillCreatewarningsInput = {
+  set: string[]
+}
+
 export type EnumBillStatusFieldUpdateOperationsInput = {
   set?: $Enums.BillStatus
+}
+
+export type BillUpdatewarningsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type BillCreateNestedOneWithoutLinesInput = {
@@ -957,6 +990,7 @@ export type BillCreateWithoutJournalEntryInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -985,6 +1019,7 @@ export type BillUncheckedCreateWithoutJournalEntryInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1025,6 +1060,7 @@ export type BillUpdateWithoutJournalEntryInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1053,6 +1089,7 @@ export type BillUncheckedUpdateWithoutJournalEntryInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1077,6 +1114,7 @@ export type BillCreateWithoutContactInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1105,6 +1143,7 @@ export type BillUncheckedCreateWithoutContactInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1161,6 +1200,7 @@ export type BillScalarWhereInput = {
   total?: Prisma.DecimalFilter<"Bill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.StringNullableFilter<"Bill"> | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Bill"> | Date | string | null
+  warnings?: Prisma.StringNullableListFilter<"Bill">
   documentPath?: Prisma.StringNullableFilter<"Bill"> | string | null
   documentHash?: Prisma.StringNullableFilter<"Bill"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Bill"> | Date | string
@@ -1183,6 +1223,7 @@ export type BillCreateWithoutProjectInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1211,6 +1252,7 @@ export type BillUncheckedCreateWithoutProjectInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1261,6 +1303,7 @@ export type BillCreateWithoutLinesInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1290,6 +1333,7 @@ export type BillUncheckedCreateWithoutLinesInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1329,6 +1373,7 @@ export type BillUpdateWithoutLinesInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1358,6 +1403,7 @@ export type BillUncheckedUpdateWithoutLinesInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1381,6 +1427,7 @@ export type BillCreateWithoutApplicationsInput = {
   taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1410,6 +1457,7 @@ export type BillUncheckedCreateWithoutApplicationsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1449,6 +1497,7 @@ export type BillUpdateWithoutApplicationsInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1478,6 +1527,7 @@ export type BillUncheckedUpdateWithoutApplicationsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1503,6 +1553,7 @@ export type BillCreateManyContactInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1525,6 +1576,7 @@ export type BillUpdateWithoutContactInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1553,6 +1605,7 @@ export type BillUncheckedUpdateWithoutContactInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1579,6 +1632,7 @@ export type BillUncheckedUpdateManyWithoutContactInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1603,6 +1657,7 @@ export type BillCreateManyProjectInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: string | null
   approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
   documentPath?: string | null
   documentHash?: string | null
   createdAt?: Date | string
@@ -1625,6 +1680,7 @@ export type BillUpdateWithoutProjectInput = {
   taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1653,6 +1709,7 @@ export type BillUncheckedUpdateWithoutProjectInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1679,6 +1736,7 @@ export type BillUncheckedUpdateManyWithoutProjectInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
   documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1744,6 +1802,7 @@ export type BillSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   total?: boolean
   journalEntryId?: boolean
   approvedAt?: boolean
+  warnings?: boolean
   documentPath?: boolean
   documentHash?: boolean
   createdAt?: boolean
@@ -1775,6 +1834,7 @@ export type BillSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   total?: boolean
   journalEntryId?: boolean
   approvedAt?: boolean
+  warnings?: boolean
   documentPath?: boolean
   documentHash?: boolean
   createdAt?: boolean
@@ -1803,6 +1863,7 @@ export type BillSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   total?: boolean
   journalEntryId?: boolean
   approvedAt?: boolean
+  warnings?: boolean
   documentPath?: boolean
   documentHash?: boolean
   createdAt?: boolean
@@ -1831,13 +1892,14 @@ export type BillSelectScalar = {
   total?: boolean
   journalEntryId?: boolean
   approvedAt?: boolean
+  warnings?: boolean
   documentPath?: boolean
   documentHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "billNumber" | "supplierInvoiceNumber" | "status" | "contactId" | "projectId" | "billDate" | "dueDate" | "servicePeriodStart" | "servicePeriodEnd" | "notes" | "currency" | "exchangeRate" | "subtotal" | "taxTotal" | "total" | "journalEntryId" | "approvedAt" | "documentPath" | "documentHash" | "createdAt" | "updatedAt", ExtArgs["result"]["bill"]>
+export type BillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "billNumber" | "supplierInvoiceNumber" | "status" | "contactId" | "projectId" | "billDate" | "dueDate" | "servicePeriodStart" | "servicePeriodEnd" | "notes" | "currency" | "exchangeRate" | "subtotal" | "taxTotal" | "total" | "journalEntryId" | "approvedAt" | "warnings" | "documentPath" | "documentHash" | "createdAt" | "updatedAt", ExtArgs["result"]["bill"]>
 export type BillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contact?: boolean | Prisma.ContactDefaultArgs<ExtArgs>
   project?: boolean | Prisma.Bill$projectArgs<ExtArgs>
@@ -1885,6 +1947,7 @@ export type $BillPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     total: runtime.Decimal
     journalEntryId: string | null
     approvedAt: Date | null
+    warnings: string[]
     documentPath: string | null
     documentHash: string | null
     createdAt: Date
@@ -2335,6 +2398,7 @@ export interface BillFieldRefs {
   readonly total: Prisma.FieldRef<"Bill", 'Decimal'>
   readonly journalEntryId: Prisma.FieldRef<"Bill", 'String'>
   readonly approvedAt: Prisma.FieldRef<"Bill", 'DateTime'>
+  readonly warnings: Prisma.FieldRef<"Bill", 'String[]'>
   readonly documentPath: Prisma.FieldRef<"Bill", 'String'>
   readonly documentHash: Prisma.FieldRef<"Bill", 'String'>
   readonly createdAt: Prisma.FieldRef<"Bill", 'DateTime'>

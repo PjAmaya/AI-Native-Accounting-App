@@ -381,6 +381,7 @@ model Bill {
   journalEntry          JournalEntry?     @relation(fields: [journalEntryId], references: [id])
 
   approvedAt            DateTime?
+  warnings              String[]
   documentPath          String?
   documentHash          String?
 

@@ -257,7 +257,7 @@ export async function createBillTx(tx: TxClient, draft: BillDraft) {
 
   const linked = await tx.bill.update({
     where: { id: bill.id },
-    data: { journalEntryId: entry.id },
+    data: { journalEntryId: entry.id, warnings },
     include: { lines: true, contact: true },
   });
 

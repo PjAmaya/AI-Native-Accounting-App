@@ -3,11 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Users, BarChart3, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, Receipt, Wallet, Users, BarChart3, Settings } from "lucide-react";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/invoices", label: "Invoices", icon: FileText },
+  { href: "/bills", label: "Bills", icon: Receipt },
+  { href: "/payments", label: "Payments", icon: Wallet },
   { href: "/contacts", label: "Contacts", icon: Users },
   { href: "/reports", label: "Reports", icon: BarChart3 },
   { href: "/settings", label: "Settings", icon: Settings },

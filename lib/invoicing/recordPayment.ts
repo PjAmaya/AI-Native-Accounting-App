@@ -3,6 +3,7 @@ import { prisma } from "../db";
 import { createDraftEntryTx, type TxClient } from "../ledger/post";
 import type { DraftLine } from "../ledger/balance";
 import { assertNotOverApplied, sumApplied } from "./applications";
+import { syncInvoiceStatusTx, syncBillStatusTx } from "./documentStatus";
 
 const AR_CODE = "1200";
 const AP_CODE = "2010";
@@ -31,6 +32,7 @@ export type PaymentDraft = {
   currency?: string;
   applications?: InvoiceApplicationDraft[];
   billApplications?: BillApplicationDraft[];
+  forcePaymentNumber?: number;
 };
 
 export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
@@ -147,7 +149,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     orderBy: { paymentNumber: "desc" },
     select: { paymentNumber: true },
   });
-  const paymentNumber = (lastPayment?.paymentNumber ?? 0) + 1;
+  const paymentNumber = draft.forcePaymentNumber ?? (lastPayment?.paymentNumber ?? 0) + 1;
 
   const payment = await tx.payment.create({
     data: {
@@ -177,8 +179,8 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     include: { applications: true, billApplications: true },
   });
 
-  await markInvoicesPaidTx(tx, invoiceDrafts.map((a) => invoiceByNumber.get(a.invoiceNumber)!.id));
-  await markBillsPaidTx(tx, billDrafts.map((a) => billByNumber.get(a.billNumber)!.id));
+  await syncInvoiceStatusTx(tx, invoiceDrafts.map((a) => invoiceByNumber.get(a.invoiceNumber)!.id));
+  await syncBillStatusTx(tx, billDrafts.map((a) => billByNumber.get(a.billNumber)!.id));
 
   const label = `Payment #${paymentNumber} - ${contact.name}`;
   const lines: DraftLine[] = [];
@@ -254,44 +256,4 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
 
 export async function recordPayment(draft: PaymentDraft) {
   return prisma.$transaction((tx) => recordPaymentTx(tx, draft));
-}
-
-async function markInvoicesPaidTx(tx: TxClient, invoiceIds: string[]) {
-  for (const invoiceId of Array.from(new Set(invoiceIds))) {
-    const invoice = await tx.invoice.findUnique({
-      where: { id: invoiceId },
-      select: { id: true, status: true, total: true },
-    });
-    if (!invoice || invoice.status !== "ISSUED") continue;
-
-    const agg = await tx.paymentApplication.aggregate({
-      where: { invoiceId },
-      _sum: { amountApplied: true },
-    });
-    const applied = new Decimal(agg._sum.amountApplied?.toString() ?? "0");
-
-    if (applied.greaterThanOrEqualTo(new Decimal(invoice.total.toString()))) {
-      await tx.invoice.update({ where: { id: invoiceId }, data: { status: "PAID" } });
-    }
-  }
-}
-
-async function markBillsPaidTx(tx: TxClient, billIds: string[]) {
-  for (const billId of Array.from(new Set(billIds))) {
-    const bill = await tx.bill.findUnique({
-      where: { id: billId },
-      select: { id: true, status: true, total: true },
-    });
-    if (!bill || bill.status !== "APPROVED") continue;
-
-    const agg = await tx.billApplication.aggregate({
-      where: { billId },
-      _sum: { amountApplied: true },
-    });
-    const applied = new Decimal(agg._sum.amountApplied?.toString() ?? "0");
-
-    if (applied.greaterThanOrEqualTo(new Decimal(bill.total.toString()))) {
-      await tx.bill.update({ where: { id: billId }, data: { status: "PAID" } });
-    }
-  }
 }
