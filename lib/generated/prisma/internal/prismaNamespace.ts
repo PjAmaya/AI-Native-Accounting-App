@@ -1646,6 +1646,7 @@ export const ContactScalarFieldEnum = {
   province: 'province',
   postalCode: 'postalCode',
   country: 'country',
+  dedupeKey: 'dedupeKey',
   businessNumber: 'businessNumber',
   isHstRegistered: 'isHstRegistered',
   paymentTermsDays: 'paymentTermsDays',

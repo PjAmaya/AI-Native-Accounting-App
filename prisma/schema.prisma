@@ -144,6 +144,8 @@ model Contact {
   postalCode       String?
   country          String        @default("CA")
 
+  dedupeKey        String?       @unique
+
   businessNumber   String?
   isHstRegistered  Boolean       @default(false)
   paymentTermsDays Int           @default(30)

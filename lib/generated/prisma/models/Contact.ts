@@ -48,6 +48,7 @@ export type ContactMinAggregateOutputType = {
   province: string | null
   postalCode: string | null
   country: string | null
+  dedupeKey: string | null
   businessNumber: string | null
   isHstRegistered: boolean | null
   paymentTermsDays: number | null
@@ -70,6 +71,7 @@ export type ContactMaxAggregateOutputType = {
   province: string | null
   postalCode: string | null
   country: string | null
+  dedupeKey: string | null
   businessNumber: string | null
   isHstRegistered: boolean | null
   paymentTermsDays: number | null
@@ -92,6 +94,7 @@ export type ContactCountAggregateOutputType = {
   province: number
   postalCode: number
   country: number
+  dedupeKey: number
   businessNumber: number
   isHstRegistered: number
   paymentTermsDays: number
@@ -124,6 +127,7 @@ export type ContactMinAggregateInputType = {
   province?: true
   postalCode?: true
   country?: true
+  dedupeKey?: true
   businessNumber?: true
   isHstRegistered?: true
   paymentTermsDays?: true
@@ -146,6 +150,7 @@ export type ContactMaxAggregateInputType = {
   province?: true
   postalCode?: true
   country?: true
+  dedupeKey?: true
   businessNumber?: true
   isHstRegistered?: true
   paymentTermsDays?: true
@@ -168,6 +173,7 @@ export type ContactCountAggregateInputType = {
   province?: true
   postalCode?: true
   country?: true
+  dedupeKey?: true
   businessNumber?: true
   isHstRegistered?: true
   paymentTermsDays?: true
@@ -277,6 +283,7 @@ export type ContactGroupByOutputType = {
   province: string | null
   postalCode: string | null
   country: string
+  dedupeKey: string | null
   businessNumber: string | null
   isHstRegistered: boolean
   paymentTermsDays: number
@@ -322,6 +329,7 @@ export type ContactWhereInput = {
   province?: Prisma.StringNullableFilter<"Contact"> | string | null
   postalCode?: Prisma.StringNullableFilter<"Contact"> | string | null
   country?: Prisma.StringFilter<"Contact"> | string
+  dedupeKey?: Prisma.StringNullableFilter<"Contact"> | string | null
   businessNumber?: Prisma.StringNullableFilter<"Contact"> | string | null
   isHstRegistered?: Prisma.BoolFilter<"Contact"> | boolean
   paymentTermsDays?: Prisma.IntFilter<"Contact"> | number
@@ -349,6 +357,7 @@ export type ContactOrderByWithRelationInput = {
   province?: Prisma.SortOrderInput | Prisma.SortOrder
   postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrderInput | Prisma.SortOrder
   businessNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -364,6 +373,7 @@ export type ContactOrderByWithRelationInput = {
 
 export type ContactWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  dedupeKey?: string
   AND?: Prisma.ContactWhereInput | Prisma.ContactWhereInput[]
   OR?: Prisma.ContactWhereInput[]
   NOT?: Prisma.ContactWhereInput | Prisma.ContactWhereInput[]
@@ -390,7 +400,7 @@ export type ContactWhereUniqueInput = Prisma.AtLeast<{
   invoices?: Prisma.InvoiceListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   bills?: Prisma.BillListRelationFilter
-}, "id">
+}, "id" | "dedupeKey">
 
 export type ContactOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -406,6 +416,7 @@ export type ContactOrderByWithAggregationInput = {
   province?: Prisma.SortOrderInput | Prisma.SortOrder
   postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrderInput | Prisma.SortOrder
   businessNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -436,6 +447,7 @@ export type ContactScalarWhereWithAggregatesInput = {
   province?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   postalCode?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   country?: Prisma.StringWithAggregatesFilter<"Contact"> | string
+  dedupeKey?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   businessNumber?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   isHstRegistered?: Prisma.BoolWithAggregatesFilter<"Contact"> | boolean
   paymentTermsDays?: Prisma.IntWithAggregatesFilter<"Contact"> | number
@@ -458,6 +470,7 @@ export type ContactCreateInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -485,6 +498,7 @@ export type ContactUncheckedCreateInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -512,6 +526,7 @@ export type ContactUpdateInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -539,6 +554,7 @@ export type ContactUncheckedUpdateInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -566,6 +582,7 @@ export type ContactCreateManyInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -588,6 +605,7 @@ export type ContactUpdateManyMutationInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -610,6 +628,7 @@ export type ContactUncheckedUpdateManyInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -637,6 +656,7 @@ export type ContactCountOrderByAggregateInput = {
   province?: Prisma.SortOrder
   postalCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -663,6 +683,7 @@ export type ContactMaxOrderByAggregateInput = {
   province?: Prisma.SortOrder
   postalCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -685,6 +706,7 @@ export type ContactMinOrderByAggregateInput = {
   province?: Prisma.SortOrder
   postalCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -790,6 +812,7 @@ export type ContactCreateWithoutLinesInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -816,6 +839,7 @@ export type ContactUncheckedCreateWithoutLinesInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -858,6 +882,7 @@ export type ContactUpdateWithoutLinesInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -884,6 +909,7 @@ export type ContactUncheckedUpdateWithoutLinesInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -910,6 +936,7 @@ export type ContactCreateWithoutProjectsInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -936,6 +963,7 @@ export type ContactUncheckedCreateWithoutProjectsInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -978,6 +1006,7 @@ export type ContactUpdateWithoutProjectsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1004,6 +1033,7 @@ export type ContactUncheckedUpdateWithoutProjectsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1030,6 +1060,7 @@ export type ContactCreateWithoutInvoicesInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1056,6 +1087,7 @@ export type ContactUncheckedCreateWithoutInvoicesInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1098,6 +1130,7 @@ export type ContactUpdateWithoutInvoicesInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1124,6 +1157,7 @@ export type ContactUncheckedUpdateWithoutInvoicesInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1150,6 +1184,7 @@ export type ContactCreateWithoutPaymentsInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1176,6 +1211,7 @@ export type ContactUncheckedCreateWithoutPaymentsInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1218,6 +1254,7 @@ export type ContactUpdateWithoutPaymentsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1244,6 +1281,7 @@ export type ContactUncheckedUpdateWithoutPaymentsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1270,6 +1308,7 @@ export type ContactCreateWithoutBillsInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1296,6 +1335,7 @@ export type ContactUncheckedCreateWithoutBillsInput = {
   province?: string | null
   postalCode?: string | null
   country?: string
+  dedupeKey?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1338,6 +1378,7 @@ export type ContactUpdateWithoutBillsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1364,6 +1405,7 @@ export type ContactUncheckedUpdateWithoutBillsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1457,6 +1499,7 @@ export type ContactSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   province?: boolean
   postalCode?: boolean
   country?: boolean
+  dedupeKey?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
@@ -1485,6 +1528,7 @@ export type ContactSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   province?: boolean
   postalCode?: boolean
   country?: boolean
+  dedupeKey?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
@@ -1507,6 +1551,7 @@ export type ContactSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   province?: boolean
   postalCode?: boolean
   country?: boolean
+  dedupeKey?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
@@ -1529,6 +1574,7 @@ export type ContactSelectScalar = {
   province?: boolean
   postalCode?: boolean
   country?: boolean
+  dedupeKey?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
@@ -1537,7 +1583,7 @@ export type ContactSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ContactOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isCustomer" | "isVendor" | "isActive" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "isHstRegistered" | "paymentTermsDays" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["contact"]>
+export type ContactOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isCustomer" | "isVendor" | "isActive" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "dedupeKey" | "businessNumber" | "isHstRegistered" | "paymentTermsDays" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["contact"]>
 export type ContactInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lines?: boolean | Prisma.Contact$linesArgs<ExtArgs>
   projects?: boolean | Prisma.Contact$projectsArgs<ExtArgs>
@@ -1572,6 +1618,7 @@ export type $ContactPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     province: string | null
     postalCode: string | null
     country: string
+    dedupeKey: string | null
     businessNumber: string | null
     isHstRegistered: boolean
     paymentTermsDays: number
@@ -2019,6 +2066,7 @@ export interface ContactFieldRefs {
   readonly province: Prisma.FieldRef<"Contact", 'String'>
   readonly postalCode: Prisma.FieldRef<"Contact", 'String'>
   readonly country: Prisma.FieldRef<"Contact", 'String'>
+  readonly dedupeKey: Prisma.FieldRef<"Contact", 'String'>
   readonly businessNumber: Prisma.FieldRef<"Contact", 'String'>
   readonly isHstRegistered: Prisma.FieldRef<"Contact", 'Boolean'>
   readonly paymentTermsDays: Prisma.FieldRef<"Contact", 'Int'>
