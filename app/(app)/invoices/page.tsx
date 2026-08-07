@@ -9,7 +9,12 @@ export const dynamic = "force-dynamic";
 
 export default async function InvoicesPage() {
   const invoices = await prisma.invoice.findMany({
-    include: { contact: true, applications: true, creditApplications: true },
+    include: {
+      contact: true,
+      applications: true,
+      creditApplications: { include: { creditNote: true } },
+      creditNotes: true,
+    },
     orderBy: [{ invoiceDate: "desc" }, { invoiceNumber: "desc" }],
   });
 
@@ -83,7 +88,19 @@ export default async function InvoicesPage() {
                     >
                       {invoice.invoiceNumber}
                     </Link>
-                    <p className="text-[11px] text-faint">{shortDate(invoice.invoiceDate)}</p>
+                    <p className="text-[11px] text-faint">
+                      {shortDate(invoice.invoiceDate)}
+                      {invoice.creditNotes.length > 0 || invoice.creditApplications.length > 0 ? (
+                        <span className="ml-1.5 rounded-full bg-tint-amber px-1.5 py-0.5 text-[10px] font-medium text-icon-amber">
+                          {[
+                            ...invoice.creditNotes.map((c) => c.creditNumber),
+                            ...invoice.creditApplications.map((a) => a.creditNote.creditNumber),
+                          ]
+                            .filter((v, i, arr) => arr.indexOf(v) === i)
+                            .join(", ")}
+                        </span>
+                      ) : null}
+                    </p>
                   </td>
                   <td className="px-5 py-3 text-[13px]">{invoice.contact.name}</td>
                   <td className="px-5 py-3 text-[13px] text-muted">{shortDate(invoice.dueDate)}</td>

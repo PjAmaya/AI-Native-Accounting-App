@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, FileMinus, Receipt, Wallet, Users, BookOpen, BarChart3, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, FileMinus, Receipt, Wallet, Users, BookOpen, Lock, BarChart3, Settings } from "lucide-react";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -13,6 +13,7 @@ const NAV = [
   { href: "/payments", label: "Payments", icon: Wallet },
   { href: "/contacts", label: "Contacts", icon: Users },
   { href: "/accounts", label: "Accounts", icon: BookOpen },
+  { href: "/periods", label: "Periods", icon: Lock },
   { href: "/reports", label: "Reports", icon: BarChart3 },
   { href: "/settings", label: "Settings", icon: Settings },
 ];

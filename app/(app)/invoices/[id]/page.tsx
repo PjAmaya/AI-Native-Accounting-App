@@ -32,6 +32,7 @@ export default async function InvoicePage({
         include: { creditNote: true },
         orderBy: { appliedAt: "asc" },
       },
+      creditNotes: { orderBy: { creditNumber: "asc" } },
     },
   });
   if (!invoice) notFound();
@@ -125,6 +126,11 @@ export default async function InvoicePage({
           {invoice.status === "ISSUED" && invoice.applications.length === 0 ? (
             <VoidInvoice invoiceId={invoice.id} invoiceNumber={invoice.invoiceNumber} />
           ) : null}
+          {invoice.status === "ISSUED" && invoice.applications.length > 0 ? (
+            <p className="max-w-44 text-[11px] leading-snug text-faint">
+              Cannot be voided — a payment has been applied. Use a credit note.
+            </p>
+          ) : null}
           {invoice.status === "DRAFT" ? (
             <form action={issue}>
               <button
@@ -205,6 +211,30 @@ export default async function InvoicePage({
           </tfoot>
         </table>
       </div>
+
+      {invoice.creditNotes.length > 0 ? (
+        <div className="card mt-4 px-5 py-4">
+          <p className="eyebrow">Credit notes against this invoice</p>
+          <ul className="mt-3 divide-y divide-rule">
+            {invoice.creditNotes.map((note) => (
+              <li key={note.id} className="flex items-center justify-between gap-3 py-2 text-[13px]">
+                <Link
+                  href={`/credit-notes/${note.id}`}
+                  className="flex items-center gap-2 hover:text-brand"
+                >
+                  <span className="font-mono text-[12px] font-medium">{note.creditNumber}</span>
+                  <StatusPill status={note.status} />
+                  <span className="text-muted">{note.reason}</span>
+                </Link>
+                <span className="figure">{money(note.total)}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-[11px] text-faint">
+            Refunded credits were paid back rather than reducing this invoice.
+          </p>
+        </div>
+      ) : null}
 
       {invoice.applications.length > 0 || invoice.creditApplications.length > 0 ? (
         <div className="card mt-4 px-5 py-4">
