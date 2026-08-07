@@ -55,6 +55,16 @@ export async function saveContact(
     errors.paymentTermsDays = "Enter a whole number of days.";
   }
 
+  const receivableCode = text(formData, "receivableAccountCode");
+  let receivableAccountId: string | null = null;
+  if (receivableCode) {
+    const account = await prisma.account.findUnique({ where: { code: receivableCode } });
+    if (!account) errors.receivableAccountCode = "That account does not exist.";
+    else if (!account.isPostable) errors.receivableAccountCode = "That account is a heading.";
+    else if (account.type !== "ASSET") errors.receivableAccountCode = "Must be an asset account.";
+    else receivableAccountId = account.id;
+  }
+
   const dedupeKey = name && postalCode ? buildDedupeKey(name, postalCode) : null;
 
   if (dedupeKey) {
@@ -93,6 +103,7 @@ export async function saveContact(
     isHstRegistered: checked(formData, "isHstRegistered"),
     paymentTermsDays,
     notes: text(formData, "notes"),
+      receivableAccountId,
     dedupeKey,
   };
 

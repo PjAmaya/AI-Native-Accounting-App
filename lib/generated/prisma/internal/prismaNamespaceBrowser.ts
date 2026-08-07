@@ -57,6 +57,9 @@ export const ModelName = {
   Contact: 'Contact',
   Project: 'Project',
   TaxRate: 'TaxRate',
+  CreditNote: 'CreditNote',
+  CreditNoteLine: 'CreditNoteLine',
+  CreditApplication: 'CreditApplication',
   Invoice: 'Invoice',
   InvoiceLine: 'InvoiceLine',
   Payment: 'Payment',
@@ -151,6 +154,7 @@ export const ContactScalarFieldEnum = {
   postalCode: 'postalCode',
   country: 'country',
   dedupeKey: 'dedupeKey',
+  receivableAccountId: 'receivableAccountId',
   businessNumber: 'businessNumber',
   isHstRegistered: 'isHstRegistered',
   paymentTermsDays: 'paymentTermsDays',
@@ -194,6 +198,60 @@ export const TaxRateScalarFieldEnum = {
 export type TaxRateScalarFieldEnum = (typeof TaxRateScalarFieldEnum)[keyof typeof TaxRateScalarFieldEnum]
 
 
+export const CreditNoteScalarFieldEnum = {
+  id: 'id',
+  creditNumber: 'creditNumber',
+  status: 'status',
+  contactId: 'contactId',
+  originalInvoiceId: 'originalInvoiceId',
+  creditDate: 'creditDate',
+  reason: 'reason',
+  notes: 'notes',
+  currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  subtotal: 'subtotal',
+  taxTotal: 'taxTotal',
+  total: 'total',
+  receivableAccountId: 'receivableAccountId',
+  journalEntryId: 'journalEntryId',
+  issuedAt: 'issuedAt',
+  refundedAt: 'refundedAt',
+  refundEntryId: 'refundEntryId',
+  pdfPath: 'pdfPath',
+  pdfHash: 'pdfHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CreditNoteScalarFieldEnum = (typeof CreditNoteScalarFieldEnum)[keyof typeof CreditNoteScalarFieldEnum]
+
+
+export const CreditNoteLineScalarFieldEnum = {
+  id: 'id',
+  creditNoteId: 'creditNoteId',
+  lineNumber: 'lineNumber',
+  description: 'description',
+  amount: 'amount',
+  revenueAccountId: 'revenueAccountId',
+  projectId: 'projectId',
+  taxRateId: 'taxRateId',
+  taxAmount: 'taxAmount'
+} as const
+
+export type CreditNoteLineScalarFieldEnum = (typeof CreditNoteLineScalarFieldEnum)[keyof typeof CreditNoteLineScalarFieldEnum]
+
+
+export const CreditApplicationScalarFieldEnum = {
+  id: 'id',
+  creditNoteId: 'creditNoteId',
+  invoiceId: 'invoiceId',
+  amountApplied: 'amountApplied',
+  appliedAt: 'appliedAt'
+} as const
+
+export type CreditApplicationScalarFieldEnum = (typeof CreditApplicationScalarFieldEnum)[keyof typeof CreditApplicationScalarFieldEnum]
+
+
 export const InvoiceScalarFieldEnum = {
   id: 'id',
   invoiceNumber: 'invoiceNumber',
@@ -211,6 +269,7 @@ export const InvoiceScalarFieldEnum = {
   subtotal: 'subtotal',
   taxTotal: 'taxTotal',
   total: 'total',
+  receivableAccountId: 'receivableAccountId',
   journalEntryId: 'journalEntryId',
   issuedAt: 'issuedAt',
   pdfPath: 'pdfPath',

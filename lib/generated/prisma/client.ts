@@ -72,6 +72,21 @@ export type Project = Prisma.ProjectModel
  */
 export type TaxRate = Prisma.TaxRateModel
 /**
+ * Model CreditNote
+ * 
+ */
+export type CreditNote = Prisma.CreditNoteModel
+/**
+ * Model CreditNoteLine
+ * 
+ */
+export type CreditNoteLine = Prisma.CreditNoteLineModel
+/**
+ * Model CreditApplication
+ * 
+ */
+export type CreditApplication = Prisma.CreditApplicationModel
+/**
  * Model Invoice
  * 
  */

@@ -34,7 +34,14 @@ export default async function EditInvoicePage({
     prisma.contact.findMany({ where: { isCustomer: true, isActive: true }, orderBy: { name: "asc" } }),
     prisma.project.findMany({ where: { isActive: true }, orderBy: { code: "asc" } }),
     prisma.account.findMany({
-      where: { type: "REVENUE", isPostable: true, isActive: true, subType: "OPERATING_REVENUE" },
+      where: {
+        isPostable: true,
+        isActive: true,
+        OR: [
+          { type: "REVENUE", subType: "OPERATING_REVENUE" },
+          { type: "EXPENSE" },
+        ],
+      },
       orderBy: { code: "asc" },
     }),
     prisma.taxRate.findMany({ where: { isActive: true }, orderBy: { code: "asc" } }),
@@ -43,8 +50,14 @@ export default async function EditInvoicePage({
   const options: InvoiceFormOptions = {
     clients: clients.map((c) => ({ value: c.id, label: c.name })),
     projects: projects.map((p) => ({ value: p.code, label: `${p.code} — ${p.name}` })),
-    revenueAccounts: accounts.map((a) => ({ value: a.code, label: `${a.code} ${a.name}` })),
+    revenueAccounts: accounts.map((a) => ({
+      value: a.code,
+      label: a.type === "EXPENSE" ? `${a.code} ${a.name} (recovery)` : `${a.code} ${a.name}`,
+    })),
     taxRates: taxRates.map((t) => ({ value: t.code, label: t.name })),
+    taxRatePercents: Object.fromEntries(
+      taxRates.map((t) => [t.code, t.ratePercent.toString()]),
+    ),
     defaultDate: new Date().toISOString().slice(0, 10),
   };
 

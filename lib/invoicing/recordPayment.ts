@@ -5,7 +5,7 @@ import type { DraftLine } from "../ledger/balance";
 import { assertNotOverApplied, sumApplied } from "./applications";
 import { syncInvoiceStatusTx, syncBillStatusTx } from "./documentStatus";
 
-const AR_CODE = "1200";
+const DEFAULT_AR_CODE = "1210";
 const AP_CODE = "2010";
 const OVERPAYMENT_CODE = "2060";
 const PREPAID_CODE = "1300";
@@ -70,6 +70,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
   }
 
   let totalApplied = new Decimal(0);
+  const receivableSplit = new Map<string, Decimal>();
 
   const invoiceNumbers = invoiceDrafts.map((a) => a.invoiceNumber);
   if (new Set(invoiceNumbers).size !== invoiceNumbers.length) {
@@ -77,7 +78,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
   }
   const invoices = await tx.invoice.findMany({
     where: { invoiceNumber: { in: invoiceNumbers } },
-    include: { applications: true },
+    include: { applications: true, receivableAccount: true },
   });
   const invoiceByNumber = new Map(invoices.map((i) => [i.invoiceNumber, i]));
 
@@ -102,6 +103,12 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     });
 
     totalApplied = totalApplied.plus(application.amount);
+
+    const code = invoice.receivableAccount?.code ?? DEFAULT_AR_CODE;
+    receivableSplit.set(
+      code,
+      (receivableSplit.get(code) ?? new Decimal(0)).plus(application.amount),
+    );
   }
 
   const billNumbers = billDrafts.map((a) => a.billNumber);
@@ -193,11 +200,12 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
       description: label,
       contactId: contact.id,
     });
-    if (totalApplied.greaterThan(0)) {
+    for (const [code, amount] of receivableSplit) {
+      if (amount.isZero()) continue;
       lines.push({
-        accountCode: AR_CODE,
+        accountCode: code,
         debit: "0",
-        credit: totalApplied.toFixed(2),
+        credit: amount.toFixed(2),
         description: label,
         contactId: contact.id,
       });

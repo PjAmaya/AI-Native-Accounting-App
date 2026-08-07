@@ -64,9 +64,15 @@ async function glBalanceOf(code: string, asOf: Date) {
   const account = await prisma.account.findUnique({ where: { code } });
   if (!account) throw new Error(`Account ${code} does not exist.`);
 
+  const children = await prisma.account.findMany({
+    where: { parentId: account.id },
+    select: { id: true },
+  });
+  const ids = [account.id, ...children.map((c) => c.id)];
+
   const agg = await prisma.journalLine.aggregate({
     where: {
-      accountId: account.id,
+      accountId: { in: ids },
       entry: { status: { in: ["POSTED", "REVERSED"] }, entryDate: { lte: asOf } },
     },
     _sum: { debit: true, credit: true },
@@ -133,6 +139,14 @@ export async function arAging(asOf: Date): Promise<AgingReport> {
           },
         },
       },
+      creditApplications: {
+        where: {
+          creditNote: {
+            creditDate: { lte: asOf },
+            journalEntry: { status: { in: ["POSTED", "REVERSED"] } },
+          },
+        },
+      },
     },
   });
 
@@ -140,7 +154,7 @@ export async function arAging(asOf: Date): Promise<AgingReport> {
 
   for (const invoice of invoices) {
     const total = new Decimal(invoice.total.toString());
-    const applied = sumApplied(invoice.applications);
+    const applied = sumApplied(invoice.applications).plus(sumApplied(invoice.creditApplications));
     const outstanding = total.minus(applied);
     if (outstanding.lessThanOrEqualTo(0)) continue;
 

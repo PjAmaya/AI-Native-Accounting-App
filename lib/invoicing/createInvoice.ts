@@ -4,7 +4,7 @@ import { createDraftEntryTx, type TxClient } from "../ledger/post";
 import type { DraftLine } from "../ledger/balance";
 import { computeInvoiceTotals } from "./tax";
 
-const AR_ACCOUNT_CODE = "1200";
+const DEFAULT_AR_CODE = "1210";
 
 export type InvoiceDraftLine = {
   description: string;
@@ -79,8 +79,11 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
     if (!account) throw new Error(`Account ${code} does not exist.`);
     if (!account.isActive) throw new Error(`Account ${code} is inactive.`);
     if (!account.isPostable) throw new Error(`Account ${code} is a heading and cannot be invoiced to.`);
-    if (account.type !== "REVENUE") {
-      throw new Error(`Account ${code} is ${account.type}, not REVENUE, and cannot be an invoice line.`);
+    if (account.type !== "REVENUE" && account.type !== "EXPENSE") {
+      throw new Error(
+        `Account ${code} is ${account.type}. An invoice line must credit revenue, or an expense ` +
+          `account when you are recovering a cost.`,
+      );
     }
   }
 
@@ -126,6 +129,17 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
   const invoiceProjectId = draft.projectCode
     ? projectByCode.get(draft.projectCode)!.id
     : null;
+
+  const receivableCode = contact.receivableAccountId
+    ? (await tx.account.findUnique({ where: { id: contact.receivableAccountId } }))?.code ??
+      DEFAULT_AR_CODE
+    : DEFAULT_AR_CODE;
+
+  const receivable = await tx.account.findUnique({ where: { code: receivableCode } });
+  if (!receivable) throw new Error(`Receivable account ${receivableCode} does not exist.`);
+  if (!receivable.isPostable) {
+    throw new Error(`Receivable account ${receivableCode} is a heading and cannot be posted to.`);
+  }
 
   const invoice = await tx.invoice.create({
     data: {
@@ -185,7 +199,7 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
 
   const journalLines: DraftLine[] = [
     {
-      accountCode: AR_ACCOUNT_CODE,
+      accountCode: receivable.code,
       ...debitLine(totals.total),
       description: `${invoiceNumber} - ${contact.name}`,
       contactId: contact.id,

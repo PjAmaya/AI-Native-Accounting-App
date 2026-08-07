@@ -1,16 +1,24 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, Download, FileCheck, Pencil } from "lucide-react";
+import { ArrowLeft, Download, FileCheck, Pencil, Trash2, FileMinus, Wallet } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { issueInvoiceAction } from "../actions";
+import { issueInvoiceAction, deleteInvoiceAction } from "../actions";
+import { VoidInvoice } from "@/components/ui/VoidInvoice";
 
 export const dynamic = "force-dynamic";
 
-export default async function InvoicePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function InvoicePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ voidError?: string }>;
+}) {
   const { id } = await params;
+  const { voidError } = await searchParams;
 
   const invoice = await prisma.invoice.findUnique({
     where: { id },
@@ -20,16 +28,29 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
       lines: { include: { project: true, taxRate: true }, orderBy: { lineNumber: "asc" } },
       journalEntry: { include: { lines: { include: { account: true } } } },
       applications: { include: { payment: true }, orderBy: { appliedAt: "asc" } },
+      creditApplications: {
+        include: { creditNote: true },
+        orderBy: { appliedAt: "asc" },
+      },
     },
   });
   if (!invoice) notFound();
 
-  const applied = invoice.applications.reduce(
+  const paid = invoice.applications.reduce(
     (sum, a) => sum.plus(a.amountApplied.toString()),
     new Decimal(0),
   );
-  const outstanding = new Decimal(invoice.total.toString()).minus(applied);
+  const credited = invoice.creditApplications.reduce(
+    (sum, a) => sum.plus(a.amountApplied.toString()),
+    new Decimal(0),
+  );
+  const applied = paid.plus(credited);
+  const outstanding =
+    invoice.status === "VOID"
+      ? new Decimal(0)
+      : new Decimal(invoice.total.toString()).minus(applied);
   const issue = issueInvoiceAction.bind(null, invoice.id);
+  const remove = deleteInvoiceAction.bind(null, invoice.id);
 
   return (
     <div>
@@ -73,6 +94,38 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
             </Link>
           ) : null}
           {invoice.status === "DRAFT" ? (
+            <form action={remove}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium text-negative transition-colors hover:bg-tint-amber/40"
+              >
+                <Trash2 size={14} strokeWidth={2} aria-hidden />
+                Delete
+              </button>
+            </form>
+          ) : null}
+          {invoice.status === "ISSUED" && outstanding.greaterThan(0) ? (
+            <Link
+              href={`/payments/new?invoice=${invoice.id}`}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+            >
+              <Wallet size={14} strokeWidth={2} aria-hidden />
+              Record payment
+            </Link>
+          ) : null}
+          {(invoice.status === "ISSUED" || invoice.status === "PAID") ? (
+            <Link
+              href={`/credit-notes/new?invoice=${invoice.id}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
+            >
+              <FileMinus size={14} strokeWidth={2} aria-hidden />
+              Credit note
+            </Link>
+          ) : null}
+          {invoice.status === "ISSUED" && invoice.applications.length === 0 ? (
+            <VoidInvoice invoiceId={invoice.id} invoiceNumber={invoice.invoiceNumber} />
+          ) : null}
+          {invoice.status === "DRAFT" ? (
             <form action={issue}>
               <button
                 type="submit"
@@ -85,6 +138,21 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
           ) : null}
         </div>
       </div>
+
+      {voidError ? (
+        <div className="card mt-5 border-negative bg-tint-amber/40 px-5 py-3.5">
+          <p className="text-[13px] text-negative">{voidError}</p>
+        </div>
+      ) : null}
+
+      {invoice.status === "VOID" ? (
+        <div className="card mt-5 border-rule bg-wash/50 px-5 py-3.5">
+          <p className="text-[13px] text-muted">
+            This invoice is void. Its journal entry has been reversed, so it appears in no report.
+            The number stays used and the record stays on file.
+          </p>
+        </div>
+      ) : null}
 
       {invoice.status === "DRAFT" ? (
         <div className="card mt-5 border-tint-amber bg-tint-amber/40 px-5 py-3.5">
@@ -138,22 +206,54 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
         </table>
       </div>
 
-      {invoice.applications.length > 0 ? (
+      {invoice.applications.length > 0 || invoice.creditApplications.length > 0 ? (
         <div className="card mt-4 px-5 py-4">
-          <p className="eyebrow">Payments</p>
+          <p className="eyebrow">Settled by</p>
           <ul className="mt-3 divide-y divide-rule">
             {invoice.applications.map((a) => (
               <li key={a.id} className="flex items-center justify-between py-2 text-[13px]">
-                <span className="text-muted">
+                <Link
+                  href={`/payments/${a.payment.id}/edit`}
+                  className="text-muted hover:text-brand"
+                >
                   Payment #{a.payment.paymentNumber} · {shortDate(a.payment.paymentDate)}
-                </span>
+                </Link>
+                <span className="figure">{money(a.amountApplied)}</span>
+              </li>
+            ))}
+            {invoice.creditApplications.map((a) => (
+              <li key={a.id} className="flex items-center justify-between py-2 text-[13px]">
+                <Link
+                  href={`/credit-notes/${a.creditNoteId}`}
+                  className="flex items-center gap-2 text-muted hover:text-brand"
+                >
+                  <span className="rounded-full bg-tint-amber px-2 py-0.5 text-[11px] font-medium text-icon-amber">
+                    Credit
+                  </span>
+                  <span className="font-mono text-[12px]">{a.creditNote.creditNumber}</span>
+                  <span>· {shortDate(a.creditNote.creditDate)}</span>
+                </Link>
                 <span className="figure">{money(a.amountApplied)}</span>
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex items-center justify-between border-t border-rule pt-3 text-[13px] font-medium">
-            <span>Outstanding</span>
-            <span className="figure !text-[15px]">{money(outstanding)}</span>
+          <div className="mt-3 grid gap-1 border-t border-rule pt-3 text-[13px]">
+            {credited.greaterThan(0) ? (
+              <>
+                <div className="flex items-center justify-between text-muted">
+                  <span>Paid</span>
+                  <span className="figure">{money(paid)}</span>
+                </div>
+                <div className="flex items-center justify-between text-muted">
+                  <span>Credited</span>
+                  <span className="figure">{money(credited)}</span>
+                </div>
+              </>
+            ) : null}
+            <div className="flex items-center justify-between font-medium">
+              <span>Outstanding</span>
+              <span className="figure !text-[15px]">{money(outstanding)}</span>
+            </div>
           </div>
         </div>
       ) : null}

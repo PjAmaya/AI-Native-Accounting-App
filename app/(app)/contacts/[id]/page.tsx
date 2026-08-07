@@ -12,8 +12,16 @@ export default async function EditContactPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const contact = await prisma.contact.findUnique({ where: { id } });
+  const contact = await prisma.contact.findUnique({
+    where: { id },
+    include: { receivableAccount: true },
+  });
   if (!contact) notFound();
+
+  const receivables = await prisma.account.findMany({
+    where: { type: "ASSET", isPostable: true, isActive: true, subType: "CURRENT_ASSET" },
+    orderBy: { code: "asc" },
+  });
 
   const values: ContactValues = {
     id: contact.id,
@@ -30,6 +38,7 @@ export default async function EditContactPage({
     businessNumber: contact.businessNumber ?? "",
     isHstRegistered: contact.isHstRegistered,
     paymentTermsDays: String(contact.paymentTermsDays),
+    receivableAccountCode: contact.receivableAccount?.code ?? "",
     notes: contact.notes ?? "",
   };
 
@@ -49,7 +58,13 @@ export default async function EditContactPage({
         </p>
       ) : null}
       <div className="mt-7">
-        <ContactForm values={values} />
+        <ContactForm
+          values={values}
+          receivableAccounts={receivables.map((a) => ({
+            value: a.code,
+            label: `${a.code} ${a.name}`,
+          }))}
+        />
       </div>
     </div>
   );

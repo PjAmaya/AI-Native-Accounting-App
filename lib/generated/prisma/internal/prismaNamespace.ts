@@ -403,6 +403,9 @@ export const ModelName = {
   Contact: 'Contact',
   Project: 'Project',
   TaxRate: 'TaxRate',
+  CreditNote: 'CreditNote',
+  CreditNoteLine: 'CreditNoteLine',
+  CreditApplication: 'CreditApplication',
   Invoice: 'Invoice',
   InvoiceLine: 'InvoiceLine',
   Payment: 'Payment',
@@ -427,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent"
+    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "creditNote" | "creditNoteLine" | "creditApplication" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -872,6 +875,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TaxRateCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TaxRateCountAggregateOutputType> | number
+        }
+      }
+    }
+    CreditNote: {
+      payload: Prisma.$CreditNotePayload<ExtArgs>
+      fields: Prisma.CreditNoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CreditNoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CreditNoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>
+        }
+        findFirst: {
+          args: Prisma.CreditNoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CreditNoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>
+        }
+        findMany: {
+          args: Prisma.CreditNoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>[]
+        }
+        create: {
+          args: Prisma.CreditNoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>
+        }
+        createMany: {
+          args: Prisma.CreditNoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CreditNoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>[]
+        }
+        delete: {
+          args: Prisma.CreditNoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>
+        }
+        update: {
+          args: Prisma.CreditNoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>
+        }
+        deleteMany: {
+          args: Prisma.CreditNoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CreditNoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CreditNoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>[]
+        }
+        upsert: {
+          args: Prisma.CreditNoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNotePayload>
+        }
+        aggregate: {
+          args: Prisma.CreditNoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCreditNote>
+        }
+        groupBy: {
+          args: Prisma.CreditNoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CreditNoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CreditNoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CreditNoteCountAggregateOutputType> | number
+        }
+      }
+    }
+    CreditNoteLine: {
+      payload: Prisma.$CreditNoteLinePayload<ExtArgs>
+      fields: Prisma.CreditNoteLineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CreditNoteLineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CreditNoteLineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>
+        }
+        findFirst: {
+          args: Prisma.CreditNoteLineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CreditNoteLineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>
+        }
+        findMany: {
+          args: Prisma.CreditNoteLineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>[]
+        }
+        create: {
+          args: Prisma.CreditNoteLineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>
+        }
+        createMany: {
+          args: Prisma.CreditNoteLineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CreditNoteLineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>[]
+        }
+        delete: {
+          args: Prisma.CreditNoteLineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>
+        }
+        update: {
+          args: Prisma.CreditNoteLineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>
+        }
+        deleteMany: {
+          args: Prisma.CreditNoteLineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CreditNoteLineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CreditNoteLineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>[]
+        }
+        upsert: {
+          args: Prisma.CreditNoteLineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditNoteLinePayload>
+        }
+        aggregate: {
+          args: Prisma.CreditNoteLineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCreditNoteLine>
+        }
+        groupBy: {
+          args: Prisma.CreditNoteLineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CreditNoteLineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CreditNoteLineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CreditNoteLineCountAggregateOutputType> | number
+        }
+      }
+    }
+    CreditApplication: {
+      payload: Prisma.$CreditApplicationPayload<ExtArgs>
+      fields: Prisma.CreditApplicationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CreditApplicationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CreditApplicationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>
+        }
+        findFirst: {
+          args: Prisma.CreditApplicationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CreditApplicationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>
+        }
+        findMany: {
+          args: Prisma.CreditApplicationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>[]
+        }
+        create: {
+          args: Prisma.CreditApplicationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>
+        }
+        createMany: {
+          args: Prisma.CreditApplicationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CreditApplicationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>[]
+        }
+        delete: {
+          args: Prisma.CreditApplicationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>
+        }
+        update: {
+          args: Prisma.CreditApplicationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CreditApplicationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CreditApplicationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CreditApplicationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CreditApplicationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CreditApplicationPayload>
+        }
+        aggregate: {
+          args: Prisma.CreditApplicationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCreditApplication>
+        }
+        groupBy: {
+          args: Prisma.CreditApplicationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CreditApplicationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CreditApplicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CreditApplicationCountAggregateOutputType> | number
         }
       }
     }
@@ -1647,6 +1872,7 @@ export const ContactScalarFieldEnum = {
   postalCode: 'postalCode',
   country: 'country',
   dedupeKey: 'dedupeKey',
+  receivableAccountId: 'receivableAccountId',
   businessNumber: 'businessNumber',
   isHstRegistered: 'isHstRegistered',
   paymentTermsDays: 'paymentTermsDays',
@@ -1690,6 +1916,60 @@ export const TaxRateScalarFieldEnum = {
 export type TaxRateScalarFieldEnum = (typeof TaxRateScalarFieldEnum)[keyof typeof TaxRateScalarFieldEnum]
 
 
+export const CreditNoteScalarFieldEnum = {
+  id: 'id',
+  creditNumber: 'creditNumber',
+  status: 'status',
+  contactId: 'contactId',
+  originalInvoiceId: 'originalInvoiceId',
+  creditDate: 'creditDate',
+  reason: 'reason',
+  notes: 'notes',
+  currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  subtotal: 'subtotal',
+  taxTotal: 'taxTotal',
+  total: 'total',
+  receivableAccountId: 'receivableAccountId',
+  journalEntryId: 'journalEntryId',
+  issuedAt: 'issuedAt',
+  refundedAt: 'refundedAt',
+  refundEntryId: 'refundEntryId',
+  pdfPath: 'pdfPath',
+  pdfHash: 'pdfHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CreditNoteScalarFieldEnum = (typeof CreditNoteScalarFieldEnum)[keyof typeof CreditNoteScalarFieldEnum]
+
+
+export const CreditNoteLineScalarFieldEnum = {
+  id: 'id',
+  creditNoteId: 'creditNoteId',
+  lineNumber: 'lineNumber',
+  description: 'description',
+  amount: 'amount',
+  revenueAccountId: 'revenueAccountId',
+  projectId: 'projectId',
+  taxRateId: 'taxRateId',
+  taxAmount: 'taxAmount'
+} as const
+
+export type CreditNoteLineScalarFieldEnum = (typeof CreditNoteLineScalarFieldEnum)[keyof typeof CreditNoteLineScalarFieldEnum]
+
+
+export const CreditApplicationScalarFieldEnum = {
+  id: 'id',
+  creditNoteId: 'creditNoteId',
+  invoiceId: 'invoiceId',
+  amountApplied: 'amountApplied',
+  appliedAt: 'appliedAt'
+} as const
+
+export type CreditApplicationScalarFieldEnum = (typeof CreditApplicationScalarFieldEnum)[keyof typeof CreditApplicationScalarFieldEnum]
+
+
 export const InvoiceScalarFieldEnum = {
   id: 'id',
   invoiceNumber: 'invoiceNumber',
@@ -1707,6 +1987,7 @@ export const InvoiceScalarFieldEnum = {
   subtotal: 'subtotal',
   taxTotal: 'taxTotal',
   total: 'total',
+  receivableAccountId: 'receivableAccountId',
   journalEntryId: 'journalEntryId',
   issuedAt: 'issuedAt',
   pdfPath: 'pdfPath',
@@ -2029,6 +2310,20 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'CreditNoteStatus'
+ */
+export type EnumCreditNoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditNoteStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CreditNoteStatus[]'
+ */
+export type ListEnumCreditNoteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditNoteStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'InvoiceStatus'
  */
 export type EnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus'>
@@ -2254,6 +2549,9 @@ export type GlobalOmitConfig = {
   contact?: Prisma.ContactOmit
   project?: Prisma.ProjectOmit
   taxRate?: Prisma.TaxRateOmit
+  creditNote?: Prisma.CreditNoteOmit
+  creditNoteLine?: Prisma.CreditNoteLineOmit
+  creditApplication?: Prisma.CreditApplicationOmit
   invoice?: Prisma.InvoiceOmit
   invoiceLine?: Prisma.InvoiceLineOmit
   payment?: Prisma.PaymentOmit

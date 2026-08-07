@@ -49,6 +49,7 @@ export type ContactMinAggregateOutputType = {
   postalCode: string | null
   country: string | null
   dedupeKey: string | null
+  receivableAccountId: string | null
   businessNumber: string | null
   isHstRegistered: boolean | null
   paymentTermsDays: number | null
@@ -72,6 +73,7 @@ export type ContactMaxAggregateOutputType = {
   postalCode: string | null
   country: string | null
   dedupeKey: string | null
+  receivableAccountId: string | null
   businessNumber: string | null
   isHstRegistered: boolean | null
   paymentTermsDays: number | null
@@ -95,6 +97,7 @@ export type ContactCountAggregateOutputType = {
   postalCode: number
   country: number
   dedupeKey: number
+  receivableAccountId: number
   businessNumber: number
   isHstRegistered: number
   paymentTermsDays: number
@@ -128,6 +131,7 @@ export type ContactMinAggregateInputType = {
   postalCode?: true
   country?: true
   dedupeKey?: true
+  receivableAccountId?: true
   businessNumber?: true
   isHstRegistered?: true
   paymentTermsDays?: true
@@ -151,6 +155,7 @@ export type ContactMaxAggregateInputType = {
   postalCode?: true
   country?: true
   dedupeKey?: true
+  receivableAccountId?: true
   businessNumber?: true
   isHstRegistered?: true
   paymentTermsDays?: true
@@ -174,6 +179,7 @@ export type ContactCountAggregateInputType = {
   postalCode?: true
   country?: true
   dedupeKey?: true
+  receivableAccountId?: true
   businessNumber?: true
   isHstRegistered?: true
   paymentTermsDays?: true
@@ -284,6 +290,7 @@ export type ContactGroupByOutputType = {
   postalCode: string | null
   country: string
   dedupeKey: string | null
+  receivableAccountId: string | null
   businessNumber: string | null
   isHstRegistered: boolean
   paymentTermsDays: number
@@ -330,17 +337,20 @@ export type ContactWhereInput = {
   postalCode?: Prisma.StringNullableFilter<"Contact"> | string | null
   country?: Prisma.StringFilter<"Contact"> | string
   dedupeKey?: Prisma.StringNullableFilter<"Contact"> | string | null
+  receivableAccountId?: Prisma.StringNullableFilter<"Contact"> | string | null
   businessNumber?: Prisma.StringNullableFilter<"Contact"> | string | null
   isHstRegistered?: Prisma.BoolFilter<"Contact"> | boolean
   paymentTermsDays?: Prisma.IntFilter<"Contact"> | number
   notes?: Prisma.StringNullableFilter<"Contact"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Contact"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Contact"> | Date | string
+  receivableAccount?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   lines?: Prisma.JournalLineListRelationFilter
   projects?: Prisma.ProjectListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   bills?: Prisma.BillListRelationFilter
+  creditNotes?: Prisma.CreditNoteListRelationFilter
 }
 
 export type ContactOrderByWithRelationInput = {
@@ -358,17 +368,20 @@ export type ContactOrderByWithRelationInput = {
   postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
   dedupeKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  receivableAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   businessNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  receivableAccount?: Prisma.AccountOrderByWithRelationInput
   lines?: Prisma.JournalLineOrderByRelationAggregateInput
   projects?: Prisma.ProjectOrderByRelationAggregateInput
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   bills?: Prisma.BillOrderByRelationAggregateInput
+  creditNotes?: Prisma.CreditNoteOrderByRelationAggregateInput
 }
 
 export type ContactWhereUniqueInput = Prisma.AtLeast<{
@@ -389,17 +402,20 @@ export type ContactWhereUniqueInput = Prisma.AtLeast<{
   province?: Prisma.StringNullableFilter<"Contact"> | string | null
   postalCode?: Prisma.StringNullableFilter<"Contact"> | string | null
   country?: Prisma.StringFilter<"Contact"> | string
+  receivableAccountId?: Prisma.StringNullableFilter<"Contact"> | string | null
   businessNumber?: Prisma.StringNullableFilter<"Contact"> | string | null
   isHstRegistered?: Prisma.BoolFilter<"Contact"> | boolean
   paymentTermsDays?: Prisma.IntFilter<"Contact"> | number
   notes?: Prisma.StringNullableFilter<"Contact"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Contact"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Contact"> | Date | string
+  receivableAccount?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   lines?: Prisma.JournalLineListRelationFilter
   projects?: Prisma.ProjectListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   bills?: Prisma.BillListRelationFilter
+  creditNotes?: Prisma.CreditNoteListRelationFilter
 }, "id" | "dedupeKey">
 
 export type ContactOrderByWithAggregationInput = {
@@ -417,6 +433,7 @@ export type ContactOrderByWithAggregationInput = {
   postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   country?: Prisma.SortOrder
   dedupeKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  receivableAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   businessNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -448,6 +465,7 @@ export type ContactScalarWhereWithAggregatesInput = {
   postalCode?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   country?: Prisma.StringWithAggregatesFilter<"Contact"> | string
   dedupeKey?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
+  receivableAccountId?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   businessNumber?: Prisma.StringNullableWithAggregatesFilter<"Contact"> | string | null
   isHstRegistered?: Prisma.BoolWithAggregatesFilter<"Contact"> | boolean
   paymentTermsDays?: Prisma.IntWithAggregatesFilter<"Contact"> | number
@@ -477,11 +495,13 @@ export type ContactCreateInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
   projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
   bills?: Prisma.BillCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
 }
 
 export type ContactUncheckedCreateInput = {
@@ -499,6 +519,7 @@ export type ContactUncheckedCreateInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -510,6 +531,7 @@ export type ContactUncheckedCreateInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type ContactUpdateInput = {
@@ -533,11 +555,13 @@ export type ContactUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
 }
 
 export type ContactUncheckedUpdateInput = {
@@ -555,6 +579,7 @@ export type ContactUncheckedUpdateInput = {
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -566,6 +591,7 @@ export type ContactUncheckedUpdateInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type ContactCreateManyInput = {
@@ -583,6 +609,7 @@ export type ContactCreateManyInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -629,12 +656,23 @@ export type ContactUncheckedUpdateManyInput = {
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContactListRelationFilter = {
+  every?: Prisma.ContactWhereInput
+  some?: Prisma.ContactWhereInput
+  none?: Prisma.ContactWhereInput
+}
+
+export type ContactOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ContactNullableScalarRelationFilter = {
@@ -657,6 +695,7 @@ export type ContactCountOrderByAggregateInput = {
   postalCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
   dedupeKey?: Prisma.SortOrder
+  receivableAccountId?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -684,6 +723,7 @@ export type ContactMaxOrderByAggregateInput = {
   postalCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
   dedupeKey?: Prisma.SortOrder
+  receivableAccountId?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -707,6 +747,7 @@ export type ContactMinOrderByAggregateInput = {
   postalCode?: Prisma.SortOrder
   country?: Prisma.SortOrder
   dedupeKey?: Prisma.SortOrder
+  receivableAccountId?: Prisma.SortOrder
   businessNumber?: Prisma.SortOrder
   isHstRegistered?: Prisma.SortOrder
   paymentTermsDays?: Prisma.SortOrder
@@ -722,6 +763,48 @@ export type ContactSumOrderByAggregateInput = {
 export type ContactScalarRelationFilter = {
   is?: Prisma.ContactWhereInput
   isNot?: Prisma.ContactWhereInput
+}
+
+export type ContactCreateNestedManyWithoutReceivableAccountInput = {
+  create?: Prisma.XOR<Prisma.ContactCreateWithoutReceivableAccountInput, Prisma.ContactUncheckedCreateWithoutReceivableAccountInput> | Prisma.ContactCreateWithoutReceivableAccountInput[] | Prisma.ContactUncheckedCreateWithoutReceivableAccountInput[]
+  connectOrCreate?: Prisma.ContactCreateOrConnectWithoutReceivableAccountInput | Prisma.ContactCreateOrConnectWithoutReceivableAccountInput[]
+  createMany?: Prisma.ContactCreateManyReceivableAccountInputEnvelope
+  connect?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+}
+
+export type ContactUncheckedCreateNestedManyWithoutReceivableAccountInput = {
+  create?: Prisma.XOR<Prisma.ContactCreateWithoutReceivableAccountInput, Prisma.ContactUncheckedCreateWithoutReceivableAccountInput> | Prisma.ContactCreateWithoutReceivableAccountInput[] | Prisma.ContactUncheckedCreateWithoutReceivableAccountInput[]
+  connectOrCreate?: Prisma.ContactCreateOrConnectWithoutReceivableAccountInput | Prisma.ContactCreateOrConnectWithoutReceivableAccountInput[]
+  createMany?: Prisma.ContactCreateManyReceivableAccountInputEnvelope
+  connect?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+}
+
+export type ContactUpdateManyWithoutReceivableAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.ContactCreateWithoutReceivableAccountInput, Prisma.ContactUncheckedCreateWithoutReceivableAccountInput> | Prisma.ContactCreateWithoutReceivableAccountInput[] | Prisma.ContactUncheckedCreateWithoutReceivableAccountInput[]
+  connectOrCreate?: Prisma.ContactCreateOrConnectWithoutReceivableAccountInput | Prisma.ContactCreateOrConnectWithoutReceivableAccountInput[]
+  upsert?: Prisma.ContactUpsertWithWhereUniqueWithoutReceivableAccountInput | Prisma.ContactUpsertWithWhereUniqueWithoutReceivableAccountInput[]
+  createMany?: Prisma.ContactCreateManyReceivableAccountInputEnvelope
+  set?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  disconnect?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  delete?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  connect?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  update?: Prisma.ContactUpdateWithWhereUniqueWithoutReceivableAccountInput | Prisma.ContactUpdateWithWhereUniqueWithoutReceivableAccountInput[]
+  updateMany?: Prisma.ContactUpdateManyWithWhereWithoutReceivableAccountInput | Prisma.ContactUpdateManyWithWhereWithoutReceivableAccountInput[]
+  deleteMany?: Prisma.ContactScalarWhereInput | Prisma.ContactScalarWhereInput[]
+}
+
+export type ContactUncheckedUpdateManyWithoutReceivableAccountNestedInput = {
+  create?: Prisma.XOR<Prisma.ContactCreateWithoutReceivableAccountInput, Prisma.ContactUncheckedCreateWithoutReceivableAccountInput> | Prisma.ContactCreateWithoutReceivableAccountInput[] | Prisma.ContactUncheckedCreateWithoutReceivableAccountInput[]
+  connectOrCreate?: Prisma.ContactCreateOrConnectWithoutReceivableAccountInput | Prisma.ContactCreateOrConnectWithoutReceivableAccountInput[]
+  upsert?: Prisma.ContactUpsertWithWhereUniqueWithoutReceivableAccountInput | Prisma.ContactUpsertWithWhereUniqueWithoutReceivableAccountInput[]
+  createMany?: Prisma.ContactCreateManyReceivableAccountInputEnvelope
+  set?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  disconnect?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  delete?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  connect?: Prisma.ContactWhereUniqueInput | Prisma.ContactWhereUniqueInput[]
+  update?: Prisma.ContactUpdateWithWhereUniqueWithoutReceivableAccountInput | Prisma.ContactUpdateWithWhereUniqueWithoutReceivableAccountInput[]
+  updateMany?: Prisma.ContactUpdateManyWithWhereWithoutReceivableAccountInput | Prisma.ContactUpdateManyWithWhereWithoutReceivableAccountInput[]
+  deleteMany?: Prisma.ContactScalarWhereInput | Prisma.ContactScalarWhereInput[]
 }
 
 export type ContactCreateNestedOneWithoutLinesInput = {
@@ -754,6 +837,20 @@ export type ContactUpdateOneWithoutProjectsNestedInput = {
   delete?: Prisma.ContactWhereInput | boolean
   connect?: Prisma.ContactWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContactUpdateToOneWithWhereWithoutProjectsInput, Prisma.ContactUpdateWithoutProjectsInput>, Prisma.ContactUncheckedUpdateWithoutProjectsInput>
+}
+
+export type ContactCreateNestedOneWithoutCreditNotesInput = {
+  create?: Prisma.XOR<Prisma.ContactCreateWithoutCreditNotesInput, Prisma.ContactUncheckedCreateWithoutCreditNotesInput>
+  connectOrCreate?: Prisma.ContactCreateOrConnectWithoutCreditNotesInput
+  connect?: Prisma.ContactWhereUniqueInput
+}
+
+export type ContactUpdateOneRequiredWithoutCreditNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.ContactCreateWithoutCreditNotesInput, Prisma.ContactUncheckedCreateWithoutCreditNotesInput>
+  connectOrCreate?: Prisma.ContactCreateOrConnectWithoutCreditNotesInput
+  upsert?: Prisma.ContactUpsertWithoutCreditNotesInput
+  connect?: Prisma.ContactWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContactUpdateToOneWithWhereWithoutCreditNotesInput, Prisma.ContactUpdateWithoutCreditNotesInput>, Prisma.ContactUncheckedUpdateWithoutCreditNotesInput>
 }
 
 export type ContactCreateNestedOneWithoutInvoicesInput = {
@@ -798,6 +895,117 @@ export type ContactUpdateOneRequiredWithoutBillsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContactUpdateToOneWithWhereWithoutBillsInput, Prisma.ContactUpdateWithoutBillsInput>, Prisma.ContactUncheckedUpdateWithoutBillsInput>
 }
 
+export type ContactCreateWithoutReceivableAccountInput = {
+  id?: string
+  name: string
+  isCustomer?: boolean
+  isVendor?: boolean
+  isActive?: boolean
+  email?: string | null
+  phone?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  province?: string | null
+  postalCode?: string | null
+  country?: string
+  dedupeKey?: string | null
+  businessNumber?: string | null
+  isHstRegistered?: boolean
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
+  bills?: Prisma.BillCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
+}
+
+export type ContactUncheckedCreateWithoutReceivableAccountInput = {
+  id?: string
+  name: string
+  isCustomer?: boolean
+  isVendor?: boolean
+  isActive?: boolean
+  email?: string | null
+  phone?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  province?: string | null
+  postalCode?: string | null
+  country?: string
+  dedupeKey?: string | null
+  businessNumber?: string | null
+  isHstRegistered?: boolean
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutContactInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutContactInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
+}
+
+export type ContactCreateOrConnectWithoutReceivableAccountInput = {
+  where: Prisma.ContactWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContactCreateWithoutReceivableAccountInput, Prisma.ContactUncheckedCreateWithoutReceivableAccountInput>
+}
+
+export type ContactCreateManyReceivableAccountInputEnvelope = {
+  data: Prisma.ContactCreateManyReceivableAccountInput | Prisma.ContactCreateManyReceivableAccountInput[]
+  skipDuplicates?: boolean
+}
+
+export type ContactUpsertWithWhereUniqueWithoutReceivableAccountInput = {
+  where: Prisma.ContactWhereUniqueInput
+  update: Prisma.XOR<Prisma.ContactUpdateWithoutReceivableAccountInput, Prisma.ContactUncheckedUpdateWithoutReceivableAccountInput>
+  create: Prisma.XOR<Prisma.ContactCreateWithoutReceivableAccountInput, Prisma.ContactUncheckedCreateWithoutReceivableAccountInput>
+}
+
+export type ContactUpdateWithWhereUniqueWithoutReceivableAccountInput = {
+  where: Prisma.ContactWhereUniqueInput
+  data: Prisma.XOR<Prisma.ContactUpdateWithoutReceivableAccountInput, Prisma.ContactUncheckedUpdateWithoutReceivableAccountInput>
+}
+
+export type ContactUpdateManyWithWhereWithoutReceivableAccountInput = {
+  where: Prisma.ContactScalarWhereInput
+  data: Prisma.XOR<Prisma.ContactUpdateManyMutationInput, Prisma.ContactUncheckedUpdateManyWithoutReceivableAccountInput>
+}
+
+export type ContactScalarWhereInput = {
+  AND?: Prisma.ContactScalarWhereInput | Prisma.ContactScalarWhereInput[]
+  OR?: Prisma.ContactScalarWhereInput[]
+  NOT?: Prisma.ContactScalarWhereInput | Prisma.ContactScalarWhereInput[]
+  id?: Prisma.StringFilter<"Contact"> | string
+  name?: Prisma.StringFilter<"Contact"> | string
+  isCustomer?: Prisma.BoolFilter<"Contact"> | boolean
+  isVendor?: Prisma.BoolFilter<"Contact"> | boolean
+  isActive?: Prisma.BoolFilter<"Contact"> | boolean
+  email?: Prisma.StringNullableFilter<"Contact"> | string | null
+  phone?: Prisma.StringNullableFilter<"Contact"> | string | null
+  addressLine1?: Prisma.StringNullableFilter<"Contact"> | string | null
+  addressLine2?: Prisma.StringNullableFilter<"Contact"> | string | null
+  city?: Prisma.StringNullableFilter<"Contact"> | string | null
+  province?: Prisma.StringNullableFilter<"Contact"> | string | null
+  postalCode?: Prisma.StringNullableFilter<"Contact"> | string | null
+  country?: Prisma.StringFilter<"Contact"> | string
+  dedupeKey?: Prisma.StringNullableFilter<"Contact"> | string | null
+  receivableAccountId?: Prisma.StringNullableFilter<"Contact"> | string | null
+  businessNumber?: Prisma.StringNullableFilter<"Contact"> | string | null
+  isHstRegistered?: Prisma.BoolFilter<"Contact"> | boolean
+  paymentTermsDays?: Prisma.IntFilter<"Contact"> | number
+  notes?: Prisma.StringNullableFilter<"Contact"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Contact"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Contact"> | Date | string
+}
+
 export type ContactCreateWithoutLinesInput = {
   id?: string
   name: string
@@ -819,10 +1027,12 @@ export type ContactCreateWithoutLinesInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
   projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
   bills?: Prisma.BillCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
 }
 
 export type ContactUncheckedCreateWithoutLinesInput = {
@@ -840,6 +1050,7 @@ export type ContactUncheckedCreateWithoutLinesInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -850,6 +1061,7 @@ export type ContactUncheckedCreateWithoutLinesInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type ContactCreateOrConnectWithoutLinesInput = {
@@ -889,10 +1101,12 @@ export type ContactUpdateWithoutLinesInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
 }
 
 export type ContactUncheckedUpdateWithoutLinesInput = {
@@ -910,6 +1124,7 @@ export type ContactUncheckedUpdateWithoutLinesInput = {
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -920,6 +1135,7 @@ export type ContactUncheckedUpdateWithoutLinesInput = {
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type ContactCreateWithoutProjectsInput = {
@@ -943,10 +1159,12 @@ export type ContactCreateWithoutProjectsInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
   bills?: Prisma.BillCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
 }
 
 export type ContactUncheckedCreateWithoutProjectsInput = {
@@ -964,6 +1182,7 @@ export type ContactUncheckedCreateWithoutProjectsInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -974,6 +1193,7 @@ export type ContactUncheckedCreateWithoutProjectsInput = {
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type ContactCreateOrConnectWithoutProjectsInput = {
@@ -1013,13 +1233,118 @@ export type ContactUpdateWithoutProjectsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
 }
 
 export type ContactUncheckedUpdateWithoutProjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVendor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutContactNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
+}
+
+export type ContactCreateWithoutCreditNotesInput = {
+  id?: string
+  name: string
+  isCustomer?: boolean
+  isVendor?: boolean
+  isActive?: boolean
+  email?: string | null
+  phone?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  province?: string | null
+  postalCode?: string | null
+  country?: string
+  dedupeKey?: string | null
+  businessNumber?: string | null
+  isHstRegistered?: boolean
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
+  lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
+  bills?: Prisma.BillCreateNestedManyWithoutContactInput
+}
+
+export type ContactUncheckedCreateWithoutCreditNotesInput = {
+  id?: string
+  name: string
+  isCustomer?: boolean
+  isVendor?: boolean
+  isActive?: boolean
+  email?: string | null
+  phone?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  province?: string | null
+  postalCode?: string | null
+  country?: string
+  dedupeKey?: string | null
+  receivableAccountId?: string | null
+  businessNumber?: string | null
+  isHstRegistered?: boolean
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutContactInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutContactInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+}
+
+export type ContactCreateOrConnectWithoutCreditNotesInput = {
+  where: Prisma.ContactWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContactCreateWithoutCreditNotesInput, Prisma.ContactUncheckedCreateWithoutCreditNotesInput>
+}
+
+export type ContactUpsertWithoutCreditNotesInput = {
+  update: Prisma.XOR<Prisma.ContactUpdateWithoutCreditNotesInput, Prisma.ContactUncheckedUpdateWithoutCreditNotesInput>
+  create: Prisma.XOR<Prisma.ContactCreateWithoutCreditNotesInput, Prisma.ContactUncheckedCreateWithoutCreditNotesInput>
+  where?: Prisma.ContactWhereInput
+}
+
+export type ContactUpdateToOneWithWhereWithoutCreditNotesInput = {
+  where?: Prisma.ContactWhereInput
+  data: Prisma.XOR<Prisma.ContactUpdateWithoutCreditNotesInput, Prisma.ContactUncheckedUpdateWithoutCreditNotesInput>
+}
+
+export type ContactUpdateWithoutCreditNotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1040,7 +1365,38 @@ export type ContactUncheckedUpdateWithoutProjectsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
+  lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
+  bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+}
+
+export type ContactUncheckedUpdateWithoutCreditNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVendor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutContactNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
@@ -1067,10 +1423,12 @@ export type ContactCreateWithoutInvoicesInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
   projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
   bills?: Prisma.BillCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
 }
 
 export type ContactUncheckedCreateWithoutInvoicesInput = {
@@ -1088,6 +1446,7 @@ export type ContactUncheckedCreateWithoutInvoicesInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1098,6 +1457,7 @@ export type ContactUncheckedCreateWithoutInvoicesInput = {
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type ContactCreateOrConnectWithoutInvoicesInput = {
@@ -1137,10 +1497,12 @@ export type ContactUpdateWithoutInvoicesInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
 }
 
 export type ContactUncheckedUpdateWithoutInvoicesInput = {
@@ -1158,6 +1520,7 @@ export type ContactUncheckedUpdateWithoutInvoicesInput = {
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1168,6 +1531,7 @@ export type ContactUncheckedUpdateWithoutInvoicesInput = {
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type ContactCreateWithoutPaymentsInput = {
@@ -1191,10 +1555,12 @@ export type ContactCreateWithoutPaymentsInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
   projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
   bills?: Prisma.BillCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
 }
 
 export type ContactUncheckedCreateWithoutPaymentsInput = {
@@ -1212,6 +1578,7 @@ export type ContactUncheckedCreateWithoutPaymentsInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1222,6 +1589,7 @@ export type ContactUncheckedCreateWithoutPaymentsInput = {
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type ContactCreateOrConnectWithoutPaymentsInput = {
@@ -1261,10 +1629,12 @@ export type ContactUpdateWithoutPaymentsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
 }
 
 export type ContactUncheckedUpdateWithoutPaymentsInput = {
@@ -1282,6 +1652,7 @@ export type ContactUncheckedUpdateWithoutPaymentsInput = {
   postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   country?: Prisma.StringFieldUpdateOperationsInput | string
   dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1292,6 +1663,7 @@ export type ContactUncheckedUpdateWithoutPaymentsInput = {
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
 }
 
 export type ContactCreateWithoutBillsInput = {
@@ -1315,10 +1687,12 @@ export type ContactCreateWithoutBillsInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  receivableAccount?: Prisma.AccountCreateNestedOneWithoutReceivableForInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutContactInput
   projects?: Prisma.ProjectCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteCreateNestedManyWithoutContactInput
 }
 
 export type ContactUncheckedCreateWithoutBillsInput = {
@@ -1336,6 +1710,7 @@ export type ContactUncheckedCreateWithoutBillsInput = {
   postalCode?: string | null
   country?: string
   dedupeKey?: string | null
+  receivableAccountId?: string | null
   businessNumber?: string | null
   isHstRegistered?: boolean
   paymentTermsDays?: number
@@ -1346,6 +1721,7 @@ export type ContactUncheckedCreateWithoutBillsInput = {
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutContactInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutContactInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutContactInput
+  creditNotes?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutContactInput
 }
 
 export type ContactCreateOrConnectWithoutBillsInput = {
@@ -1385,13 +1761,96 @@ export type ContactUpdateWithoutBillsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  receivableAccount?: Prisma.AccountUpdateOneWithoutReceivableForNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
 }
 
 export type ContactUncheckedUpdateWithoutBillsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVendor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivableAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutContactNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutContactNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
+}
+
+export type ContactCreateManyReceivableAccountInput = {
+  id?: string
+  name: string
+  isCustomer?: boolean
+  isVendor?: boolean
+  isActive?: boolean
+  email?: string | null
+  phone?: string | null
+  addressLine1?: string | null
+  addressLine2?: string | null
+  city?: string | null
+  province?: string | null
+  postalCode?: string | null
+  country?: string
+  dedupeKey?: string | null
+  businessNumber?: string | null
+  isHstRegistered?: boolean
+  paymentTermsDays?: number
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ContactUpdateWithoutReceivableAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVendor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUpdateManyWithoutContactNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutContactNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutContactNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutContactNestedInput
+  bills?: Prisma.BillUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUpdateManyWithoutContactNestedInput
+}
+
+export type ContactUncheckedUpdateWithoutReceivableAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1416,6 +1875,31 @@ export type ContactUncheckedUpdateWithoutBillsInput = {
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutContactNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutContactNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutContactNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutContactNestedInput
+  creditNotes?: Prisma.CreditNoteUncheckedUpdateManyWithoutContactNestedInput
+}
+
+export type ContactUncheckedUpdateManyWithoutReceivableAccountInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isCustomer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVendor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine2?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  businessNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isHstRegistered?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  paymentTermsDays?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1429,6 +1913,7 @@ export type ContactCountOutputType = {
   invoices: number
   payments: number
   bills: number
+  creditNotes: number
 }
 
 export type ContactCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1437,6 +1922,7 @@ export type ContactCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   invoices?: boolean | ContactCountOutputTypeCountInvoicesArgs
   payments?: boolean | ContactCountOutputTypeCountPaymentsArgs
   bills?: boolean | ContactCountOutputTypeCountBillsArgs
+  creditNotes?: boolean | ContactCountOutputTypeCountCreditNotesArgs
 }
 
 /**
@@ -1484,6 +1970,13 @@ export type ContactCountOutputTypeCountBillsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.BillWhereInput
 }
 
+/**
+ * ContactCountOutputType without action
+ */
+export type ContactCountOutputTypeCountCreditNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CreditNoteWhereInput
+}
+
 
 export type ContactSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1500,17 +1993,20 @@ export type ContactSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   postalCode?: boolean
   country?: boolean
   dedupeKey?: boolean
+  receivableAccountId?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  receivableAccount?: boolean | Prisma.Contact$receivableAccountArgs<ExtArgs>
   lines?: boolean | Prisma.Contact$linesArgs<ExtArgs>
   projects?: boolean | Prisma.Contact$projectsArgs<ExtArgs>
   invoices?: boolean | Prisma.Contact$invoicesArgs<ExtArgs>
   payments?: boolean | Prisma.Contact$paymentsArgs<ExtArgs>
   bills?: boolean | Prisma.Contact$billsArgs<ExtArgs>
+  creditNotes?: boolean | Prisma.Contact$creditNotesArgs<ExtArgs>
   _count?: boolean | Prisma.ContactCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contact"]>
 
@@ -1529,12 +2025,14 @@ export type ContactSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   postalCode?: boolean
   country?: boolean
   dedupeKey?: boolean
+  receivableAccountId?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  receivableAccount?: boolean | Prisma.Contact$receivableAccountArgs<ExtArgs>
 }, ExtArgs["result"]["contact"]>
 
 export type ContactSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1552,12 +2050,14 @@ export type ContactSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   postalCode?: boolean
   country?: boolean
   dedupeKey?: boolean
+  receivableAccountId?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  receivableAccount?: boolean | Prisma.Contact$receivableAccountArgs<ExtArgs>
 }, ExtArgs["result"]["contact"]>
 
 export type ContactSelectScalar = {
@@ -1575,6 +2075,7 @@ export type ContactSelectScalar = {
   postalCode?: boolean
   country?: boolean
   dedupeKey?: boolean
+  receivableAccountId?: boolean
   businessNumber?: boolean
   isHstRegistered?: boolean
   paymentTermsDays?: boolean
@@ -1583,26 +2084,34 @@ export type ContactSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ContactOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isCustomer" | "isVendor" | "isActive" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "dedupeKey" | "businessNumber" | "isHstRegistered" | "paymentTermsDays" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["contact"]>
+export type ContactOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isCustomer" | "isVendor" | "isActive" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "dedupeKey" | "receivableAccountId" | "businessNumber" | "isHstRegistered" | "paymentTermsDays" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["contact"]>
 export type ContactInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  receivableAccount?: boolean | Prisma.Contact$receivableAccountArgs<ExtArgs>
   lines?: boolean | Prisma.Contact$linesArgs<ExtArgs>
   projects?: boolean | Prisma.Contact$projectsArgs<ExtArgs>
   invoices?: boolean | Prisma.Contact$invoicesArgs<ExtArgs>
   payments?: boolean | Prisma.Contact$paymentsArgs<ExtArgs>
   bills?: boolean | Prisma.Contact$billsArgs<ExtArgs>
+  creditNotes?: boolean | Prisma.Contact$creditNotesArgs<ExtArgs>
   _count?: boolean | Prisma.ContactCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ContactIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ContactIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ContactIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  receivableAccount?: boolean | Prisma.Contact$receivableAccountArgs<ExtArgs>
+}
+export type ContactIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  receivableAccount?: boolean | Prisma.Contact$receivableAccountArgs<ExtArgs>
+}
 
 export type $ContactPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Contact"
   objects: {
+    receivableAccount: Prisma.$AccountPayload<ExtArgs> | null
     lines: Prisma.$JournalLinePayload<ExtArgs>[]
     projects: Prisma.$ProjectPayload<ExtArgs>[]
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     bills: Prisma.$BillPayload<ExtArgs>[]
+    creditNotes: Prisma.$CreditNotePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1619,6 +2128,7 @@ export type $ContactPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     postalCode: string | null
     country: string
     dedupeKey: string | null
+    receivableAccountId: string | null
     businessNumber: string | null
     isHstRegistered: boolean
     paymentTermsDays: number
@@ -2019,11 +2529,13 @@ readonly fields: ContactFieldRefs;
  */
 export interface Prisma__ContactClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  receivableAccount<T extends Prisma.Contact$receivableAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$receivableAccountArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   lines<T extends Prisma.Contact$linesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$linesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projects<T extends Prisma.Contact$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoices<T extends Prisma.Contact$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Contact$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bills<T extends Prisma.Contact$billsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$billsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  creditNotes<T extends Prisma.Contact$creditNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Contact$creditNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2067,6 +2579,7 @@ export interface ContactFieldRefs {
   readonly postalCode: Prisma.FieldRef<"Contact", 'String'>
   readonly country: Prisma.FieldRef<"Contact", 'String'>
   readonly dedupeKey: Prisma.FieldRef<"Contact", 'String'>
+  readonly receivableAccountId: Prisma.FieldRef<"Contact", 'String'>
   readonly businessNumber: Prisma.FieldRef<"Contact", 'String'>
   readonly isHstRegistered: Prisma.FieldRef<"Contact", 'Boolean'>
   readonly paymentTermsDays: Prisma.FieldRef<"Contact", 'Int'>
@@ -2327,6 +2840,10 @@ export type ContactCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.ContactCreateManyInput | Prisma.ContactCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2397,6 +2914,10 @@ export type ContactUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many Contacts to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContactIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2463,6 +2984,25 @@ export type ContactDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Contacts to delete.
    */
   limit?: number
+}
+
+/**
+ * Contact.receivableAccount
+ */
+export type Contact$receivableAccountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Account
+   */
+  select?: Prisma.AccountSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Account
+   */
+  omit?: Prisma.AccountOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccountInclude<ExtArgs> | null
+  where?: Prisma.AccountWhereInput
 }
 
 /**
@@ -2583,6 +3123,30 @@ export type Contact$billsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.BillScalarFieldEnum | Prisma.BillScalarFieldEnum[]
+}
+
+/**
+ * Contact.creditNotes
+ */
+export type Contact$creditNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CreditNote
+   */
+  select?: Prisma.CreditNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CreditNote
+   */
+  omit?: Prisma.CreditNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CreditNoteInclude<ExtArgs> | null
+  where?: Prisma.CreditNoteWhereInput
+  orderBy?: Prisma.CreditNoteOrderByWithRelationInput | Prisma.CreditNoteOrderByWithRelationInput[]
+  cursor?: Prisma.CreditNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CreditNoteScalarFieldEnum | Prisma.CreditNoteScalarFieldEnum[]
 }
 
 /**

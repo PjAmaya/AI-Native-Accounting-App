@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, CheckCircle2, TriangleAlert } from "lucide-react";
+import { ArrowLeft, CheckCircle2, TriangleAlert, Wallet } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
@@ -53,6 +53,15 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
           </p>
         </div>
 
+        {bill.status === "APPROVED" && outstanding.greaterThan(0) ? (
+          <Link
+            href={`/payments/new?bill=${bill.id}`}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+          >
+            <Wallet size={14} strokeWidth={2} aria-hidden />
+            Record payment
+          </Link>
+        ) : null}
         {bill.status === "DRAFT" ? (
           <form action={approve} className="shrink-0">
             <button

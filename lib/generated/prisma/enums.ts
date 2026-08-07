@@ -53,6 +53,17 @@ export const EntryStatus = {
 export type EntryStatus = (typeof EntryStatus)[keyof typeof EntryStatus]
 
 
+export const CreditNoteStatus = {
+  DRAFT: 'DRAFT',
+  ISSUED: 'ISSUED',
+  APPLIED: 'APPLIED',
+  REFUNDED: 'REFUNDED',
+  VOID: 'VOID'
+} as const
+
+export type CreditNoteStatus = (typeof CreditNoteStatus)[keyof typeof CreditNoteStatus]
+
+
 export const InvoiceStatus = {
   DRAFT: 'DRAFT',
   ISSUED: 'ISSUED',

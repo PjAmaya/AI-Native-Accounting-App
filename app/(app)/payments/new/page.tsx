@@ -6,14 +6,19 @@ import { PaymentForm, type PaymentFormOptions, type OpenDoc } from "@/components
 
 export const dynamic = "force-dynamic";
 
-export default async function NewPaymentPage() {
+export default async function NewPaymentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ invoice?: string; bill?: string }>;
+}) {
+  const { invoice: presetInvoiceId, bill: presetBillId } = await searchParams;
   const [customers, vendors, cashParent, invoices, bills] = await Promise.all([
     prisma.contact.findMany({ where: { isCustomer: true, isActive: true }, orderBy: { name: "asc" } }),
     prisma.contact.findMany({ where: { isVendor: true, isActive: true }, orderBy: { name: "asc" } }),
     prisma.account.findUnique({ where: { code: "1000" } }),
     prisma.invoice.findMany({
       where: { status: "ISSUED" },
-      include: { applications: true },
+      include: { applications: true, creditApplications: true },
       orderBy: { dueDate: "asc" },
     }),
     prisma.bill.findMany({
@@ -33,7 +38,7 @@ export default async function NewPaymentPage() {
   const openDocs: OpenDoc[] = [];
 
   for (const invoice of invoices) {
-    const applied = invoice.applications.reduce(
+    const applied = [...invoice.applications, ...invoice.creditApplications].reduce(
       (sum, a) => sum.plus(a.amountApplied.toString()),
       new Decimal(0),
     );
@@ -68,7 +73,22 @@ export default async function NewPaymentPage() {
     });
   }
 
+  const presetInvoice = presetInvoiceId
+    ? invoices.find((i) => i.id === presetInvoiceId)
+    : undefined;
+  const presetBill = presetBillId ? bills.find((b) => b.id === presetBillId) : undefined;
+
+  const presetDoc = presetInvoice
+    ? openDocs.find((d) => d.kind === "INVOICE" && d.key === presetInvoice.invoiceNumber)
+    : presetBill
+      ? openDocs.find((d) => d.kind === "BILL" && d.key === String(presetBill.billNumber))
+      : undefined;
+
   const options: PaymentFormOptions = {
+    presetDirection: presetBill ? "SENT" : presetInvoice ? "RECEIVED" : undefined,
+    presetContactId: presetInvoice?.contactId ?? presetBill?.contactId,
+    presetApplied: presetDoc ? { [presetDoc.key]: presetDoc.outstanding } : undefined,
+    presetAmount: presetDoc?.outstanding,
     customers: customers.map((c) => ({ value: c.id, label: c.name })),
     vendors: vendors.map((v) => ({ value: v.id, label: v.name })),
     bankAccounts: bankAccounts.map((a) => ({ value: a.code, label: `${a.code} ${a.name}` })),

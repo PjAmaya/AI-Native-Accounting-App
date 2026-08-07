@@ -9,18 +9,21 @@ export const dynamic = "force-dynamic";
 
 export default async function InvoicesPage() {
   const invoices = await prisma.invoice.findMany({
-    include: { contact: true, applications: true },
+    include: { contact: true, applications: true, creditApplications: true },
     orderBy: [{ invoiceDate: "desc" }, { invoiceNumber: "desc" }],
   });
 
   const today = new Date();
 
   const rows = invoices.map((invoice) => {
-    const applied = invoice.applications.reduce(
+    const applied = [...invoice.applications, ...invoice.creditApplications].reduce(
       (sum, a) => sum.plus(a.amountApplied.toString()),
       new Decimal(0),
     );
-    const outstanding = new Decimal(invoice.total.toString()).minus(applied);
+    const outstanding =
+      invoice.status === "VOID"
+        ? new Decimal(0)
+        : new Decimal(invoice.total.toString()).minus(applied);
     const overdue =
       invoice.status === "ISSUED" && outstanding.greaterThan(0) && invoice.dueDate < today;
 

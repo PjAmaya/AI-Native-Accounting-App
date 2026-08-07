@@ -61,10 +61,17 @@ export type ContactValues = {
   businessNumber: string;
   isHstRegistered: boolean;
   paymentTermsDays: string;
+  receivableAccountCode: string;
   notes: string;
 };
 
-export function ContactForm({ values }: { values?: ContactValues }) {
+export function ContactForm({
+  values,
+  receivableAccounts = [],
+}: {
+  values?: ContactValues;
+  receivableAccounts?: { value: string; label: string }[];
+}) {
   const [state, action] = useActionState<ContactFormState, FormData>(saveContact, null);
   const err = (key: string) => state?.errors?.[key];
   const v = values;
@@ -147,6 +154,27 @@ export function ContactForm({ values }: { values?: ContactValues }) {
           hint="Only matters for vendors — it decides whether their tax is recoverable."
           defaultChecked={v?.isHstRegistered}
         />
+        <Field
+          label="Receivable account"
+          htmlFor="receivableAccountCode"
+          hint="Where their invoices post. Use partner receivables for cost recoveries."
+          error={err("receivableAccountCode")}
+        >
+          <select
+            id="receivableAccountCode"
+            name="receivableAccountCode"
+            defaultValue={v?.receivableAccountCode ?? ""}
+            className={inputClass}
+          >
+            <option value="">Default</option>
+            {receivableAccounts.map((a) => (
+              <option key={a.value} value={a.value}>
+                {a.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+
         <Field label="Notes" htmlFor="notes">
           <textarea id="notes" name="notes" rows={3} defaultValue={v?.notes} className={inputClass} />
         </Field>

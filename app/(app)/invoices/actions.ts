@@ -4,8 +4,9 @@ import Decimal from "decimal.js";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createInvoice, type InvoiceDraft, type InvoiceDraftLine } from "@/lib/invoicing/createInvoice";
-import { updateDraftInvoice } from "@/lib/invoicing/updateDraftInvoice";
+import { updateDraftInvoice, deleteDraftInvoice } from "@/lib/invoicing/updateDraftInvoice";
 import { issueInvoice } from "@/lib/invoicing/issueInvoice";
+import { voidInvoice } from "@/lib/invoicing/voidInvoice";
 
 export type InvoiceFormState = {
   ok: boolean;
@@ -137,6 +138,32 @@ export async function saveInvoiceAction(
   }
 
   revalidatePath("/invoices");
+  redirect(`/invoices/${invoiceId}`);
+}
+
+export async function deleteInvoiceAction(invoiceId: string) {
+  await deleteDraftInvoice(invoiceId);
+  revalidatePath("/invoices");
+  redirect("/invoices");
+}
+
+export async function voidInvoiceAction(invoiceId: string, formData: FormData) {
+  const reason = typeof formData.get("reason") === "string"
+    ? (formData.get("reason") as string).trim()
+    : "";
+
+  if (!reason) {
+    redirect(`/invoices/${invoiceId}?voidError=${encodeURIComponent("A reason is required.")}`);
+  }
+
+  try {
+    await voidInvoice(invoiceId, { reason });
+  } catch (e) {
+    redirect(`/invoices/${invoiceId}?voidError=${encodeURIComponent((e as Error).message)}`);
+  }
+
+  revalidatePath("/invoices");
+  revalidatePath(`/invoices/${invoiceId}`);
   redirect(`/invoices/${invoiceId}`);
 }
 

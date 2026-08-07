@@ -20,7 +20,10 @@ export default async function BillsPage() {
       (sum, a) => sum.plus(a.amountApplied.toString()),
       new Decimal(0),
     );
-    const outstanding = new Decimal(bill.total.toString()).minus(applied);
+    const outstanding =
+      bill.status === "VOID"
+        ? new Decimal(0)
+        : new Decimal(bill.total.toString()).minus(applied);
     const overdue = bill.status === "APPROVED" && outstanding.greaterThan(0) && bill.dueDate < today;
     return { bill, outstanding, status: overdue ? "OVERDUE" : bill.status };
   });

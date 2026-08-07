@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AlertTriangle, CircleAlert, Info, Check } from "lucide-react";
 import { currentExceptions, type Severity } from "@/lib/reporting/exceptions";
+import { AskPanel } from "./AskPanel";
 import { money } from "@/lib/format";
 
 const STYLES: Record<Severity, { icon: typeof Info; dot: string; label: string }> = {
@@ -77,11 +78,7 @@ export async function ExceptionRail() {
         )}
       </div>
 
-      <div className="border-t border-rule px-5 py-4">
-        <div className="rounded-md border border-dashed border-rule px-3 py-2.5 text-[11px] text-faint">
-          Ask a question — coming after the invoicing screens.
-        </div>
-      </div>
+      <AskPanel />
     </aside>
   );
 }

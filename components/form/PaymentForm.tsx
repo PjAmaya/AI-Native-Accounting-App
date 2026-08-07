@@ -23,6 +23,10 @@ export type PaymentFormOptions = {
   bankAccounts: { value: string; label: string }[];
   openDocs: OpenDoc[];
   defaultDate: string;
+  presetDirection?: "RECEIVED" | "SENT";
+  presetContactId?: string;
+  presetApplied?: Record<string, string>;
+  presetAmount?: string;
 };
 
 function dec(value: string) {
@@ -73,17 +77,21 @@ export function PaymentForm({
   const [state, action] = useActionState<PaymentFormState, FormData>(savePaymentAction, null);
   const err = (key: string) => state?.errors?.[key];
 
-  const [direction, setDirection] = useState<"RECEIVED" | "SENT">(values?.direction ?? "RECEIVED");
-  const [contactId, setContactId] = useState(values?.contactId ?? "");
+  const [direction, setDirection] = useState<"RECEIVED" | "SENT">(
+    values?.direction ?? options.presetDirection ?? "RECEIVED",
+  );
+  const [contactId, setContactId] = useState(values?.contactId ?? options.presetContactId ?? "");
   const [paymentDate, setPaymentDate] = useState(values?.paymentDate ?? options.defaultDate);
-  const [amount, setAmount] = useState(values?.amount ?? "");
+  const [amount, setAmount] = useState(values?.amount ?? options.presetAmount ?? "");
   const [bankAccountCode, setBankAccountCode] = useState(
     values?.bankAccountCode ?? options.bankAccounts[0]?.value ?? "",
   );
   const [method, setMethod] = useState(values?.method ?? "");
   const [reference, setReference] = useState(values?.reference ?? "");
   const [notes, setNotes] = useState(values?.notes ?? "");
-  const [applied, setApplied] = useState<Record<string, string>>(values?.applied ?? {});
+  const [applied, setApplied] = useState<Record<string, string>>(
+    values?.applied ?? options.presetApplied ?? {},
+  );
 
   const wantedKind = direction === "RECEIVED" ? "INVOICE" : "BILL";
   const contacts = direction === "RECEIVED" ? options.customers : options.vendors;

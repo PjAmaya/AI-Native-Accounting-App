@@ -6,6 +6,7 @@ import Decimal from "decimal.js";
 import { Plus, Trash2, TriangleAlert } from "lucide-react";
 import { saveInvoiceAction, type InvoiceFormState } from "@/app/(app)/invoices/actions";
 import { inputClass } from "./fields";
+import { computeInvoiceTotals } from "@/lib/invoicing/tax";
 
 export type Option = { value: string; label: string };
 
@@ -14,6 +15,7 @@ export type InvoiceFormOptions = {
   projects: Option[];
   revenueAccounts: Option[];
   taxRates: Option[];
+  taxRatePercents: Record<string, string>;
   defaultDate: string;
 };
 
@@ -119,8 +121,15 @@ export function InvoiceForm({
   const set = (key: number, field: keyof Row, value: string) =>
     setRows((prev) => prev.map((r) => (r.key === key ? { ...r, [field]: value } : r)));
 
-  const subtotal = rows.reduce((sum, r) => sum.plus(lineTotal(r)), new Decimal(0));
-  const filled = rows.filter((r) => r.description && r.unitRate).length;
+  const priced = rows.filter((r) => r.quantity && r.unitRate);
+  const preview = computeInvoiceTotals(
+    priced.map((r) => ({
+      amount: lineTotal(r).toFixed(2),
+      ratePercent: r.taxRate ? (options.taxRatePercents[r.taxRate] ?? "0") : "0",
+    })),
+  );
+  const subtotal = preview.subtotal;
+  const filled = priced.filter((r) => r.description).length;
 
   return (
     <form action={action} className="grid gap-5">
@@ -356,11 +365,20 @@ export function InvoiceForm({
               <span className="text-muted">Lines</span>
               <span className="figure">{filled}</span>
             </div>
-            <div className="flex justify-between border-t border-rule py-1.5 text-[13px] font-semibold">
-              <span>Subtotal</span>
-              <span className="figure !text-[15px]">${subtotal.toFixed(2)}</span>
+            <div className="flex justify-between border-t border-rule py-1 text-[13px]">
+              <span className="text-muted">Subtotal</span>
+              <span className="figure">${subtotal.toFixed(2)}</span>
             </div>
-            <p className="mt-1 text-[11px] text-faint">Tax is calculated on save.</p>
+            {preview.taxTotal.greaterThan(0) ? (
+              <div className="flex justify-between py-1 text-[13px]">
+                <span className="text-muted">Tax</span>
+                <span className="figure">${preview.taxTotal.toFixed(2)}</span>
+              </div>
+            ) : null}
+            <div className="flex justify-between border-t border-rule py-1.5 text-[13px] font-semibold">
+              <span>Total</span>
+              <span className="figure !text-[15px]">${preview.total.toFixed(2)}</span>
+            </div>
           </div>
         </div>
       </section>

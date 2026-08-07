@@ -287,6 +287,23 @@ export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDecimalFilter<$PrismaModel>
 }
 
+export type EnumCreditNoteStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CreditNoteStatus | Prisma.EnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCreditNoteStatusFilter<$PrismaModel> | $Enums.CreditNoteStatus
+}
+
+export type EnumCreditNoteStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CreditNoteStatus | Prisma.EnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCreditNoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.CreditNoteStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCreditNoteStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCreditNoteStatusFilter<$PrismaModel>
+}
+
 export type EnumInvoiceStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.InvoiceStatus | Prisma.EnumInvoiceStatusFieldRefInput<$PrismaModel>
   in?: $Enums.InvoiceStatus[] | Prisma.ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
@@ -666,6 +683,23 @@ export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalFilter<$PrismaModel>
+}
+
+export type NestedEnumCreditNoteStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CreditNoteStatus | Prisma.EnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCreditNoteStatusFilter<$PrismaModel> | $Enums.CreditNoteStatus
+}
+
+export type NestedEnumCreditNoteStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CreditNoteStatus | Prisma.EnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CreditNoteStatus[] | Prisma.ListEnumCreditNoteStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCreditNoteStatusWithAggregatesFilter<$PrismaModel> | $Enums.CreditNoteStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCreditNoteStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCreditNoteStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumInvoiceStatusFilter<$PrismaModel = never> = {

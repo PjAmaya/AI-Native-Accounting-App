@@ -10,11 +10,19 @@ export async function syncInvoiceStatusTx(tx: TxClient, invoiceIds: string[]) {
     if (!invoice) continue;
     if (invoice.status !== "ISSUED" && invoice.status !== "PAID") continue;
 
-    const agg = await tx.paymentApplication.aggregate({
-      where: { invoiceId },
-      _sum: { amountApplied: true },
-    });
-    const applied = new Decimal(agg._sum.amountApplied?.toString() ?? "0");
+    const [payments, credits] = await Promise.all([
+      tx.paymentApplication.aggregate({
+        where: { invoiceId },
+        _sum: { amountApplied: true },
+      }),
+      tx.creditApplication.aggregate({
+        where: { invoiceId },
+        _sum: { amountApplied: true },
+      }),
+    ]);
+    const applied = new Decimal(payments._sum.amountApplied?.toString() ?? "0").plus(
+      new Decimal(credits._sum.amountApplied?.toString() ?? "0"),
+    );
     const settled = applied.greaterThanOrEqualTo(new Decimal(invoice.total.toString()));
 
     const next = settled ? "PAID" : "ISSUED";
