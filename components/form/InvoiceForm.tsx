@@ -207,7 +207,7 @@ export function InvoiceForm({
             />
           </div>
           <div>
-            <label htmlFor="projectCode" className="eyebrow">Default project</label>
+            <label htmlFor="projectCode" className="eyebrow">Project</label>
             <select
               id="projectCode"
               name="projectCode"
@@ -271,19 +271,6 @@ export function InvoiceForm({
                   >
                     {options.revenueAccounts.map((a) => (
                       <option key={a.value} value={a.value}>{a.label}</option>
-                    ))}
-                  </select>
-                </td>
-                <td className="px-1 py-1">
-                  <select
-                    name="lineProject"
-                    value={row.project}
-                    onChange={(e) => set(row.key, "project", e.target.value)}
-                    className={`${cell} text-[12px]`}
-                  >
-                    <option value="">—</option>
-                    {options.projects.map((p) => (
-                      <option key={p.value} value={p.value}>{p.value}</option>
                     ))}
                   </select>
                 </td>

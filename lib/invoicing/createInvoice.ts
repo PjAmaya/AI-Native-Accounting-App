@@ -126,6 +126,21 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
     : 1;
   const invoiceNumber = draft.forceInvoiceNumber ?? prefix + String(sequence).padStart(4, "0");
 
+  const lineProjects = [
+    ...new Set(draft.lines.map((l) => l.projectCode).filter((c): c is string => Boolean(c))),
+  ];
+  if (lineProjects.length > 1) {
+    throw new Error(
+      `An invoice can only belong to one project. These lines span ${lineProjects.join(", ")}. ` +
+        `Split them into separate invoices.`,
+    );
+  }
+  if (lineProjects.length === 1 && draft.projectCode && lineProjects[0] !== draft.projectCode) {
+    throw new Error(
+      `Line project ${lineProjects[0]} does not match the invoice project ${draft.projectCode}.`,
+    );
+  }
+
   const invoiceProjectId = draft.projectCode
     ? projectByCode.get(draft.projectCode)!.id
     : null;
