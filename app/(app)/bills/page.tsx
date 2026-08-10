@@ -25,7 +25,18 @@ export default async function BillsPage() {
         ? new Decimal(0)
         : new Decimal(bill.total.toString()).minus(applied);
     const overdue = bill.status === "APPROVED" && outstanding.greaterThan(0) && bill.dueDate < today;
-    return { bill, outstanding, status: overdue ? "OVERDUE" : bill.status };
+    const partial =
+      bill.status === "APPROVED" && applied.greaterThan(0) && outstanding.greaterThan(0);
+    const statuses =
+      bill.status === "APPROVED"
+        ? [...(partial ? ["PARTIAL"] : []), ...(overdue ? ["OVERDUE"] : [])]
+        : [];
+
+    return {
+      bill,
+      outstanding,
+      statuses: statuses.length > 0 ? statuses : [bill.status],
+    };
   });
 
   const openTotal = rows
@@ -73,7 +84,7 @@ export default async function BillsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-rule">
-              {rows.map(({ bill, outstanding, status }) => (
+              {rows.map(({ bill, outstanding, statuses }) => (
                 <tr key={bill.id} className="hover:bg-wash/30">
                   <td className="px-5 py-3">
                     <Link
@@ -89,7 +100,13 @@ export default async function BillsPage() {
                     {bill.supplierInvoiceNumber}
                   </td>
                   <td className="px-3 py-3 text-[13px] text-muted">{shortDate(bill.dueDate)}</td>
-                  <td className="px-3 py-3"><StatusPill status={status} /></td>
+                  <td className="px-3 py-3">
+                    <span className="flex flex-wrap gap-1">
+                      {statuses.map((s) => (
+                        <StatusPill key={s} status={s} />
+                      ))}
+                    </span>
+                  </td>
                   <td className="figure px-3 py-3">{money(bill.total)}</td>
                   <td className="figure px-5 py-3">
                     {outstanding.isZero() ? <span className="text-faint">—</span> : money(outstanding)}

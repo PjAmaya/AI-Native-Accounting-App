@@ -31,8 +31,21 @@ export default async function InvoicesPage() {
         : new Decimal(invoice.total.toString()).minus(applied);
     const overdue =
       invoice.status === "ISSUED" && outstanding.greaterThan(0) && invoice.dueDate < today;
+    const partial =
+      invoice.status === "ISSUED" &&
+      applied.greaterThan(0) &&
+      outstanding.greaterThan(0);
 
-    return { invoice, outstanding, status: overdue ? "OVERDUE" : invoice.status };
+    const statuses =
+      invoice.status === "ISSUED"
+        ? [...(partial ? ["PARTIAL"] : []), ...(overdue ? ["OVERDUE"] : [])]
+        : [];
+
+    return {
+      invoice,
+      outstanding,
+      statuses: statuses.length > 0 ? statuses : [invoice.status],
+    };
   });
 
   const openTotal = rows
@@ -79,7 +92,7 @@ export default async function InvoicesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-rule">
-              {rows.map(({ invoice, outstanding, status }) => (
+              {rows.map(({ invoice, outstanding, statuses }) => (
                 <tr key={invoice.id} className="hover:bg-wash/30">
                   <td className="px-5 py-3">
                     <Link
@@ -104,7 +117,13 @@ export default async function InvoicesPage() {
                   </td>
                   <td className="px-5 py-3 text-[13px]">{invoice.contact.name}</td>
                   <td className="px-5 py-3 text-[13px] text-muted">{shortDate(invoice.dueDate)}</td>
-                  <td className="px-5 py-3"><StatusPill status={status} /></td>
+                  <td className="px-5 py-3">
+                    <span className="flex flex-wrap gap-1">
+                      {statuses.map((s) => (
+                        <StatusPill key={s} status={s} />
+                      ))}
+                    </span>
+                  </td>
                   <td className="figure px-5 py-3">{money(invoice.total)}</td>
                   <td className="figure px-5 py-3">
                     {outstanding.isZero() ? (

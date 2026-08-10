@@ -50,6 +50,15 @@ export default async function InvoicePage({
     invoice.status === "VOID"
       ? new Decimal(0)
       : new Decimal(invoice.total.toString()).minus(applied);
+  const displayStatuses =
+    invoice.status === "ISSUED"
+      ? [
+          ...(applied.greaterThan(0) && outstanding.greaterThan(0) ? ["PARTIAL"] : []),
+          ...(outstanding.greaterThan(0) && invoice.dueDate < new Date() ? ["OVERDUE"] : []),
+        ]
+      : [];
+  const statuses = displayStatuses.length > 0 ? displayStatuses : [invoice.status];
+
   const issue = issueInvoiceAction.bind(null, invoice.id);
   const remove = deleteInvoiceAction.bind(null, invoice.id);
 
@@ -67,7 +76,9 @@ export default async function InvoicePage({
         <div>
           <div className="flex items-center gap-3">
             <h1 className="page-title font-mono">{invoice.invoiceNumber}</h1>
-            <StatusPill status={invoice.status} />
+            {statuses.map((code) => (
+              <StatusPill key={code} status={code} />
+            ))}
           </div>
           <p className="mt-2 text-[14px] text-muted">
             {invoice.contact.name} · issued {longDate(invoice.invoiceDate)} · due{" "}
