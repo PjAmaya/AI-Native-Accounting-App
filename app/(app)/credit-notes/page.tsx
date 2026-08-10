@@ -9,7 +9,12 @@ export const dynamic = "force-dynamic";
 
 export default async function CreditNotesPage() {
   const notes = await prisma.creditNote.findMany({
-    include: { contact: true, originalInvoice: true, applications: true },
+    include: {
+      contact: true,
+      originalInvoice: true,
+      applications: true,
+      refundEntry: { include: { lines: true } },
+    },
     orderBy: [{ creditDate: "desc" }, { creditNumber: "desc" }],
   });
 
@@ -20,7 +25,10 @@ export default async function CreditNotesPage() {
         (s, a) => s.plus(a.amountApplied.toString()),
         new Decimal(0),
       );
-      return sum.plus(new Decimal(n.total.toString()).minus(used));
+      const back = n.refundEntry
+        ? n.refundEntry.lines.reduce((s, l) => s.plus(l.debit.toString()), new Decimal(0))
+        : new Decimal(0);
+      return sum.plus(new Decimal(n.total.toString()).minus(used).minus(back));
     }, new Decimal(0));
 
   return (
@@ -58,7 +66,7 @@ export default async function CreditNotesPage() {
                 <th className="px-3 py-2.5 text-left"><span className="eyebrow">Reason</span></th>
                 <th className="px-3 py-2.5 text-left"><span className="eyebrow">Status</span></th>
                 <th className="px-3 py-2.5 text-right"><span className="eyebrow">Total</span></th>
-                <th className="px-5 py-2.5 text-right"><span className="eyebrow">Unapplied</span></th>
+                <th className="px-5 py-2.5 text-right"><span className="eyebrow">Outstanding</span></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-rule">
@@ -67,7 +75,13 @@ export default async function CreditNotesPage() {
                   (s, a) => s.plus(a.amountApplied.toString()),
                   new Decimal(0),
                 );
-                const left = new Decimal(note.total.toString()).minus(used);
+                const back = note.refundEntry
+                  ? note.refundEntry.lines.reduce(
+                      (s, l) => s.plus(l.debit.toString()),
+                      new Decimal(0),
+                    )
+                  : new Decimal(0);
+                const left = new Decimal(note.total.toString()).minus(used).minus(back);
 
                 return (
                   <tr key={note.id} className="hover:bg-wash/30">
