@@ -19,7 +19,9 @@ export type ProjectValues = {
   code: string;
   name: string;
   contactId: string;
-  isActive: boolean;
+  status: string;
+  scope: string;
+  closureReason: string;
   startDate: string;
   endDate: string;
   notes: string;
@@ -68,6 +70,7 @@ export function ProjectForm({
   const [state, action] = useActionState<ProjectFormState, FormData>(saveProject, null);
   const err = (key: string) => state?.errors?.[key];
 
+  const [status, setStatus] = useState(values?.status ?? "ACTIVE");
   const [contractValue, setContractValue] = useState(values?.contractValue ?? "");
   const [rows, setRows] = useState<Row[]>(
     values && values.budgets.length > 0
@@ -141,20 +144,62 @@ export function ProjectForm({
           </Field>
         </div>
 
-        <label className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-rule px-3.5 py-3 hover:bg-wash/40">
-          <input
-            type="checkbox"
-            name="isActive"
-            defaultChecked={values ? values.isActive : true}
-            className="mt-0.5 h-4 w-4 shrink-0 accent-[#1b3be8]"
+        <Field
+          label="Status"
+          htmlFor="status"
+          hint="Only active projects appear in invoice and bill dropdowns."
+        >
+          <select
+            id="status"
+            name="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className={`${inputClass} max-w-56`}
+          >
+            <option value="ACTIVE">Active</option>
+            <option value="ON_HOLD">On hold</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </Field>
+
+        {status !== "ACTIVE" ? (
+          <Field
+            label={status === "COMPLETED" ? "How it finished" : "Why"}
+            htmlFor="closureReason"
+            hint="Recorded so you can compare completed against cancelled work later."
+            error={err("closureReason")}
+          >
+            <textarea
+              id="closureReason"
+              name="closureReason"
+              rows={2}
+              defaultValue={values?.closureReason}
+              placeholder={
+                status === "CANCELLED"
+                  ? "Client cancelled after discovery — scope was larger than budget"
+                  : status === "ON_HOLD"
+                    ? "Paused pending their board approval"
+                    : "Delivered in full and final invoice issued"
+              }
+              className={inputClass}
+            />
+          </Field>
+        ) : null}
+
+        <Field
+          label="Scope"
+          htmlFor="scope"
+          hint="What was agreed. Shown on the project page for reference."
+        >
+          <textarea
+            id="scope"
+            name="scope"
+            rows={4}
+            defaultValue={values?.scope}
+            className={inputClass}
           />
-          <span>
-            <span className="block text-[13px] font-medium">Active</span>
-            <span className="mt-0.5 block text-[12px] text-faint">
-              Inactive projects stay in reports but leave the dropdowns.
-            </span>
-          </span>
-        </label>
+        </Field>
       </Section>
 
       <Section

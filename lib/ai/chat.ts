@@ -1,5 +1,10 @@
 import { createGeminiProvider } from "./gemini";
-import { ALL_TOOLS, TOOLS_BY_NAME, checkAccountCodes } from "./tools";
+import { ALL_TOOLS, checkAccountCodes } from "./tools";
+import { WRITE_TOOLS } from "./writeTools";
+
+const TOOLS = [...ALL_TOOLS, ...WRITE_TOOLS];
+const TOOLS_BY_NAME = new Map(TOOLS.map((t) => [t.name, t]));
+const WRITE_TOOL_NAMES = new Set(WRITE_TOOLS.filter((t) => t.name.startsWith("create_")).map((t) => t.name));
 import type { ChatMessage, ChatProvider, ToolCall } from "./provider";
 
 const MAX_ROUNDS = 5;
@@ -8,6 +13,8 @@ export type ChatStep = {
   tool: string;
   args: Record<string, unknown>;
   ok: boolean;
+  write: boolean;
+  link?: string;
 };
 
 export type ChatAnswer = {
@@ -44,7 +51,13 @@ function systemPrompt() {
     "",
     "ALWAYS:",
     "9. Be brief. Lead with the answer. Two or three sentences unless asked for more.",
-    "10. You cannot create, edit, or post anything. If asked to, say which screen does it.",
+    "",
+    "C. CREATING THINGS.",
+    "10. You can create DRAFT invoices, DRAFT bills, and contacts. Everything you create is a draft: it posts nothing, changes no balance, and appears in no report until the user issues or approves it themselves.",
+    "11. Before creating, make sure you have the right client or vendor and the right amounts. If a name is ambiguous or an account code is uncertain, call list_contacts, list_projects or list_accounts first. If it is still unclear, ASK rather than guess.",
+    "12. After creating, say exactly what was made, the total, and that it is a draft awaiting their action. Always include the link the tool returned.",
+    "13. You CANNOT issue, approve, post, void, pay, or delete anything. Those are the user's actions. If asked, say which screen does it.",
+    "14. Never create the same thing twice. If you are unsure whether something already exists, list first.",
     "11. Where a decision has real money or compliance consequence, say what a CPA should confirm. Do not hedge everything — only where it is genuinely uncertain.",
   ].join("\n");
 }
@@ -73,7 +86,7 @@ export async function runChat(
     const result = await provider.chat({
       system: systemPrompt(),
       messages,
-      tools: ALL_TOOLS,
+      tools: TOOLS,
     });
 
     if (result.toolCalls.length === 0) {
@@ -100,7 +113,11 @@ export async function runChat(
 
     for (const call of result.toolCalls) {
       const { result: value, ok } = await runTool(call);
-      steps.push({ tool: call.name, args: call.args, ok });
+      const link =
+        ok && value && typeof value === "object" && "link" in value
+          ? String((value as { link: unknown }).link)
+          : undefined;
+      steps.push({ tool: call.name, args: call.args, ok, write: WRITE_TOOL_NAMES.has(call.name), link });
       messages.push({ role: "tool", name: call.name, result: value });
     }
   }

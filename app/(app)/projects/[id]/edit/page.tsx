@@ -41,9 +41,11 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
     code: project.code,
     name: project.name,
     contactId: project.contactId ?? "",
-    isActive: project.isActive,
+    status: project.status,
     startDate: isoDate(project.startDate),
     endDate: isoDate(project.endDate),
+    scope: project.scope ?? "",
+    closureReason: project.closureReason ?? "",
     notes: project.notes ?? "",
     contractValue: project.contractValue?.toString() ?? "",
     budgets: project.budgetLines.map((b) => ({

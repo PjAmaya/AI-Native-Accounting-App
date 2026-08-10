@@ -38,8 +38,11 @@ export type ProjectMinAggregateOutputType = {
   id: string | null
   code: string | null
   name: string | null
-  isActive: boolean | null
   contactId: string | null
+  status: $Enums.ProjectStatus | null
+  scope: string | null
+  closureReason: string | null
+  closedAt: Date | null
   contractValue: runtime.Decimal | null
   startDate: Date | null
   endDate: Date | null
@@ -52,8 +55,11 @@ export type ProjectMaxAggregateOutputType = {
   id: string | null
   code: string | null
   name: string | null
-  isActive: boolean | null
   contactId: string | null
+  status: $Enums.ProjectStatus | null
+  scope: string | null
+  closureReason: string | null
+  closedAt: Date | null
   contractValue: runtime.Decimal | null
   startDate: Date | null
   endDate: Date | null
@@ -66,8 +72,11 @@ export type ProjectCountAggregateOutputType = {
   id: number
   code: number
   name: number
-  isActive: number
   contactId: number
+  status: number
+  scope: number
+  closureReason: number
+  closedAt: number
   contractValue: number
   startDate: number
   endDate: number
@@ -90,8 +99,11 @@ export type ProjectMinAggregateInputType = {
   id?: true
   code?: true
   name?: true
-  isActive?: true
   contactId?: true
+  status?: true
+  scope?: true
+  closureReason?: true
+  closedAt?: true
   contractValue?: true
   startDate?: true
   endDate?: true
@@ -104,8 +116,11 @@ export type ProjectMaxAggregateInputType = {
   id?: true
   code?: true
   name?: true
-  isActive?: true
   contactId?: true
+  status?: true
+  scope?: true
+  closureReason?: true
+  closedAt?: true
   contractValue?: true
   startDate?: true
   endDate?: true
@@ -118,8 +133,11 @@ export type ProjectCountAggregateInputType = {
   id?: true
   code?: true
   name?: true
-  isActive?: true
   contactId?: true
+  status?: true
+  scope?: true
+  closureReason?: true
+  closedAt?: true
   contractValue?: true
   startDate?: true
   endDate?: true
@@ -219,8 +237,11 @@ export type ProjectGroupByOutputType = {
   id: string
   code: string
   name: string
-  isActive: boolean
   contactId: string | null
+  status: $Enums.ProjectStatus
+  scope: string | null
+  closureReason: string | null
+  closedAt: Date | null
   contractValue: runtime.Decimal | null
   startDate: Date | null
   endDate: Date | null
@@ -256,8 +277,11 @@ export type ProjectWhereInput = {
   id?: Prisma.StringFilter<"Project"> | string
   code?: Prisma.StringFilter<"Project"> | string
   name?: Prisma.StringFilter<"Project"> | string
-  isActive?: Prisma.BoolFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
+  status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+  scope?: Prisma.StringNullableFilter<"Project"> | string | null
+  closureReason?: Prisma.StringNullableFilter<"Project"> | string | null
+  closedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
@@ -279,8 +303,11 @@ export type ProjectOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrderInput | Prisma.SortOrder
+  closureReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   contractValue?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -305,8 +332,11 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProjectWhereInput[]
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   name?: Prisma.StringFilter<"Project"> | string
-  isActive?: Prisma.BoolFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
+  status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+  scope?: Prisma.StringNullableFilter<"Project"> | string | null
+  closureReason?: Prisma.StringNullableFilter<"Project"> | string | null
+  closedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
@@ -328,8 +358,11 @@ export type ProjectOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrderInput | Prisma.SortOrder
+  closureReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   contractValue?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -350,8 +383,11 @@ export type ProjectScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Project"> | string
   code?: Prisma.StringWithAggregatesFilter<"Project"> | string
   name?: Prisma.StringWithAggregatesFilter<"Project"> | string
-  isActive?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  status?: Prisma.EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
+  scope?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  closureReason?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableWithAggregatesFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
@@ -364,7 +400,10 @@ export type ProjectCreateInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -386,8 +425,11 @@ export type ProjectUncheckedCreateInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -408,7 +450,10 @@ export type ProjectUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -430,8 +475,11 @@ export type ProjectUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -452,8 +500,11 @@ export type ProjectCreateManyInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -466,7 +517,10 @@ export type ProjectUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -479,8 +533,11 @@ export type ProjectUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -508,8 +565,11 @@ export type ProjectCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
+  closureReason?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrder
   contractValue?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -526,8 +586,11 @@ export type ProjectMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
+  closureReason?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrder
   contractValue?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -540,8 +603,11 @@ export type ProjectMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  scope?: Prisma.SortOrder
+  closureReason?: Prisma.SortOrder
+  closedAt?: Prisma.SortOrder
   contractValue?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -615,6 +681,10 @@ export type ProjectUncheckedUpdateManyWithoutContactNestedInput = {
   update?: Prisma.ProjectUpdateWithWhereUniqueWithoutContactInput | Prisma.ProjectUpdateWithWhereUniqueWithoutContactInput[]
   updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutContactInput | Prisma.ProjectUpdateManyWithWhereWithoutContactInput[]
   deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type EnumProjectStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ProjectStatus
 }
 
 export type NullableDecimalFieldUpdateOperationsInput = {
@@ -739,7 +809,10 @@ export type ProjectCreateWithoutLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -760,8 +833,11 @@ export type ProjectUncheckedCreateWithoutLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -797,7 +873,10 @@ export type ProjectUpdateWithoutLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -818,8 +897,11 @@ export type ProjectUncheckedUpdateWithoutLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -839,7 +921,10 @@ export type ProjectCreateWithoutContactInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -860,7 +945,10 @@ export type ProjectUncheckedCreateWithoutContactInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -910,8 +998,11 @@ export type ProjectScalarWhereInput = {
   id?: Prisma.StringFilter<"Project"> | string
   code?: Prisma.StringFilter<"Project"> | string
   name?: Prisma.StringFilter<"Project"> | string
-  isActive?: Prisma.BoolFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
+  status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+  scope?: Prisma.StringNullableFilter<"Project"> | string | null
+  closureReason?: Prisma.StringNullableFilter<"Project"> | string | null
+  closedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
@@ -924,7 +1015,10 @@ export type ProjectCreateWithoutCreditNoteLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -945,8 +1039,11 @@ export type ProjectUncheckedCreateWithoutCreditNoteLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -982,7 +1079,10 @@ export type ProjectUpdateWithoutCreditNoteLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1003,8 +1103,11 @@ export type ProjectUncheckedUpdateWithoutCreditNoteLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1024,7 +1127,10 @@ export type ProjectCreateWithoutInvoicesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1045,8 +1151,11 @@ export type ProjectUncheckedCreateWithoutInvoicesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1082,7 +1191,10 @@ export type ProjectUpdateWithoutInvoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1103,8 +1215,11 @@ export type ProjectUncheckedUpdateWithoutInvoicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1124,7 +1239,10 @@ export type ProjectCreateWithoutInvoiceLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1145,8 +1263,11 @@ export type ProjectUncheckedCreateWithoutInvoiceLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1182,7 +1303,10 @@ export type ProjectUpdateWithoutInvoiceLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1203,8 +1327,11 @@ export type ProjectUncheckedUpdateWithoutInvoiceLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1224,7 +1351,10 @@ export type ProjectCreateWithoutBillsInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1245,8 +1375,11 @@ export type ProjectUncheckedCreateWithoutBillsInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1282,7 +1415,10 @@ export type ProjectUpdateWithoutBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1303,8 +1439,11 @@ export type ProjectUncheckedUpdateWithoutBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1324,7 +1463,10 @@ export type ProjectCreateWithoutBillLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1345,8 +1487,11 @@ export type ProjectUncheckedCreateWithoutBillLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1382,7 +1527,10 @@ export type ProjectUpdateWithoutBillLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1403,8 +1551,11 @@ export type ProjectUncheckedUpdateWithoutBillLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1424,7 +1575,10 @@ export type ProjectCreateWithoutSupplierCreditLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1445,8 +1599,11 @@ export type ProjectUncheckedCreateWithoutSupplierCreditLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1482,7 +1639,10 @@ export type ProjectUpdateWithoutSupplierCreditLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1503,8 +1663,11 @@ export type ProjectUncheckedUpdateWithoutSupplierCreditLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1524,7 +1687,10 @@ export type ProjectCreateWithoutBudgetLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1545,8 +1711,11 @@ export type ProjectUncheckedCreateWithoutBudgetLinesInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
   contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1582,7 +1751,10 @@ export type ProjectUpdateWithoutBudgetLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1603,8 +1775,11 @@ export type ProjectUncheckedUpdateWithoutBudgetLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1624,7 +1799,10 @@ export type ProjectCreateManyContactInput = {
   id?: string
   code: string
   name: string
-  isActive?: boolean
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
@@ -1637,7 +1815,10 @@ export type ProjectUpdateWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1658,7 +1839,10 @@ export type ProjectUncheckedUpdateWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1679,7 +1863,10 @@ export type ProjectUncheckedUpdateManyWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1786,8 +1973,11 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   code?: boolean
   name?: boolean
-  isActive?: boolean
   contactId?: boolean
+  status?: boolean
+  scope?: boolean
+  closureReason?: boolean
+  closedAt?: boolean
   contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1810,8 +2000,11 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   code?: boolean
   name?: boolean
-  isActive?: boolean
   contactId?: boolean
+  status?: boolean
+  scope?: boolean
+  closureReason?: boolean
+  closedAt?: boolean
   contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1825,8 +2018,11 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   code?: boolean
   name?: boolean
-  isActive?: boolean
   contactId?: boolean
+  status?: boolean
+  scope?: boolean
+  closureReason?: boolean
+  closedAt?: boolean
   contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1840,8 +2036,11 @@ export type ProjectSelectScalar = {
   id?: boolean
   code?: boolean
   name?: boolean
-  isActive?: boolean
   contactId?: boolean
+  status?: boolean
+  scope?: boolean
+  closureReason?: boolean
+  closedAt?: boolean
   contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
@@ -1850,7 +2049,7 @@ export type ProjectSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "isActive" | "contactId" | "contractValue" | "startDate" | "endDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "contactId" | "status" | "scope" | "closureReason" | "closedAt" | "contractValue" | "startDate" | "endDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contact?: boolean | Prisma.Project$contactArgs<ExtArgs>
   budgetLines?: boolean | Prisma.Project$budgetLinesArgs<ExtArgs>
@@ -1887,8 +2086,11 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     code: string
     name: string
-    isActive: boolean
     contactId: string | null
+    status: $Enums.ProjectStatus
+    scope: string | null
+    closureReason: string | null
+    closedAt: Date | null
     contractValue: runtime.Decimal | null
     startDate: Date | null
     endDate: Date | null
@@ -2330,8 +2532,11 @@ export interface ProjectFieldRefs {
   readonly id: Prisma.FieldRef<"Project", 'String'>
   readonly code: Prisma.FieldRef<"Project", 'String'>
   readonly name: Prisma.FieldRef<"Project", 'String'>
-  readonly isActive: Prisma.FieldRef<"Project", 'Boolean'>
   readonly contactId: Prisma.FieldRef<"Project", 'String'>
+  readonly status: Prisma.FieldRef<"Project", 'ProjectStatus'>
+  readonly scope: Prisma.FieldRef<"Project", 'String'>
+  readonly closureReason: Prisma.FieldRef<"Project", 'String'>
+  readonly closedAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly contractValue: Prisma.FieldRef<"Project", 'Decimal'>
   readonly startDate: Prisma.FieldRef<"Project", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Project", 'DateTime'>

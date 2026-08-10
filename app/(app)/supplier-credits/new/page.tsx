@@ -21,7 +21,7 @@ export default async function NewSupplierCreditPage({
       where: { status: { in: ["APPROVED", "PAID"] } },
       orderBy: { billDate: "desc" },
     }),
-    prisma.project.findMany({ where: { isActive: true }, orderBy: { code: "asc" } }),
+    prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { code: "asc" } }),
     prisma.account.findMany({
       where: { isPostable: true, isActive: true, type: { in: ["EXPENSE", "ASSET"] } },
       orderBy: { code: "asc" },

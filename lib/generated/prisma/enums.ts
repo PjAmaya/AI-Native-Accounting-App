@@ -53,6 +53,16 @@ export const EntryStatus = {
 export type EntryStatus = (typeof EntryStatus)[keyof typeof EntryStatus]
 
 
+export const ProjectStatus = {
+  ACTIVE: 'ACTIVE',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
 export const CreditNoteStatus = {
   DRAFT: 'DRAFT',
   ISSUED: 'ISSUED',

@@ -1,15 +1,23 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, Pencil } from "lucide-react";
+import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { projectPerformance } from "@/lib/reporting/projectPerformance";
 import { money, shortDate } from "@/lib/format";
+import { deleteProject } from "../actions";
 
 export const dynamic = "force-dynamic";
 
-export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ProjectPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string }>;
+}) {
   const { id } = await params;
+  const { error } = await searchParams;
 
   const project = await prisma.project.findUnique({
     where: { id },
@@ -46,17 +54,51 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             {perf.clientName ?? "No client"}
             {project.startDate ? ` · from ${shortDate(project.startDate)}` : ""}
             {project.endDate ? ` to ${shortDate(project.endDate)}` : ""}
-            {project.isActive ? "" : " · inactive"}
+            {project.status === "ACTIVE" ? "" : ` · ${project.status.toLowerCase()}`}
           </p>
         </div>
-        <Link
-          href={`/projects/${project.id}/edit`}
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
-        >
-          <Pencil size={14} strokeWidth={2} aria-hidden />
-          Edit
-        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          <form action={deleteProject.bind(null, project.id)}>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium text-negative transition-colors hover:bg-tint-amber/40"
+            >
+              <Trash2 size={14} strokeWidth={2} aria-hidden />
+              Delete
+            </button>
+          </form>
+          <Link
+            href={`/projects/${project.id}/edit`}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
+          >
+            <Pencil size={14} strokeWidth={2} aria-hidden />
+            Edit
+          </Link>
+        </div>
       </div>
+
+      {error ? (
+        <div className="card mt-5 border-negative bg-tint-amber/40 px-5 py-3.5">
+          <p className="text-[13px] text-negative">{error}</p>
+        </div>
+      ) : null}
+
+      {project.status !== "ACTIVE" ? (
+        <div className="card mt-5 border-rule bg-wash/50 px-5 py-3.5">
+          <p className="text-[13px]">
+            <span className="font-medium">{project.status.replace("_", " ").toLowerCase()}</span>
+            {project.closedAt ? ` since ${shortDate(project.closedAt)}` : ""}
+            {project.closureReason ? ` — ${project.closureReason}` : ""}
+          </p>
+        </div>
+      ) : null}
+
+      {project.scope ? (
+        <div className="card mt-5 px-5 py-4">
+          <p className="eyebrow">Scope</p>
+          <p className="mt-2 whitespace-pre-line text-[13px] leading-relaxed">{project.scope}</p>
+        </div>
+      ) : null}
 
       <div className="mt-6 grid grid-cols-4 gap-4">
         <div className="card px-5 py-4.5">

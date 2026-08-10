@@ -18,7 +18,7 @@ export default async function NewCreditNotePage({
       where: { status: { in: ["ISSUED", "PAID"] } },
       orderBy: { invoiceDate: "desc" },
     }),
-    prisma.project.findMany({ where: { isActive: true }, orderBy: { code: "asc" } }),
+    prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { code: "asc" } }),
     prisma.account.findMany({
       where: {
         isPostable: true,

@@ -14,7 +14,7 @@ export type ProjectPerformance = {
   code: string;
   name: string;
   clientName: string | null;
-  isActive: boolean;
+  status: string;
   contractValue: Decimal | null;
   invoiced: Decimal;
   remainingToInvoice: Decimal | null;
@@ -23,6 +23,7 @@ export type ProjectPerformance = {
   actualCost: Decimal;
   costVariance: Decimal;
   costLines: BudgetLine[];
+  collected: Decimal;
   margin: Decimal;
   marginPercent: Decimal | null;
   budgetedMargin: Decimal | null;
@@ -37,6 +38,10 @@ export async function projectPerformance(
     include: {
       contact: true,
       budgetLines: { include: { account: true }, orderBy: { account: { code: "asc" } } },
+      invoices: {
+        where: { status: { in: ["ISSUED", "PAID"] } },
+        include: { applications: true, creditApplications: true },
+      },
     },
     orderBy: { code: "asc" },
   });
@@ -115,6 +120,17 @@ export async function projectPerformance(
       ? new Decimal(project.contractValue.toString())
       : null;
 
+    const collected = project.invoices.reduce(
+      (sum, invoice) =>
+        sum.plus(
+          [...invoice.applications, ...invoice.creditApplications].reduce(
+            (paid, a) => paid.plus(a.amountApplied.toString()),
+            new Decimal(0),
+          ),
+        ),
+      new Decimal(0),
+    );
+
     const margin = invoiced.minus(actualCost);
     const budgetedMargin = contractValue ? contractValue.minus(budgetedCost) : null;
 
@@ -122,7 +138,7 @@ export async function projectPerformance(
       code: project.code,
       name: project.name,
       clientName: project.contact?.name ?? null,
-      isActive: project.isActive,
+      status: project.status,
       contractValue,
       invoiced,
       remainingToInvoice: contractValue ? contractValue.minus(invoiced) : null,
@@ -134,6 +150,7 @@ export async function projectPerformance(
       actualCost,
       costVariance: budgetedCost.minus(actualCost),
       costLines,
+      collected,
       margin,
       marginPercent: invoiced.isZero()
         ? null

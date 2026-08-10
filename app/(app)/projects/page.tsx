@@ -53,6 +53,8 @@ export default async function ProjectsPage() {
                 <th className="px-5 py-2.5 text-left"><span className="eyebrow">Project</span></th>
                 <th className="px-3 py-2.5 text-right"><span className="eyebrow">Contract</span></th>
                 <th className="px-3 py-2.5 text-right"><span className="eyebrow">Invoiced</span></th>
+                <th className="px-3 py-2.5 text-right"><span className="eyebrow">Collected</span></th>
+                <th className="px-3 py-2.5 text-right"><span className="eyebrow">Budget</span></th>
                 <th className="px-3 py-2.5 text-right"><span className="eyebrow">Cost</span></th>
                 <th className="px-3 py-2.5 text-right"><span className="eyebrow">vs budget</span></th>
                 <th className="px-5 py-2.5 text-right"><span className="eyebrow">Margin</span></th>
@@ -60,7 +62,7 @@ export default async function ProjectsPage() {
             </thead>
             <tbody className="divide-y divide-rule">
               {rows.map((row) => (
-                <tr key={row.code} className={`hover:bg-wash/30 ${row.isActive ? "" : "opacity-55"}`}>
+                <tr key={row.code} className={`hover:bg-wash/30 ${row.status === "ACTIVE" ? "" : "opacity-55"}`}>
                   <td className="px-5 py-3">
                     <Link
                       href={`/projects/${idByCode.get(row.code)}`}
@@ -70,6 +72,7 @@ export default async function ProjectsPage() {
                     </Link>
                     <p className="text-[11px] text-faint">
                       {row.clientName ?? "No client"}
+                      {row.status !== "ACTIVE" ? ` · ${row.status.replace("_", " ").toLowerCase()}` : ""}
                       {row.percentInvoiced ? ` · ${row.percentInvoiced.toFixed(0)}% invoiced` : ""}
                     </p>
                   </td>
@@ -77,6 +80,14 @@ export default async function ProjectsPage() {
                     {row.contractValue ? money(row.contractValue) : <span className="text-faint">—</span>}
                   </td>
                   <td className="figure px-3 py-3">{money(row.invoiced)}</td>
+                  <td className="figure px-3 py-3">{money(row.collected)}</td>
+                  <td className="figure px-3 py-3">
+                    {row.budgetedCost.isZero() ? (
+                      <span className="text-faint">—</span>
+                    ) : (
+                      money(row.budgetedCost)
+                    )}
+                  </td>
                   <td className="figure px-3 py-3">{money(row.actualCost)}</td>
                   <td
                     className={`figure px-3 py-3 ${row.costVariance.isNegative() ? "text-negative" : row.budgetedCost.greaterThan(0) ? "text-positive" : "text-faint"}`}

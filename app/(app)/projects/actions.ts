@@ -116,11 +116,33 @@ export async function saveProject(
 
   const contactId = text(formData, "contactId");
 
+  const status = (text(formData, "status") ?? "ACTIVE") as
+    | "ACTIVE"
+    | "ON_HOLD"
+    | "COMPLETED"
+    | "CANCELLED";
+  const closureReason = text(formData, "closureReason");
+
+  if (status !== "ACTIVE" && !closureReason) {
+    return {
+      ok: false,
+      message: "Check the highlighted fields.",
+      errors: { closureReason: "Say why — this is what makes the closure report useful." },
+    };
+  }
+
+  const existing = id
+    ? await prisma.project.findUnique({ where: { id }, select: { closedAt: true, status: true } })
+    : null;
+
   const data = {
     code: code!,
     name: name!,
     contactId,
-    isActive: formData.get("isActive") === "on",
+    status,
+    scope: text(formData, "scope"),
+    closureReason: status === "ACTIVE" ? null : closureReason,
+    closedAt: status === "ACTIVE" ? null : (existing?.closedAt ?? new Date()),
     startDate,
     endDate,
     notes: text(formData, "notes"),
@@ -150,4 +172,43 @@ export async function saveProject(
 
   revalidatePath("/projects");
   redirect(`/projects/${projectId}`);
+}
+
+export async function deleteProject(projectId: string) {
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+    include: {
+      _count: {
+        select: {
+          lines: true,
+          invoices: true,
+          bills: true,
+          invoiceLines: true,
+          billLines: true,
+          creditNoteLines: true,
+          supplierCreditLines: true,
+        },
+      },
+    },
+  });
+
+  if (!project) redirect("/projects");
+
+  const c = project._count;
+  const referenced =
+    c.lines + c.invoices + c.bills + c.invoiceLines + c.billLines +
+    c.creditNoteLines + c.supplierCreditLines;
+
+  if (referenced > 0) {
+    redirect(
+      `/projects/${projectId}?error=` +
+        encodeURIComponent(
+          `${project.code} has ${referenced} linked record${referenced === 1 ? "" : "s"} and cannot be deleted. Mark it cancelled instead.`,
+        ),
+    );
+  }
+
+  await prisma.project.delete({ where: { id: projectId } });
+  revalidatePath("/projects");
+  redirect("/projects");
 }

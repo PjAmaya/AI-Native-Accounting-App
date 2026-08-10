@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function NewBillPage() {
   const [vendors, projects, accounts, taxRates] = await Promise.all([
     prisma.contact.findMany({ where: { isVendor: true, isActive: true }, orderBy: { name: "asc" } }),
-    prisma.project.findMany({ where: { isActive: true }, orderBy: { code: "asc" } }),
+    prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { code: "asc" } }),
     prisma.account.findMany({
       where: { isPostable: true, isActive: true, type: { in: ["EXPENSE", "ASSET"] } },
       orderBy: { code: "asc" },

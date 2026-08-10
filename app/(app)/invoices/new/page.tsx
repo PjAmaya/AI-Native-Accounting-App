@@ -11,7 +11,7 @@ export default async function NewInvoicePage() {
       where: { isCustomer: true, isActive: true },
       orderBy: { name: "asc" },
     }),
-    prisma.project.findMany({ where: { isActive: true }, orderBy: { code: "asc" } }),
+    prisma.project.findMany({ where: { status: "ACTIVE" }, orderBy: { code: "asc" } }),
     prisma.account.findMany({
       where: {
         isPostable: true,

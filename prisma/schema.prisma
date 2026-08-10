@@ -179,14 +179,25 @@ model Contact {
   @@index([isVendor])
 }
 
+enum ProjectStatus {
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
 model Project {
   id          String        @id @default(cuid())
   code        String        @unique
   name        String
-  isActive    Boolean       @default(true)
 
   contactId   String?
   contact     Contact?      @relation(fields: [contactId], references: [id])
+
+  status      ProjectStatus @default(ACTIVE)
+  scope       String?
+  closureReason String?
+  closedAt    DateTime?     @db.Date
 
   contractValue Decimal?    @db.Decimal(12, 2)
   budgetLines   ProjectBudgetLine[]

@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ArrowUp, Loader2, Wrench, TriangleAlert } from "lucide-react";
+import { ArrowUp, Loader2, Wrench, TriangleAlert, FilePlus2, ArrowUpRight } from "lucide-react";
 
-type Step = { tool: string; args: Record<string, unknown>; ok: boolean };
+type Step = { tool: string; args: Record<string, unknown>; ok: boolean; write?: boolean; link?: string };
 
 type Turn = {
   question: string;
@@ -17,6 +17,7 @@ const SUGGESTIONS = [
   "Why is cash lower than profit?",
   "Which invoices are overdue?",
   "What is my margin by project?",
+  "Draft an invoice for 10 hours at $200",
 ];
 
 export function AskPanel() {
@@ -109,6 +110,26 @@ export function AskPanel() {
                         ))}
                       </ul>
                     ) : null}
+                    {turn.steps.filter((s) => s.write && s.ok && s.link).length > 0 ? (
+                      <ul className="mt-2 grid gap-1">
+                        {turn.steps
+                          .filter((s) => s.write && s.ok && s.link)
+                          .map((s, si) => (
+                            <li key={si}>
+                              <a
+                                href={s.link}
+                                className="flex items-center justify-between gap-2 rounded-md border border-brand/25 bg-brand-soft px-2.5 py-2 text-[12px] font-medium text-brand hover:bg-brand-soft/70"
+                              >
+                                <span className="flex items-center gap-1.5">
+                                  <FilePlus2 size={12} strokeWidth={2.2} aria-hidden />
+                                  Draft created — open it
+                                </span>
+                                <ArrowUpRight size={12} strokeWidth={2.2} aria-hidden />
+                              </a>
+                            </li>
+                          ))}
+                      </ul>
+                    ) : null}
                     {turn.steps.length > 0 ? (
                       <p className="mt-1.5 flex flex-wrap items-center gap-1 text-[11px] text-faint">
                         <Wrench size={11} strokeWidth={2} aria-hidden />
@@ -171,7 +192,7 @@ export function AskPanel() {
           </button>
         </div>
         <p className="mt-1.5 text-[10px] text-faint">
-          Answers come from your ledger. It cannot create or change anything.
+          Answers come from your ledger. It can create drafts, but cannot issue, post or pay.
         </p>
       </div>
     </div>
