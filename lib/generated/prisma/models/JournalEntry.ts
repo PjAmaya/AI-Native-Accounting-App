@@ -262,6 +262,8 @@ export type JournalEntryWhereInput = {
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
   payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
   bill?: Prisma.XOR<Prisma.BillNullableScalarRelationFilter, Prisma.BillWhereInput> | null
+  supplierCredit?: Prisma.XOR<Prisma.SupplierCreditNullableScalarRelationFilter, Prisma.SupplierCreditWhereInput> | null
+  refundForSupplierCredit?: Prisma.XOR<Prisma.SupplierCreditNullableScalarRelationFilter, Prisma.SupplierCreditWhereInput> | null
   creditNote?: Prisma.XOR<Prisma.CreditNoteNullableScalarRelationFilter, Prisma.CreditNoteWhereInput> | null
   refundForCredit?: Prisma.XOR<Prisma.CreditNoteNullableScalarRelationFilter, Prisma.CreditNoteWhereInput> | null
 }
@@ -283,6 +285,8 @@ export type JournalEntryOrderByWithRelationInput = {
   invoice?: Prisma.InvoiceOrderByWithRelationInput
   payment?: Prisma.PaymentOrderByWithRelationInput
   bill?: Prisma.BillOrderByWithRelationInput
+  supplierCredit?: Prisma.SupplierCreditOrderByWithRelationInput
+  refundForSupplierCredit?: Prisma.SupplierCreditOrderByWithRelationInput
   creditNote?: Prisma.CreditNoteOrderByWithRelationInput
   refundForCredit?: Prisma.CreditNoteOrderByWithRelationInput
 }
@@ -307,6 +311,8 @@ export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
   payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
   bill?: Prisma.XOR<Prisma.BillNullableScalarRelationFilter, Prisma.BillWhereInput> | null
+  supplierCredit?: Prisma.XOR<Prisma.SupplierCreditNullableScalarRelationFilter, Prisma.SupplierCreditWhereInput> | null
+  refundForSupplierCredit?: Prisma.XOR<Prisma.SupplierCreditNullableScalarRelationFilter, Prisma.SupplierCreditWhereInput> | null
   creditNote?: Prisma.XOR<Prisma.CreditNoteNullableScalarRelationFilter, Prisma.CreditNoteWhereInput> | null
   refundForCredit?: Prisma.XOR<Prisma.CreditNoteNullableScalarRelationFilter, Prisma.CreditNoteWhereInput> | null
 }, "id" | "entryNumber" | "reversalOfId">
@@ -361,6 +367,8 @@ export type JournalEntryCreateInput = {
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -381,6 +389,8 @@ export type JournalEntryUncheckedCreateInput = {
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -401,6 +411,8 @@ export type JournalEntryUpdateInput = {
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -421,6 +433,8 @@ export type JournalEntryUncheckedUpdateInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -678,6 +692,38 @@ export type JournalEntryUpdateOneWithoutBillNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JournalEntryUpdateToOneWithWhereWithoutBillInput, Prisma.JournalEntryUpdateWithoutBillInput>, Prisma.JournalEntryUncheckedUpdateWithoutBillInput>
 }
 
+export type JournalEntryCreateNestedOneWithoutSupplierCreditInput = {
+  create?: Prisma.XOR<Prisma.JournalEntryCreateWithoutSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutSupplierCreditInput>
+  connectOrCreate?: Prisma.JournalEntryCreateOrConnectWithoutSupplierCreditInput
+  connect?: Prisma.JournalEntryWhereUniqueInput
+}
+
+export type JournalEntryCreateNestedOneWithoutRefundForSupplierCreditInput = {
+  create?: Prisma.XOR<Prisma.JournalEntryCreateWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutRefundForSupplierCreditInput>
+  connectOrCreate?: Prisma.JournalEntryCreateOrConnectWithoutRefundForSupplierCreditInput
+  connect?: Prisma.JournalEntryWhereUniqueInput
+}
+
+export type JournalEntryUpdateOneWithoutSupplierCreditNestedInput = {
+  create?: Prisma.XOR<Prisma.JournalEntryCreateWithoutSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutSupplierCreditInput>
+  connectOrCreate?: Prisma.JournalEntryCreateOrConnectWithoutSupplierCreditInput
+  upsert?: Prisma.JournalEntryUpsertWithoutSupplierCreditInput
+  disconnect?: Prisma.JournalEntryWhereInput | boolean
+  delete?: Prisma.JournalEntryWhereInput | boolean
+  connect?: Prisma.JournalEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JournalEntryUpdateToOneWithWhereWithoutSupplierCreditInput, Prisma.JournalEntryUpdateWithoutSupplierCreditInput>, Prisma.JournalEntryUncheckedUpdateWithoutSupplierCreditInput>
+}
+
+export type JournalEntryUpdateOneWithoutRefundForSupplierCreditNestedInput = {
+  create?: Prisma.XOR<Prisma.JournalEntryCreateWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutRefundForSupplierCreditInput>
+  connectOrCreate?: Prisma.JournalEntryCreateOrConnectWithoutRefundForSupplierCreditInput
+  upsert?: Prisma.JournalEntryUpsertWithoutRefundForSupplierCreditInput
+  disconnect?: Prisma.JournalEntryWhereInput | boolean
+  delete?: Prisma.JournalEntryWhereInput | boolean
+  connect?: Prisma.JournalEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JournalEntryUpdateToOneWithWhereWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUpdateWithoutRefundForSupplierCreditInput>, Prisma.JournalEntryUncheckedUpdateWithoutRefundForSupplierCreditInput>
+}
+
 export type JournalEntryCreateWithoutReversedByInput = {
   id?: string
   entryNumber: number
@@ -693,6 +739,8 @@ export type JournalEntryCreateWithoutReversedByInput = {
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -712,6 +760,8 @@ export type JournalEntryUncheckedCreateWithoutReversedByInput = {
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -736,6 +786,8 @@ export type JournalEntryCreateWithoutReversalOfInput = {
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -755,6 +807,8 @@ export type JournalEntryUncheckedCreateWithoutReversalOfInput = {
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -790,6 +844,8 @@ export type JournalEntryUpdateWithoutReversedByInput = {
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -809,6 +865,8 @@ export type JournalEntryUncheckedUpdateWithoutReversedByInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -839,6 +897,8 @@ export type JournalEntryUpdateWithoutReversalOfInput = {
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -858,6 +918,8 @@ export type JournalEntryUncheckedUpdateWithoutReversalOfInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -877,6 +939,8 @@ export type JournalEntryCreateWithoutLinesInput = {
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -896,6 +960,8 @@ export type JournalEntryUncheckedCreateWithoutLinesInput = {
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -931,6 +997,8 @@ export type JournalEntryUpdateWithoutLinesInput = {
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -950,6 +1018,8 @@ export type JournalEntryUncheckedUpdateWithoutLinesInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -970,6 +1040,8 @@ export type JournalEntryCreateWithoutCreditNoteInput = {
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
 
@@ -989,6 +1061,8 @@ export type JournalEntryUncheckedCreateWithoutCreditNoteInput = {
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
 
@@ -1013,6 +1087,8 @@ export type JournalEntryCreateWithoutRefundForCreditInput = {
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
 }
 
@@ -1032,6 +1108,8 @@ export type JournalEntryUncheckedCreateWithoutRefundForCreditInput = {
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
 }
 
@@ -1067,6 +1145,8 @@ export type JournalEntryUpdateWithoutCreditNoteInput = {
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
 
@@ -1086,6 +1166,8 @@ export type JournalEntryUncheckedUpdateWithoutCreditNoteInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
 
@@ -1116,6 +1198,8 @@ export type JournalEntryUpdateWithoutRefundForCreditInput = {
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
 }
 
@@ -1135,6 +1219,8 @@ export type JournalEntryUncheckedUpdateWithoutRefundForCreditInput = {
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
 }
 
@@ -1153,6 +1239,8 @@ export type JournalEntryCreateWithoutInvoiceInput = {
   lines?: Prisma.JournalLineCreateNestedManyWithoutEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -1172,6 +1260,8 @@ export type JournalEntryUncheckedCreateWithoutInvoiceInput = {
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -1207,6 +1297,8 @@ export type JournalEntryUpdateWithoutInvoiceInput = {
   lines?: Prisma.JournalLineUpdateManyWithoutEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -1226,6 +1318,8 @@ export type JournalEntryUncheckedUpdateWithoutInvoiceInput = {
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -1245,6 +1339,8 @@ export type JournalEntryCreateWithoutPaymentInput = {
   lines?: Prisma.JournalLineCreateNestedManyWithoutEntryInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -1264,6 +1360,8 @@ export type JournalEntryUncheckedCreateWithoutPaymentInput = {
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutEntryInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -1299,6 +1397,8 @@ export type JournalEntryUpdateWithoutPaymentInput = {
   lines?: Prisma.JournalLineUpdateManyWithoutEntryNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -1318,6 +1418,8 @@ export type JournalEntryUncheckedUpdateWithoutPaymentInput = {
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutEntryNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -1337,6 +1439,8 @@ export type JournalEntryCreateWithoutBillInput = {
   lines?: Prisma.JournalLineCreateNestedManyWithoutEntryInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
 }
@@ -1356,6 +1460,8 @@ export type JournalEntryUncheckedCreateWithoutBillInput = {
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutEntryInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
   creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
   refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
 }
@@ -1391,6 +1497,8 @@ export type JournalEntryUpdateWithoutBillInput = {
   lines?: Prisma.JournalLineUpdateManyWithoutEntryNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
   creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
 }
@@ -1410,6 +1518,208 @@ export type JournalEntryUncheckedUpdateWithoutBillInput = {
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutEntryNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
+  creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
+}
+
+export type JournalEntryCreateWithoutSupplierCreditInput = {
+  id?: string
+  entryNumber: number
+  entryDate: Date | string
+  serviceDate?: Date | string | null
+  description: string
+  status?: $Enums.EntryStatus
+  postedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reversalOf?: Prisma.JournalEntryCreateNestedOneWithoutReversedByInput
+  reversedBy?: Prisma.JournalEntryCreateNestedOneWithoutReversalOfInput
+  lines?: Prisma.JournalLineCreateNestedManyWithoutEntryInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
+  payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
+  bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutRefundEntryInput
+  creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
+  refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
+}
+
+export type JournalEntryUncheckedCreateWithoutSupplierCreditInput = {
+  id?: string
+  entryNumber: number
+  entryDate: Date | string
+  serviceDate?: Date | string | null
+  description: string
+  status?: $Enums.EntryStatus
+  postedAt?: Date | string | null
+  reversalOfId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reversedBy?: Prisma.JournalEntryUncheckedCreateNestedOneWithoutReversalOfInput
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutEntryInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
+  payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+  bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutRefundEntryInput
+  creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
+}
+
+export type JournalEntryCreateOrConnectWithoutSupplierCreditInput = {
+  where: Prisma.JournalEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.JournalEntryCreateWithoutSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutSupplierCreditInput>
+}
+
+export type JournalEntryCreateWithoutRefundForSupplierCreditInput = {
+  id?: string
+  entryNumber: number
+  entryDate: Date | string
+  serviceDate?: Date | string | null
+  description: string
+  status?: $Enums.EntryStatus
+  postedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reversalOf?: Prisma.JournalEntryCreateNestedOneWithoutReversedByInput
+  reversedBy?: Prisma.JournalEntryCreateNestedOneWithoutReversalOfInput
+  lines?: Prisma.JournalLineCreateNestedManyWithoutEntryInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutJournalEntryInput
+  payment?: Prisma.PaymentCreateNestedOneWithoutJournalEntryInput
+  bill?: Prisma.BillCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditCreateNestedOneWithoutJournalEntryInput
+  creditNote?: Prisma.CreditNoteCreateNestedOneWithoutJournalEntryInput
+  refundForCredit?: Prisma.CreditNoteCreateNestedOneWithoutRefundEntryInput
+}
+
+export type JournalEntryUncheckedCreateWithoutRefundForSupplierCreditInput = {
+  id?: string
+  entryNumber: number
+  entryDate: Date | string
+  serviceDate?: Date | string | null
+  description: string
+  status?: $Enums.EntryStatus
+  postedAt?: Date | string | null
+  reversalOfId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  reversedBy?: Prisma.JournalEntryUncheckedCreateNestedOneWithoutReversalOfInput
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutEntryInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutJournalEntryInput
+  payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutJournalEntryInput
+  bill?: Prisma.BillUncheckedCreateNestedOneWithoutJournalEntryInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedCreateNestedOneWithoutJournalEntryInput
+  creditNote?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutJournalEntryInput
+  refundForCredit?: Prisma.CreditNoteUncheckedCreateNestedOneWithoutRefundEntryInput
+}
+
+export type JournalEntryCreateOrConnectWithoutRefundForSupplierCreditInput = {
+  where: Prisma.JournalEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.JournalEntryCreateWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutRefundForSupplierCreditInput>
+}
+
+export type JournalEntryUpsertWithoutSupplierCreditInput = {
+  update: Prisma.XOR<Prisma.JournalEntryUpdateWithoutSupplierCreditInput, Prisma.JournalEntryUncheckedUpdateWithoutSupplierCreditInput>
+  create: Prisma.XOR<Prisma.JournalEntryCreateWithoutSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutSupplierCreditInput>
+  where?: Prisma.JournalEntryWhereInput
+}
+
+export type JournalEntryUpdateToOneWithWhereWithoutSupplierCreditInput = {
+  where?: Prisma.JournalEntryWhereInput
+  data: Prisma.XOR<Prisma.JournalEntryUpdateWithoutSupplierCreditInput, Prisma.JournalEntryUncheckedUpdateWithoutSupplierCreditInput>
+}
+
+export type JournalEntryUpdateWithoutSupplierCreditInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  entryNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  serviceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEntryStatusFieldUpdateOperationsInput | $Enums.EntryStatus
+  postedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reversalOf?: Prisma.JournalEntryUpdateOneWithoutReversedByNestedInput
+  reversedBy?: Prisma.JournalEntryUpdateOneWithoutReversalOfNestedInput
+  lines?: Prisma.JournalLineUpdateManyWithoutEntryNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
+  payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
+  bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUpdateOneWithoutRefundEntryNestedInput
+  creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
+  refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
+}
+
+export type JournalEntryUncheckedUpdateWithoutSupplierCreditInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  entryNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  serviceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEntryStatusFieldUpdateOperationsInput | $Enums.EntryStatus
+  postedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reversedBy?: Prisma.JournalEntryUncheckedUpdateOneWithoutReversalOfNestedInput
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutEntryNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
+  payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+  bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForSupplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutRefundEntryNestedInput
+  creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
+  refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
+}
+
+export type JournalEntryUpsertWithoutRefundForSupplierCreditInput = {
+  update: Prisma.XOR<Prisma.JournalEntryUpdateWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUncheckedUpdateWithoutRefundForSupplierCreditInput>
+  create: Prisma.XOR<Prisma.JournalEntryCreateWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUncheckedCreateWithoutRefundForSupplierCreditInput>
+  where?: Prisma.JournalEntryWhereInput
+}
+
+export type JournalEntryUpdateToOneWithWhereWithoutRefundForSupplierCreditInput = {
+  where?: Prisma.JournalEntryWhereInput
+  data: Prisma.XOR<Prisma.JournalEntryUpdateWithoutRefundForSupplierCreditInput, Prisma.JournalEntryUncheckedUpdateWithoutRefundForSupplierCreditInput>
+}
+
+export type JournalEntryUpdateWithoutRefundForSupplierCreditInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  entryNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  serviceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEntryStatusFieldUpdateOperationsInput | $Enums.EntryStatus
+  postedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reversalOf?: Prisma.JournalEntryUpdateOneWithoutReversedByNestedInput
+  reversedBy?: Prisma.JournalEntryUpdateOneWithoutReversalOfNestedInput
+  lines?: Prisma.JournalLineUpdateManyWithoutEntryNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutJournalEntryNestedInput
+  payment?: Prisma.PaymentUpdateOneWithoutJournalEntryNestedInput
+  bill?: Prisma.BillUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUpdateOneWithoutJournalEntryNestedInput
+  creditNote?: Prisma.CreditNoteUpdateOneWithoutJournalEntryNestedInput
+  refundForCredit?: Prisma.CreditNoteUpdateOneWithoutRefundEntryNestedInput
+}
+
+export type JournalEntryUncheckedUpdateWithoutRefundForSupplierCreditInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  entryNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  serviceDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumEntryStatusFieldUpdateOperationsInput | $Enums.EntryStatus
+  postedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reversalOfId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reversedBy?: Prisma.JournalEntryUncheckedUpdateOneWithoutReversalOfNestedInput
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutEntryNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutJournalEntryNestedInput
+  payment?: Prisma.PaymentUncheckedUpdateOneWithoutJournalEntryNestedInput
+  bill?: Prisma.BillUncheckedUpdateOneWithoutJournalEntryNestedInput
+  supplierCredit?: Prisma.SupplierCreditUncheckedUpdateOneWithoutJournalEntryNestedInput
   creditNote?: Prisma.CreditNoteUncheckedUpdateOneWithoutJournalEntryNestedInput
   refundForCredit?: Prisma.CreditNoteUncheckedUpdateOneWithoutRefundEntryNestedInput
 }
@@ -1462,6 +1772,8 @@ export type JournalEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   invoice?: boolean | Prisma.JournalEntry$invoiceArgs<ExtArgs>
   payment?: boolean | Prisma.JournalEntry$paymentArgs<ExtArgs>
   bill?: boolean | Prisma.JournalEntry$billArgs<ExtArgs>
+  supplierCredit?: boolean | Prisma.JournalEntry$supplierCreditArgs<ExtArgs>
+  refundForSupplierCredit?: boolean | Prisma.JournalEntry$refundForSupplierCreditArgs<ExtArgs>
   creditNote?: boolean | Prisma.JournalEntry$creditNoteArgs<ExtArgs>
   refundForCredit?: boolean | Prisma.JournalEntry$refundForCreditArgs<ExtArgs>
   _count?: boolean | Prisma.JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
@@ -1516,6 +1828,8 @@ export type JournalEntryInclude<ExtArgs extends runtime.Types.Extensions.Interna
   invoice?: boolean | Prisma.JournalEntry$invoiceArgs<ExtArgs>
   payment?: boolean | Prisma.JournalEntry$paymentArgs<ExtArgs>
   bill?: boolean | Prisma.JournalEntry$billArgs<ExtArgs>
+  supplierCredit?: boolean | Prisma.JournalEntry$supplierCreditArgs<ExtArgs>
+  refundForSupplierCredit?: boolean | Prisma.JournalEntry$refundForSupplierCreditArgs<ExtArgs>
   creditNote?: boolean | Prisma.JournalEntry$creditNoteArgs<ExtArgs>
   refundForCredit?: boolean | Prisma.JournalEntry$refundForCreditArgs<ExtArgs>
   _count?: boolean | Prisma.JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
@@ -1536,6 +1850,8 @@ export type $JournalEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     invoice: Prisma.$InvoicePayload<ExtArgs> | null
     payment: Prisma.$PaymentPayload<ExtArgs> | null
     bill: Prisma.$BillPayload<ExtArgs> | null
+    supplierCredit: Prisma.$SupplierCreditPayload<ExtArgs> | null
+    refundForSupplierCredit: Prisma.$SupplierCreditPayload<ExtArgs> | null
     creditNote: Prisma.$CreditNotePayload<ExtArgs> | null
     refundForCredit: Prisma.$CreditNotePayload<ExtArgs> | null
   }
@@ -1950,6 +2266,8 @@ export interface Prisma__JournalEntryClient<T, Null = never, ExtArgs extends run
   invoice<T extends Prisma.JournalEntry$invoiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$invoiceArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payment<T extends Prisma.JournalEntry$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$paymentArgs<ExtArgs>>): Prisma.Prisma__PaymentClient<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   bill<T extends Prisma.JournalEntry$billArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$billArgs<ExtArgs>>): Prisma.Prisma__BillClient<runtime.Types.Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  supplierCredit<T extends Prisma.JournalEntry$supplierCreditArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$supplierCreditArgs<ExtArgs>>): Prisma.Prisma__SupplierCreditClient<runtime.Types.Result.GetResult<Prisma.$SupplierCreditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  refundForSupplierCredit<T extends Prisma.JournalEntry$refundForSupplierCreditArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$refundForSupplierCreditArgs<ExtArgs>>): Prisma.Prisma__SupplierCreditClient<runtime.Types.Result.GetResult<Prisma.$SupplierCreditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   creditNote<T extends Prisma.JournalEntry$creditNoteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$creditNoteArgs<ExtArgs>>): Prisma.Prisma__CreditNoteClient<runtime.Types.Result.GetResult<Prisma.$CreditNotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   refundForCredit<T extends Prisma.JournalEntry$refundForCreditArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$refundForCreditArgs<ExtArgs>>): Prisma.Prisma__CreditNoteClient<runtime.Types.Result.GetResult<Prisma.$CreditNotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -2508,6 +2826,44 @@ export type JournalEntry$billArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.BillInclude<ExtArgs> | null
   where?: Prisma.BillWhereInput
+}
+
+/**
+ * JournalEntry.supplierCredit
+ */
+export type JournalEntry$supplierCreditArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierCredit
+   */
+  select?: Prisma.SupplierCreditSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierCredit
+   */
+  omit?: Prisma.SupplierCreditOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierCreditInclude<ExtArgs> | null
+  where?: Prisma.SupplierCreditWhereInput
+}
+
+/**
+ * JournalEntry.refundForSupplierCredit
+ */
+export type JournalEntry$refundForSupplierCreditArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierCredit
+   */
+  select?: Prisma.SupplierCreditSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierCredit
+   */
+  omit?: Prisma.SupplierCreditOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierCreditInclude<ExtArgs> | null
+  where?: Prisma.SupplierCreditWhereInput
 }
 
 /**

@@ -15,7 +15,7 @@ export default async function NewAccountPage() {
     <div>
       <Link href="/accounts" className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-ink">
         <ArrowLeft size={14} strokeWidth={2} aria-hidden />
-        Chart of accounts
+        GL accounts
       </Link>
       <h1 className="page-title mt-3">New account</h1>
       <div className="mt-7">

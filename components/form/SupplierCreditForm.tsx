@@ -4,17 +4,23 @@ import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Decimal from "decimal.js";
 import { Plus, Trash2, TriangleAlert } from "lucide-react";
-import { saveBillAction, type BillFormState } from "@/app/(app)/bills/actions";
+import {
+  createSupplierCreditAction,
+  type SupplierCreditFormState,
+} from "@/app/(app)/supplier-credits/actions";
 import { inputClass } from "./fields";
 
 export type Option = { value: string; label: string };
 
-export type BillFormOptions = {
+export type SupplierCreditFormOptions = {
   vendors: Option[];
+  bills: { value: string; label: string; contactId: string }[];
   projects: Option[];
   expenseAccounts: Option[];
   taxRates: Option[];
   defaultDate: string;
+  presetContactId?: string;
+  presetBillId?: string;
 };
 
 type Row = {
@@ -36,7 +42,7 @@ const blankRow = (): Row => ({
   taxRate: "",
 });
 
-function toDecimal(value: string) {
+function dec(value: string) {
   try {
     return value ? new Decimal(value) : new Decimal(0);
   } catch {
@@ -44,7 +50,7 @@ function toDecimal(value: string) {
   }
 }
 
-function SubmitButton({ label }: { label: string }) {
+function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <button
@@ -52,7 +58,7 @@ function SubmitButton({ label }: { label: string }) {
       disabled={pending}
       className="rounded-lg bg-brand px-4 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9] disabled:opacity-50"
     >
-      {pending ? "Saving..." : label}
+      {pending ? "Saving..." : "Record credit"}
     </button>
   );
 }
@@ -62,59 +68,31 @@ const cell =
   "focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15";
 const numCell = `${cell} text-right font-mono tabular-nums`;
 
-export type BillValues = {
-  id: string;
-  contactId: string;
-  supplierInvoiceNumber: string;
-  billDate: string;
-  dueDate: string;
-  projectCode: string;
-  notes: string;
-  taxTotal: string;
-  lines: {
-    description: string;
-    amount: string;
-    expenseAccount: string;
-    project: string;
-    taxRate: string;
-  }[];
-};
-
-export function BillForm({
-  options,
-  values,
-}: {
-  options: BillFormOptions;
-  values?: BillValues;
-}) {
-  const [state, action] = useActionState<BillFormState, FormData>(saveBillAction, null);
+export function SupplierCreditForm({ options }: { options: SupplierCreditFormOptions }) {
+  const [state, action] = useActionState<SupplierCreditFormState, FormData>(
+    createSupplierCreditAction,
+    null,
+  );
   const err = (key: string) => state?.errors?.[key];
 
-  const [contactId, setContactId] = useState(values?.contactId ?? "");
-  const [supplierInvoiceNumber, setSupplierInvoiceNumber] = useState(
-    values?.supplierInvoiceNumber ?? "",
-  );
-  const [billDate, setBillDate] = useState(values?.billDate ?? options.defaultDate);
-  const [dueDate, setDueDate] = useState(values?.dueDate ?? "");
-  const [projectCode, setProjectCode] = useState(values?.projectCode ?? "");
-  const [notes, setNotes] = useState(values?.notes ?? "");
-  const [taxTotal, setTaxTotal] = useState(values?.taxTotal ?? "");
-  const [rows, setRows] = useState<Row[]>(
-    values && values.lines.length > 0
-      ? values.lines.map((line) => ({ ...blankRow(), ...line }))
-      : [blankRow(), blankRow()],
-  );
+  const [contactId, setContactId] = useState(options.presetContactId ?? "");
+  const [originalBillId, setOriginalBillId] = useState(options.presetBillId ?? "");
+  const [supplierCreditNumber, setSupplierCreditNumber] = useState("");
+  const [creditDate, setCreditDate] = useState(options.defaultDate);
+  const [reason, setReason] = useState("");
+  const [notes, setNotes] = useState("");
+  const [taxTotal, setTaxTotal] = useState("");
+  const [rows, setRows] = useState<Row[]>([blankRow()]);
 
   const set = (key: number, field: keyof Row, value: string) =>
     setRows((prev) => prev.map((r) => (r.key === key ? { ...r, [field]: value } : r)));
 
-  const subtotal = rows.reduce((sum, r) => sum.plus(toDecimal(r.amount)), new Decimal(0));
-  const tax = toDecimal(taxTotal);
-  const total = subtotal.plus(tax);
+  const subtotal = rows.reduce((sum, r) => sum.plus(dec(r.amount)), new Decimal(0));
+  const total = subtotal.plus(dec(taxTotal));
+  const vendorBills = options.bills.filter((b) => b.contactId === contactId);
 
   return (
     <form action={action} className="grid gap-5">
-      {values ? <input type="hidden" name="id" value={values.id} /> : null}
       <section className="card px-6 py-5">
         <div className="grid grid-cols-4 gap-4">
           <div className="col-span-2">
@@ -123,7 +101,10 @@ export function BillForm({
               id="contactId"
               name="contactId"
               value={contactId}
-              onChange={(e) => setContactId(e.target.value)}
+              onChange={(e) => {
+                setContactId(e.target.value);
+                setOriginalBillId("");
+              }}
               className={`${inputClass} mt-1.5`}
               required
             >
@@ -137,63 +118,64 @@ export function BillForm({
             ) : null}
           </div>
           <div className="col-span-2">
-            <label htmlFor="supplierInvoiceNumber" className="eyebrow">Their invoice number</label>
+            <label htmlFor="supplierCreditNumber" className="eyebrow">Their credit number</label>
             <input
-              id="supplierInvoiceNumber"
-              name="supplierInvoiceNumber"
-              value={supplierInvoiceNumber}
-              onChange={(e) => setSupplierInvoiceNumber(e.target.value)}
-              placeholder="As printed on their invoice"
+              id="supplierCreditNumber"
+              name="supplierCreditNumber"
+              value={supplierCreditNumber}
+              onChange={(e) => setSupplierCreditNumber(e.target.value)}
+              placeholder="As printed on their credit note"
               className={`${inputClass} mt-1.5`}
               required
             />
-            {err("supplierInvoiceNumber") ? (
-              <p className="mt-1 text-[12px] text-negative">{err("supplierInvoiceNumber")}</p>
+            {err("supplierCreditNumber") ? (
+              <p className="mt-1 text-[12px] text-negative">{err("supplierCreditNumber")}</p>
             ) : null}
           </div>
         </div>
 
         <div className="mt-4 grid grid-cols-4 gap-4">
+          <div className="col-span-2">
+            <label htmlFor="originalBillId" className="eyebrow">Credits bill</label>
+            <select
+              id="originalBillId"
+              name="originalBillId"
+              value={originalBillId}
+              onChange={(e) => setOriginalBillId(e.target.value)}
+              className={`${inputClass} mt-1.5`}
+            >
+              <option value="">None — standalone credit</option>
+              {vendorBills.map((b) => (
+                <option key={b.value} value={b.value}>{b.label}</option>
+              ))}
+            </select>
+          </div>
           <div>
-            <label htmlFor="billDate" className="eyebrow">Bill date</label>
+            <label htmlFor="creditDate" className="eyebrow">Date</label>
             <input
-              id="billDate"
-              name="billDate"
+              id="creditDate"
+              name="creditDate"
               type="date"
-              value={billDate}
-              onChange={(e) => setBillDate(e.target.value)}
+              value={creditDate}
+              onChange={(e) => setCreditDate(e.target.value)}
               className={`${inputClass} mt-1.5`}
               required
             />
           </div>
           <div>
-            <label htmlFor="dueDate" className="eyebrow">Due date</label>
+            <label htmlFor="reason" className="eyebrow">Reason</label>
             <input
-              id="dueDate"
-              name="dueDate"
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
+              id="reason"
+              name="reason"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              placeholder="Overbilled hours"
               className={`${inputClass} mt-1.5`}
+              required
             />
-            {err("dueDate") ? (
-              <p className="mt-1 text-[12px] text-negative">{err("dueDate")}</p>
+            {err("reason") ? (
+              <p className="mt-1 text-[12px] text-negative">{err("reason")}</p>
             ) : null}
-          </div>
-          <div className="col-span-2">
-            <label htmlFor="projectCode" className="eyebrow">Default project</label>
-            <select
-              id="projectCode"
-              name="projectCode"
-              value={projectCode}
-              onChange={(e) => setProjectCode(e.target.value)}
-              className={`${inputClass} mt-1.5`}
-            >
-              <option value="">None</option>
-              {options.projects.map((p) => (
-                <option key={p.value} value={p.value}>{p.label}</option>
-              ))}
-            </select>
           </div>
         </div>
       </section>
@@ -220,7 +202,7 @@ export function BillForm({
                     name="lineDescription"
                     value={row.description}
                     onChange={(e) => set(row.key, "description", e.target.value)}
-                    placeholder="What it was for"
+                    placeholder="What is being credited"
                     className={cell}
                   />
                 </td>
@@ -306,7 +288,7 @@ export function BillForm({
               <span className="figure">${subtotal.toFixed(2)}</span>
             </div>
             <div className="flex items-center justify-between gap-3 py-1 text-[13px]">
-              <label htmlFor="taxTotal" className="text-muted">Tax on their invoice</label>
+              <label htmlFor="taxTotal" className="text-muted">Tax on their credit</label>
               <input
                 id="taxTotal"
                 name="taxTotal"
@@ -321,14 +303,7 @@ export function BillForm({
               <span>Total</span>
               <span className="figure !text-[15px]">${total.toFixed(2)}</span>
             </div>
-            <label className="mt-2 flex cursor-pointer items-start gap-2 text-[12px] text-muted">
-              <input
-                type="checkbox"
-                name="acceptTaxVariance"
-                className="mt-0.5 h-3.5 w-3.5 accent-[#1b3be8]"
-              />
-              Accept a tax difference over five cents
-            </label>
+            <p className="mt-1 text-[11px] text-faint">Enter positive amounts.</p>
           </div>
         </div>
       </section>
@@ -355,7 +330,7 @@ export function BillForm({
       ) : null}
 
       <div className="flex items-center gap-3">
-        <SubmitButton label={values ? "Save draft" : "Record bill"} />
+        <SubmitButton />
         {state && !state.ok ? (
           <p className="flex items-center gap-1.5 text-[13px] text-negative" role="status">
             <TriangleAlert size={14} strokeWidth={2.2} aria-hidden />

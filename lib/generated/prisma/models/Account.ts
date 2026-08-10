@@ -256,6 +256,8 @@ export type AccountWhereInput = {
   creditNoteLines?: Prisma.CreditNoteLineListRelationFilter
   paymentsReceived?: Prisma.PaymentListRelationFilter
   billLines?: Prisma.BillLineListRelationFilter
+  projectBudgetLines?: Prisma.ProjectBudgetLineListRelationFilter
+  supplierCreditLines?: Prisma.SupplierCreditLineListRelationFilter
   parent?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   children?: Prisma.AccountListRelationFilter
 }
@@ -284,6 +286,8 @@ export type AccountOrderByWithRelationInput = {
   creditNoteLines?: Prisma.CreditNoteLineOrderByRelationAggregateInput
   paymentsReceived?: Prisma.PaymentOrderByRelationAggregateInput
   billLines?: Prisma.BillLineOrderByRelationAggregateInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineOrderByRelationAggregateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineOrderByRelationAggregateInput
   parent?: Prisma.AccountOrderByWithRelationInput
   children?: Prisma.AccountOrderByRelationAggregateInput
 }
@@ -315,6 +319,8 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   creditNoteLines?: Prisma.CreditNoteLineListRelationFilter
   paymentsReceived?: Prisma.PaymentListRelationFilter
   billLines?: Prisma.BillLineListRelationFilter
+  projectBudgetLines?: Prisma.ProjectBudgetLineListRelationFilter
+  supplierCreditLines?: Prisma.SupplierCreditLineListRelationFilter
   parent?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   children?: Prisma.AccountListRelationFilter
 }, "id" | "code">
@@ -380,6 +386,8 @@ export type AccountCreateInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -408,6 +416,8 @@ export type AccountUncheckedCreateInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -434,6 +444,8 @@ export type AccountUpdateInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -462,6 +474,8 @@ export type AccountUncheckedUpdateInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -816,6 +830,34 @@ export type AccountUpdateOneRequiredWithoutBillLinesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutBillLinesInput, Prisma.AccountUpdateWithoutBillLinesInput>, Prisma.AccountUncheckedUpdateWithoutBillLinesInput>
 }
 
+export type AccountCreateNestedOneWithoutSupplierCreditLinesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutSupplierCreditLinesInput, Prisma.AccountUncheckedCreateWithoutSupplierCreditLinesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutSupplierCreditLinesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutSupplierCreditLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutSupplierCreditLinesInput, Prisma.AccountUncheckedCreateWithoutSupplierCreditLinesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutSupplierCreditLinesInput
+  upsert?: Prisma.AccountUpsertWithoutSupplierCreditLinesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutSupplierCreditLinesInput, Prisma.AccountUpdateWithoutSupplierCreditLinesInput>, Prisma.AccountUncheckedUpdateWithoutSupplierCreditLinesInput>
+}
+
+export type AccountCreateNestedOneWithoutProjectBudgetLinesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutProjectBudgetLinesInput, Prisma.AccountUncheckedCreateWithoutProjectBudgetLinesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutProjectBudgetLinesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutProjectBudgetLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutProjectBudgetLinesInput, Prisma.AccountUncheckedCreateWithoutProjectBudgetLinesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutProjectBudgetLinesInput
+  upsert?: Prisma.AccountUpsertWithoutProjectBudgetLinesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutProjectBudgetLinesInput, Prisma.AccountUpdateWithoutProjectBudgetLinesInput>, Prisma.AccountUncheckedUpdateWithoutProjectBudgetLinesInput>
+}
+
 export type AccountCreateWithoutChildrenInput = {
   id?: string
   code: string
@@ -839,6 +881,8 @@ export type AccountCreateWithoutChildrenInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
 }
 
@@ -866,6 +910,8 @@ export type AccountUncheckedCreateWithoutChildrenInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
 }
 
 export type AccountCreateOrConnectWithoutChildrenInput = {
@@ -896,6 +942,8 @@ export type AccountCreateWithoutParentInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
 
@@ -922,6 +970,8 @@ export type AccountUncheckedCreateWithoutParentInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -969,6 +1019,8 @@ export type AccountUpdateWithoutChildrenInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
 }
 
@@ -996,6 +1048,8 @@ export type AccountUncheckedUpdateWithoutChildrenInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
 }
 
 export type AccountUpsertWithWhereUniqueWithoutParentInput = {
@@ -1055,6 +1109,8 @@ export type AccountCreateWithoutLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1082,6 +1138,8 @@ export type AccountUncheckedCreateWithoutLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1123,6 +1181,8 @@ export type AccountUpdateWithoutLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1150,6 +1210,8 @@ export type AccountUncheckedUpdateWithoutLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1175,6 +1237,8 @@ export type AccountCreateWithoutReceivableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1202,6 +1266,8 @@ export type AccountUncheckedCreateWithoutReceivableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1243,6 +1309,8 @@ export type AccountUpdateWithoutReceivableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1270,6 +1338,8 @@ export type AccountUncheckedUpdateWithoutReceivableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1295,6 +1365,8 @@ export type AccountCreateWithoutTaxCollectedForInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1322,6 +1394,8 @@ export type AccountUncheckedCreateWithoutTaxCollectedForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1352,6 +1426,8 @@ export type AccountCreateWithoutTaxRecoverableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1379,6 +1455,8 @@ export type AccountUncheckedCreateWithoutTaxRecoverableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1420,6 +1498,8 @@ export type AccountUpdateWithoutTaxCollectedForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1447,6 +1527,8 @@ export type AccountUncheckedUpdateWithoutTaxCollectedForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1483,6 +1565,8 @@ export type AccountUpdateWithoutTaxRecoverableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1510,6 +1594,8 @@ export type AccountUncheckedUpdateWithoutTaxRecoverableForInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1535,6 +1621,8 @@ export type AccountCreateWithoutReceivableForCreditsInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1562,6 +1650,8 @@ export type AccountUncheckedCreateWithoutReceivableForCreditsInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1603,6 +1693,8 @@ export type AccountUpdateWithoutReceivableForCreditsInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1630,6 +1722,8 @@ export type AccountUncheckedUpdateWithoutReceivableForCreditsInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1655,6 +1749,8 @@ export type AccountCreateWithoutCreditNoteLinesInput = {
   receivableForCredits?: Prisma.CreditNoteCreateNestedManyWithoutReceivableAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1682,6 +1778,8 @@ export type AccountUncheckedCreateWithoutCreditNoteLinesInput = {
   receivableForCredits?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutReceivableAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1723,6 +1821,8 @@ export type AccountUpdateWithoutCreditNoteLinesInput = {
   receivableForCredits?: Prisma.CreditNoteUpdateManyWithoutReceivableAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1750,6 +1850,8 @@ export type AccountUncheckedUpdateWithoutCreditNoteLinesInput = {
   receivableForCredits?: Prisma.CreditNoteUncheckedUpdateManyWithoutReceivableAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1775,6 +1877,8 @@ export type AccountCreateWithoutReceivableForInvoicesInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1802,6 +1906,8 @@ export type AccountUncheckedCreateWithoutReceivableForInvoicesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1843,6 +1949,8 @@ export type AccountUpdateWithoutReceivableForInvoicesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1870,6 +1978,8 @@ export type AccountUncheckedUpdateWithoutReceivableForInvoicesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -1895,6 +2005,8 @@ export type AccountCreateWithoutInvoiceLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -1922,6 +2034,8 @@ export type AccountUncheckedCreateWithoutInvoiceLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -1963,6 +2077,8 @@ export type AccountUpdateWithoutInvoiceLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -1990,6 +2106,8 @@ export type AccountUncheckedUpdateWithoutInvoiceLinesInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -2015,6 +2133,8 @@ export type AccountCreateWithoutPaymentsReceivedInput = {
   receivableForCredits?: Prisma.CreditNoteCreateNestedManyWithoutReceivableAccountInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -2042,6 +2162,8 @@ export type AccountUncheckedCreateWithoutPaymentsReceivedInput = {
   receivableForCredits?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutReceivableAccountInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -2083,6 +2205,8 @@ export type AccountUpdateWithoutPaymentsReceivedInput = {
   receivableForCredits?: Prisma.CreditNoteUpdateManyWithoutReceivableAccountNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -2110,6 +2234,8 @@ export type AccountUncheckedUpdateWithoutPaymentsReceivedInput = {
   receivableForCredits?: Prisma.CreditNoteUncheckedUpdateManyWithoutReceivableAccountNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -2135,6 +2261,8 @@ export type AccountCreateWithoutBillLinesInput = {
   receivableForCredits?: Prisma.CreditNoteCreateNestedManyWithoutReceivableAccountInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
   parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
   children?: Prisma.AccountCreateNestedManyWithoutParentInput
 }
@@ -2162,6 +2290,8 @@ export type AccountUncheckedCreateWithoutBillLinesInput = {
   receivableForCredits?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutReceivableAccountInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
   paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
   children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
 }
 
@@ -2203,6 +2333,8 @@ export type AccountUpdateWithoutBillLinesInput = {
   receivableForCredits?: Prisma.CreditNoteUpdateManyWithoutReceivableAccountNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
@@ -2230,6 +2362,264 @@ export type AccountUncheckedUpdateWithoutBillLinesInput = {
   receivableForCredits?: Prisma.CreditNoteUncheckedUpdateManyWithoutReceivableAccountNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
+}
+
+export type AccountCreateWithoutSupplierCreditLinesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  subType: $Enums.AccountSubType
+  normalBalance: $Enums.NormalBalance
+  isPostable?: boolean
+  isActive?: boolean
+  capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
+  taxCollectedFor?: Prisma.TaxRateCreateNestedManyWithoutCollectedAccountInput
+  taxRecoverableFor?: Prisma.TaxRateCreateNestedManyWithoutRecoverableAccountInput
+  invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutRevenueAccountInput
+  receivableFor?: Prisma.ContactCreateNestedManyWithoutReceivableAccountInput
+  receivableForInvoices?: Prisma.InvoiceCreateNestedManyWithoutReceivableAccountInput
+  receivableForCredits?: Prisma.CreditNoteCreateNestedManyWithoutReceivableAccountInput
+  creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
+  paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
+  billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutAccountInput
+  parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
+  children?: Prisma.AccountCreateNestedManyWithoutParentInput
+}
+
+export type AccountUncheckedCreateWithoutSupplierCreditLinesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  subType: $Enums.AccountSubType
+  normalBalance: $Enums.NormalBalance
+  isPostable?: boolean
+  isActive?: boolean
+  capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
+  parentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutAccountInput
+  taxCollectedFor?: Prisma.TaxRateUncheckedCreateNestedManyWithoutCollectedAccountInput
+  taxRecoverableFor?: Prisma.TaxRateUncheckedCreateNestedManyWithoutRecoverableAccountInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutRevenueAccountInput
+  receivableFor?: Prisma.ContactUncheckedCreateNestedManyWithoutReceivableAccountInput
+  receivableForInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutReceivableAccountInput
+  receivableForCredits?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutReceivableAccountInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
+  paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutAccountInput
+  children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type AccountCreateOrConnectWithoutSupplierCreditLinesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutSupplierCreditLinesInput, Prisma.AccountUncheckedCreateWithoutSupplierCreditLinesInput>
+}
+
+export type AccountUpsertWithoutSupplierCreditLinesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutSupplierCreditLinesInput, Prisma.AccountUncheckedUpdateWithoutSupplierCreditLinesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutSupplierCreditLinesInput, Prisma.AccountUncheckedCreateWithoutSupplierCreditLinesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutSupplierCreditLinesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutSupplierCreditLinesInput, Prisma.AccountUncheckedUpdateWithoutSupplierCreditLinesInput>
+}
+
+export type AccountUpdateWithoutSupplierCreditLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  subType?: Prisma.EnumAccountSubTypeFieldUpdateOperationsInput | $Enums.AccountSubType
+  normalBalance?: Prisma.EnumNormalBalanceFieldUpdateOperationsInput | $Enums.NormalBalance
+  isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
+  taxCollectedFor?: Prisma.TaxRateUpdateManyWithoutCollectedAccountNestedInput
+  taxRecoverableFor?: Prisma.TaxRateUpdateManyWithoutRecoverableAccountNestedInput
+  invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutRevenueAccountNestedInput
+  receivableFor?: Prisma.ContactUpdateManyWithoutReceivableAccountNestedInput
+  receivableForInvoices?: Prisma.InvoiceUpdateManyWithoutReceivableAccountNestedInput
+  receivableForCredits?: Prisma.CreditNoteUpdateManyWithoutReceivableAccountNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
+  paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
+  billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.AccountUpdateManyWithoutParentNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutSupplierCreditLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  subType?: Prisma.EnumAccountSubTypeFieldUpdateOperationsInput | $Enums.AccountSubType
+  normalBalance?: Prisma.EnumNormalBalanceFieldUpdateOperationsInput | $Enums.NormalBalance
+  isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutAccountNestedInput
+  taxCollectedFor?: Prisma.TaxRateUncheckedUpdateManyWithoutCollectedAccountNestedInput
+  taxRecoverableFor?: Prisma.TaxRateUncheckedUpdateManyWithoutRecoverableAccountNestedInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
+  receivableFor?: Prisma.ContactUncheckedUpdateManyWithoutReceivableAccountNestedInput
+  receivableForInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutReceivableAccountNestedInput
+  receivableForCredits?: Prisma.CreditNoteUncheckedUpdateManyWithoutReceivableAccountNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
+  paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
+}
+
+export type AccountCreateWithoutProjectBudgetLinesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  subType: $Enums.AccountSubType
+  normalBalance: $Enums.NormalBalance
+  isPostable?: boolean
+  isActive?: boolean
+  capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineCreateNestedManyWithoutAccountInput
+  taxCollectedFor?: Prisma.TaxRateCreateNestedManyWithoutCollectedAccountInput
+  taxRecoverableFor?: Prisma.TaxRateCreateNestedManyWithoutRecoverableAccountInput
+  invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutRevenueAccountInput
+  receivableFor?: Prisma.ContactCreateNestedManyWithoutReceivableAccountInput
+  receivableForInvoices?: Prisma.InvoiceCreateNestedManyWithoutReceivableAccountInput
+  receivableForCredits?: Prisma.CreditNoteCreateNestedManyWithoutReceivableAccountInput
+  creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutRevenueAccountInput
+  paymentsReceived?: Prisma.PaymentCreateNestedManyWithoutBankAccountInput
+  billLines?: Prisma.BillLineCreateNestedManyWithoutExpenseAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutExpenseAccountInput
+  parent?: Prisma.AccountCreateNestedOneWithoutChildrenInput
+  children?: Prisma.AccountCreateNestedManyWithoutParentInput
+}
+
+export type AccountUncheckedCreateWithoutProjectBudgetLinesInput = {
+  id?: string
+  code: string
+  name: string
+  type: $Enums.AccountType
+  subType: $Enums.AccountSubType
+  normalBalance: $Enums.NormalBalance
+  isPostable?: boolean
+  isActive?: boolean
+  capitalCandidate?: boolean
+  ebitdaAddBack?: $Enums.EbitdaAddBack
+  parentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutAccountInput
+  taxCollectedFor?: Prisma.TaxRateUncheckedCreateNestedManyWithoutCollectedAccountInput
+  taxRecoverableFor?: Prisma.TaxRateUncheckedCreateNestedManyWithoutRecoverableAccountInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutRevenueAccountInput
+  receivableFor?: Prisma.ContactUncheckedCreateNestedManyWithoutReceivableAccountInput
+  receivableForInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutReceivableAccountInput
+  receivableForCredits?: Prisma.CreditNoteUncheckedCreateNestedManyWithoutReceivableAccountInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutRevenueAccountInput
+  paymentsReceived?: Prisma.PaymentUncheckedCreateNestedManyWithoutBankAccountInput
+  billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutExpenseAccountInput
+  children?: Prisma.AccountUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type AccountCreateOrConnectWithoutProjectBudgetLinesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutProjectBudgetLinesInput, Prisma.AccountUncheckedCreateWithoutProjectBudgetLinesInput>
+}
+
+export type AccountUpsertWithoutProjectBudgetLinesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutProjectBudgetLinesInput, Prisma.AccountUncheckedUpdateWithoutProjectBudgetLinesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutProjectBudgetLinesInput, Prisma.AccountUncheckedCreateWithoutProjectBudgetLinesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutProjectBudgetLinesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutProjectBudgetLinesInput, Prisma.AccountUncheckedUpdateWithoutProjectBudgetLinesInput>
+}
+
+export type AccountUpdateWithoutProjectBudgetLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  subType?: Prisma.EnumAccountSubTypeFieldUpdateOperationsInput | $Enums.AccountSubType
+  normalBalance?: Prisma.EnumNormalBalanceFieldUpdateOperationsInput | $Enums.NormalBalance
+  isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUpdateManyWithoutAccountNestedInput
+  taxCollectedFor?: Prisma.TaxRateUpdateManyWithoutCollectedAccountNestedInput
+  taxRecoverableFor?: Prisma.TaxRateUpdateManyWithoutRecoverableAccountNestedInput
+  invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutRevenueAccountNestedInput
+  receivableFor?: Prisma.ContactUpdateManyWithoutReceivableAccountNestedInput
+  receivableForInvoices?: Prisma.InvoiceUpdateManyWithoutReceivableAccountNestedInput
+  receivableForCredits?: Prisma.CreditNoteUpdateManyWithoutReceivableAccountNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
+  paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
+  billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
+  parent?: Prisma.AccountUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.AccountUpdateManyWithoutParentNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutProjectBudgetLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+  subType?: Prisma.EnumAccountSubTypeFieldUpdateOperationsInput | $Enums.AccountSubType
+  normalBalance?: Prisma.EnumNormalBalanceFieldUpdateOperationsInput | $Enums.NormalBalance
+  isPostable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  capitalCandidate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ebitdaAddBack?: Prisma.EnumEbitdaAddBackFieldUpdateOperationsInput | $Enums.EbitdaAddBack
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutAccountNestedInput
+  taxCollectedFor?: Prisma.TaxRateUncheckedUpdateManyWithoutCollectedAccountNestedInput
+  taxRecoverableFor?: Prisma.TaxRateUncheckedUpdateManyWithoutRecoverableAccountNestedInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
+  receivableFor?: Prisma.ContactUncheckedUpdateManyWithoutReceivableAccountNestedInput
+  receivableForInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutReceivableAccountNestedInput
+  receivableForCredits?: Prisma.CreditNoteUncheckedUpdateManyWithoutReceivableAccountNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
+  paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
+  billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -2271,6 +2661,8 @@ export type AccountUpdateWithoutParentInput = {
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUpdateManyWithoutParentNestedInput
 }
 
@@ -2297,6 +2689,8 @@ export type AccountUncheckedUpdateWithoutParentInput = {
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutRevenueAccountNestedInput
   paymentsReceived?: Prisma.PaymentUncheckedUpdateManyWithoutBankAccountNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
+  projectBudgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutAccountNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutExpenseAccountNestedInput
   children?: Prisma.AccountUncheckedUpdateManyWithoutParentNestedInput
 }
 
@@ -2331,6 +2725,8 @@ export type AccountCountOutputType = {
   creditNoteLines: number
   paymentsReceived: number
   billLines: number
+  projectBudgetLines: number
+  supplierCreditLines: number
   children: number
 }
 
@@ -2345,6 +2741,8 @@ export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   creditNoteLines?: boolean | AccountCountOutputTypeCountCreditNoteLinesArgs
   paymentsReceived?: boolean | AccountCountOutputTypeCountPaymentsReceivedArgs
   billLines?: boolean | AccountCountOutputTypeCountBillLinesArgs
+  projectBudgetLines?: boolean | AccountCountOutputTypeCountProjectBudgetLinesArgs
+  supplierCreditLines?: boolean | AccountCountOutputTypeCountSupplierCreditLinesArgs
   children?: boolean | AccountCountOutputTypeCountChildrenArgs
 }
 
@@ -2431,6 +2829,20 @@ export type AccountCountOutputTypeCountBillLinesArgs<ExtArgs extends runtime.Typ
 /**
  * AccountCountOutputType without action
  */
+export type AccountCountOutputTypeCountProjectBudgetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectBudgetLineWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountSupplierCreditLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierCreditLineWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
 export type AccountCountOutputTypeCountChildrenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AccountWhereInput
 }
@@ -2460,6 +2872,8 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   creditNoteLines?: boolean | Prisma.Account$creditNoteLinesArgs<ExtArgs>
   paymentsReceived?: boolean | Prisma.Account$paymentsReceivedArgs<ExtArgs>
   billLines?: boolean | Prisma.Account$billLinesArgs<ExtArgs>
+  projectBudgetLines?: boolean | Prisma.Account$projectBudgetLinesArgs<ExtArgs>
+  supplierCreditLines?: boolean | Prisma.Account$supplierCreditLinesArgs<ExtArgs>
   parent?: boolean | Prisma.Account$parentArgs<ExtArgs>
   children?: boolean | Prisma.Account$childrenArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
@@ -2527,6 +2941,8 @@ export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   creditNoteLines?: boolean | Prisma.Account$creditNoteLinesArgs<ExtArgs>
   paymentsReceived?: boolean | Prisma.Account$paymentsReceivedArgs<ExtArgs>
   billLines?: boolean | Prisma.Account$billLinesArgs<ExtArgs>
+  projectBudgetLines?: boolean | Prisma.Account$projectBudgetLinesArgs<ExtArgs>
+  supplierCreditLines?: boolean | Prisma.Account$supplierCreditLinesArgs<ExtArgs>
   parent?: boolean | Prisma.Account$parentArgs<ExtArgs>
   children?: boolean | Prisma.Account$childrenArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
@@ -2551,6 +2967,8 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     creditNoteLines: Prisma.$CreditNoteLinePayload<ExtArgs>[]
     paymentsReceived: Prisma.$PaymentPayload<ExtArgs>[]
     billLines: Prisma.$BillLinePayload<ExtArgs>[]
+    projectBudgetLines: Prisma.$ProjectBudgetLinePayload<ExtArgs>[]
+    supplierCreditLines: Prisma.$SupplierCreditLinePayload<ExtArgs>[]
     parent: Prisma.$AccountPayload<ExtArgs> | null
     children: Prisma.$AccountPayload<ExtArgs>[]
   }
@@ -2972,6 +3390,8 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   creditNoteLines<T extends Prisma.Account$creditNoteLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$creditNoteLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditNoteLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentsReceived<T extends Prisma.Account$paymentsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$paymentsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   billLines<T extends Prisma.Account$billLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$billLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectBudgetLines<T extends Prisma.Account$projectBudgetLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$projectBudgetLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBudgetLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supplierCreditLines<T extends Prisma.Account$supplierCreditLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$supplierCreditLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierCreditLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   parent<T extends Prisma.Account$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$parentArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.Account$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3654,6 +4074,54 @@ export type Account$billLinesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.BillLineScalarFieldEnum | Prisma.BillLineScalarFieldEnum[]
+}
+
+/**
+ * Account.projectBudgetLines
+ */
+export type Account$projectBudgetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectBudgetLine
+   */
+  select?: Prisma.ProjectBudgetLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectBudgetLine
+   */
+  omit?: Prisma.ProjectBudgetLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectBudgetLineInclude<ExtArgs> | null
+  where?: Prisma.ProjectBudgetLineWhereInput
+  orderBy?: Prisma.ProjectBudgetLineOrderByWithRelationInput | Prisma.ProjectBudgetLineOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectBudgetLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectBudgetLineScalarFieldEnum | Prisma.ProjectBudgetLineScalarFieldEnum[]
+}
+
+/**
+ * Account.supplierCreditLines
+ */
+export type Account$supplierCreditLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierCreditLine
+   */
+  select?: Prisma.SupplierCreditLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierCreditLine
+   */
+  omit?: Prisma.SupplierCreditLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierCreditLineInclude<ExtArgs> | null
+  where?: Prisma.SupplierCreditLineWhereInput
+  orderBy?: Prisma.SupplierCreditLineOrderByWithRelationInput | Prisma.SupplierCreditLineOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierCreditLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierCreditLineScalarFieldEnum | Prisma.SupplierCreditLineScalarFieldEnum[]
 }
 
 /**

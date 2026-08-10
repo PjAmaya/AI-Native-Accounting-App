@@ -41,11 +41,19 @@ export async function syncBillStatusTx(tx: TxClient, billIds: string[]) {
     if (!bill) continue;
     if (bill.status !== "APPROVED" && bill.status !== "PAID") continue;
 
-    const agg = await tx.billApplication.aggregate({
-      where: { billId },
-      _sum: { amountApplied: true },
-    });
-    const applied = new Decimal(agg._sum.amountApplied?.toString() ?? "0");
+    const [payments, credits] = await Promise.all([
+      tx.billApplication.aggregate({
+        where: { billId },
+        _sum: { amountApplied: true },
+      }),
+      tx.supplierCreditApplication.aggregate({
+        where: { billId },
+        _sum: { amountApplied: true },
+      }),
+    ]);
+    const applied = new Decimal(payments._sum.amountApplied?.toString() ?? "0").plus(
+      new Decimal(credits._sum.amountApplied?.toString() ?? "0"),
+    );
     const settled = applied.greaterThanOrEqualTo(new Decimal(bill.total.toString()));
 
     const next = settled ? "PAID" : "APPROVED";

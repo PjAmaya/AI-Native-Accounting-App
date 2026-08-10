@@ -88,7 +88,7 @@ export default async function BillsPage() {
                 <tr key={bill.id} className="hover:bg-wash/30">
                   <td className="px-5 py-3">
                     <Link
-                      href={`/bills/${bill.id}`}
+                      href={bill.status === "DRAFT" ? `/bills/${bill.id}/edit` : `/bills/${bill.id}`}
                       className="font-mono text-[12px] font-medium hover:text-brand"
                     >
                       #{bill.billNumber}

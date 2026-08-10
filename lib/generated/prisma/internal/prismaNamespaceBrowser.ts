@@ -68,7 +68,11 @@ export const ModelName = {
   BillLine: 'BillLine',
   BillApplication: 'BillApplication',
   OrgProfile: 'OrgProfile',
-  PeriodLockEvent: 'PeriodLockEvent'
+  PeriodLockEvent: 'PeriodLockEvent',
+  SupplierCredit: 'SupplierCredit',
+  SupplierCreditLine: 'SupplierCreditLine',
+  SupplierCreditApplication: 'SupplierCreditApplication',
+  ProjectBudgetLine: 'ProjectBudgetLine'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -172,6 +176,7 @@ export const ProjectScalarFieldEnum = {
   name: 'name',
   isActive: 'isActive',
   contactId: 'contactId',
+  contractValue: 'contractValue',
   startDate: 'startDate',
   endDate: 'endDate',
   notes: 'notes',
@@ -426,6 +431,71 @@ export const PeriodLockEventScalarFieldEnum = {
 } as const
 
 export type PeriodLockEventScalarFieldEnum = (typeof PeriodLockEventScalarFieldEnum)[keyof typeof PeriodLockEventScalarFieldEnum]
+
+
+export const SupplierCreditScalarFieldEnum = {
+  id: 'id',
+  creditNumber: 'creditNumber',
+  supplierCreditNumber: 'supplierCreditNumber',
+  status: 'status',
+  contactId: 'contactId',
+  originalBillId: 'originalBillId',
+  creditDate: 'creditDate',
+  reason: 'reason',
+  notes: 'notes',
+  currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  subtotal: 'subtotal',
+  taxTotal: 'taxTotal',
+  total: 'total',
+  journalEntryId: 'journalEntryId',
+  approvedAt: 'approvedAt',
+  refundedAt: 'refundedAt',
+  refundEntryId: 'refundEntryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierCreditScalarFieldEnum = (typeof SupplierCreditScalarFieldEnum)[keyof typeof SupplierCreditScalarFieldEnum]
+
+
+export const SupplierCreditLineScalarFieldEnum = {
+  id: 'id',
+  supplierCreditId: 'supplierCreditId',
+  lineNumber: 'lineNumber',
+  description: 'description',
+  amount: 'amount',
+  expenseAccountId: 'expenseAccountId',
+  projectId: 'projectId',
+  taxRateId: 'taxRateId',
+  taxAmount: 'taxAmount'
+} as const
+
+export type SupplierCreditLineScalarFieldEnum = (typeof SupplierCreditLineScalarFieldEnum)[keyof typeof SupplierCreditLineScalarFieldEnum]
+
+
+export const SupplierCreditApplicationScalarFieldEnum = {
+  id: 'id',
+  supplierCreditId: 'supplierCreditId',
+  billId: 'billId',
+  amountApplied: 'amountApplied',
+  appliedAt: 'appliedAt'
+} as const
+
+export type SupplierCreditApplicationScalarFieldEnum = (typeof SupplierCreditApplicationScalarFieldEnum)[keyof typeof SupplierCreditApplicationScalarFieldEnum]
+
+
+export const ProjectBudgetLineScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  accountId: 'accountId',
+  amount: 'amount',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectBudgetLineScalarFieldEnum = (typeof ProjectBudgetLineScalarFieldEnum)[keyof typeof ProjectBudgetLineScalarFieldEnum]
 
 
 export const SortOrder = {

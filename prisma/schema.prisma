@@ -59,6 +59,8 @@ model Account {
   creditNoteLines       CreditNoteLine[] @relation("CreditNoteLineRevenue")
   paymentsReceived  Payment[]     @relation("PaymentBankAccount")
   billLines         BillLine[]    @relation("BillLineExpense")
+  projectBudgetLines ProjectBudgetLine[]
+  supplierCreditLines SupplierCreditLine[] @relation("SupplierCreditLineExpense")
 
   parentId      String?
   parent        Account?       @relation("AccountHierarchy", fields: [parentId], references: [id])
@@ -94,6 +96,8 @@ model JournalEntry {
   invoice      Invoice?
   payment      Payment?
   bill         Bill?
+  supplierCredit SupplierCredit?
+  refundForSupplierCredit SupplierCredit? @relation("SupplierCreditRefund")
   creditNote   CreditNote?
   refundForCredit CreditNote? @relation("CreditNoteRefund")
 
@@ -165,6 +169,7 @@ model Contact {
   invoices         Invoice[]
   payments         Payment[]
   bills            Bill[]
+  supplierCredits  SupplierCredit[]
   creditNotes      CreditNote[]
 
   createdAt        DateTime      @default(now())
@@ -183,6 +188,9 @@ model Project {
   contactId   String?
   contact     Contact?      @relation(fields: [contactId], references: [id])
 
+  contractValue Decimal?    @db.Decimal(12, 2)
+  budgetLines   ProjectBudgetLine[]
+
   startDate   DateTime?     @db.Date
   endDate     DateTime?     @db.Date
   notes       String?
@@ -191,6 +199,7 @@ model Project {
   invoices    Invoice[]
   bills       Bill[]
   billLines   BillLine[] @relation("BillLineProject")
+  supplierCreditLines SupplierCreditLine[] @relation("SupplierCreditLineProject")
   creditNoteLines CreditNoteLine[] @relation("CreditNoteLineProject")
   invoiceLines InvoiceLine[] @relation("InvoiceLineProject")
 
@@ -217,6 +226,7 @@ model TaxRate {
   invoiceLines  InvoiceLine[]
   creditNoteLines CreditNoteLine[]
   billLines     BillLine[]
+  supplierCreditLines SupplierCreditLine[] @relation("SupplierCreditLineTax")
 
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -499,6 +509,8 @@ model Bill {
 
   lines                 BillLine[]
   applications          BillApplication[]
+  supplierCreditApplications SupplierCreditApplication[]
+  supplierCredits       SupplierCredit[] @relation("SupplierCreditOriginal")
 
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
@@ -611,4 +623,117 @@ model PeriodLockEvent {
 
   @@index([createdAt])
   @@index([action])
+}
+
+
+enum SupplierCreditStatus {
+  DRAFT
+  APPROVED
+  APPLIED
+  REFUNDED
+  VOID
+}
+
+model SupplierCredit {
+  id             String        @id @default(cuid())
+  creditNumber   Int           @unique
+  supplierCreditNumber String
+  status         SupplierCreditStatus @default(DRAFT)
+
+  contactId      String
+  contact        Contact       @relation(fields: [contactId], references: [id])
+
+  originalBillId String?
+  originalBill   Bill?         @relation("SupplierCreditOriginal", fields: [originalBillId], references: [id])
+
+  creditDate     DateTime      @db.Date
+  reason         String
+  notes          String?
+
+  currency       String        @default("CAD")
+  exchangeRate   Decimal       @default(1) @db.Decimal(18, 8)
+
+  subtotal       Decimal       @default(0) @db.Decimal(12, 2)
+  taxTotal       Decimal       @default(0) @db.Decimal(12, 2)
+  total          Decimal       @default(0) @db.Decimal(12, 2)
+
+  journalEntryId String?       @unique
+  journalEntry   JournalEntry? @relation(fields: [journalEntryId], references: [id])
+
+  approvedAt     DateTime?
+  refundedAt     DateTime?
+  refundEntryId  String?       @unique
+  refundEntry    JournalEntry? @relation("SupplierCreditRefund", fields: [refundEntryId], references: [id])
+
+  lines          SupplierCreditLine[]
+  applications   SupplierCreditApplication[]
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@unique([contactId, supplierCreditNumber])
+  @@index([contactId])
+  @@index([status])
+  @@index([creditDate])
+}
+
+model SupplierCreditLine {
+  id          String   @id @default(cuid())
+
+  supplierCreditId String
+  supplierCredit   SupplierCredit @relation(fields: [supplierCreditId], references: [id], onDelete: Cascade)
+
+  lineNumber  Int
+  description String
+  amount      Decimal  @db.Decimal(12, 2)
+
+  expenseAccountId String
+  expenseAccount   Account @relation("SupplierCreditLineExpense", fields: [expenseAccountId], references: [id])
+
+  projectId   String?
+  project     Project? @relation("SupplierCreditLineProject", fields: [projectId], references: [id])
+
+  taxRateId   String?
+  taxRate     TaxRate? @relation("SupplierCreditLineTax", fields: [taxRateId], references: [id])
+  taxAmount   Decimal  @default(0) @db.Decimal(12, 2)
+
+  @@unique([supplierCreditId, lineNumber])
+  @@index([supplierCreditId])
+}
+
+model SupplierCreditApplication {
+  id            String   @id @default(cuid())
+
+  supplierCreditId String
+  supplierCredit   SupplierCredit @relation(fields: [supplierCreditId], references: [id], onDelete: Cascade)
+
+  billId        String
+  bill          Bill     @relation(fields: [billId], references: [id])
+
+  amountApplied Decimal  @db.Decimal(12, 2)
+  appliedAt     DateTime @default(now())
+
+  @@unique([supplierCreditId, billId])
+  @@index([supplierCreditId])
+  @@index([billId])
+}
+
+
+model ProjectBudgetLine {
+  id        String   @id @default(cuid())
+
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  accountId String
+  account   Account  @relation(fields: [accountId], references: [id])
+
+  amount    Decimal  @db.Decimal(12, 2)
+  notes     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([projectId, accountId])
+  @@index([projectId])
 }

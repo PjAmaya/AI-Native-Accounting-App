@@ -30,6 +30,7 @@ export type BillDraft = {
   projectCode?: string;
   taxTotal?: string;
   acceptTaxVariance?: boolean;
+  forceBillNumber?: number;
   lines: BillDraftLine[];
 };
 
@@ -164,7 +165,7 @@ export async function createBillTx(tx: TxClient, draft: BillDraft) {
     orderBy: { billNumber: "desc" },
     select: { billNumber: true },
   });
-  const billNumber = (lastBill?.billNumber ?? 0) + 1;
+  const billNumber = draft.forceBillNumber ?? (lastBill?.billNumber ?? 0) + 1;
 
   const billProjectId = draft.projectCode ? projectByCode.get(draft.projectCode)!.id : null;
 

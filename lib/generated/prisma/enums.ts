@@ -111,3 +111,14 @@ export const PeriodLockAction = {
 } as const
 
 export type PeriodLockAction = (typeof PeriodLockAction)[keyof typeof PeriodLockAction]
+
+
+export const SupplierCreditStatus = {
+  DRAFT: 'DRAFT',
+  APPROVED: 'APPROVED',
+  APPLIED: 'APPLIED',
+  REFUNDED: 'REFUNDED',
+  VOID: 'VOID'
+} as const
+
+export type SupplierCreditStatus = (typeof SupplierCreditStatus)[keyof typeof SupplierCreditStatus]

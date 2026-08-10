@@ -1,16 +1,24 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, CheckCircle2, TriangleAlert, Wallet } from "lucide-react";
+import { ArrowLeft, CheckCircle2, TriangleAlert, Wallet, Pencil, Trash2, FileMinus } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { approveBillAction } from "../actions";
+import { approveBillAction, deleteBillAction } from "../actions";
+import { VoidBill } from "@/components/ui/VoidBill";
 
 export const dynamic = "force-dynamic";
 
-export default async function BillPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function BillPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ voidError?: string }>;
+}) {
   const { id } = await params;
+  const { voidError } = await searchParams;
 
   const bill = await prisma.bill.findUnique({
     where: { id },
@@ -22,16 +30,31 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
       },
       journalEntry: { include: { lines: { include: { account: true } } } },
       applications: { include: { payment: true }, orderBy: { appliedAt: "asc" } },
+      supplierCreditApplications: {
+        include: { supplierCredit: true },
+        orderBy: { appliedAt: "asc" },
+      },
+      supplierCredits: { orderBy: { creditNumber: "asc" } },
     },
   });
   if (!bill) notFound();
 
-  const applied = bill.applications.reduce(
+  const applied = [...bill.applications, ...bill.supplierCreditApplications].reduce(
     (sum, a) => sum.plus(a.amountApplied.toString()),
     new Decimal(0),
   );
   const outstanding = new Decimal(bill.total.toString()).minus(applied);
   const approve = approveBillAction.bind(null, bill.id);
+  const remove = deleteBillAction.bind(null, bill.id);
+
+  const derived =
+    bill.status === "APPROVED"
+      ? [
+          ...(applied.greaterThan(0) && outstanding.greaterThan(0) ? ["PARTIAL"] : []),
+          ...(outstanding.greaterThan(0) && bill.dueDate < new Date() ? ["OVERDUE"] : []),
+        ]
+      : [];
+  const statuses = derived.length > 0 ? derived : [bill.status];
 
   return (
     <div>
@@ -44,7 +67,9 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
         <div>
           <div className="flex items-center gap-3">
             <h1 className="page-title font-mono">Bill #{bill.billNumber}</h1>
-            <StatusPill status={bill.status} />
+            {statuses.map((code) => (
+              <StatusPill key={code} status={code} />
+            ))}
           </div>
           <p className="mt-2 text-[14px] text-muted">
             {bill.contact.name} · their invoice{" "}
@@ -53,6 +78,23 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
           </p>
         </div>
 
+        {bill.status === "APPROVED" || bill.status === "PAID" ? (
+          <Link
+            href={`/supplier-credits/new?bill=${bill.id}`}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
+          >
+            <FileMinus size={14} strokeWidth={2} aria-hidden />
+            Supplier credit
+          </Link>
+        ) : null}
+        {bill.status === "APPROVED" && bill.applications.length === 0 ? (
+          <VoidBill billId={bill.id} billNumber={bill.billNumber} />
+        ) : null}
+        {bill.status === "APPROVED" && bill.applications.length > 0 ? (
+          <p className="max-w-44 text-[11px] leading-snug text-faint">
+            Cannot be voided — a payment has been applied.
+          </p>
+        ) : null}
         {bill.status === "APPROVED" && outstanding.greaterThan(0) ? (
           <Link
             href={`/payments/new?bill=${bill.id}`}
@@ -61,6 +103,26 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
             <Wallet size={14} strokeWidth={2} aria-hidden />
             Record payment
           </Link>
+        ) : null}
+        {bill.status === "DRAFT" ? (
+          <Link
+            href={`/bills/${bill.id}/edit`}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
+          >
+            <Pencil size={14} strokeWidth={2} aria-hidden />
+            Edit
+          </Link>
+        ) : null}
+        {bill.status === "DRAFT" ? (
+          <form action={remove} className="shrink-0">
+            <button
+              type="submit"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium text-negative transition-colors hover:bg-tint-amber/40"
+            >
+              <Trash2 size={14} strokeWidth={2} aria-hidden />
+              Delete
+            </button>
+          </form>
         ) : null}
         {bill.status === "DRAFT" ? (
           <form action={approve} className="shrink-0">
@@ -74,6 +136,20 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
           </form>
         ) : null}
       </div>
+
+      {voidError ? (
+        <div className="card mt-5 border-negative bg-tint-amber/40 px-5 py-3.5">
+          <p className="text-[13px] text-negative">{voidError}</p>
+        </div>
+      ) : null}
+
+      {bill.status === "VOID" ? (
+        <div className="card mt-5 border-rule bg-wash/50 px-5 py-3.5">
+          <p className="text-[13px] text-muted">
+            This bill is void. Its journal entry has been reversed, so it appears in no report.
+          </p>
+        </div>
+      ) : null}
 
       {bill.status === "DRAFT" ? (
         <div className="card mt-5 border-tint-amber bg-tint-amber/40 px-5 py-3.5">
@@ -143,15 +219,50 @@ export default async function BillPage({ params }: { params: Promise<{ id: strin
         </table>
       </div>
 
-      {bill.applications.length > 0 ? (
+      {bill.supplierCredits.length > 0 ? (
         <div className="card mt-4 px-5 py-4">
-          <p className="eyebrow">Payments</p>
+          <p className="eyebrow">Supplier credits against this bill</p>
+          <ul className="mt-3 divide-y divide-rule">
+            {bill.supplierCredits.map((c) => (
+              <li key={c.id} className="flex items-center justify-between gap-3 py-2 text-[13px]">
+                <Link
+                  href={`/supplier-credits/${c.id}`}
+                  className="flex items-center gap-2 hover:text-brand"
+                >
+                  <span className="font-mono text-[12px] font-medium">#{c.creditNumber}</span>
+                  <StatusPill status={c.status} />
+                  <span className="text-muted">{c.reason}</span>
+                </Link>
+                <span className="figure">{money(c.total)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {bill.applications.length > 0 || bill.supplierCreditApplications.length > 0 ? (
+        <div className="card mt-4 px-5 py-4">
+          <p className="eyebrow">Settled by</p>
           <ul className="mt-3 divide-y divide-rule">
             {bill.applications.map((a) => (
               <li key={a.id} className="flex items-center justify-between py-2 text-[13px]">
                 <span className="text-muted">
                   Payment #{a.payment.paymentNumber} · {shortDate(a.payment.paymentDate)}
                 </span>
+                <span className="figure">{money(a.amountApplied)}</span>
+              </li>
+            ))}
+            {bill.supplierCreditApplications.map((a) => (
+              <li key={a.id} className="flex items-center justify-between py-2 text-[13px]">
+                <Link
+                  href={`/supplier-credits/${a.supplierCreditId}`}
+                  className="flex items-center gap-2 text-muted hover:text-brand"
+                >
+                  <span className="rounded-full bg-tint-violet px-2 py-0.5 text-[11px] font-medium text-icon-violet">
+                    Credit
+                  </span>
+                  <span className="font-mono text-[12px]">#{a.supplierCredit.creditNumber}</span>
+                </Link>
                 <span className="figure">{money(a.amountApplied)}</span>
               </li>
             ))}

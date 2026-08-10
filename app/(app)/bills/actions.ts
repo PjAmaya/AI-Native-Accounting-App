@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createBill, type BillDraft, type BillDraftLine } from "@/lib/invoicing/createBill";
 import { approveBill } from "@/lib/invoicing/approveBill";
+import { updateDraftBill, deleteDraftBill } from "@/lib/invoicing/updateDraftBill";
+import { voidBill } from "@/lib/invoicing/voidBill";
 
 export type BillFormState = {
   ok: boolean;
@@ -30,7 +32,7 @@ function list(formData: FormData, key: string) {
   return formData.getAll(key).map((v) => (typeof v === "string" ? v.trim() : ""));
 }
 
-export async function createBillAction(
+export async function saveBillAction(
   _previous: BillFormState,
   formData: FormData,
 ): Promise<BillFormState> {
@@ -120,10 +122,11 @@ export async function createBillAction(
     lines,
   };
 
+  const id = text(formData, "id");
   let billId: string;
 
   try {
-    const result = await createBill(draft);
+    const result = id ? await updateDraftBill(id, draft) : await createBill(draft);
     billId = result.bill.id;
   } catch (e) {
     return { ok: false, message: (e as Error).message, warnings: [], errors: {} };
@@ -131,6 +134,30 @@ export async function createBillAction(
 
   revalidatePath("/bills");
   redirect(`/bills/${billId}`);
+}
+
+export async function voidBillAction(billId: string, formData: FormData) {
+  const reason =
+    typeof formData.get("reason") === "string" ? (formData.get("reason") as string).trim() : "";
+
+  if (!reason) {
+    redirect(`/bills/${billId}?voidError=${encodeURIComponent("A reason is required.")}`);
+  }
+
+  try {
+    await voidBill(billId, { reason });
+  } catch (e) {
+    redirect(`/bills/${billId}?voidError=${encodeURIComponent((e as Error).message)}`);
+  }
+
+  revalidatePath("/bills");
+  redirect(`/bills/${billId}`);
+}
+
+export async function deleteBillAction(billId: string) {
+  await deleteDraftBill(billId);
+  revalidatePath("/bills");
+  redirect("/bills");
 }
 
 export async function approveBillAction(billId: string) {

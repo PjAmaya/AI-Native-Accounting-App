@@ -13,6 +13,7 @@ import {
   BookOpen,
   Lock,
   BarChart3,
+  FolderKanban,
   Settings,
 } from "lucide-react";
 
@@ -33,20 +34,28 @@ const NAV: Group[] = [
   },
   {
     heading: "Payable",
-    items: [{ href: "/bills", label: "Bills", icon: Receipt }],
+    items: [
+      { href: "/bills", label: "Bills", icon: Receipt },
+      { href: "/supplier-credits", label: "Supplier credits", icon: FileMinus },
+    ],
   },
   {
-    heading: null,
-    items: [
-      { href: "/payments", label: "Payments", icon: Wallet },
-      { href: "/reports", label: "Reports", icon: BarChart3 },
-    ],
+    heading: "Delivery",
+    items: [{ href: "/projects", label: "Projects", icon: FolderKanban }],
+  },
+  {
+    heading: "Cash",
+    items: [{ href: "/payments", label: "Payments", icon: Wallet }],
+  },
+  {
+    heading: "Reporting",
+    items: [{ href: "/reports", label: "Reports", icon: BarChart3 }],
   },
   {
     heading: "Setup",
     items: [
       { href: "/contacts", label: "Contacts", icon: Users },
-      { href: "/accounts", label: "Accounts", icon: BookOpen },
+      { href: "/accounts", label: "GL accounts", icon: BookOpen },
       { href: "/periods", label: "Periods", icon: Lock },
       { href: "/settings", label: "Settings", icon: Settings },
     ],

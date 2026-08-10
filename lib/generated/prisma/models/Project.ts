@@ -20,8 +20,18 @@ export type ProjectModel = runtime.Types.Result.DefaultSelection<Prisma.$Project
 
 export type AggregateProject = {
   _count: ProjectCountAggregateOutputType | null
+  _avg: ProjectAvgAggregateOutputType | null
+  _sum: ProjectSumAggregateOutputType | null
   _min: ProjectMinAggregateOutputType | null
   _max: ProjectMaxAggregateOutputType | null
+}
+
+export type ProjectAvgAggregateOutputType = {
+  contractValue: runtime.Decimal | null
+}
+
+export type ProjectSumAggregateOutputType = {
+  contractValue: runtime.Decimal | null
 }
 
 export type ProjectMinAggregateOutputType = {
@@ -30,6 +40,7 @@ export type ProjectMinAggregateOutputType = {
   name: string | null
   isActive: boolean | null
   contactId: string | null
+  contractValue: runtime.Decimal | null
   startDate: Date | null
   endDate: Date | null
   notes: string | null
@@ -43,6 +54,7 @@ export type ProjectMaxAggregateOutputType = {
   name: string | null
   isActive: boolean | null
   contactId: string | null
+  contractValue: runtime.Decimal | null
   startDate: Date | null
   endDate: Date | null
   notes: string | null
@@ -56,6 +68,7 @@ export type ProjectCountAggregateOutputType = {
   name: number
   isActive: number
   contactId: number
+  contractValue: number
   startDate: number
   endDate: number
   notes: number
@@ -65,12 +78,21 @@ export type ProjectCountAggregateOutputType = {
 }
 
 
+export type ProjectAvgAggregateInputType = {
+  contractValue?: true
+}
+
+export type ProjectSumAggregateInputType = {
+  contractValue?: true
+}
+
 export type ProjectMinAggregateInputType = {
   id?: true
   code?: true
   name?: true
   isActive?: true
   contactId?: true
+  contractValue?: true
   startDate?: true
   endDate?: true
   notes?: true
@@ -84,6 +106,7 @@ export type ProjectMaxAggregateInputType = {
   name?: true
   isActive?: true
   contactId?: true
+  contractValue?: true
   startDate?: true
   endDate?: true
   notes?: true
@@ -97,6 +120,7 @@ export type ProjectCountAggregateInputType = {
   name?: true
   isActive?: true
   contactId?: true
+  contractValue?: true
   startDate?: true
   endDate?: true
   notes?: true
@@ -143,6 +167,18 @@ export type ProjectAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ProjectAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ProjectSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ProjectMinAggregateInputType
@@ -173,6 +209,8 @@ export type ProjectGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: ProjectCountAggregateInputType | true
+  _avg?: ProjectAvgAggregateInputType
+  _sum?: ProjectSumAggregateInputType
   _min?: ProjectMinAggregateInputType
   _max?: ProjectMaxAggregateInputType
 }
@@ -183,12 +221,15 @@ export type ProjectGroupByOutputType = {
   name: string
   isActive: boolean
   contactId: string | null
+  contractValue: runtime.Decimal | null
   startDate: Date | null
   endDate: Date | null
   notes: string | null
   createdAt: Date
   updatedAt: Date
   _count: ProjectCountAggregateOutputType | null
+  _avg: ProjectAvgAggregateOutputType | null
+  _sum: ProjectSumAggregateOutputType | null
   _min: ProjectMinAggregateOutputType | null
   _max: ProjectMaxAggregateOutputType | null
 }
@@ -217,16 +258,19 @@ export type ProjectWhereInput = {
   name?: Prisma.StringFilter<"Project"> | string
   isActive?: Prisma.BoolFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
+  contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   notes?: Prisma.StringNullableFilter<"Project"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   contact?: Prisma.XOR<Prisma.ContactNullableScalarRelationFilter, Prisma.ContactWhereInput> | null
+  budgetLines?: Prisma.ProjectBudgetLineListRelationFilter
   lines?: Prisma.JournalLineListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   bills?: Prisma.BillListRelationFilter
   billLines?: Prisma.BillLineListRelationFilter
+  supplierCreditLines?: Prisma.SupplierCreditLineListRelationFilter
   creditNoteLines?: Prisma.CreditNoteLineListRelationFilter
   invoiceLines?: Prisma.InvoiceLineListRelationFilter
 }
@@ -237,16 +281,19 @@ export type ProjectOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contractValue?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   contact?: Prisma.ContactOrderByWithRelationInput
+  budgetLines?: Prisma.ProjectBudgetLineOrderByRelationAggregateInput
   lines?: Prisma.JournalLineOrderByRelationAggregateInput
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
   bills?: Prisma.BillOrderByRelationAggregateInput
   billLines?: Prisma.BillLineOrderByRelationAggregateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineOrderByRelationAggregateInput
   creditNoteLines?: Prisma.CreditNoteLineOrderByRelationAggregateInput
   invoiceLines?: Prisma.InvoiceLineOrderByRelationAggregateInput
 }
@@ -260,16 +307,19 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Project"> | string
   isActive?: Prisma.BoolFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
+  contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   notes?: Prisma.StringNullableFilter<"Project"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   contact?: Prisma.XOR<Prisma.ContactNullableScalarRelationFilter, Prisma.ContactWhereInput> | null
+  budgetLines?: Prisma.ProjectBudgetLineListRelationFilter
   lines?: Prisma.JournalLineListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   bills?: Prisma.BillListRelationFilter
   billLines?: Prisma.BillLineListRelationFilter
+  supplierCreditLines?: Prisma.SupplierCreditLineListRelationFilter
   creditNoteLines?: Prisma.CreditNoteLineListRelationFilter
   invoiceLines?: Prisma.InvoiceLineListRelationFilter
 }, "id" | "code">
@@ -280,14 +330,17 @@ export type ProjectOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
+  contractValue?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProjectCountOrderByAggregateInput
+  _avg?: Prisma.ProjectAvgOrderByAggregateInput
   _max?: Prisma.ProjectMaxOrderByAggregateInput
   _min?: Prisma.ProjectMinOrderByAggregateInput
+  _sum?: Prisma.ProjectSumOrderByAggregateInput
 }
 
 export type ProjectScalarWhereWithAggregatesInput = {
@@ -299,6 +352,7 @@ export type ProjectScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Project"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  contractValue?: Prisma.DecimalNullableWithAggregatesFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
@@ -311,16 +365,19 @@ export type ProjectCreateInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
@@ -331,15 +388,18 @@ export type ProjectUncheckedCreateInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -349,16 +409,19 @@ export type ProjectUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
@@ -369,15 +432,18 @@ export type ProjectUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -388,6 +454,7 @@ export type ProjectCreateManyInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
@@ -400,6 +467,7 @@ export type ProjectUpdateManyMutationInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -413,6 +481,7 @@ export type ProjectUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -441,11 +510,16 @@ export type ProjectCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
+  contractValue?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ProjectAvgOrderByAggregateInput = {
+  contractValue?: Prisma.SortOrder
 }
 
 export type ProjectMaxOrderByAggregateInput = {
@@ -454,6 +528,7 @@ export type ProjectMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
+  contractValue?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -467,11 +542,21 @@ export type ProjectMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   contactId?: Prisma.SortOrder
+  contractValue?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ProjectSumOrderByAggregateInput = {
+  contractValue?: Prisma.SortOrder
+}
+
+export type ProjectScalarRelationFilter = {
+  is?: Prisma.ProjectWhereInput
+  isNot?: Prisma.ProjectWhereInput
 }
 
 export type ProjectCreateNestedOneWithoutLinesInput = {
@@ -530,6 +615,14 @@ export type ProjectUncheckedUpdateManyWithoutContactNestedInput = {
   update?: Prisma.ProjectUpdateWithWhereUniqueWithoutContactInput | Prisma.ProjectUpdateWithWhereUniqueWithoutContactInput[]
   updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutContactInput | Prisma.ProjectUpdateManyWithWhereWithoutContactInput[]
   deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type ProjectCreateNestedOneWithoutCreditNoteLinesInput = {
@@ -612,20 +705,53 @@ export type ProjectUpdateOneWithoutBillLinesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutBillLinesInput, Prisma.ProjectUpdateWithoutBillLinesInput>, Prisma.ProjectUncheckedUpdateWithoutBillLinesInput>
 }
 
+export type ProjectCreateNestedOneWithoutSupplierCreditLinesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutSupplierCreditLinesInput, Prisma.ProjectUncheckedCreateWithoutSupplierCreditLinesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutSupplierCreditLinesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneWithoutSupplierCreditLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutSupplierCreditLinesInput, Prisma.ProjectUncheckedCreateWithoutSupplierCreditLinesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutSupplierCreditLinesInput
+  upsert?: Prisma.ProjectUpsertWithoutSupplierCreditLinesInput
+  disconnect?: Prisma.ProjectWhereInput | boolean
+  delete?: Prisma.ProjectWhereInput | boolean
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutSupplierCreditLinesInput, Prisma.ProjectUpdateWithoutSupplierCreditLinesInput>, Prisma.ProjectUncheckedUpdateWithoutSupplierCreditLinesInput>
+}
+
+export type ProjectCreateNestedOneWithoutBudgetLinesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutBudgetLinesInput, Prisma.ProjectUncheckedCreateWithoutBudgetLinesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutBudgetLinesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutBudgetLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutBudgetLinesInput, Prisma.ProjectUncheckedCreateWithoutBudgetLinesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutBudgetLinesInput
+  upsert?: Prisma.ProjectUpsertWithoutBudgetLinesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutBudgetLinesInput, Prisma.ProjectUpdateWithoutBudgetLinesInput>, Prisma.ProjectUncheckedUpdateWithoutBudgetLinesInput>
+}
+
 export type ProjectCreateWithoutLinesInput = {
   id?: string
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
@@ -636,14 +762,17 @@ export type ProjectUncheckedCreateWithoutLinesInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -669,15 +798,18 @@ export type ProjectUpdateWithoutLinesInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
@@ -688,14 +820,17 @@ export type ProjectUncheckedUpdateWithoutLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -705,15 +840,18 @@ export type ProjectCreateWithoutContactInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
@@ -723,15 +861,18 @@ export type ProjectUncheckedCreateWithoutContactInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -771,6 +912,7 @@ export type ProjectScalarWhereInput = {
   name?: Prisma.StringFilter<"Project"> | string
   isActive?: Prisma.BoolFilter<"Project"> | boolean
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
+  contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   notes?: Prisma.StringNullableFilter<"Project"> | string | null
@@ -783,16 +925,19 @@ export type ProjectCreateWithoutCreditNoteLinesInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
 
@@ -802,15 +947,18 @@ export type ProjectUncheckedCreateWithoutCreditNoteLinesInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
 
@@ -835,16 +983,19 @@ export type ProjectUpdateWithoutCreditNoteLinesInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
 
@@ -854,15 +1005,18 @@ export type ProjectUncheckedUpdateWithoutCreditNoteLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
 
@@ -871,15 +1025,18 @@ export type ProjectCreateWithoutInvoicesInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
@@ -890,14 +1047,17 @@ export type ProjectUncheckedCreateWithoutInvoicesInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -923,15 +1083,18 @@ export type ProjectUpdateWithoutInvoicesInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
@@ -942,14 +1105,17 @@ export type ProjectUncheckedUpdateWithoutInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -959,16 +1125,19 @@ export type ProjectCreateWithoutInvoiceLinesInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
 }
 
@@ -978,15 +1147,18 @@ export type ProjectUncheckedCreateWithoutInvoiceLinesInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
 }
 
@@ -1011,16 +1183,19 @@ export type ProjectUpdateWithoutInvoiceLinesInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
 }
 
@@ -1030,15 +1205,18 @@ export type ProjectUncheckedUpdateWithoutInvoiceLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
 }
 
@@ -1047,15 +1225,18 @@ export type ProjectCreateWithoutBillsInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
@@ -1066,14 +1247,17 @@ export type ProjectUncheckedCreateWithoutBillsInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -1099,15 +1283,18 @@ export type ProjectUpdateWithoutBillsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
@@ -1118,14 +1305,17 @@ export type ProjectUncheckedUpdateWithoutBillsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -1135,15 +1325,18 @@ export type ProjectCreateWithoutBillLinesInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
@@ -1154,14 +1347,17 @@ export type ProjectUncheckedCreateWithoutBillLinesInput = {
   name: string
   isActive?: boolean
   contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -1187,15 +1383,18 @@ export type ProjectUpdateWithoutBillLinesInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
@@ -1206,6 +1405,207 @@ export type ProjectUncheckedUpdateWithoutBillLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutSupplierCreditLinesInput = {
+  id?: string
+  code: string
+  name: string
+  isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
+  bills?: Prisma.BillCreateNestedManyWithoutProjectInput
+  billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
+  invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutSupplierCreditLinesInput = {
+  id?: string
+  code: string
+  name: string
+  isActive?: boolean
+  contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
+  billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutSupplierCreditLinesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutSupplierCreditLinesInput, Prisma.ProjectUncheckedCreateWithoutSupplierCreditLinesInput>
+}
+
+export type ProjectUpsertWithoutSupplierCreditLinesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutSupplierCreditLinesInput, Prisma.ProjectUncheckedUpdateWithoutSupplierCreditLinesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutSupplierCreditLinesInput, Prisma.ProjectUncheckedCreateWithoutSupplierCreditLinesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutSupplierCreditLinesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutSupplierCreditLinesInput, Prisma.ProjectUncheckedUpdateWithoutSupplierCreditLinesInput>
+}
+
+export type ProjectUpdateWithoutSupplierCreditLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
+  bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
+  billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
+  invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutSupplierCreditLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
+  billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutBudgetLinesInput = {
+  id?: string
+  code: string
+  name: string
+  isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
+  bills?: Prisma.BillCreateNestedManyWithoutProjectInput
+  billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
+  creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
+  invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutBudgetLinesInput = {
+  id?: string
+  code: string
+  name: string
+  isActive?: boolean
+  contactId?: string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
+  billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutBudgetLinesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutBudgetLinesInput, Prisma.ProjectUncheckedCreateWithoutBudgetLinesInput>
+}
+
+export type ProjectUpsertWithoutBudgetLinesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutBudgetLinesInput, Prisma.ProjectUncheckedUpdateWithoutBudgetLinesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutBudgetLinesInput, Prisma.ProjectUncheckedCreateWithoutBudgetLinesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutBudgetLinesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutBudgetLinesInput, Prisma.ProjectUncheckedUpdateWithoutBudgetLinesInput>
+}
+
+export type ProjectUpdateWithoutBudgetLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
+  bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
+  billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
+  invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutBudgetLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1214,6 +1614,8 @@ export type ProjectUncheckedUpdateWithoutBillLinesInput = {
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
+  billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -1223,6 +1625,7 @@ export type ProjectCreateManyContactInput = {
   code: string
   name: string
   isActive?: boolean
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
   notes?: string | null
@@ -1235,15 +1638,18 @@ export type ProjectUpdateWithoutContactInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
@@ -1253,15 +1659,18 @@ export type ProjectUncheckedUpdateWithoutContactInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -1271,6 +1680,7 @@ export type ProjectUncheckedUpdateManyWithoutContactInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1284,19 +1694,23 @@ export type ProjectUncheckedUpdateManyWithoutContactInput = {
  */
 
 export type ProjectCountOutputType = {
+  budgetLines: number
   lines: number
   invoices: number
   bills: number
   billLines: number
+  supplierCreditLines: number
   creditNoteLines: number
   invoiceLines: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  budgetLines?: boolean | ProjectCountOutputTypeCountBudgetLinesArgs
   lines?: boolean | ProjectCountOutputTypeCountLinesArgs
   invoices?: boolean | ProjectCountOutputTypeCountInvoicesArgs
   bills?: boolean | ProjectCountOutputTypeCountBillsArgs
   billLines?: boolean | ProjectCountOutputTypeCountBillLinesArgs
+  supplierCreditLines?: boolean | ProjectCountOutputTypeCountSupplierCreditLinesArgs
   creditNoteLines?: boolean | ProjectCountOutputTypeCountCreditNoteLinesArgs
   invoiceLines?: boolean | ProjectCountOutputTypeCountInvoiceLinesArgs
 }
@@ -1309,6 +1723,13 @@ export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
    * Select specific fields to fetch from the ProjectCountOutputType
    */
   select?: Prisma.ProjectCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountBudgetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectBudgetLineWhereInput
 }
 
 /**
@@ -1342,6 +1763,13 @@ export type ProjectCountOutputTypeCountBillLinesArgs<ExtArgs extends runtime.Typ
 /**
  * ProjectCountOutputType without action
  */
+export type ProjectCountOutputTypeCountSupplierCreditLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierCreditLineWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
 export type ProjectCountOutputTypeCountCreditNoteLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CreditNoteLineWhereInput
 }
@@ -1360,16 +1788,19 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name?: boolean
   isActive?: boolean
   contactId?: boolean
+  contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   contact?: boolean | Prisma.Project$contactArgs<ExtArgs>
+  budgetLines?: boolean | Prisma.Project$budgetLinesArgs<ExtArgs>
   lines?: boolean | Prisma.Project$linesArgs<ExtArgs>
   invoices?: boolean | Prisma.Project$invoicesArgs<ExtArgs>
   bills?: boolean | Prisma.Project$billsArgs<ExtArgs>
   billLines?: boolean | Prisma.Project$billLinesArgs<ExtArgs>
+  supplierCreditLines?: boolean | Prisma.Project$supplierCreditLinesArgs<ExtArgs>
   creditNoteLines?: boolean | Prisma.Project$creditNoteLinesArgs<ExtArgs>
   invoiceLines?: boolean | Prisma.Project$invoiceLinesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -1381,6 +1812,7 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   isActive?: boolean
   contactId?: boolean
+  contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
@@ -1395,6 +1827,7 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   isActive?: boolean
   contactId?: boolean
+  contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
@@ -1409,6 +1842,7 @@ export type ProjectSelectScalar = {
   name?: boolean
   isActive?: boolean
   contactId?: boolean
+  contractValue?: boolean
   startDate?: boolean
   endDate?: boolean
   notes?: boolean
@@ -1416,13 +1850,15 @@ export type ProjectSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "isActive" | "contactId" | "startDate" | "endDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "isActive" | "contactId" | "contractValue" | "startDate" | "endDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contact?: boolean | Prisma.Project$contactArgs<ExtArgs>
+  budgetLines?: boolean | Prisma.Project$budgetLinesArgs<ExtArgs>
   lines?: boolean | Prisma.Project$linesArgs<ExtArgs>
   invoices?: boolean | Prisma.Project$invoicesArgs<ExtArgs>
   bills?: boolean | Prisma.Project$billsArgs<ExtArgs>
   billLines?: boolean | Prisma.Project$billLinesArgs<ExtArgs>
+  supplierCreditLines?: boolean | Prisma.Project$supplierCreditLinesArgs<ExtArgs>
   creditNoteLines?: boolean | Prisma.Project$creditNoteLinesArgs<ExtArgs>
   invoiceLines?: boolean | Prisma.Project$invoiceLinesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -1438,10 +1874,12 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Project"
   objects: {
     contact: Prisma.$ContactPayload<ExtArgs> | null
+    budgetLines: Prisma.$ProjectBudgetLinePayload<ExtArgs>[]
     lines: Prisma.$JournalLinePayload<ExtArgs>[]
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
     bills: Prisma.$BillPayload<ExtArgs>[]
     billLines: Prisma.$BillLinePayload<ExtArgs>[]
+    supplierCreditLines: Prisma.$SupplierCreditLinePayload<ExtArgs>[]
     creditNoteLines: Prisma.$CreditNoteLinePayload<ExtArgs>[]
     invoiceLines: Prisma.$InvoiceLinePayload<ExtArgs>[]
   }
@@ -1451,6 +1889,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     name: string
     isActive: boolean
     contactId: string | null
+    contractValue: runtime.Decimal | null
     startDate: Date | null
     endDate: Date | null
     notes: string | null
@@ -1851,10 +2290,12 @@ readonly fields: ProjectFieldRefs;
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   contact<T extends Prisma.Project$contactArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$contactArgs<ExtArgs>>): Prisma.Prisma__ContactClient<runtime.Types.Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  budgetLines<T extends Prisma.Project$budgetLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$budgetLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBudgetLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lines<T extends Prisma.Project$linesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$linesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoices<T extends Prisma.Project$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bills<T extends Prisma.Project$billsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$billsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   billLines<T extends Prisma.Project$billLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$billLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supplierCreditLines<T extends Prisma.Project$supplierCreditLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$supplierCreditLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierCreditLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   creditNoteLines<T extends Prisma.Project$creditNoteLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$creditNoteLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditNoteLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoiceLines<T extends Prisma.Project$invoiceLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$invoiceLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1891,6 +2332,7 @@ export interface ProjectFieldRefs {
   readonly name: Prisma.FieldRef<"Project", 'String'>
   readonly isActive: Prisma.FieldRef<"Project", 'Boolean'>
   readonly contactId: Prisma.FieldRef<"Project", 'String'>
+  readonly contractValue: Prisma.FieldRef<"Project", 'Decimal'>
   readonly startDate: Prisma.FieldRef<"Project", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Project", 'DateTime'>
   readonly notes: Prisma.FieldRef<"Project", 'String'>
@@ -2316,6 +2758,30 @@ export type Project$contactArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Project.budgetLines
+ */
+export type Project$budgetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectBudgetLine
+   */
+  select?: Prisma.ProjectBudgetLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectBudgetLine
+   */
+  omit?: Prisma.ProjectBudgetLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectBudgetLineInclude<ExtArgs> | null
+  where?: Prisma.ProjectBudgetLineWhereInput
+  orderBy?: Prisma.ProjectBudgetLineOrderByWithRelationInput | Prisma.ProjectBudgetLineOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectBudgetLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectBudgetLineScalarFieldEnum | Prisma.ProjectBudgetLineScalarFieldEnum[]
+}
+
+/**
  * Project.lines
  */
 export type Project$linesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2409,6 +2875,30 @@ export type Project$billLinesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.BillLineScalarFieldEnum | Prisma.BillLineScalarFieldEnum[]
+}
+
+/**
+ * Project.supplierCreditLines
+ */
+export type Project$supplierCreditLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierCreditLine
+   */
+  select?: Prisma.SupplierCreditLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierCreditLine
+   */
+  omit?: Prisma.SupplierCreditLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierCreditLineInclude<ExtArgs> | null
+  where?: Prisma.SupplierCreditLineWhereInput
+  orderBy?: Prisma.SupplierCreditLineOrderByWithRelationInput | Prisma.SupplierCreditLineOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierCreditLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierCreditLineScalarFieldEnum | Prisma.SupplierCreditLineScalarFieldEnum[]
 }
 
 /**

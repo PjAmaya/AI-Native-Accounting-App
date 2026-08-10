@@ -261,6 +261,7 @@ export type TaxRateWhereInput = {
   invoiceLines?: Prisma.InvoiceLineListRelationFilter
   creditNoteLines?: Prisma.CreditNoteLineListRelationFilter
   billLines?: Prisma.BillLineListRelationFilter
+  supplierCreditLines?: Prisma.SupplierCreditLineListRelationFilter
 }
 
 export type TaxRateOrderByWithRelationInput = {
@@ -279,6 +280,7 @@ export type TaxRateOrderByWithRelationInput = {
   invoiceLines?: Prisma.InvoiceLineOrderByRelationAggregateInput
   creditNoteLines?: Prisma.CreditNoteLineOrderByRelationAggregateInput
   billLines?: Prisma.BillLineOrderByRelationAggregateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineOrderByRelationAggregateInput
 }
 
 export type TaxRateWhereUniqueInput = Prisma.AtLeast<{
@@ -300,6 +302,7 @@ export type TaxRateWhereUniqueInput = Prisma.AtLeast<{
   invoiceLines?: Prisma.InvoiceLineListRelationFilter
   creditNoteLines?: Prisma.CreditNoteLineListRelationFilter
   billLines?: Prisma.BillLineListRelationFilter
+  supplierCreditLines?: Prisma.SupplierCreditLineListRelationFilter
 }, "id" | "code">
 
 export type TaxRateOrderByWithAggregationInput = {
@@ -350,6 +353,7 @@ export type TaxRateCreateInput = {
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUncheckedCreateInput = {
@@ -366,6 +370,7 @@ export type TaxRateUncheckedCreateInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUpdateInput = {
@@ -382,6 +387,7 @@ export type TaxRateUpdateInput = {
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateInput = {
@@ -398,6 +404,7 @@ export type TaxRateUncheckedUpdateInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateCreateManyInput = {
@@ -631,6 +638,22 @@ export type TaxRateUpdateOneWithoutBillLinesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TaxRateUpdateToOneWithWhereWithoutBillLinesInput, Prisma.TaxRateUpdateWithoutBillLinesInput>, Prisma.TaxRateUncheckedUpdateWithoutBillLinesInput>
 }
 
+export type TaxRateCreateNestedOneWithoutSupplierCreditLinesInput = {
+  create?: Prisma.XOR<Prisma.TaxRateCreateWithoutSupplierCreditLinesInput, Prisma.TaxRateUncheckedCreateWithoutSupplierCreditLinesInput>
+  connectOrCreate?: Prisma.TaxRateCreateOrConnectWithoutSupplierCreditLinesInput
+  connect?: Prisma.TaxRateWhereUniqueInput
+}
+
+export type TaxRateUpdateOneWithoutSupplierCreditLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.TaxRateCreateWithoutSupplierCreditLinesInput, Prisma.TaxRateUncheckedCreateWithoutSupplierCreditLinesInput>
+  connectOrCreate?: Prisma.TaxRateCreateOrConnectWithoutSupplierCreditLinesInput
+  upsert?: Prisma.TaxRateUpsertWithoutSupplierCreditLinesInput
+  disconnect?: Prisma.TaxRateWhereInput | boolean
+  delete?: Prisma.TaxRateWhereInput | boolean
+  connect?: Prisma.TaxRateWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TaxRateUpdateToOneWithWhereWithoutSupplierCreditLinesInput, Prisma.TaxRateUpdateWithoutSupplierCreditLinesInput>, Prisma.TaxRateUncheckedUpdateWithoutSupplierCreditLinesInput>
+}
+
 export type TaxRateCreateWithoutCollectedAccountInput = {
   id?: string
   code: string
@@ -644,6 +667,7 @@ export type TaxRateCreateWithoutCollectedAccountInput = {
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUncheckedCreateWithoutCollectedAccountInput = {
@@ -659,6 +683,7 @@ export type TaxRateUncheckedCreateWithoutCollectedAccountInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateCreateOrConnectWithoutCollectedAccountInput = {
@@ -684,6 +709,7 @@ export type TaxRateCreateWithoutRecoverableAccountInput = {
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUncheckedCreateWithoutRecoverableAccountInput = {
@@ -699,6 +725,7 @@ export type TaxRateUncheckedCreateWithoutRecoverableAccountInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateCreateOrConnectWithoutRecoverableAccountInput = {
@@ -772,6 +799,7 @@ export type TaxRateCreateWithoutCreditNoteLinesInput = {
   recoverableAccount: Prisma.AccountCreateNestedOneWithoutTaxRecoverableForInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUncheckedCreateWithoutCreditNoteLinesInput = {
@@ -787,6 +815,7 @@ export type TaxRateUncheckedCreateWithoutCreditNoteLinesInput = {
   updatedAt?: Date | string
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateCreateOrConnectWithoutCreditNoteLinesInput = {
@@ -818,6 +847,7 @@ export type TaxRateUpdateWithoutCreditNoteLinesInput = {
   recoverableAccount?: Prisma.AccountUpdateOneRequiredWithoutTaxRecoverableForNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateWithoutCreditNoteLinesInput = {
@@ -833,6 +863,7 @@ export type TaxRateUncheckedUpdateWithoutCreditNoteLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateCreateWithoutInvoiceLinesInput = {
@@ -848,6 +879,7 @@ export type TaxRateCreateWithoutInvoiceLinesInput = {
   recoverableAccount: Prisma.AccountCreateNestedOneWithoutTaxRecoverableForInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUncheckedCreateWithoutInvoiceLinesInput = {
@@ -863,6 +895,7 @@ export type TaxRateUncheckedCreateWithoutInvoiceLinesInput = {
   updatedAt?: Date | string
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutTaxRateInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateCreateOrConnectWithoutInvoiceLinesInput = {
@@ -894,6 +927,7 @@ export type TaxRateUpdateWithoutInvoiceLinesInput = {
   recoverableAccount?: Prisma.AccountUpdateOneRequiredWithoutTaxRecoverableForNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateWithoutInvoiceLinesInput = {
@@ -909,6 +943,7 @@ export type TaxRateUncheckedUpdateWithoutInvoiceLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateCreateWithoutBillLinesInput = {
@@ -924,6 +959,7 @@ export type TaxRateCreateWithoutBillLinesInput = {
   recoverableAccount: Prisma.AccountCreateNestedOneWithoutTaxRecoverableForInput
   invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateUncheckedCreateWithoutBillLinesInput = {
@@ -939,6 +975,7 @@ export type TaxRateUncheckedCreateWithoutBillLinesInput = {
   updatedAt?: Date | string
   invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutTaxRateInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutTaxRateInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutTaxRateInput
 }
 
 export type TaxRateCreateOrConnectWithoutBillLinesInput = {
@@ -970,6 +1007,7 @@ export type TaxRateUpdateWithoutBillLinesInput = {
   recoverableAccount?: Prisma.AccountUpdateOneRequiredWithoutTaxRecoverableForNestedInput
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateWithoutBillLinesInput = {
@@ -985,6 +1023,87 @@ export type TaxRateUncheckedUpdateWithoutBillLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutTaxRateNestedInput
+}
+
+export type TaxRateCreateWithoutSupplierCreditLinesInput = {
+  id?: string
+  code: string
+  name: string
+  ratePercent: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: boolean
+  effectiveFrom: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  collectedAccount: Prisma.AccountCreateNestedOneWithoutTaxCollectedForInput
+  recoverableAccount: Prisma.AccountCreateNestedOneWithoutTaxRecoverableForInput
+  invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutTaxRateInput
+  creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutTaxRateInput
+  billLines?: Prisma.BillLineCreateNestedManyWithoutTaxRateInput
+}
+
+export type TaxRateUncheckedCreateWithoutSupplierCreditLinesInput = {
+  id?: string
+  code: string
+  name: string
+  ratePercent: runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: boolean
+  effectiveFrom: Date | string
+  collectedAccountId: string
+  recoverableAccountId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutTaxRateInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutTaxRateInput
+  billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutTaxRateInput
+}
+
+export type TaxRateCreateOrConnectWithoutSupplierCreditLinesInput = {
+  where: Prisma.TaxRateWhereUniqueInput
+  create: Prisma.XOR<Prisma.TaxRateCreateWithoutSupplierCreditLinesInput, Prisma.TaxRateUncheckedCreateWithoutSupplierCreditLinesInput>
+}
+
+export type TaxRateUpsertWithoutSupplierCreditLinesInput = {
+  update: Prisma.XOR<Prisma.TaxRateUpdateWithoutSupplierCreditLinesInput, Prisma.TaxRateUncheckedUpdateWithoutSupplierCreditLinesInput>
+  create: Prisma.XOR<Prisma.TaxRateCreateWithoutSupplierCreditLinesInput, Prisma.TaxRateUncheckedCreateWithoutSupplierCreditLinesInput>
+  where?: Prisma.TaxRateWhereInput
+}
+
+export type TaxRateUpdateToOneWithWhereWithoutSupplierCreditLinesInput = {
+  where?: Prisma.TaxRateWhereInput
+  data: Prisma.XOR<Prisma.TaxRateUpdateWithoutSupplierCreditLinesInput, Prisma.TaxRateUncheckedUpdateWithoutSupplierCreditLinesInput>
+}
+
+export type TaxRateUpdateWithoutSupplierCreditLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  ratePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  effectiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectedAccount?: Prisma.AccountUpdateOneRequiredWithoutTaxCollectedForNestedInput
+  recoverableAccount?: Prisma.AccountUpdateOneRequiredWithoutTaxRecoverableForNestedInput
+  invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutTaxRateNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutTaxRateNestedInput
+  billLines?: Prisma.BillLineUpdateManyWithoutTaxRateNestedInput
+}
+
+export type TaxRateUncheckedUpdateWithoutSupplierCreditLinesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  ratePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  effectiveFrom?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collectedAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  recoverableAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  billLines?: Prisma.BillLineUncheckedUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateCreateManyCollectedAccountInput = {
@@ -1024,6 +1143,7 @@ export type TaxRateUpdateWithoutCollectedAccountInput = {
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateWithoutCollectedAccountInput = {
@@ -1039,6 +1159,7 @@ export type TaxRateUncheckedUpdateWithoutCollectedAccountInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateManyWithoutCollectedAccountInput = {
@@ -1066,6 +1187,7 @@ export type TaxRateUpdateWithoutRecoverableAccountInput = {
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateWithoutRecoverableAccountInput = {
@@ -1081,6 +1203,7 @@ export type TaxRateUncheckedUpdateWithoutRecoverableAccountInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutTaxRateNestedInput
   creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutTaxRateNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutTaxRateNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutTaxRateNestedInput
 }
 
 export type TaxRateUncheckedUpdateManyWithoutRecoverableAccountInput = {
@@ -1104,12 +1227,14 @@ export type TaxRateCountOutputType = {
   invoiceLines: number
   creditNoteLines: number
   billLines: number
+  supplierCreditLines: number
 }
 
 export type TaxRateCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoiceLines?: boolean | TaxRateCountOutputTypeCountInvoiceLinesArgs
   creditNoteLines?: boolean | TaxRateCountOutputTypeCountCreditNoteLinesArgs
   billLines?: boolean | TaxRateCountOutputTypeCountBillLinesArgs
+  supplierCreditLines?: boolean | TaxRateCountOutputTypeCountSupplierCreditLinesArgs
 }
 
 /**
@@ -1143,6 +1268,13 @@ export type TaxRateCountOutputTypeCountBillLinesArgs<ExtArgs extends runtime.Typ
   where?: Prisma.BillLineWhereInput
 }
 
+/**
+ * TaxRateCountOutputType without action
+ */
+export type TaxRateCountOutputTypeCountSupplierCreditLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierCreditLineWhereInput
+}
+
 
 export type TaxRateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1160,6 +1292,7 @@ export type TaxRateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   invoiceLines?: boolean | Prisma.TaxRate$invoiceLinesArgs<ExtArgs>
   creditNoteLines?: boolean | Prisma.TaxRate$creditNoteLinesArgs<ExtArgs>
   billLines?: boolean | Prisma.TaxRate$billLinesArgs<ExtArgs>
+  supplierCreditLines?: boolean | Prisma.TaxRate$supplierCreditLinesArgs<ExtArgs>
   _count?: boolean | Prisma.TaxRateCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["taxRate"]>
 
@@ -1213,6 +1346,7 @@ export type TaxRateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   invoiceLines?: boolean | Prisma.TaxRate$invoiceLinesArgs<ExtArgs>
   creditNoteLines?: boolean | Prisma.TaxRate$creditNoteLinesArgs<ExtArgs>
   billLines?: boolean | Prisma.TaxRate$billLinesArgs<ExtArgs>
+  supplierCreditLines?: boolean | Prisma.TaxRate$supplierCreditLinesArgs<ExtArgs>
   _count?: boolean | Prisma.TaxRateCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TaxRateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1232,6 +1366,7 @@ export type $TaxRatePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     invoiceLines: Prisma.$InvoiceLinePayload<ExtArgs>[]
     creditNoteLines: Prisma.$CreditNoteLinePayload<ExtArgs>[]
     billLines: Prisma.$BillLinePayload<ExtArgs>[]
+    supplierCreditLines: Prisma.$SupplierCreditLinePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1643,6 +1778,7 @@ export interface Prisma__TaxRateClient<T, Null = never, ExtArgs extends runtime.
   invoiceLines<T extends Prisma.TaxRate$invoiceLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TaxRate$invoiceLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   creditNoteLines<T extends Prisma.TaxRate$creditNoteLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TaxRate$creditNoteLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditNoteLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   billLines<T extends Prisma.TaxRate$billLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TaxRate$billLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supplierCreditLines<T extends Prisma.TaxRate$supplierCreditLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TaxRate$supplierCreditLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierCreditLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2152,6 +2288,30 @@ export type TaxRate$billLinesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.BillLineScalarFieldEnum | Prisma.BillLineScalarFieldEnum[]
+}
+
+/**
+ * TaxRate.supplierCreditLines
+ */
+export type TaxRate$supplierCreditLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupplierCreditLine
+   */
+  select?: Prisma.SupplierCreditLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupplierCreditLine
+   */
+  omit?: Prisma.SupplierCreditLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierCreditLineInclude<ExtArgs> | null
+  where?: Prisma.SupplierCreditLineWhereInput
+  orderBy?: Prisma.SupplierCreditLineOrderByWithRelationInput | Prisma.SupplierCreditLineOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierCreditLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupplierCreditLineScalarFieldEnum | Prisma.SupplierCreditLineScalarFieldEnum[]
 }
 
 /**

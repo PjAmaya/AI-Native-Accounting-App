@@ -66,7 +66,7 @@ export default async function EditAccountPage({
     <div>
       <Link href="/accounts" className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-ink">
         <ArrowLeft size={14} strokeWidth={2} aria-hidden />
-        Chart of accounts
+        GL accounts
       </Link>
 
       <div className="mt-3 flex items-start justify-between gap-4">

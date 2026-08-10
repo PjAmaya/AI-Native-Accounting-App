@@ -131,3 +131,23 @@ export type OrgProfile = Prisma.OrgProfileModel
  * 
  */
 export type PeriodLockEvent = Prisma.PeriodLockEventModel
+/**
+ * Model SupplierCredit
+ * 
+ */
+export type SupplierCredit = Prisma.SupplierCreditModel
+/**
+ * Model SupplierCreditLine
+ * 
+ */
+export type SupplierCreditLine = Prisma.SupplierCreditLineModel
+/**
+ * Model SupplierCreditApplication
+ * 
+ */
+export type SupplierCreditApplication = Prisma.SupplierCreditApplicationModel
+/**
+ * Model ProjectBudgetLine
+ * 
+ */
+export type ProjectBudgetLine = Prisma.ProjectBudgetLineModel

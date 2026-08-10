@@ -414,7 +414,11 @@ export const ModelName = {
   BillLine: 'BillLine',
   BillApplication: 'BillApplication',
   OrgProfile: 'OrgProfile',
-  PeriodLockEvent: 'PeriodLockEvent'
+  PeriodLockEvent: 'PeriodLockEvent',
+  SupplierCredit: 'SupplierCredit',
+  SupplierCreditLine: 'SupplierCreditLine',
+  SupplierCreditApplication: 'SupplierCreditApplication',
+  ProjectBudgetLine: 'ProjectBudgetLine'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -430,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "creditNote" | "creditNoteLine" | "creditApplication" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent"
+    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "creditNote" | "creditNoteLine" | "creditApplication" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent" | "supplierCredit" | "supplierCreditLine" | "supplierCreditApplication" | "projectBudgetLine"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1766,6 +1770,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SupplierCredit: {
+      payload: Prisma.$SupplierCreditPayload<ExtArgs>
+      fields: Prisma.SupplierCreditFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupplierCreditFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupplierCreditFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>
+        }
+        findFirst: {
+          args: Prisma.SupplierCreditFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupplierCreditFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>
+        }
+        findMany: {
+          args: Prisma.SupplierCreditFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>[]
+        }
+        create: {
+          args: Prisma.SupplierCreditCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>
+        }
+        createMany: {
+          args: Prisma.SupplierCreditCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupplierCreditCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>[]
+        }
+        delete: {
+          args: Prisma.SupplierCreditDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>
+        }
+        update: {
+          args: Prisma.SupplierCreditUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>
+        }
+        deleteMany: {
+          args: Prisma.SupplierCreditDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupplierCreditUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupplierCreditUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>[]
+        }
+        upsert: {
+          args: Prisma.SupplierCreditUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditPayload>
+        }
+        aggregate: {
+          args: Prisma.SupplierCreditAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupplierCredit>
+        }
+        groupBy: {
+          args: Prisma.SupplierCreditGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierCreditGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupplierCreditCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierCreditCountAggregateOutputType> | number
+        }
+      }
+    }
+    SupplierCreditLine: {
+      payload: Prisma.$SupplierCreditLinePayload<ExtArgs>
+      fields: Prisma.SupplierCreditLineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupplierCreditLineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupplierCreditLineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>
+        }
+        findFirst: {
+          args: Prisma.SupplierCreditLineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupplierCreditLineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>
+        }
+        findMany: {
+          args: Prisma.SupplierCreditLineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>[]
+        }
+        create: {
+          args: Prisma.SupplierCreditLineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>
+        }
+        createMany: {
+          args: Prisma.SupplierCreditLineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupplierCreditLineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>[]
+        }
+        delete: {
+          args: Prisma.SupplierCreditLineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>
+        }
+        update: {
+          args: Prisma.SupplierCreditLineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>
+        }
+        deleteMany: {
+          args: Prisma.SupplierCreditLineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupplierCreditLineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupplierCreditLineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>[]
+        }
+        upsert: {
+          args: Prisma.SupplierCreditLineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditLinePayload>
+        }
+        aggregate: {
+          args: Prisma.SupplierCreditLineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupplierCreditLine>
+        }
+        groupBy: {
+          args: Prisma.SupplierCreditLineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierCreditLineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupplierCreditLineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierCreditLineCountAggregateOutputType> | number
+        }
+      }
+    }
+    SupplierCreditApplication: {
+      payload: Prisma.$SupplierCreditApplicationPayload<ExtArgs>
+      fields: Prisma.SupplierCreditApplicationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SupplierCreditApplicationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SupplierCreditApplicationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>
+        }
+        findFirst: {
+          args: Prisma.SupplierCreditApplicationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SupplierCreditApplicationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>
+        }
+        findMany: {
+          args: Prisma.SupplierCreditApplicationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>[]
+        }
+        create: {
+          args: Prisma.SupplierCreditApplicationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>
+        }
+        createMany: {
+          args: Prisma.SupplierCreditApplicationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SupplierCreditApplicationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>[]
+        }
+        delete: {
+          args: Prisma.SupplierCreditApplicationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>
+        }
+        update: {
+          args: Prisma.SupplierCreditApplicationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>
+        }
+        deleteMany: {
+          args: Prisma.SupplierCreditApplicationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SupplierCreditApplicationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SupplierCreditApplicationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>[]
+        }
+        upsert: {
+          args: Prisma.SupplierCreditApplicationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupplierCreditApplicationPayload>
+        }
+        aggregate: {
+          args: Prisma.SupplierCreditApplicationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSupplierCreditApplication>
+        }
+        groupBy: {
+          args: Prisma.SupplierCreditApplicationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierCreditApplicationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SupplierCreditApplicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SupplierCreditApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProjectBudgetLine: {
+      payload: Prisma.$ProjectBudgetLinePayload<ExtArgs>
+      fields: Prisma.ProjectBudgetLineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectBudgetLineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectBudgetLineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectBudgetLineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectBudgetLineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>
+        }
+        findMany: {
+          args: Prisma.ProjectBudgetLineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>[]
+        }
+        create: {
+          args: Prisma.ProjectBudgetLineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>
+        }
+        createMany: {
+          args: Prisma.ProjectBudgetLineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectBudgetLineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectBudgetLineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>
+        }
+        update: {
+          args: Prisma.ProjectBudgetLineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectBudgetLineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectBudgetLineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectBudgetLineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectBudgetLineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectBudgetLinePayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectBudgetLineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectBudgetLine>
+        }
+        groupBy: {
+          args: Prisma.ProjectBudgetLineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectBudgetLineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectBudgetLineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectBudgetLineCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1890,6 +2190,7 @@ export const ProjectScalarFieldEnum = {
   name: 'name',
   isActive: 'isActive',
   contactId: 'contactId',
+  contractValue: 'contractValue',
   startDate: 'startDate',
   endDate: 'endDate',
   notes: 'notes',
@@ -2146,6 +2447,71 @@ export const PeriodLockEventScalarFieldEnum = {
 export type PeriodLockEventScalarFieldEnum = (typeof PeriodLockEventScalarFieldEnum)[keyof typeof PeriodLockEventScalarFieldEnum]
 
 
+export const SupplierCreditScalarFieldEnum = {
+  id: 'id',
+  creditNumber: 'creditNumber',
+  supplierCreditNumber: 'supplierCreditNumber',
+  status: 'status',
+  contactId: 'contactId',
+  originalBillId: 'originalBillId',
+  creditDate: 'creditDate',
+  reason: 'reason',
+  notes: 'notes',
+  currency: 'currency',
+  exchangeRate: 'exchangeRate',
+  subtotal: 'subtotal',
+  taxTotal: 'taxTotal',
+  total: 'total',
+  journalEntryId: 'journalEntryId',
+  approvedAt: 'approvedAt',
+  refundedAt: 'refundedAt',
+  refundEntryId: 'refundEntryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupplierCreditScalarFieldEnum = (typeof SupplierCreditScalarFieldEnum)[keyof typeof SupplierCreditScalarFieldEnum]
+
+
+export const SupplierCreditLineScalarFieldEnum = {
+  id: 'id',
+  supplierCreditId: 'supplierCreditId',
+  lineNumber: 'lineNumber',
+  description: 'description',
+  amount: 'amount',
+  expenseAccountId: 'expenseAccountId',
+  projectId: 'projectId',
+  taxRateId: 'taxRateId',
+  taxAmount: 'taxAmount'
+} as const
+
+export type SupplierCreditLineScalarFieldEnum = (typeof SupplierCreditLineScalarFieldEnum)[keyof typeof SupplierCreditLineScalarFieldEnum]
+
+
+export const SupplierCreditApplicationScalarFieldEnum = {
+  id: 'id',
+  supplierCreditId: 'supplierCreditId',
+  billId: 'billId',
+  amountApplied: 'amountApplied',
+  appliedAt: 'appliedAt'
+} as const
+
+export type SupplierCreditApplicationScalarFieldEnum = (typeof SupplierCreditApplicationScalarFieldEnum)[keyof typeof SupplierCreditApplicationScalarFieldEnum]
+
+
+export const ProjectBudgetLineScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  accountId: 'accountId',
+  amount: 'amount',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectBudgetLineScalarFieldEnum = (typeof ProjectBudgetLineScalarFieldEnum)[keyof typeof ProjectBudgetLineScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2380,6 +2746,20 @@ export type ListEnumPeriodLockActionFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
+ * Reference to a field of type 'SupplierCreditStatus'
+ */
+export type EnumSupplierCreditStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupplierCreditStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SupplierCreditStatus[]'
+ */
+export type ListEnumSupplierCreditStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupplierCreditStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2561,6 +2941,10 @@ export type GlobalOmitConfig = {
   billApplication?: Prisma.BillApplicationOmit
   orgProfile?: Prisma.OrgProfileOmit
   periodLockEvent?: Prisma.PeriodLockEventOmit
+  supplierCredit?: Prisma.SupplierCreditOmit
+  supplierCreditLine?: Prisma.SupplierCreditLineOmit
+  supplierCreditApplication?: Prisma.SupplierCreditApplicationOmit
+  projectBudgetLine?: Prisma.ProjectBudgetLineOmit
 }
 
 /* Types for Logging */

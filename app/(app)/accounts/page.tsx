@@ -37,7 +37,7 @@ export default async function AccountsPage() {
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="eyebrow">General ledger</p>
-          <h1 className="page-title mt-1.5">Chart of accounts</h1>
+          <h1 className="page-title mt-1.5">GL accounts</h1>
           <p className="mt-2 text-[14px] text-muted">
             {accounts.filter((a) => a.isActive).length} active of {accounts.length}
           </p>
