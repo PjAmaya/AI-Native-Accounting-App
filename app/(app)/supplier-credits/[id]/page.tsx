@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Pencil, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
@@ -9,7 +9,9 @@ import {
   approveSupplierCreditAction,
   applySupplierCreditAction,
   refundSupplierCreditAction,
+  deleteSupplierCreditAction,
 } from "../actions";
+import { VoidSupplierCredit } from "@/components/ui/VoidSupplierCredit";
 
 export const dynamic = "force-dynamic";
 
@@ -79,6 +81,7 @@ export default async function SupplierCreditPage({
   const approve = approveSupplierCreditAction.bind(null, credit.id);
   const apply = applySupplierCreditAction.bind(null, credit.id);
   const refund = refundSupplierCreditAction.bind(null, credit.id);
+  const remove = deleteSupplierCreditAction.bind(null, credit.id);
 
   return (
     <div>
@@ -102,17 +105,46 @@ export default async function SupplierCreditPage({
           <p className="mt-1 text-[13px]">{credit.reason}</p>
         </div>
 
-        {credit.status === "DRAFT" ? (
-          <form action={approve} className="shrink-0">
-            <button
-              type="submit"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+        <div className="flex shrink-0 items-center gap-2">
+          {credit.status === "DRAFT" ? (
+            <Link
+              href={`/supplier-credits/${credit.id}/edit`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
             >
-              <CheckCircle2 size={14} strokeWidth={2} aria-hidden />
-              Approve credit
-            </button>
-          </form>
-        ) : null}
+              <Pencil size={14} strokeWidth={2} aria-hidden />
+              Edit
+            </Link>
+          ) : null}
+          {credit.status === "DRAFT" ? (
+            <form action={remove}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium text-negative transition-colors hover:bg-tint-amber/40"
+              >
+                <Trash2 size={14} strokeWidth={2} aria-hidden />
+                Delete
+              </button>
+            </form>
+          ) : null}
+          {(credit.status === "APPROVED" || credit.status === "APPLIED") && !credit.refundEntryId ? (
+            <VoidSupplierCredit
+              creditId={credit.id}
+              creditNumber={credit.creditNumber}
+              appliedCount={credit.applications.length}
+            />
+          ) : null}
+          {credit.status === "DRAFT" ? (
+            <form action={approve}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+              >
+                <CheckCircle2 size={14} strokeWidth={2} aria-hidden />
+                Approve credit
+              </button>
+            </form>
+          ) : null}
+        </div>
       </div>
 
       {error ? (
@@ -124,6 +156,15 @@ export default async function SupplierCreditPage({
       {credit.status === "DRAFT" ? (
         <div className="card mt-5 border-tint-amber bg-tint-amber/40 px-5 py-3.5">
           <p className="text-[13px]">This is a draft. It reduces nothing until you approve it.</p>
+        </div>
+      ) : null}
+
+      {credit.status === "VOID" ? (
+        <div className="card mt-5 border-rule bg-wash/50 px-5 py-3.5">
+          <p className="text-[13px] text-muted">
+            This credit is void. Its journal entry has been reversed and any applications were
+            removed, so the bills it covered are payable again.
+          </p>
         </div>
       ) : null}
 

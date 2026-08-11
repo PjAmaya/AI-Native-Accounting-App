@@ -9,6 +9,11 @@ import {
   applySupplierCredit,
   refundSupplierCredit,
 } from "@/lib/invoicing/supplierCreditOps";
+import {
+  updateDraftSupplierCredit,
+  deleteDraftSupplierCredit,
+  voidSupplierCredit,
+} from "@/lib/invoicing/updateSupplierCredit";
 
 export type SupplierCreditFormState = {
   ok: boolean;
@@ -33,7 +38,7 @@ function list(formData: FormData, key: string) {
   return formData.getAll(key).map((v) => (typeof v === "string" ? v.trim() : ""));
 }
 
-export async function createSupplierCreditAction(
+export async function saveSupplierCreditAction(
   _previous: SupplierCreditFormState,
   formData: FormData,
 ): Promise<SupplierCreditFormState> {
@@ -102,25 +107,55 @@ export async function createSupplierCreditAction(
     return { ok: false, message: "Check the highlighted fields.", errors };
   }
 
+  const id = text(formData, "id");
   let creditId: string;
 
+  const draft = {
+    contactId: contactId!,
+    supplierCreditNumber: supplierCreditNumber!,
+    originalBillId: text(formData, "originalBillId") ?? undefined,
+    creditDate: creditDate!,
+    reason: reason!,
+    notes: text(formData, "notes") ?? undefined,
+    taxTotal: text(formData, "taxTotal") ?? undefined,
+    lines,
+  };
+
   try {
-    const result = await createSupplierCredit({
-      contactId: contactId!,
-      supplierCreditNumber: supplierCreditNumber!,
-      originalBillId: text(formData, "originalBillId") ?? undefined,
-      creditDate: creditDate!,
-      reason: reason!,
-      notes: text(formData, "notes") ?? undefined,
-      taxTotal: text(formData, "taxTotal") ?? undefined,
-      lines,
-    });
+    const result = id
+      ? await updateDraftSupplierCredit(id, draft)
+      : await createSupplierCredit(draft);
     creditId = result.credit.id;
   } catch (e) {
     return { ok: false, message: (e as Error).message, errors: {} };
   }
 
   revalidatePath("/supplier-credits");
+  redirect(`/supplier-credits/${creditId}`);
+}
+
+export async function deleteSupplierCreditAction(creditId: string) {
+  await deleteDraftSupplierCredit(creditId);
+  revalidatePath("/supplier-credits");
+  redirect("/supplier-credits");
+}
+
+export async function voidSupplierCreditAction(creditId: string, formData: FormData) {
+  const reason =
+    typeof formData.get("reason") === "string" ? (formData.get("reason") as string).trim() : "";
+
+  if (!reason) {
+    redirect(`/supplier-credits/${creditId}?error=${encodeURIComponent("A reason is required.")}`);
+  }
+
+  try {
+    await voidSupplierCredit(creditId, { reason });
+  } catch (e) {
+    redirect(`/supplier-credits/${creditId}?error=${encodeURIComponent((e as Error).message)}`);
+  }
+
+  revalidatePath("/supplier-credits");
+  revalidatePath("/bills");
   redirect(`/supplier-credits/${creditId}`);
 }
 

@@ -78,7 +78,11 @@ export default async function SupplierCreditsPage() {
                   <tr key={credit.id} className="hover:bg-wash/30">
                     <td className="px-5 py-3">
                       <Link
-                        href={`/supplier-credits/${credit.id}`}
+                        href={
+                          credit.status === "DRAFT"
+                            ? `/supplier-credits/${credit.id}/edit`
+                            : `/supplier-credits/${credit.id}`
+                        }
                         className="font-mono text-[12px] font-medium hover:text-brand"
                       >
                         #{credit.creditNumber}
