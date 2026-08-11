@@ -377,6 +377,7 @@ export type BillWhereInput = {
   journalEntry?: Prisma.XOR<Prisma.JournalEntryNullableScalarRelationFilter, Prisma.JournalEntryWhereInput> | null
   lines?: Prisma.BillLineListRelationFilter
   applications?: Prisma.BillApplicationListRelationFilter
+  attachments?: Prisma.AttachmentListRelationFilter
   supplierCreditApplications?: Prisma.SupplierCreditApplicationListRelationFilter
   supplierCredits?: Prisma.SupplierCreditListRelationFilter
 }
@@ -410,6 +411,7 @@ export type BillOrderByWithRelationInput = {
   journalEntry?: Prisma.JournalEntryOrderByWithRelationInput
   lines?: Prisma.BillLineOrderByRelationAggregateInput
   applications?: Prisma.BillApplicationOrderByRelationAggregateInput
+  attachments?: Prisma.AttachmentOrderByRelationAggregateInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationOrderByRelationAggregateInput
   supplierCredits?: Prisma.SupplierCreditOrderByRelationAggregateInput
 }
@@ -447,6 +449,7 @@ export type BillWhereUniqueInput = Prisma.AtLeast<{
   journalEntry?: Prisma.XOR<Prisma.JournalEntryNullableScalarRelationFilter, Prisma.JournalEntryWhereInput> | null
   lines?: Prisma.BillLineListRelationFilter
   applications?: Prisma.BillApplicationListRelationFilter
+  attachments?: Prisma.AttachmentListRelationFilter
   supplierCreditApplications?: Prisma.SupplierCreditApplicationListRelationFilter
   supplierCredits?: Prisma.SupplierCreditListRelationFilter
 }, "id" | "billNumber" | "journalEntryId" | "contactId_supplierInvoiceNumber">
@@ -537,6 +540,7 @@ export type BillCreateInput = {
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
@@ -567,6 +571,7 @@ export type BillUncheckedCreateInput = {
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
@@ -597,6 +602,7 @@ export type BillUpdateInput = {
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
@@ -627,6 +633,7 @@ export type BillUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1018,6 +1025,22 @@ export type BillUpdateOneRequiredWithoutSupplierCreditApplicationsNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.BillUpdateToOneWithWhereWithoutSupplierCreditApplicationsInput, Prisma.BillUpdateWithoutSupplierCreditApplicationsInput>, Prisma.BillUncheckedUpdateWithoutSupplierCreditApplicationsInput>
 }
 
+export type BillCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.BillCreateWithoutAttachmentsInput, Prisma.BillUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.BillCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.BillWhereUniqueInput
+}
+
+export type BillUpdateOneWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.BillCreateWithoutAttachmentsInput, Prisma.BillUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.BillCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.BillUpsertWithoutAttachmentsInput
+  disconnect?: Prisma.BillWhereInput | boolean
+  delete?: Prisma.BillWhereInput | boolean
+  connect?: Prisma.BillWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BillUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.BillUpdateWithoutAttachmentsInput>, Prisma.BillUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type BillCreateWithoutJournalEntryInput = {
   id?: string
   billNumber: number
@@ -1043,6 +1066,7 @@ export type BillCreateWithoutJournalEntryInput = {
   project?: Prisma.ProjectCreateNestedOneWithoutBillsInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
@@ -1072,6 +1096,7 @@ export type BillUncheckedCreateWithoutJournalEntryInput = {
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
@@ -1117,6 +1142,7 @@ export type BillUpdateWithoutJournalEntryInput = {
   project?: Prisma.ProjectUpdateOneWithoutBillsNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1146,6 +1172,7 @@ export type BillUncheckedUpdateWithoutJournalEntryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1175,6 +1202,7 @@ export type BillCreateWithoutContactInput = {
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
@@ -1204,6 +1232,7 @@ export type BillUncheckedCreateWithoutContactInput = {
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
@@ -1288,6 +1317,7 @@ export type BillCreateWithoutProjectInput = {
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
@@ -1317,6 +1347,7 @@ export type BillUncheckedCreateWithoutProjectInput = {
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
@@ -1372,6 +1403,7 @@ export type BillCreateWithoutLinesInput = {
   project?: Prisma.ProjectCreateNestedOneWithoutBillsInput
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
@@ -1401,6 +1433,7 @@ export type BillUncheckedCreateWithoutLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
@@ -1446,6 +1479,7 @@ export type BillUpdateWithoutLinesInput = {
   project?: Prisma.ProjectUpdateOneWithoutBillsNestedInput
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1475,6 +1509,7 @@ export type BillUncheckedUpdateWithoutLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1504,6 +1539,7 @@ export type BillCreateWithoutApplicationsInput = {
   project?: Prisma.ProjectCreateNestedOneWithoutBillsInput
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
@@ -1533,6 +1569,7 @@ export type BillUncheckedCreateWithoutApplicationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
@@ -1578,6 +1615,7 @@ export type BillUpdateWithoutApplicationsInput = {
   project?: Prisma.ProjectUpdateOneWithoutBillsNestedInput
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1607,6 +1645,7 @@ export type BillUncheckedUpdateWithoutApplicationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1637,6 +1676,7 @@ export type BillCreateWithoutSupplierCreditsInput = {
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
 }
 
@@ -1666,6 +1706,7 @@ export type BillUncheckedCreateWithoutSupplierCreditsInput = {
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
 }
 
@@ -1711,6 +1752,7 @@ export type BillUpdateWithoutSupplierCreditsInput = {
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
 }
 
@@ -1740,6 +1782,7 @@ export type BillUncheckedUpdateWithoutSupplierCreditsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
 }
 
@@ -1769,6 +1812,7 @@ export type BillCreateWithoutSupplierCreditApplicationsInput = {
   journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
   lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
 }
 
@@ -1798,6 +1842,7 @@ export type BillUncheckedCreateWithoutSupplierCreditApplicationsInput = {
   updatedAt?: Date | string
   lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
   applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutBillInput
   supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
 }
 
@@ -1843,6 +1888,7 @@ export type BillUpdateWithoutSupplierCreditApplicationsInput = {
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
 
@@ -1872,6 +1918,143 @@ export type BillUncheckedUpdateWithoutSupplierCreditApplicationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
+  supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
+}
+
+export type BillCreateWithoutAttachmentsInput = {
+  id?: string
+  billNumber: number
+  supplierInvoiceNumber: string
+  status?: $Enums.BillStatus
+  billDate: Date | string
+  dueDate: Date | string
+  servicePeriodStart?: Date | string | null
+  servicePeriodEnd?: Date | string | null
+  notes?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
+  documentPath?: string | null
+  documentHash?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contact: Prisma.ContactCreateNestedOneWithoutBillsInput
+  project?: Prisma.ProjectCreateNestedOneWithoutBillsInput
+  journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillInput
+  lines?: Prisma.BillLineCreateNestedManyWithoutBillInput
+  applications?: Prisma.BillApplicationCreateNestedManyWithoutBillInput
+  supplierCreditApplications?: Prisma.SupplierCreditApplicationCreateNestedManyWithoutBillInput
+  supplierCredits?: Prisma.SupplierCreditCreateNestedManyWithoutOriginalBillInput
+}
+
+export type BillUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  billNumber: number
+  supplierInvoiceNumber: string
+  status?: $Enums.BillStatus
+  contactId: string
+  projectId?: string | null
+  billDate: Date | string
+  dueDate: Date | string
+  servicePeriodStart?: Date | string | null
+  servicePeriodEnd?: Date | string | null
+  notes?: string | null
+  currency?: string
+  exchangeRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  journalEntryId?: string | null
+  approvedAt?: Date | string | null
+  warnings?: Prisma.BillCreatewarningsInput | string[]
+  documentPath?: string | null
+  documentHash?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lines?: Prisma.BillLineUncheckedCreateNestedManyWithoutBillInput
+  applications?: Prisma.BillApplicationUncheckedCreateNestedManyWithoutBillInput
+  supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedCreateNestedManyWithoutBillInput
+  supplierCredits?: Prisma.SupplierCreditUncheckedCreateNestedManyWithoutOriginalBillInput
+}
+
+export type BillCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.BillWhereUniqueInput
+  create: Prisma.XOR<Prisma.BillCreateWithoutAttachmentsInput, Prisma.BillUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type BillUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.BillUpdateWithoutAttachmentsInput, Prisma.BillUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.BillCreateWithoutAttachmentsInput, Prisma.BillUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.BillWhereInput
+}
+
+export type BillUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.BillWhereInput
+  data: Prisma.XOR<Prisma.BillUpdateWithoutAttachmentsInput, Prisma.BillUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type BillUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  billNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  supplierInvoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBillStatusFieldUpdateOperationsInput | $Enums.BillStatus
+  billDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servicePeriodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  servicePeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
+  documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contact?: Prisma.ContactUpdateOneRequiredWithoutBillsNestedInput
+  project?: Prisma.ProjectUpdateOneWithoutBillsNestedInput
+  journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
+  lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
+  applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
+  supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
+}
+
+export type BillUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  billNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  supplierInvoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBillStatusFieldUpdateOperationsInput | $Enums.BillStatus
+  contactId?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  servicePeriodStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  servicePeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  taxTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  warnings?: Prisma.BillUpdatewarningsInput | string[]
+  documentPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
+  applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
 
@@ -1925,6 +2108,7 @@ export type BillUpdateWithoutContactInput = {
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
@@ -1954,6 +2138,7 @@ export type BillUncheckedUpdateWithoutContactInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
@@ -2033,6 +2218,7 @@ export type BillUpdateWithoutProjectInput = {
   journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillNestedInput
   lines?: Prisma.BillLineUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUpdateManyWithoutOriginalBillNestedInput
 }
@@ -2062,6 +2248,7 @@ export type BillUncheckedUpdateWithoutProjectInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lines?: Prisma.BillLineUncheckedUpdateManyWithoutBillNestedInput
   applications?: Prisma.BillApplicationUncheckedUpdateManyWithoutBillNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutBillNestedInput
   supplierCreditApplications?: Prisma.SupplierCreditApplicationUncheckedUpdateManyWithoutBillNestedInput
   supplierCredits?: Prisma.SupplierCreditUncheckedUpdateManyWithoutOriginalBillNestedInput
 }
@@ -2099,6 +2286,7 @@ export type BillUncheckedUpdateManyWithoutProjectInput = {
 export type BillCountOutputType = {
   lines: number
   applications: number
+  attachments: number
   supplierCreditApplications: number
   supplierCredits: number
 }
@@ -2106,6 +2294,7 @@ export type BillCountOutputType = {
 export type BillCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lines?: boolean | BillCountOutputTypeCountLinesArgs
   applications?: boolean | BillCountOutputTypeCountApplicationsArgs
+  attachments?: boolean | BillCountOutputTypeCountAttachmentsArgs
   supplierCreditApplications?: boolean | BillCountOutputTypeCountSupplierCreditApplicationsArgs
   supplierCredits?: boolean | BillCountOutputTypeCountSupplierCreditsArgs
 }
@@ -2132,6 +2321,13 @@ export type BillCountOutputTypeCountLinesArgs<ExtArgs extends runtime.Types.Exte
  */
 export type BillCountOutputTypeCountApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.BillApplicationWhereInput
+}
+
+/**
+ * BillCountOutputType without action
+ */
+export type BillCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttachmentWhereInput
 }
 
 /**
@@ -2178,6 +2374,7 @@ export type BillSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   journalEntry?: boolean | Prisma.Bill$journalEntryArgs<ExtArgs>
   lines?: boolean | Prisma.Bill$linesArgs<ExtArgs>
   applications?: boolean | Prisma.Bill$applicationsArgs<ExtArgs>
+  attachments?: boolean | Prisma.Bill$attachmentsArgs<ExtArgs>
   supplierCreditApplications?: boolean | Prisma.Bill$supplierCreditApplicationsArgs<ExtArgs>
   supplierCredits?: boolean | Prisma.Bill$supplierCreditsArgs<ExtArgs>
   _count?: boolean | Prisma.BillCountOutputTypeDefaultArgs<ExtArgs>
@@ -2274,6 +2471,7 @@ export type BillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   journalEntry?: boolean | Prisma.Bill$journalEntryArgs<ExtArgs>
   lines?: boolean | Prisma.Bill$linesArgs<ExtArgs>
   applications?: boolean | Prisma.Bill$applicationsArgs<ExtArgs>
+  attachments?: boolean | Prisma.Bill$attachmentsArgs<ExtArgs>
   supplierCreditApplications?: boolean | Prisma.Bill$supplierCreditApplicationsArgs<ExtArgs>
   supplierCredits?: boolean | Prisma.Bill$supplierCreditsArgs<ExtArgs>
   _count?: boolean | Prisma.BillCountOutputTypeDefaultArgs<ExtArgs>
@@ -2297,6 +2495,7 @@ export type $BillPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     journalEntry: Prisma.$JournalEntryPayload<ExtArgs> | null
     lines: Prisma.$BillLinePayload<ExtArgs>[]
     applications: Prisma.$BillApplicationPayload<ExtArgs>[]
+    attachments: Prisma.$AttachmentPayload<ExtArgs>[]
     supplierCreditApplications: Prisma.$SupplierCreditApplicationPayload<ExtArgs>[]
     supplierCredits: Prisma.$SupplierCreditPayload<ExtArgs>[]
   }
@@ -2723,6 +2922,7 @@ export interface Prisma__BillClient<T, Null = never, ExtArgs extends runtime.Typ
   journalEntry<T extends Prisma.Bill$journalEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bill$journalEntryArgs<ExtArgs>>): Prisma.Prisma__JournalEntryClient<runtime.Types.Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   lines<T extends Prisma.Bill$linesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bill$linesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   applications<T extends Prisma.Bill$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bill$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.Bill$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bill$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supplierCreditApplications<T extends Prisma.Bill$supplierCreditApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bill$supplierCreditApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierCreditApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supplierCredits<T extends Prisma.Bill$supplierCreditsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Bill$supplierCreditsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierCreditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3261,6 +3461,30 @@ export type Bill$applicationsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.BillApplicationScalarFieldEnum | Prisma.BillApplicationScalarFieldEnum[]
+}
+
+/**
+ * Bill.attachments
+ */
+export type Bill$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attachment
+   */
+  select?: Prisma.AttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attachment
+   */
+  omit?: Prisma.AttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttachmentInclude<ExtArgs> | null
+  where?: Prisma.AttachmentWhereInput
+  orderBy?: Prisma.AttachmentOrderByWithRelationInput | Prisma.AttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.AttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttachmentScalarFieldEnum | Prisma.AttachmentScalarFieldEnum[]
 }
 
 /**

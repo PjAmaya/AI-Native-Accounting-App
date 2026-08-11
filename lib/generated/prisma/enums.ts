@@ -132,3 +132,14 @@ export const SupplierCreditStatus = {
 } as const
 
 export type SupplierCreditStatus = (typeof SupplierCreditStatus)[keyof typeof SupplierCreditStatus]
+
+
+export const AttachmentKind = {
+  SERVICE_AGREEMENT: 'SERVICE_AGREEMENT',
+  MILESTONE: 'MILESTONE',
+  SHARED_DOCUMENT: 'SHARED_DOCUMENT',
+  SOURCE_DOCUMENT: 'SOURCE_DOCUMENT',
+  SUPPORTING: 'SUPPORTING'
+} as const
+
+export type AttachmentKind = (typeof AttachmentKind)[keyof typeof AttachmentKind]

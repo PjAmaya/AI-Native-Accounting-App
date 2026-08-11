@@ -196,11 +196,14 @@ model Project {
 
   status      ProjectStatus @default(ACTIVE)
   scope       String?
+  driveFolderId String?
+  driveFolderUrl String?
   closureReason String?
   closedAt    DateTime?     @db.Date
 
   contractValue Decimal?    @db.Decimal(12, 2)
   budgetLines   ProjectBudgetLine[]
+  attachments   Attachment[]
 
   startDate   DateTime?     @db.Date
   endDate     DateTime?     @db.Date
@@ -520,6 +523,7 @@ model Bill {
 
   lines                 BillLine[]
   applications          BillApplication[]
+  attachments   Attachment[]
   supplierCreditApplications SupplierCreditApplication[]
   supplierCredits       SupplierCredit[] @relation("SupplierCreditOriginal")
 
@@ -601,6 +605,13 @@ model OrgProfile {
   paymentInstructions String?
   invoiceFooter       String?
 
+  driveProjectsRootId   String?
+  driveFinancialRootId  String?
+  driveArInvoicesId     String?
+  driveApBillsId        String?
+  driveCreditNotesId    String?
+  driveSupplierCreditsId String?
+
   capitalizationThreshold Decimal @default(500) @db.Decimal(12, 2)
 
   createdAt           DateTime  @default(now())
@@ -678,6 +689,7 @@ model SupplierCredit {
 
   lines          SupplierCreditLine[]
   applications   SupplierCreditApplication[]
+  attachments   Attachment[]
 
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -747,4 +759,48 @@ model ProjectBudgetLine {
 
   @@unique([projectId, accountId])
   @@index([projectId])
+}
+
+
+enum AttachmentKind {
+  SERVICE_AGREEMENT
+  MILESTONE
+  SHARED_DOCUMENT
+  SOURCE_DOCUMENT
+  SUPPORTING
+}
+
+model Attachment {
+  id           String         @id @default(cuid())
+
+  kind         AttachmentKind @default(SUPPORTING)
+  fileName     String
+  mimeType     String
+  byteSize     Int
+  storagePath  String
+  sha256       String
+
+  driveFileId  String?
+  driveWebLink String?
+  driveSyncedAt DateTime?
+  driveError   String?
+
+  description  String?
+  uploadedBy   String?
+
+  projectId    String?
+  project      Project?       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  billId       String?
+  bill         Bill?          @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  supplierCreditId String?
+  supplierCredit   SupplierCredit? @relation(fields: [supplierCreditId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime       @default(now())
+
+  @@index([projectId])
+  @@index([billId])
+  @@index([supplierCreditId])
+  @@index([sha256])
 }

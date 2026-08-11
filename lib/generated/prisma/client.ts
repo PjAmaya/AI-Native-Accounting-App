@@ -151,3 +151,8 @@ export type SupplierCreditApplication = Prisma.SupplierCreditApplicationModel
  * 
  */
 export type ProjectBudgetLine = Prisma.ProjectBudgetLineModel
+/**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel

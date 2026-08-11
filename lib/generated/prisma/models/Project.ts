@@ -41,6 +41,8 @@ export type ProjectMinAggregateOutputType = {
   contactId: string | null
   status: $Enums.ProjectStatus | null
   scope: string | null
+  driveFolderId: string | null
+  driveFolderUrl: string | null
   closureReason: string | null
   closedAt: Date | null
   contractValue: runtime.Decimal | null
@@ -58,6 +60,8 @@ export type ProjectMaxAggregateOutputType = {
   contactId: string | null
   status: $Enums.ProjectStatus | null
   scope: string | null
+  driveFolderId: string | null
+  driveFolderUrl: string | null
   closureReason: string | null
   closedAt: Date | null
   contractValue: runtime.Decimal | null
@@ -75,6 +79,8 @@ export type ProjectCountAggregateOutputType = {
   contactId: number
   status: number
   scope: number
+  driveFolderId: number
+  driveFolderUrl: number
   closureReason: number
   closedAt: number
   contractValue: number
@@ -102,6 +108,8 @@ export type ProjectMinAggregateInputType = {
   contactId?: true
   status?: true
   scope?: true
+  driveFolderId?: true
+  driveFolderUrl?: true
   closureReason?: true
   closedAt?: true
   contractValue?: true
@@ -119,6 +127,8 @@ export type ProjectMaxAggregateInputType = {
   contactId?: true
   status?: true
   scope?: true
+  driveFolderId?: true
+  driveFolderUrl?: true
   closureReason?: true
   closedAt?: true
   contractValue?: true
@@ -136,6 +146,8 @@ export type ProjectCountAggregateInputType = {
   contactId?: true
   status?: true
   scope?: true
+  driveFolderId?: true
+  driveFolderUrl?: true
   closureReason?: true
   closedAt?: true
   contractValue?: true
@@ -240,6 +252,8 @@ export type ProjectGroupByOutputType = {
   contactId: string | null
   status: $Enums.ProjectStatus
   scope: string | null
+  driveFolderId: string | null
+  driveFolderUrl: string | null
   closureReason: string | null
   closedAt: Date | null
   contractValue: runtime.Decimal | null
@@ -280,6 +294,8 @@ export type ProjectWhereInput = {
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   scope?: Prisma.StringNullableFilter<"Project"> | string | null
+  driveFolderId?: Prisma.StringNullableFilter<"Project"> | string | null
+  driveFolderUrl?: Prisma.StringNullableFilter<"Project"> | string | null
   closureReason?: Prisma.StringNullableFilter<"Project"> | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -290,6 +306,7 @@ export type ProjectWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   contact?: Prisma.XOR<Prisma.ContactNullableScalarRelationFilter, Prisma.ContactWhereInput> | null
   budgetLines?: Prisma.ProjectBudgetLineListRelationFilter
+  attachments?: Prisma.AttachmentListRelationFilter
   lines?: Prisma.JournalLineListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   bills?: Prisma.BillListRelationFilter
@@ -306,6 +323,8 @@ export type ProjectOrderByWithRelationInput = {
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   scope?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFolderUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   closureReason?: Prisma.SortOrderInput | Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   contractValue?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -316,6 +335,7 @@ export type ProjectOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   contact?: Prisma.ContactOrderByWithRelationInput
   budgetLines?: Prisma.ProjectBudgetLineOrderByRelationAggregateInput
+  attachments?: Prisma.AttachmentOrderByRelationAggregateInput
   lines?: Prisma.JournalLineOrderByRelationAggregateInput
   invoices?: Prisma.InvoiceOrderByRelationAggregateInput
   bills?: Prisma.BillOrderByRelationAggregateInput
@@ -335,6 +355,8 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   scope?: Prisma.StringNullableFilter<"Project"> | string | null
+  driveFolderId?: Prisma.StringNullableFilter<"Project"> | string | null
+  driveFolderUrl?: Prisma.StringNullableFilter<"Project"> | string | null
   closureReason?: Prisma.StringNullableFilter<"Project"> | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -345,6 +367,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   contact?: Prisma.XOR<Prisma.ContactNullableScalarRelationFilter, Prisma.ContactWhereInput> | null
   budgetLines?: Prisma.ProjectBudgetLineListRelationFilter
+  attachments?: Prisma.AttachmentListRelationFilter
   lines?: Prisma.JournalLineListRelationFilter
   invoices?: Prisma.InvoiceListRelationFilter
   bills?: Prisma.BillListRelationFilter
@@ -361,6 +384,8 @@ export type ProjectOrderByWithAggregationInput = {
   contactId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   scope?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFolderUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   closureReason?: Prisma.SortOrderInput | Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   contractValue?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -386,6 +411,8 @@ export type ProjectScalarWhereWithAggregatesInput = {
   contactId?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
   scope?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  driveFolderId?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  driveFolderUrl?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   closureReason?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableWithAggregatesFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -402,6 +429,8 @@ export type ProjectCreateInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -412,6 +441,7 @@ export type ProjectCreateInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -428,6 +458,8 @@ export type ProjectUncheckedCreateInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -437,6 +469,7 @@ export type ProjectUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -452,6 +485,8 @@ export type ProjectUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -462,6 +497,7 @@ export type ProjectUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
@@ -478,6 +514,8 @@ export type ProjectUncheckedUpdateInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -487,6 +525,7 @@ export type ProjectUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
@@ -503,6 +542,8 @@ export type ProjectCreateManyInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -519,6 +560,8 @@ export type ProjectUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -536,6 +579,8 @@ export type ProjectUncheckedUpdateManyInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -568,6 +613,8 @@ export type ProjectCountOrderByAggregateInput = {
   contactId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrder
+  driveFolderUrl?: Prisma.SortOrder
   closureReason?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
   contractValue?: Prisma.SortOrder
@@ -589,6 +636,8 @@ export type ProjectMaxOrderByAggregateInput = {
   contactId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrder
+  driveFolderUrl?: Prisma.SortOrder
   closureReason?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
   contractValue?: Prisma.SortOrder
@@ -606,6 +655,8 @@ export type ProjectMinOrderByAggregateInput = {
   contactId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scope?: Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrder
+  driveFolderUrl?: Prisma.SortOrder
   closureReason?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
   contractValue?: Prisma.SortOrder
@@ -805,12 +856,30 @@ export type ProjectUpdateOneRequiredWithoutBudgetLinesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutBudgetLinesInput, Prisma.ProjectUpdateWithoutBudgetLinesInput>, Prisma.ProjectUncheckedUpdateWithoutBudgetLinesInput>
 }
 
+export type ProjectCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAttachmentsInput, Prisma.ProjectUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAttachmentsInput, Prisma.ProjectUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.ProjectUpsertWithoutAttachmentsInput
+  disconnect?: Prisma.ProjectWhereInput | boolean
+  delete?: Prisma.ProjectWhereInput | boolean
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.ProjectUpdateWithoutAttachmentsInput>, Prisma.ProjectUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type ProjectCreateWithoutLinesInput = {
   id?: string
   code: string
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -821,6 +890,7 @@ export type ProjectCreateWithoutLinesInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
@@ -836,6 +906,8 @@ export type ProjectUncheckedCreateWithoutLinesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -845,6 +917,7 @@ export type ProjectUncheckedCreateWithoutLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
@@ -875,6 +948,8 @@ export type ProjectUpdateWithoutLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -885,6 +960,7 @@ export type ProjectUpdateWithoutLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
@@ -900,6 +976,8 @@ export type ProjectUncheckedUpdateWithoutLinesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -909,6 +987,7 @@ export type ProjectUncheckedUpdateWithoutLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
@@ -923,6 +1002,8 @@ export type ProjectCreateWithoutContactInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -932,6 +1013,7 @@ export type ProjectCreateWithoutContactInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -947,6 +1029,8 @@ export type ProjectUncheckedCreateWithoutContactInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -956,6 +1040,7 @@ export type ProjectUncheckedCreateWithoutContactInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -1001,6 +1086,8 @@ export type ProjectScalarWhereInput = {
   contactId?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   scope?: Prisma.StringNullableFilter<"Project"> | string | null
+  driveFolderId?: Prisma.StringNullableFilter<"Project"> | string | null
+  driveFolderUrl?: Prisma.StringNullableFilter<"Project"> | string | null
   closureReason?: Prisma.StringNullableFilter<"Project"> | string | null
   closedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   contractValue?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1017,6 +1104,8 @@ export type ProjectCreateWithoutCreditNoteLinesInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1027,6 +1116,7 @@ export type ProjectCreateWithoutCreditNoteLinesInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -1042,6 +1132,8 @@ export type ProjectUncheckedCreateWithoutCreditNoteLinesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1051,6 +1143,7 @@ export type ProjectUncheckedCreateWithoutCreditNoteLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -1081,6 +1174,8 @@ export type ProjectUpdateWithoutCreditNoteLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1091,6 +1186,7 @@ export type ProjectUpdateWithoutCreditNoteLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
@@ -1106,6 +1202,8 @@ export type ProjectUncheckedUpdateWithoutCreditNoteLinesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1115,6 +1213,7 @@ export type ProjectUncheckedUpdateWithoutCreditNoteLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
@@ -1129,6 +1228,8 @@ export type ProjectCreateWithoutInvoicesInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1139,6 +1240,7 @@ export type ProjectCreateWithoutInvoicesInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
@@ -1154,6 +1256,8 @@ export type ProjectUncheckedCreateWithoutInvoicesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1163,6 +1267,7 @@ export type ProjectUncheckedCreateWithoutInvoicesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
@@ -1193,6 +1298,8 @@ export type ProjectUpdateWithoutInvoicesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1203,6 +1310,7 @@ export type ProjectUpdateWithoutInvoicesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
@@ -1218,6 +1326,8 @@ export type ProjectUncheckedUpdateWithoutInvoicesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1227,6 +1337,7 @@ export type ProjectUncheckedUpdateWithoutInvoicesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
@@ -1241,6 +1352,8 @@ export type ProjectCreateWithoutInvoiceLinesInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1251,6 +1364,7 @@ export type ProjectCreateWithoutInvoiceLinesInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -1266,6 +1380,8 @@ export type ProjectUncheckedCreateWithoutInvoiceLinesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1275,6 +1391,7 @@ export type ProjectUncheckedCreateWithoutInvoiceLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -1305,6 +1422,8 @@ export type ProjectUpdateWithoutInvoiceLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1315,6 +1434,7 @@ export type ProjectUpdateWithoutInvoiceLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
@@ -1330,6 +1450,8 @@ export type ProjectUncheckedUpdateWithoutInvoiceLinesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1339,6 +1461,7 @@ export type ProjectUncheckedUpdateWithoutInvoiceLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
@@ -1353,6 +1476,8 @@ export type ProjectCreateWithoutBillsInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1363,6 +1488,7 @@ export type ProjectCreateWithoutBillsInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
@@ -1378,6 +1504,8 @@ export type ProjectUncheckedCreateWithoutBillsInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1387,6 +1515,7 @@ export type ProjectUncheckedCreateWithoutBillsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
@@ -1417,6 +1546,8 @@ export type ProjectUpdateWithoutBillsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1427,6 +1558,7 @@ export type ProjectUpdateWithoutBillsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
@@ -1442,6 +1574,8 @@ export type ProjectUncheckedUpdateWithoutBillsInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1451,6 +1585,7 @@ export type ProjectUncheckedUpdateWithoutBillsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
@@ -1465,6 +1600,8 @@ export type ProjectCreateWithoutBillLinesInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1475,6 +1612,7 @@ export type ProjectCreateWithoutBillLinesInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -1490,6 +1628,8 @@ export type ProjectUncheckedCreateWithoutBillLinesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1499,6 +1639,7 @@ export type ProjectUncheckedCreateWithoutBillLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -1529,6 +1670,8 @@ export type ProjectUpdateWithoutBillLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1539,6 +1682,7 @@ export type ProjectUpdateWithoutBillLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
@@ -1554,6 +1698,8 @@ export type ProjectUncheckedUpdateWithoutBillLinesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1563,6 +1709,7 @@ export type ProjectUncheckedUpdateWithoutBillLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
@@ -1577,6 +1724,8 @@ export type ProjectCreateWithoutSupplierCreditLinesInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1587,6 +1736,7 @@ export type ProjectCreateWithoutSupplierCreditLinesInput = {
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
   budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -1602,6 +1752,8 @@ export type ProjectUncheckedCreateWithoutSupplierCreditLinesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1611,6 +1763,7 @@ export type ProjectUncheckedCreateWithoutSupplierCreditLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -1641,6 +1794,8 @@ export type ProjectUpdateWithoutSupplierCreditLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1651,6 +1806,7 @@ export type ProjectUpdateWithoutSupplierCreditLinesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
@@ -1666,6 +1822,8 @@ export type ProjectUncheckedUpdateWithoutSupplierCreditLinesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1675,6 +1833,7 @@ export type ProjectUncheckedUpdateWithoutSupplierCreditLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
@@ -1689,6 +1848,8 @@ export type ProjectCreateWithoutBudgetLinesInput = {
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1698,6 +1859,7 @@ export type ProjectCreateWithoutBudgetLinesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillCreateNestedManyWithoutProjectInput
@@ -1714,6 +1876,8 @@ export type ProjectUncheckedCreateWithoutBudgetLinesInput = {
   contactId?: string | null
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1722,6 +1886,7 @@ export type ProjectUncheckedCreateWithoutBudgetLinesInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutProjectInput
   lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
   invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
   bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
@@ -1753,6 +1918,8 @@ export type ProjectUpdateWithoutBudgetLinesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1762,6 +1929,7 @@ export type ProjectUpdateWithoutBudgetLinesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
@@ -1778,6 +1946,8 @@ export type ProjectUncheckedUpdateWithoutBudgetLinesInput = {
   contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1786,6 +1956,7 @@ export type ProjectUncheckedUpdateWithoutBudgetLinesInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
   bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
@@ -1795,12 +1966,14 @@ export type ProjectUncheckedUpdateWithoutBudgetLinesInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectCreateManyContactInput = {
+export type ProjectCreateWithoutAttachmentsInput = {
   id?: string
   code: string
   name: string
   status?: $Enums.ProjectStatus
   scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
   closureReason?: string | null
   closedAt?: Date | string | null
   contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1809,14 +1982,68 @@ export type ProjectCreateManyContactInput = {
   notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  contact?: Prisma.ContactCreateNestedOneWithoutProjectsInput
+  budgetLines?: Prisma.ProjectBudgetLineCreateNestedManyWithoutProjectInput
+  lines?: Prisma.JournalLineCreateNestedManyWithoutProjectInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutProjectInput
+  bills?: Prisma.BillCreateNestedManyWithoutProjectInput
+  billLines?: Prisma.BillLineCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineCreateNestedManyWithoutProjectInput
+  creditNoteLines?: Prisma.CreditNoteLineCreateNestedManyWithoutProjectInput
+  invoiceLines?: Prisma.InvoiceLineCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectUpdateWithoutContactInput = {
+export type ProjectUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  code: string
+  name: string
+  contactId?: string | null
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedCreateNestedManyWithoutProjectInput
+  lines?: Prisma.JournalLineUncheckedCreateNestedManyWithoutProjectInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutProjectInput
+  bills?: Prisma.BillUncheckedCreateNestedManyWithoutProjectInput
+  billLines?: Prisma.BillLineUncheckedCreateNestedManyWithoutProjectInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedCreateNestedManyWithoutProjectInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedCreateNestedManyWithoutProjectInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutAttachmentsInput, Prisma.ProjectUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type ProjectUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutAttachmentsInput, Prisma.ProjectUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutAttachmentsInput, Prisma.ProjectUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutAttachmentsInput, Prisma.ProjectUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type ProjectUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1825,6 +2052,7 @@ export type ProjectUpdateWithoutContactInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contact?: Prisma.ContactUpdateOneWithoutProjectsNestedInput
   budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
   lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
   invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
@@ -1835,12 +2063,15 @@ export type ProjectUpdateWithoutContactInput = {
   invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateWithoutContactInput = {
+export type ProjectUncheckedUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  contactId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1859,12 +2090,86 @@ export type ProjectUncheckedUpdateWithoutContactInput = {
   invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
 }
 
+export type ProjectCreateManyContactInput = {
+  id?: string
+  code: string
+  name: string
+  status?: $Enums.ProjectStatus
+  scope?: string | null
+  driveFolderId?: string | null
+  driveFolderUrl?: string | null
+  closureReason?: string | null
+  closedAt?: Date | string | null
+  contractValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProjectUpdateWithoutContactInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutProjectNestedInput
+  lines?: Prisma.JournalLineUpdateManyWithoutProjectNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutProjectNestedInput
+  bills?: Prisma.BillUpdateManyWithoutProjectNestedInput
+  billLines?: Prisma.BillLineUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUpdateManyWithoutProjectNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUpdateManyWithoutProjectNestedInput
+  invoiceLines?: Prisma.InvoiceLineUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutContactInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  budgetLines?: Prisma.ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutProjectNestedInput
+  lines?: Prisma.JournalLineUncheckedUpdateManyWithoutProjectNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutProjectNestedInput
+  bills?: Prisma.BillUncheckedUpdateManyWithoutProjectNestedInput
+  billLines?: Prisma.BillLineUncheckedUpdateManyWithoutProjectNestedInput
+  supplierCreditLines?: Prisma.SupplierCreditLineUncheckedUpdateManyWithoutProjectNestedInput
+  creditNoteLines?: Prisma.CreditNoteLineUncheckedUpdateManyWithoutProjectNestedInput
+  invoiceLines?: Prisma.InvoiceLineUncheckedUpdateManyWithoutProjectNestedInput
+}
+
 export type ProjectUncheckedUpdateManyWithoutContactInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closureReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contractValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1882,6 +2187,7 @@ export type ProjectUncheckedUpdateManyWithoutContactInput = {
 
 export type ProjectCountOutputType = {
   budgetLines: number
+  attachments: number
   lines: number
   invoices: number
   bills: number
@@ -1893,6 +2199,7 @@ export type ProjectCountOutputType = {
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   budgetLines?: boolean | ProjectCountOutputTypeCountBudgetLinesArgs
+  attachments?: boolean | ProjectCountOutputTypeCountAttachmentsArgs
   lines?: boolean | ProjectCountOutputTypeCountLinesArgs
   invoices?: boolean | ProjectCountOutputTypeCountInvoicesArgs
   bills?: boolean | ProjectCountOutputTypeCountBillsArgs
@@ -1917,6 +2224,13 @@ export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  */
 export type ProjectCountOutputTypeCountBudgetLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProjectBudgetLineWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttachmentWhereInput
 }
 
 /**
@@ -1976,6 +2290,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   contactId?: boolean
   status?: boolean
   scope?: boolean
+  driveFolderId?: boolean
+  driveFolderUrl?: boolean
   closureReason?: boolean
   closedAt?: boolean
   contractValue?: boolean
@@ -1986,6 +2302,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
   contact?: boolean | Prisma.Project$contactArgs<ExtArgs>
   budgetLines?: boolean | Prisma.Project$budgetLinesArgs<ExtArgs>
+  attachments?: boolean | Prisma.Project$attachmentsArgs<ExtArgs>
   lines?: boolean | Prisma.Project$linesArgs<ExtArgs>
   invoices?: boolean | Prisma.Project$invoicesArgs<ExtArgs>
   bills?: boolean | Prisma.Project$billsArgs<ExtArgs>
@@ -2003,6 +2320,8 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   contactId?: boolean
   status?: boolean
   scope?: boolean
+  driveFolderId?: boolean
+  driveFolderUrl?: boolean
   closureReason?: boolean
   closedAt?: boolean
   contractValue?: boolean
@@ -2021,6 +2340,8 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   contactId?: boolean
   status?: boolean
   scope?: boolean
+  driveFolderId?: boolean
+  driveFolderUrl?: boolean
   closureReason?: boolean
   closedAt?: boolean
   contractValue?: boolean
@@ -2039,6 +2360,8 @@ export type ProjectSelectScalar = {
   contactId?: boolean
   status?: boolean
   scope?: boolean
+  driveFolderId?: boolean
+  driveFolderUrl?: boolean
   closureReason?: boolean
   closedAt?: boolean
   contractValue?: boolean
@@ -2049,10 +2372,11 @@ export type ProjectSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "contactId" | "status" | "scope" | "closureReason" | "closedAt" | "contractValue" | "startDate" | "endDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "contactId" | "status" | "scope" | "driveFolderId" | "driveFolderUrl" | "closureReason" | "closedAt" | "contractValue" | "startDate" | "endDate" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contact?: boolean | Prisma.Project$contactArgs<ExtArgs>
   budgetLines?: boolean | Prisma.Project$budgetLinesArgs<ExtArgs>
+  attachments?: boolean | Prisma.Project$attachmentsArgs<ExtArgs>
   lines?: boolean | Prisma.Project$linesArgs<ExtArgs>
   invoices?: boolean | Prisma.Project$invoicesArgs<ExtArgs>
   bills?: boolean | Prisma.Project$billsArgs<ExtArgs>
@@ -2074,6 +2398,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     contact: Prisma.$ContactPayload<ExtArgs> | null
     budgetLines: Prisma.$ProjectBudgetLinePayload<ExtArgs>[]
+    attachments: Prisma.$AttachmentPayload<ExtArgs>[]
     lines: Prisma.$JournalLinePayload<ExtArgs>[]
     invoices: Prisma.$InvoicePayload<ExtArgs>[]
     bills: Prisma.$BillPayload<ExtArgs>[]
@@ -2089,6 +2414,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     contactId: string | null
     status: $Enums.ProjectStatus
     scope: string | null
+    driveFolderId: string | null
+    driveFolderUrl: string | null
     closureReason: string | null
     closedAt: Date | null
     contractValue: runtime.Decimal | null
@@ -2493,6 +2820,7 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   contact<T extends Prisma.Project$contactArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$contactArgs<ExtArgs>>): Prisma.Prisma__ContactClient<runtime.Types.Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   budgetLines<T extends Prisma.Project$budgetLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$budgetLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectBudgetLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.Project$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   lines<T extends Prisma.Project$linesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$linesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoices<T extends Prisma.Project$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bills<T extends Prisma.Project$billsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$billsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2535,6 +2863,8 @@ export interface ProjectFieldRefs {
   readonly contactId: Prisma.FieldRef<"Project", 'String'>
   readonly status: Prisma.FieldRef<"Project", 'ProjectStatus'>
   readonly scope: Prisma.FieldRef<"Project", 'String'>
+  readonly driveFolderId: Prisma.FieldRef<"Project", 'String'>
+  readonly driveFolderUrl: Prisma.FieldRef<"Project", 'String'>
   readonly closureReason: Prisma.FieldRef<"Project", 'String'>
   readonly closedAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly contractValue: Prisma.FieldRef<"Project", 'Decimal'>
@@ -2984,6 +3314,30 @@ export type Project$budgetLinesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ProjectBudgetLineScalarFieldEnum | Prisma.ProjectBudgetLineScalarFieldEnum[]
+}
+
+/**
+ * Project.attachments
+ */
+export type Project$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attachment
+   */
+  select?: Prisma.AttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attachment
+   */
+  omit?: Prisma.AttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttachmentInclude<ExtArgs> | null
+  where?: Prisma.AttachmentWhereInput
+  orderBy?: Prisma.AttachmentOrderByWithRelationInput | Prisma.AttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.AttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttachmentScalarFieldEnum | Prisma.AttachmentScalarFieldEnum[]
 }
 
 /**

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, Pencil, Trash2, Upload, FileText, X } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { projectPerformance } from "@/lib/reporting/projectPerformance";
 import { money, shortDate } from "@/lib/format";
+import { uploadProjectAttachment, removeProjectAttachment } from "../actions";
+import { KIND_LABEL, PROJECT_KINDS } from "@/lib/attachments/labels";
 import { deleteProject } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -21,7 +23,7 @@ export default async function ProjectPage({
 
   const project = await prisma.project.findUnique({
     where: { id },
-    include: { contact: true },
+    include: { contact: true, attachments: { orderBy: { createdAt: "desc" } } },
   });
   if (!project) notFound();
 
@@ -222,6 +224,114 @@ export default async function ProjectPage({
           </ul>
         </div>
       ) : null}
+
+      <div className="card mt-4 px-5 py-4">
+        <div className="flex items-center justify-between gap-4">
+          <p className="eyebrow">Attachments</p>
+        </div>
+
+        {project.attachments.length > 0 ? (
+          <ul className="mt-3 divide-y divide-rule">
+            {project.attachments.map((att) => (
+              <li key={att.id} className="flex items-center justify-between gap-3 py-2">
+                <div className="flex items-center gap-2.5">
+                  <span className="tile bg-wash text-faint">
+                    <FileText size={14} strokeWidth={1.9} aria-hidden />
+                  </span>
+                  <div>
+                    <a
+                      href={`/attachments/${att.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[13px] font-medium hover:text-brand"
+                    >
+                      {att.fileName}
+                    </a>
+                    <p className="text-[11px] text-faint">
+                      {KIND_LABEL[att.kind]} · {(att.byteSize / 1024).toFixed(0)} KB
+                      {att.driveWebLink ? (
+                        <> · <a href={att.driveWebLink} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">Drive</a></>
+                      ) : null}
+                    </p>
+                  </div>
+                </div>
+                <form action={removeProjectAttachment.bind(null, project.id, att.id)}>
+                  <button
+                    type="submit"
+                    aria-label="Remove"
+                    className="text-faint transition-colors hover:text-negative"
+                  >
+                    <X size={14} strokeWidth={2} aria-hidden />
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-3 text-[13px] text-muted">No files yet.</p>
+        )}
+
+        <form
+          action={uploadProjectAttachment.bind(null, project.id)}
+          encType="multipart/form-data"
+          className="mt-4 border-t border-rule pt-4"
+        >
+          <div className="grid grid-cols-4 gap-3">
+            <div className="col-span-2">
+              <label htmlFor="file" className="eyebrow">File</label>
+              <input
+                id="file"
+                name="file"
+                type="file"
+                required
+                accept=".pdf,.png,.jpg,.jpeg,.heic,.doc,.docx,.xls,.xlsx"
+                className="mt-1 block w-full text-[13px] file:mr-3 file:rounded-lg file:border file:border-rule file:bg-surface file:px-3 file:py-1.5 file:text-[13px] file:font-medium file:transition-colors hover:file:bg-wash/60"
+              />
+            </div>
+            <div>
+              <label htmlFor="att-kind" className="eyebrow">Type</label>
+              <select
+                id="att-kind"
+                name="kind"
+                defaultValue="SERVICE_AGREEMENT"
+                className="mt-1 block w-full rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
+              >
+                {PROJECT_KINDS.map((k) => (
+                  <option key={k} value={k}>{KIND_LABEL[k]}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="att-date" className="eyebrow">Document date</label>
+              <input
+                id="att-date"
+                name="documentDate"
+                type="date"
+                defaultValue={new Date().toISOString().slice(0, 10)}
+                className="mt-1 block w-full rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
+              />
+            </div>
+          </div>
+          <div className="mt-2 flex items-end gap-3">
+            <div className="flex-1">
+              <label htmlFor="att-desc" className="eyebrow">Description</label>
+              <input
+                id="att-desc"
+                name="description"
+                placeholder="Optional — what this document is"
+                className="mt-1 block w-full rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
+              />
+            </div>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+            >
+              <Upload size={14} strokeWidth={2} aria-hidden />
+              Upload
+            </button>
+          </div>
+        </form>
+      </div>
 
       {project.notes ? (
         <div className="card mt-4 px-5 py-4">

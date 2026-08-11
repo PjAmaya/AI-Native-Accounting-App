@@ -418,7 +418,8 @@ export const ModelName = {
   SupplierCredit: 'SupplierCredit',
   SupplierCreditLine: 'SupplierCreditLine',
   SupplierCreditApplication: 'SupplierCreditApplication',
-  ProjectBudgetLine: 'ProjectBudgetLine'
+  ProjectBudgetLine: 'ProjectBudgetLine',
+  Attachment: 'Attachment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "creditNote" | "creditNoteLine" | "creditApplication" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent" | "supplierCredit" | "supplierCreditLine" | "supplierCreditApplication" | "projectBudgetLine"
+    modelProps: "account" | "journalEntry" | "journalLine" | "contact" | "project" | "taxRate" | "creditNote" | "creditNoteLine" | "creditApplication" | "invoice" | "invoiceLine" | "payment" | "paymentApplication" | "bill" | "billLine" | "billApplication" | "orgProfile" | "periodLockEvent" | "supplierCredit" | "supplierCreditLine" | "supplierCreditApplication" | "projectBudgetLine" | "attachment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2066,6 +2067,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Attachment: {
+      payload: Prisma.$AttachmentPayload<ExtArgs>
+      fields: Prisma.AttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.AttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.AttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.AttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.AttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.AttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>
+        }
+        update: {
+          args: Prisma.AttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.AttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.AttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.AttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAttachment>
+        }
+        groupBy: {
+          args: Prisma.AttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttachmentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2191,6 +2266,8 @@ export const ProjectScalarFieldEnum = {
   contactId: 'contactId',
   status: 'status',
   scope: 'scope',
+  driveFolderId: 'driveFolderId',
+  driveFolderUrl: 'driveFolderUrl',
   closureReason: 'closureReason',
   closedAt: 'closedAt',
   contractValue: 'contractValue',
@@ -2428,6 +2505,12 @@ export const OrgProfileScalarFieldEnum = {
   logoPath: 'logoPath',
   paymentInstructions: 'paymentInstructions',
   invoiceFooter: 'invoiceFooter',
+  driveProjectsRootId: 'driveProjectsRootId',
+  driveFinancialRootId: 'driveFinancialRootId',
+  driveArInvoicesId: 'driveArInvoicesId',
+  driveApBillsId: 'driveApBillsId',
+  driveCreditNotesId: 'driveCreditNotesId',
+  driveSupplierCreditsId: 'driveSupplierCreditsId',
   capitalizationThreshold: 'capitalizationThreshold',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -2513,6 +2596,29 @@ export const ProjectBudgetLineScalarFieldEnum = {
 } as const
 
 export type ProjectBudgetLineScalarFieldEnum = (typeof ProjectBudgetLineScalarFieldEnum)[keyof typeof ProjectBudgetLineScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  byteSize: 'byteSize',
+  storagePath: 'storagePath',
+  sha256: 'sha256',
+  driveFileId: 'driveFileId',
+  driveWebLink: 'driveWebLink',
+  driveSyncedAt: 'driveSyncedAt',
+  driveError: 'driveError',
+  description: 'description',
+  uploadedBy: 'uploadedBy',
+  projectId: 'projectId',
+  billId: 'billId',
+  supplierCreditId: 'supplierCreditId',
+  createdAt: 'createdAt'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2777,6 +2883,20 @@ export type ListEnumSupplierCreditStatusFieldRefInput<$PrismaModel> = FieldRefIn
 
 
 /**
+ * Reference to a field of type 'AttachmentKind'
+ */
+export type EnumAttachmentKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentKind'>
+    
+
+
+/**
+ * Reference to a field of type 'AttachmentKind[]'
+ */
+export type ListEnumAttachmentKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2962,6 +3082,7 @@ export type GlobalOmitConfig = {
   supplierCreditLine?: Prisma.SupplierCreditLineOmit
   supplierCreditApplication?: Prisma.SupplierCreditApplicationOmit
   projectBudgetLine?: Prisma.ProjectBudgetLineOmit
+  attachment?: Prisma.AttachmentOmit
 }
 
 /* Types for Logging */

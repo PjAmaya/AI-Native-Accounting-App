@@ -53,6 +53,12 @@ export type OrgProfileMinAggregateOutputType = {
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
+  driveProjectsRootId: string | null
+  driveFinancialRootId: string | null
+  driveArInvoicesId: string | null
+  driveApBillsId: string | null
+  driveCreditNotesId: string | null
+  driveSupplierCreditsId: string | null
   capitalizationThreshold: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -77,6 +83,12 @@ export type OrgProfileMaxAggregateOutputType = {
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
+  driveProjectsRootId: string | null
+  driveFinancialRootId: string | null
+  driveArInvoicesId: string | null
+  driveApBillsId: string | null
+  driveCreditNotesId: string | null
+  driveSupplierCreditsId: string | null
   capitalizationThreshold: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -101,6 +113,12 @@ export type OrgProfileCountAggregateOutputType = {
   logoPath: number
   paymentInstructions: number
   invoiceFooter: number
+  driveProjectsRootId: number
+  driveFinancialRootId: number
+  driveArInvoicesId: number
+  driveApBillsId: number
+  driveCreditNotesId: number
+  driveSupplierCreditsId: number
   capitalizationThreshold: number
   createdAt: number
   updatedAt: number
@@ -135,6 +153,12 @@ export type OrgProfileMinAggregateInputType = {
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
+  driveProjectsRootId?: true
+  driveFinancialRootId?: true
+  driveArInvoicesId?: true
+  driveApBillsId?: true
+  driveCreditNotesId?: true
+  driveSupplierCreditsId?: true
   capitalizationThreshold?: true
   createdAt?: true
   updatedAt?: true
@@ -159,6 +183,12 @@ export type OrgProfileMaxAggregateInputType = {
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
+  driveProjectsRootId?: true
+  driveFinancialRootId?: true
+  driveArInvoicesId?: true
+  driveApBillsId?: true
+  driveCreditNotesId?: true
+  driveSupplierCreditsId?: true
   capitalizationThreshold?: true
   createdAt?: true
   updatedAt?: true
@@ -183,6 +213,12 @@ export type OrgProfileCountAggregateInputType = {
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
+  driveProjectsRootId?: true
+  driveFinancialRootId?: true
+  driveArInvoicesId?: true
+  driveApBillsId?: true
+  driveCreditNotesId?: true
+  driveSupplierCreditsId?: true
   capitalizationThreshold?: true
   createdAt?: true
   updatedAt?: true
@@ -294,6 +330,12 @@ export type OrgProfileGroupByOutputType = {
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
+  driveProjectsRootId: string | null
+  driveFinancialRootId: string | null
+  driveArInvoicesId: string | null
+  driveApBillsId: string | null
+  driveCreditNotesId: string | null
+  driveSupplierCreditsId: string | null
   capitalizationThreshold: runtime.Decimal
   createdAt: Date
   updatedAt: Date
@@ -341,6 +383,12 @@ export type OrgProfileWhereInput = {
   logoPath?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveProjectsRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveFinancialRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveArInvoicesId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveApBillsId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveCreditNotesId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveSupplierCreditsId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   capitalizationThreshold?: Prisma.DecimalFilter<"OrgProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"OrgProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrgProfile"> | Date | string
@@ -365,6 +413,12 @@ export type OrgProfileOrderByWithRelationInput = {
   logoPath?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveProjectsRootId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFinancialRootId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveArInvoicesId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveApBillsId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveCreditNotesId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveSupplierCreditsId?: Prisma.SortOrderInput | Prisma.SortOrder
   capitalizationThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -392,6 +446,12 @@ export type OrgProfileWhereUniqueInput = Prisma.AtLeast<{
   logoPath?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveProjectsRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveFinancialRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveArInvoicesId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveApBillsId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveCreditNotesId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  driveSupplierCreditsId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   capitalizationThreshold?: Prisma.DecimalFilter<"OrgProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"OrgProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrgProfile"> | Date | string
@@ -416,6 +476,12 @@ export type OrgProfileOrderByWithAggregationInput = {
   logoPath?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveProjectsRootId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFinancialRootId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveArInvoicesId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveApBillsId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveCreditNotesId?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveSupplierCreditsId?: Prisma.SortOrderInput | Prisma.SortOrder
   capitalizationThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -448,6 +514,12 @@ export type OrgProfileScalarWhereWithAggregatesInput = {
   logoPath?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  driveProjectsRootId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  driveFinancialRootId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  driveArInvoicesId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  driveApBillsId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  driveCreditNotesId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  driveSupplierCreditsId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   capitalizationThreshold?: Prisma.DecimalWithAggregatesFilter<"OrgProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OrgProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"OrgProfile"> | Date | string
@@ -472,6 +544,12 @@ export type OrgProfileCreateInput = {
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
+  driveProjectsRootId?: string | null
+  driveFinancialRootId?: string | null
+  driveArInvoicesId?: string | null
+  driveApBillsId?: string | null
+  driveCreditNotesId?: string | null
+  driveSupplierCreditsId?: string | null
   capitalizationThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -496,6 +574,12 @@ export type OrgProfileUncheckedCreateInput = {
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
+  driveProjectsRootId?: string | null
+  driveFinancialRootId?: string | null
+  driveArInvoicesId?: string | null
+  driveApBillsId?: string | null
+  driveCreditNotesId?: string | null
+  driveSupplierCreditsId?: string | null
   capitalizationThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -520,6 +604,12 @@ export type OrgProfileUpdateInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveApBillsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveCreditNotesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveSupplierCreditsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capitalizationThreshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -544,6 +634,12 @@ export type OrgProfileUncheckedUpdateInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveApBillsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveCreditNotesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveSupplierCreditsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capitalizationThreshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -568,6 +664,12 @@ export type OrgProfileCreateManyInput = {
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
+  driveProjectsRootId?: string | null
+  driveFinancialRootId?: string | null
+  driveArInvoicesId?: string | null
+  driveApBillsId?: string | null
+  driveCreditNotesId?: string | null
+  driveSupplierCreditsId?: string | null
   capitalizationThreshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -592,6 +694,12 @@ export type OrgProfileUpdateManyMutationInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveApBillsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveCreditNotesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveSupplierCreditsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capitalizationThreshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -616,6 +724,12 @@ export type OrgProfileUncheckedUpdateManyInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveApBillsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveCreditNotesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveSupplierCreditsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capitalizationThreshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -640,6 +754,12 @@ export type OrgProfileCountOrderByAggregateInput = {
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
+  driveProjectsRootId?: Prisma.SortOrder
+  driveFinancialRootId?: Prisma.SortOrder
+  driveArInvoicesId?: Prisma.SortOrder
+  driveApBillsId?: Prisma.SortOrder
+  driveCreditNotesId?: Prisma.SortOrder
+  driveSupplierCreditsId?: Prisma.SortOrder
   capitalizationThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -668,6 +788,12 @@ export type OrgProfileMaxOrderByAggregateInput = {
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
+  driveProjectsRootId?: Prisma.SortOrder
+  driveFinancialRootId?: Prisma.SortOrder
+  driveArInvoicesId?: Prisma.SortOrder
+  driveApBillsId?: Prisma.SortOrder
+  driveCreditNotesId?: Prisma.SortOrder
+  driveSupplierCreditsId?: Prisma.SortOrder
   capitalizationThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -692,6 +818,12 @@ export type OrgProfileMinOrderByAggregateInput = {
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
+  driveProjectsRootId?: Prisma.SortOrder
+  driveFinancialRootId?: Prisma.SortOrder
+  driveArInvoicesId?: Prisma.SortOrder
+  driveApBillsId?: Prisma.SortOrder
+  driveCreditNotesId?: Prisma.SortOrder
+  driveSupplierCreditsId?: Prisma.SortOrder
   capitalizationThreshold?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -722,6 +854,12 @@ export type OrgProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  driveProjectsRootId?: boolean
+  driveFinancialRootId?: boolean
+  driveArInvoicesId?: boolean
+  driveApBillsId?: boolean
+  driveCreditNotesId?: boolean
+  driveSupplierCreditsId?: boolean
   capitalizationThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -746,6 +884,12 @@ export type OrgProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  driveProjectsRootId?: boolean
+  driveFinancialRootId?: boolean
+  driveArInvoicesId?: boolean
+  driveApBillsId?: boolean
+  driveCreditNotesId?: boolean
+  driveSupplierCreditsId?: boolean
   capitalizationThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -770,6 +914,12 @@ export type OrgProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  driveProjectsRootId?: boolean
+  driveFinancialRootId?: boolean
+  driveArInvoicesId?: boolean
+  driveApBillsId?: boolean
+  driveCreditNotesId?: boolean
+  driveSupplierCreditsId?: boolean
   capitalizationThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -794,12 +944,18 @@ export type OrgProfileSelectScalar = {
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  driveProjectsRootId?: boolean
+  driveFinancialRootId?: boolean
+  driveArInvoicesId?: boolean
+  driveApBillsId?: boolean
+  driveCreditNotesId?: boolean
+  driveSupplierCreditsId?: boolean
   capitalizationThreshold?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrgProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "legalName" | "tradeName" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "hstRegisteredFrom" | "softLockThrough" | "hardLockThrough" | "logoPath" | "paymentInstructions" | "invoiceFooter" | "capitalizationThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["orgProfile"]>
+export type OrgProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "legalName" | "tradeName" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "hstRegisteredFrom" | "softLockThrough" | "hardLockThrough" | "logoPath" | "paymentInstructions" | "invoiceFooter" | "driveProjectsRootId" | "driveFinancialRootId" | "driveArInvoicesId" | "driveApBillsId" | "driveCreditNotesId" | "driveSupplierCreditsId" | "capitalizationThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["orgProfile"]>
 
 export type $OrgProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OrgProfile"
@@ -823,6 +979,12 @@ export type $OrgProfilePayload<ExtArgs extends runtime.Types.Extensions.Internal
     logoPath: string | null
     paymentInstructions: string | null
     invoiceFooter: string | null
+    driveProjectsRootId: string | null
+    driveFinancialRootId: string | null
+    driveArInvoicesId: string | null
+    driveApBillsId: string | null
+    driveCreditNotesId: string | null
+    driveSupplierCreditsId: string | null
     capitalizationThreshold: runtime.Decimal
     createdAt: Date
     updatedAt: Date
@@ -1267,6 +1429,12 @@ export interface OrgProfileFieldRefs {
   readonly logoPath: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly paymentInstructions: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly invoiceFooter: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly driveProjectsRootId: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly driveFinancialRootId: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly driveArInvoicesId: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly driveApBillsId: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly driveCreditNotesId: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly driveSupplierCreditsId: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly capitalizationThreshold: Prisma.FieldRef<"OrgProfile", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"OrgProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"OrgProfile", 'DateTime'>

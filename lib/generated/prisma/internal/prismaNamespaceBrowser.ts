@@ -72,7 +72,8 @@ export const ModelName = {
   SupplierCredit: 'SupplierCredit',
   SupplierCreditLine: 'SupplierCreditLine',
   SupplierCreditApplication: 'SupplierCreditApplication',
-  ProjectBudgetLine: 'ProjectBudgetLine'
+  ProjectBudgetLine: 'ProjectBudgetLine',
+  Attachment: 'Attachment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -177,6 +178,8 @@ export const ProjectScalarFieldEnum = {
   contactId: 'contactId',
   status: 'status',
   scope: 'scope',
+  driveFolderId: 'driveFolderId',
+  driveFolderUrl: 'driveFolderUrl',
   closureReason: 'closureReason',
   closedAt: 'closedAt',
   contractValue: 'contractValue',
@@ -414,6 +417,12 @@ export const OrgProfileScalarFieldEnum = {
   logoPath: 'logoPath',
   paymentInstructions: 'paymentInstructions',
   invoiceFooter: 'invoiceFooter',
+  driveProjectsRootId: 'driveProjectsRootId',
+  driveFinancialRootId: 'driveFinancialRootId',
+  driveArInvoicesId: 'driveArInvoicesId',
+  driveApBillsId: 'driveApBillsId',
+  driveCreditNotesId: 'driveCreditNotesId',
+  driveSupplierCreditsId: 'driveSupplierCreditsId',
   capitalizationThreshold: 'capitalizationThreshold',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -499,6 +508,29 @@ export const ProjectBudgetLineScalarFieldEnum = {
 } as const
 
 export type ProjectBudgetLineScalarFieldEnum = (typeof ProjectBudgetLineScalarFieldEnum)[keyof typeof ProjectBudgetLineScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  fileName: 'fileName',
+  mimeType: 'mimeType',
+  byteSize: 'byteSize',
+  storagePath: 'storagePath',
+  sha256: 'sha256',
+  driveFileId: 'driveFileId',
+  driveWebLink: 'driveWebLink',
+  driveSyncedAt: 'driveSyncedAt',
+  driveError: 'driveError',
+  description: 'description',
+  uploadedBy: 'uploadedBy',
+  projectId: 'projectId',
+  billId: 'billId',
+  supplierCreditId: 'supplierCreditId',
+  createdAt: 'createdAt'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
 export const SortOrder = {

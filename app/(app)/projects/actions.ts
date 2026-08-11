@@ -4,6 +4,8 @@ import Decimal from "decimal.js";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { storeAttachment, deleteAttachment } from "@/lib/attachments/store";
+import type { AttachmentKind } from "@/lib/generated/prisma/enums";
 
 export type ProjectFormState = {
   ok: boolean;
@@ -211,4 +213,55 @@ export async function deleteProject(projectId: string) {
   await prisma.project.delete({ where: { id: projectId } });
   revalidatePath("/projects");
   redirect("/projects");
+}
+
+function fail(projectId: string, message: string): never {
+  redirect(`/projects/${projectId}?error=${encodeURIComponent(message)}`);
+}
+
+export async function uploadProjectAttachment(projectId: string, formData: FormData) {
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    fail(projectId, "Choose a file to upload.");
+  }
+
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+    include: { contact: true },
+  });
+  if (!project) redirect("/projects");
+
+  const kind = (text(formData, "kind") ?? "SHARED_DOCUMENT") as AttachmentKind;
+  const documentDate = utcDate(text(formData, "documentDate")) ?? new Date();
+  const description = text(formData, "description");
+
+  const label =
+    kind === "SERVICE_AGREEMENT"
+      ? `${project.code} Service Agreement`
+      : kind === "MILESTONE"
+        ? `${project.code} ${description ?? "Milestone"}`
+        : `${project.code} ${description ?? "Document"}`;
+
+  try {
+    await storeAttachment({
+      file,
+      kind,
+      description,
+      documentDate,
+      contactName: project.contact?.name ?? null,
+      documentLabel: label,
+      projectId: project.id,
+    });
+  } catch (e) {
+    fail(projectId, (e as Error).message);
+  }
+
+  revalidatePath(`/projects/${projectId}`);
+  redirect(`/projects/${projectId}`);
+}
+
+export async function removeProjectAttachment(projectId: string, attachmentId: string) {
+  await deleteAttachment(attachmentId);
+  revalidatePath(`/projects/${projectId}`);
+  redirect(`/projects/${projectId}`);
 }
