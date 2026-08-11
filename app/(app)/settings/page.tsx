@@ -1,9 +1,15 @@
 import { prisma } from "@/lib/db";
+import { authorizationUrl } from "@/lib/google/auth";
 import { SettingsForm, type ProfileValues } from "@/components/form/SettingsForm";
 
 export const dynamic = "force-dynamic";
 
-export default async function SettingsPage() {
+export default async function SettingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ googleConnected?: string; googleError?: string }>;
+}) {
+  const { googleConnected, googleError } = await searchParams;
   const profile = await prisma.orgProfile.findUniqueOrThrow({ where: { id: "default" } });
 
   const values: ProfileValues = {
@@ -35,6 +41,36 @@ export default async function SettingsPage() {
       </p>
       <div className="mt-7">
         <SettingsForm values={values} />
+      </div>
+
+      <div className="card mt-6 px-6 py-5">
+        <p className="text-[15px] font-semibold tracking-tight">Google Drive & Gmail</p>
+        <p className="mt-1 text-[13px] text-muted">
+          Connects to Drive for document storage and Gmail for sending invoice emails as drafts.
+        </p>
+
+        {googleError ? (
+          <p className="mt-3 text-[13px] text-negative">{googleError}</p>
+        ) : null}
+
+        {googleConnected ? (
+          <p className="mt-3 text-[13px] text-positive font-medium">
+            Connected successfully. The refresh token has been stored.
+          </p>
+        ) : null}
+
+        {profile.googleRefreshToken ? (
+          <p className="mt-3 text-[13px] text-muted">
+            Connected. To reconnect with a different account, click below.
+          </p>
+        ) : null}
+
+        <a
+          href={authorizationUrl()}
+          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+        >
+          {profile.googleRefreshToken ? "Reconnect Google" : "Connect Google"}
+        </a>
       </div>
     </div>
   );

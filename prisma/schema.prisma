@@ -605,6 +605,10 @@ model OrgProfile {
   paymentInstructions String?
   invoiceFooter       String?
 
+  googleRefreshToken    String?
+  googleAccessToken     String?
+  googleTokenExpiresAt  DateTime?
+
   driveProjectsRootId   String?
   driveFinancialRootId  String?
   driveArInvoicesId     String?

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { storeAttachment, deleteAttachment } from "@/lib/attachments/store";
+import { syncAttachmentToDrive } from "@/lib/google/driveSync";
 import type { AttachmentKind } from "@/lib/generated/prisma/enums";
 
 export type ProjectFormState = {
@@ -243,7 +244,7 @@ export async function uploadProjectAttachment(projectId: string, formData: FormD
         : `${project.code} ${description ?? "Document"}`;
 
   try {
-    await storeAttachment({
+    const attachment = await storeAttachment({
       file,
       kind,
       description,
@@ -252,6 +253,12 @@ export async function uploadProjectAttachment(projectId: string, formData: FormD
       documentLabel: label,
       projectId: project.id,
     });
+
+    try {
+      await syncAttachmentToDrive(attachment.id);
+    } catch {
+      // Local file saved; Drive sync failed — driveError is set on the record
+    }
   } catch (e) {
     fail(projectId, (e as Error).message);
   }

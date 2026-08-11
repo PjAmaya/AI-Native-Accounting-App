@@ -53,6 +53,9 @@ export type OrgProfileMinAggregateOutputType = {
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
+  googleRefreshToken: string | null
+  googleAccessToken: string | null
+  googleTokenExpiresAt: Date | null
   driveProjectsRootId: string | null
   driveFinancialRootId: string | null
   driveArInvoicesId: string | null
@@ -83,6 +86,9 @@ export type OrgProfileMaxAggregateOutputType = {
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
+  googleRefreshToken: string | null
+  googleAccessToken: string | null
+  googleTokenExpiresAt: Date | null
   driveProjectsRootId: string | null
   driveFinancialRootId: string | null
   driveArInvoicesId: string | null
@@ -113,6 +119,9 @@ export type OrgProfileCountAggregateOutputType = {
   logoPath: number
   paymentInstructions: number
   invoiceFooter: number
+  googleRefreshToken: number
+  googleAccessToken: number
+  googleTokenExpiresAt: number
   driveProjectsRootId: number
   driveFinancialRootId: number
   driveArInvoicesId: number
@@ -153,6 +162,9 @@ export type OrgProfileMinAggregateInputType = {
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
+  googleRefreshToken?: true
+  googleAccessToken?: true
+  googleTokenExpiresAt?: true
   driveProjectsRootId?: true
   driveFinancialRootId?: true
   driveArInvoicesId?: true
@@ -183,6 +195,9 @@ export type OrgProfileMaxAggregateInputType = {
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
+  googleRefreshToken?: true
+  googleAccessToken?: true
+  googleTokenExpiresAt?: true
   driveProjectsRootId?: true
   driveFinancialRootId?: true
   driveArInvoicesId?: true
@@ -213,6 +228,9 @@ export type OrgProfileCountAggregateInputType = {
   logoPath?: true
   paymentInstructions?: true
   invoiceFooter?: true
+  googleRefreshToken?: true
+  googleAccessToken?: true
+  googleTokenExpiresAt?: true
   driveProjectsRootId?: true
   driveFinancialRootId?: true
   driveArInvoicesId?: true
@@ -330,6 +348,9 @@ export type OrgProfileGroupByOutputType = {
   logoPath: string | null
   paymentInstructions: string | null
   invoiceFooter: string | null
+  googleRefreshToken: string | null
+  googleAccessToken: string | null
+  googleTokenExpiresAt: Date | null
   driveProjectsRootId: string | null
   driveFinancialRootId: string | null
   driveArInvoicesId: string | null
@@ -383,6 +404,9 @@ export type OrgProfileWhereInput = {
   logoPath?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  googleRefreshToken?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  googleAccessToken?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  googleTokenExpiresAt?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
   driveProjectsRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   driveFinancialRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   driveArInvoicesId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
@@ -413,6 +437,9 @@ export type OrgProfileOrderByWithRelationInput = {
   logoPath?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleRefreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleAccessToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleTokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   driveProjectsRootId?: Prisma.SortOrderInput | Prisma.SortOrder
   driveFinancialRootId?: Prisma.SortOrderInput | Prisma.SortOrder
   driveArInvoicesId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -446,6 +473,9 @@ export type OrgProfileWhereUniqueInput = Prisma.AtLeast<{
   logoPath?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  googleRefreshToken?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  googleAccessToken?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
+  googleTokenExpiresAt?: Prisma.DateTimeNullableFilter<"OrgProfile"> | Date | string | null
   driveProjectsRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   driveFinancialRootId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
   driveArInvoicesId?: Prisma.StringNullableFilter<"OrgProfile"> | string | null
@@ -476,6 +506,9 @@ export type OrgProfileOrderByWithAggregationInput = {
   logoPath?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleRefreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleAccessToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  googleTokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   driveProjectsRootId?: Prisma.SortOrderInput | Prisma.SortOrder
   driveFinancialRootId?: Prisma.SortOrderInput | Prisma.SortOrder
   driveArInvoicesId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -514,6 +547,9 @@ export type OrgProfileScalarWhereWithAggregatesInput = {
   logoPath?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   paymentInstructions?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   invoiceFooter?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  googleRefreshToken?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  googleAccessToken?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
+  googleTokenExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OrgProfile"> | Date | string | null
   driveProjectsRootId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   driveFinancialRootId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
   driveArInvoicesId?: Prisma.StringNullableWithAggregatesFilter<"OrgProfile"> | string | null
@@ -544,6 +580,9 @@ export type OrgProfileCreateInput = {
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
+  googleRefreshToken?: string | null
+  googleAccessToken?: string | null
+  googleTokenExpiresAt?: Date | string | null
   driveProjectsRootId?: string | null
   driveFinancialRootId?: string | null
   driveArInvoicesId?: string | null
@@ -574,6 +613,9 @@ export type OrgProfileUncheckedCreateInput = {
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
+  googleRefreshToken?: string | null
+  googleAccessToken?: string | null
+  googleTokenExpiresAt?: Date | string | null
   driveProjectsRootId?: string | null
   driveFinancialRootId?: string | null
   driveArInvoicesId?: string | null
@@ -604,6 +646,9 @@ export type OrgProfileUpdateInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -634,6 +679,9 @@ export type OrgProfileUncheckedUpdateInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -664,6 +712,9 @@ export type OrgProfileCreateManyInput = {
   logoPath?: string | null
   paymentInstructions?: string | null
   invoiceFooter?: string | null
+  googleRefreshToken?: string | null
+  googleAccessToken?: string | null
+  googleTokenExpiresAt?: Date | string | null
   driveProjectsRootId?: string | null
   driveFinancialRootId?: string | null
   driveArInvoicesId?: string | null
@@ -694,6 +745,9 @@ export type OrgProfileUpdateManyMutationInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -724,6 +778,9 @@ export type OrgProfileUncheckedUpdateManyInput = {
   logoPath?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleAccessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googleTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   driveProjectsRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveFinancialRootId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   driveArInvoicesId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -754,6 +811,9 @@ export type OrgProfileCountOrderByAggregateInput = {
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
+  googleRefreshToken?: Prisma.SortOrder
+  googleAccessToken?: Prisma.SortOrder
+  googleTokenExpiresAt?: Prisma.SortOrder
   driveProjectsRootId?: Prisma.SortOrder
   driveFinancialRootId?: Prisma.SortOrder
   driveArInvoicesId?: Prisma.SortOrder
@@ -788,6 +848,9 @@ export type OrgProfileMaxOrderByAggregateInput = {
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
+  googleRefreshToken?: Prisma.SortOrder
+  googleAccessToken?: Prisma.SortOrder
+  googleTokenExpiresAt?: Prisma.SortOrder
   driveProjectsRootId?: Prisma.SortOrder
   driveFinancialRootId?: Prisma.SortOrder
   driveArInvoicesId?: Prisma.SortOrder
@@ -818,6 +881,9 @@ export type OrgProfileMinOrderByAggregateInput = {
   logoPath?: Prisma.SortOrder
   paymentInstructions?: Prisma.SortOrder
   invoiceFooter?: Prisma.SortOrder
+  googleRefreshToken?: Prisma.SortOrder
+  googleAccessToken?: Prisma.SortOrder
+  googleTokenExpiresAt?: Prisma.SortOrder
   driveProjectsRootId?: Prisma.SortOrder
   driveFinancialRootId?: Prisma.SortOrder
   driveArInvoicesId?: Prisma.SortOrder
@@ -854,6 +920,9 @@ export type OrgProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  googleRefreshToken?: boolean
+  googleAccessToken?: boolean
+  googleTokenExpiresAt?: boolean
   driveProjectsRootId?: boolean
   driveFinancialRootId?: boolean
   driveArInvoicesId?: boolean
@@ -884,6 +953,9 @@ export type OrgProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  googleRefreshToken?: boolean
+  googleAccessToken?: boolean
+  googleTokenExpiresAt?: boolean
   driveProjectsRootId?: boolean
   driveFinancialRootId?: boolean
   driveArInvoicesId?: boolean
@@ -914,6 +986,9 @@ export type OrgProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  googleRefreshToken?: boolean
+  googleAccessToken?: boolean
+  googleTokenExpiresAt?: boolean
   driveProjectsRootId?: boolean
   driveFinancialRootId?: boolean
   driveArInvoicesId?: boolean
@@ -944,6 +1019,9 @@ export type OrgProfileSelectScalar = {
   logoPath?: boolean
   paymentInstructions?: boolean
   invoiceFooter?: boolean
+  googleRefreshToken?: boolean
+  googleAccessToken?: boolean
+  googleTokenExpiresAt?: boolean
   driveProjectsRootId?: boolean
   driveFinancialRootId?: boolean
   driveArInvoicesId?: boolean
@@ -955,7 +1033,7 @@ export type OrgProfileSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrgProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "legalName" | "tradeName" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "hstRegisteredFrom" | "softLockThrough" | "hardLockThrough" | "logoPath" | "paymentInstructions" | "invoiceFooter" | "driveProjectsRootId" | "driveFinancialRootId" | "driveArInvoicesId" | "driveApBillsId" | "driveCreditNotesId" | "driveSupplierCreditsId" | "capitalizationThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["orgProfile"]>
+export type OrgProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "legalName" | "tradeName" | "email" | "phone" | "addressLine1" | "addressLine2" | "city" | "province" | "postalCode" | "country" | "businessNumber" | "hstRegisteredFrom" | "softLockThrough" | "hardLockThrough" | "logoPath" | "paymentInstructions" | "invoiceFooter" | "googleRefreshToken" | "googleAccessToken" | "googleTokenExpiresAt" | "driveProjectsRootId" | "driveFinancialRootId" | "driveArInvoicesId" | "driveApBillsId" | "driveCreditNotesId" | "driveSupplierCreditsId" | "capitalizationThreshold" | "createdAt" | "updatedAt", ExtArgs["result"]["orgProfile"]>
 
 export type $OrgProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OrgProfile"
@@ -979,6 +1057,9 @@ export type $OrgProfilePayload<ExtArgs extends runtime.Types.Extensions.Internal
     logoPath: string | null
     paymentInstructions: string | null
     invoiceFooter: string | null
+    googleRefreshToken: string | null
+    googleAccessToken: string | null
+    googleTokenExpiresAt: Date | null
     driveProjectsRootId: string | null
     driveFinancialRootId: string | null
     driveArInvoicesId: string | null
@@ -1429,6 +1510,9 @@ export interface OrgProfileFieldRefs {
   readonly logoPath: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly paymentInstructions: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly invoiceFooter: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly googleRefreshToken: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly googleAccessToken: Prisma.FieldRef<"OrgProfile", 'String'>
+  readonly googleTokenExpiresAt: Prisma.FieldRef<"OrgProfile", 'DateTime'>
   readonly driveProjectsRootId: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly driveFinancialRootId: Prisma.FieldRef<"OrgProfile", 'String'>
   readonly driveArInvoicesId: Prisma.FieldRef<"OrgProfile", 'String'>
