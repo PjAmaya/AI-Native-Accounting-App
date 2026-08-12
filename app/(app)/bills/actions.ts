@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createBill, type BillDraft, type BillDraftLine } from "@/lib/invoicing/createBill";
 import { approveBill } from "@/lib/invoicing/approveBill";
+import { extractBillFromPdf } from "@/lib/ai/extractBill";
 import { updateDraftBill, deleteDraftBill } from "@/lib/invoicing/updateDraftBill";
 import { voidBill } from "@/lib/invoicing/voidBill";
 
@@ -164,4 +165,59 @@ export async function approveBillAction(billId: string) {
   await approveBill(billId);
   revalidatePath("/bills");
   revalidatePath(`/bills/${billId}`);
+}
+
+export async function extractBillAction(
+  formData: FormData,
+): Promise<{
+  ok: boolean;
+  message: string;
+  data?: {
+    vendorName: string | null;
+    supplierInvoiceNumber: string | null;
+    billDate: string | null;
+    dueDate: string | null;
+    taxTotal: string | null;
+    lines: { description: string; amount: string }[];
+    confidence: number;
+    warnings: string[];
+  };
+}> {
+  const file = formData.get("pdf");
+  if (!(file instanceof File) || file.size === 0) {
+    return { ok: false, message: "Choose a PDF to upload." };
+  }
+  if (file.type !== "application/pdf") {
+    return { ok: false, message: "Only PDF files are accepted." };
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    return { ok: false, message: "PDF must be under 10 MB." };
+  }
+
+  try {
+    const bytes = Buffer.from(await file.arrayBuffer());
+    const result = await extractBillFromPdf(bytes);
+
+    return {
+      ok: true,
+      message: result.warnings.length > 0
+        ? result.warnings.join(" · ")
+        : `Extracted with ${Math.round(result.confidence * 100)}% confidence.`,
+      data: {
+        vendorName: result.vendorName,
+        supplierInvoiceNumber: result.supplierInvoiceNumber,
+        billDate: result.billDate,
+        dueDate: result.dueDate,
+        taxTotal: result.taxTotal,
+        lines: result.lines.map((l) => ({
+          description: l.description,
+          amount: l.amount,
+        })),
+        confidence: result.confidence,
+        warnings: result.warnings,
+      },
+    };
+  } catch (e) {
+    return { ok: false, message: (e as Error).message };
+  }
 }

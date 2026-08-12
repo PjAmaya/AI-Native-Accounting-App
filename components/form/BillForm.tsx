@@ -1,10 +1,10 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, type FormEvent } from "react";
 import { useFormStatus } from "react-dom";
 import Decimal from "decimal.js";
 import { Plus, Trash2, TriangleAlert } from "lucide-react";
-import { saveBillAction, type BillFormState } from "@/app/(app)/bills/actions";
+import { saveBillAction, extractBillAction, type BillFormState } from "@/app/(app)/bills/actions";
 import { inputClass } from "./fields";
 
 export type Option = { value: string; label: string };
@@ -87,6 +87,46 @@ export function BillForm({
   options: BillFormOptions;
   values?: BillValues;
 }) {
+  const [extracting, setExtracting] = useState(false);
+  const [extractMessage, setExtractMessage] = useState<{ ok: boolean; text: string } | null>(null);
+
+  async function handleExtract(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setExtracting(true);
+    setExtractMessage(null);
+    try {
+      const fd = new FormData(e.currentTarget);
+      const result = await extractBillAction(fd);
+      if (!result.ok || !result.data) {
+        setExtractMessage({ ok: false, text: result.message });
+        return;
+      }
+      const d = result.data;
+      if (d.vendorName) {
+        const match = options.vendors.find(
+          (v) => v.label.toLowerCase().includes(d.vendorName!.toLowerCase()),
+        );
+        if (match) setContactId(match.value);
+      }
+      if (d.supplierInvoiceNumber) setSupplierInvoiceNumber(d.supplierInvoiceNumber);
+      if (d.billDate) setBillDate(d.billDate);
+      if (d.dueDate) setDueDate(d.dueDate);
+      if (d.taxTotal) setTaxTotal(d.taxTotal);
+      if (d.lines.length > 0) {
+        setRows(d.lines.map((l) => ({
+          ...blankRow(),
+          description: l.description,
+          amount: l.amount,
+        })));
+      }
+      setExtractMessage({ ok: true, text: result.message });
+    } catch (err) {
+      setExtractMessage({ ok: false, text: (err as Error).message });
+    } finally {
+      setExtracting(false);
+    }
+  }
+
   const [state, action] = useActionState<BillFormState, FormData>(saveBillAction, null);
   const err = (key: string) => state?.errors?.[key];
 
@@ -113,6 +153,37 @@ export function BillForm({
   const total = subtotal.plus(tax);
 
   return (
+    <>
+    {!values ? (
+      <form onSubmit={handleExtract} className="card mb-4 px-6 py-5">
+        <p className="text-[15px] font-semibold tracking-tight">Extract from PDF</p>
+        <p className="mt-1 text-[13px] text-muted">
+          Upload a supplier invoice and the AI fills in the form. You review before saving.
+        </p>
+        <div className="mt-3 flex items-end gap-3">
+          <input
+            name="pdf"
+            type="file"
+            accept=".pdf"
+            required
+            className="text-[13px] file:mr-3 file:rounded-lg file:border file:border-rule file:bg-surface file:px-3 file:py-1.5 file:text-[13px] file:font-medium file:transition-colors hover:file:bg-wash/60"
+          />
+          <button
+            type="submit"
+            disabled={extracting}
+            className="rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9] disabled:opacity-50"
+          >
+            {extracting ? "Reading..." : "Extract"}
+          </button>
+        </div>
+        {extractMessage ? (
+          <p className={`mt-2 text-[12px] ${extractMessage.ok ? "text-positive" : "text-negative"}`}>
+            {extractMessage.text}
+          </p>
+        ) : null}
+      </form>
+    ) : null}
+
     <form action={action} className="grid gap-5">
       {values ? <input type="hidden" name="id" value={values.id} /> : null}
       <section className="card px-6 py-5">
@@ -364,5 +435,6 @@ export function BillForm({
         ) : null}
       </div>
     </form>
+    </>
   );
 }
