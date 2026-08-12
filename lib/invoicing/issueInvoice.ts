@@ -1,6 +1,7 @@
 import { prisma } from "../db";
 import { postDraftTx, type TxClient } from "../ledger/post";
 import { renderInvoicePdf } from "./renderInvoicePdf";
+import { syncInvoicePdfToDrive } from "../google/driveSync";
 import { storeFile } from "../storage";
 
 function assertIssuable(invoice: {
@@ -77,5 +78,13 @@ export async function issueInvoice(invoiceId: string, options?: { skipPdf?: bool
     pdf = { path: stored.path, sha256: stored.sha256 };
   }
 
-  return prisma.$transaction((tx) => issueInvoiceTx(tx, invoiceId, pdf));
+  const result = await prisma.$transaction((tx) => issueInvoiceTx(tx, invoiceId, pdf));
+
+  try {
+    await syncInvoicePdfToDrive(invoiceId);
+  } catch {
+    // Local PDF is authoritative; Drive sync failure is non-blocking
+  }
+
+  return result;
 }

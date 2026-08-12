@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, Download, FileCheck, Pencil, Trash2, FileMinus, Wallet } from "lucide-react";
+import { ArrowLeft, Download, FileCheck, Pencil, Trash2, FileMinus, Wallet, Mail } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { issueInvoiceAction, deleteInvoiceAction } from "../actions";
+import { issueInvoiceAction, deleteInvoiceAction, emailInvoiceAction } from "../actions";
 import { VoidInvoice } from "@/components/ui/VoidInvoice";
 
 export const dynamic = "force-dynamic";
@@ -15,10 +15,10 @@ export default async function InvoicePage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ voidError?: string }>;
+  searchParams: Promise<{ voidError?: string; emailError?: string; emailSent?: string }>;
 }) {
   const { id } = await params;
-  const { voidError } = await searchParams;
+  const { voidError, emailError, emailSent } = await searchParams;
 
   const invoice = await prisma.invoice.findUnique({
     where: { id },
@@ -60,6 +60,7 @@ export default async function InvoicePage({
   const statuses = displayStatuses.length > 0 ? displayStatuses : [invoice.status];
 
   const issue = issueInvoiceAction.bind(null, invoice.id);
+  const email = emailInvoiceAction.bind(null, invoice.id);
   const remove = deleteInvoiceAction.bind(null, invoice.id);
 
   return (
@@ -116,6 +117,17 @@ export default async function InvoicePage({
               </button>
             </form>
           ) : null}
+          {(invoice.status === "ISSUED" || invoice.status === "PAID") && invoice.contact.email ? (
+            <form action={email}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
+              >
+                <Mail size={14} strokeWidth={2} aria-hidden />
+                Email draft
+              </button>
+            </form>
+          ) : null}
           {invoice.status === "ISSUED" && outstanding.greaterThan(0) ? (
             <Link
               href={`/payments/new?invoice=${invoice.id}`}
@@ -155,6 +167,20 @@ export default async function InvoicePage({
           ) : null}
         </div>
       </div>
+
+      {emailSent ? (
+        <div className="card mt-5 border-positive bg-tint-blue/20 px-5 py-3.5">
+          <p className="text-[13px] text-positive font-medium">
+            Gmail draft created. Open Gmail to review and send it.
+          </p>
+        </div>
+      ) : null}
+
+      {emailError ? (
+        <div className="card mt-5 border-negative bg-tint-amber/40 px-5 py-3.5">
+          <p className="text-[13px] text-negative">{emailError}</p>
+        </div>
+      ) : null}
 
       {voidError ? (
         <div className="card mt-5 border-negative bg-tint-amber/40 px-5 py-3.5">

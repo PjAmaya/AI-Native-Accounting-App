@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { createInvoice, type InvoiceDraft, type InvoiceDraftLine } from "@/lib/invoicing/createInvoice";
 import { updateDraftInvoice, deleteDraftInvoice } from "@/lib/invoicing/updateDraftInvoice";
 import { issueInvoice } from "@/lib/invoicing/issueInvoice";
+import { emailInvoiceDraft } from "@/lib/invoicing/emailInvoice";
 import { voidInvoice } from "@/lib/invoicing/voidInvoice";
 
 export type InvoiceFormState = {
@@ -171,4 +172,15 @@ export async function issueInvoiceAction(invoiceId: string) {
   await issueInvoice(invoiceId);
   revalidatePath("/invoices");
   revalidatePath(`/invoices/${invoiceId}`);
+}
+
+export async function emailInvoiceAction(invoiceId: string) {
+  try {
+    await emailInvoiceDraft(invoiceId);
+  } catch (e) {
+    redirect(`/invoices/${invoiceId}?emailError=${encodeURIComponent((e as Error).message)}`);
+  }
+
+  revalidatePath("/invoices");
+  redirect(`/invoices/${invoiceId}?emailSent=true`);
 }
