@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Plus, Users } from "lucide-react";
 import { prisma } from "@/lib/db";
+import { ListFilters } from "@/components/ui/ListFilters";
 
 export const dynamic = "force-dynamic";
 
@@ -12,11 +13,25 @@ function Pill({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default async function ContactsPage() {
+export default async function ContactsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; role?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || undefined;
+  const role = sp.role?.trim() || undefined;
   const contacts = await prisma.contact.findMany({
-    where: { isActive: true },
+    where: {
+      isActive: true,
+      ...(role === "customer" ? { isCustomer: true } : {}),
+      ...(role === "vendor" ? { isVendor: true } : {}),
+      ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}),
+    },
     orderBy: { name: "asc" },
   });
+
+  const filtered = Boolean(q || role);
 
   return (
     <div>
@@ -33,6 +48,25 @@ export default async function ContactsPage() {
           New contact
         </Link>
       </div>
+
+      <form method="get" action="/contacts" className="card mt-6 px-4 py-3">
+        <div className="flex flex-wrap items-end gap-3">
+          <div>
+            <label htmlFor="q" className="eyebrow">Search</label>
+            <input id="q" name="q" defaultValue={sp.q ?? ""} placeholder="Name" className="mt-1 block w-44 rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15" />
+          </div>
+          <div>
+            <label htmlFor="role" className="eyebrow">Role</label>
+            <select id="role" name="role" defaultValue={sp.role ?? ""} className="mt-1 block rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15">
+              <option value="">Any</option>
+              <option value="customer">Client</option>
+              <option value="vendor">Vendor</option>
+            </select>
+          </div>
+          <button type="submit" className="rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]">Filter</button>
+          {filtered ? <a href="/contacts" className="px-2 py-2 text-[13px] text-muted hover:text-ink">Clear</a> : null}
+        </div>
+      </form>
 
       {contacts.length === 0 ? (
         <div className="card mt-7 flex flex-col items-center gap-3 px-6 py-14 text-center">

@@ -4,19 +4,46 @@ import { Plus, FileMinus } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
+import { ListFilters } from "@/components/ui/ListFilters";
 
 export const dynamic = "force-dynamic";
 
-export default async function CreditNotesPage() {
-  const notes = await prisma.creditNote.findMany({
-    include: {
-      contact: true,
-      originalInvoice: true,
-      applications: true,
-      refundEntry: { include: { lines: true } },
-    },
-    orderBy: [{ creditDate: "desc" }, { creditNumber: "desc" }],
-  });
+export default async function CreditNotesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; status?: string; contact?: string; from?: string; to?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || undefined;
+  const status = sp.status?.trim() || undefined;
+  const STORED_STATUSES = new Set(["DRAFT", "ISSUED", "APPLIED", "REFUNDED", "VOID"]);
+
+  function utcDate(v: string | undefined) {
+    if (!v) return undefined;
+    const d = new Date(v + "T00:00:00.000Z");
+    return Number.isNaN(d.getTime()) ? undefined : d;
+  }
+  const from = utcDate(sp.from);
+  const to = utcDate(sp.to);
+
+  const [notes, clients] = await Promise.all([
+    prisma.creditNote.findMany({
+      where: {
+        ...(status && STORED_STATUSES.has(status) ? { status: status as any } : {}),
+        ...(sp.contact ? { contactId: sp.contact } : {}),
+        ...(from || to ? { creditDate: { ...(from ? { gte: from } : {}), ...(to ? { lte: to } : {}) } } : {}),
+        ...(q ? { OR: [{ reason: { contains: q, mode: "insensitive" as const } }, { contact: { name: { contains: q, mode: "insensitive" as const } } }] } : {}),
+      },
+      include: {
+        contact: true,
+        originalInvoice: true,
+        applications: true,
+        refundEntry: { include: { lines: true } },
+      },
+      orderBy: [{ creditDate: "desc" }, { creditNumber: "desc" }],
+    }),
+    prisma.contact.findMany({ where: { isCustomer: true }, orderBy: { name: "asc" } }),
+  ]);
 
   const unapplied = notes
     .filter((n) => n.status === "ISSUED")
@@ -47,6 +74,20 @@ export default async function CreditNotesPage() {
           New credit note
         </Link>
       </div>
+
+      <ListFilters
+        basePath="/credit-notes"
+        contactLabel="Client"
+        statuses={[
+          { value: "DRAFT", label: "Draft" },
+          { value: "ISSUED", label: "Issued" },
+          { value: "APPLIED", label: "Applied" },
+          { value: "REFUNDED", label: "Refunded" },
+          { value: "VOID", label: "Void" },
+        ]}
+        contacts={clients.map((c) => ({ value: c.id, label: c.name }))}
+        current={{ q: sp.q, status: sp.status, contact: sp.contact, from: sp.from, to: sp.to }}
+      />
 
       {notes.length === 0 ? (
         <div className="card mt-7 flex flex-col items-center gap-3 px-6 py-14 text-center">

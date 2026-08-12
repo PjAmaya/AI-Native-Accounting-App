@@ -2,6 +2,7 @@ import Link from "next/link";
 import Decimal from "decimal.js";
 import { Plus, Lock } from "lucide-react";
 import { prisma } from "@/lib/db";
+import { ListFilters } from "@/components/ui/ListFilters";
 import { accountActivity } from "@/lib/reporting/activity";
 import { money } from "@/lib/format";
 
@@ -17,9 +18,23 @@ const TYPE_LABEL: Record<string, string> = {
 
 const ORDER = ["ASSET", "LIABILITY", "EQUITY", "REVENUE", "EXPENSE"];
 
-export default async function AccountsPage() {
+export default async function AccountsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; type?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || undefined;
+  const acctType = sp.type?.trim() || undefined;
   const [accounts, activity] = await Promise.all([
     prisma.account.findMany({
+      where: {
+        ...(acctType ? { type: acctType as any } : {}),
+        ...(q ? { OR: [
+          { code: { contains: q, mode: "insensitive" as const } },
+          { name: { contains: q, mode: "insensitive" as const } },
+        ] } : {}),
+      },
       include: { parent: true, _count: { select: { lines: true } } },
       orderBy: { code: "asc" },
     }),
@@ -31,6 +46,8 @@ export default async function AccountsPage() {
     type,
     rows: accounts.filter((a) => a.type === type),
   })).filter((g) => g.rows.length > 0);
+
+  const filtered = Boolean(q || acctType);
 
   return (
     <div>
@@ -51,7 +68,29 @@ export default async function AccountsPage() {
         </Link>
       </div>
 
-      <div className="mt-7 grid gap-4">
+      <form method="get" action="/accounts" className="card mt-6 px-4 py-3">
+        <div className="flex flex-wrap items-end gap-3">
+          <div>
+            <label htmlFor="q" className="eyebrow">Search</label>
+            <input id="q" name="q" defaultValue={sp.q ?? ""} placeholder="Code or name" className="mt-1 block w-44 rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15" />
+          </div>
+          <div>
+            <label htmlFor="type" className="eyebrow">Type</label>
+            <select id="type" name="type" defaultValue={sp.type ?? ""} className="mt-1 block rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15">
+              <option value="">Any</option>
+              <option value="ASSET">Asset</option>
+              <option value="LIABILITY">Liability</option>
+              <option value="EQUITY">Equity</option>
+              <option value="REVENUE">Revenue</option>
+              <option value="EXPENSE">Expense</option>
+            </select>
+          </div>
+          <button type="submit" className="rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]">Filter</button>
+          {filtered ? <a href="/accounts" className="px-2 py-2 text-[13px] text-muted hover:text-ink">Clear</a> : null}
+        </div>
+      </form>
+
+      <div className="mt-4 grid gap-4">
         {grouped.map((group) => (
           <div key={group.type} className="card overflow-hidden">
             <div className="border-b border-rule bg-wash/40 px-5 py-2.5">

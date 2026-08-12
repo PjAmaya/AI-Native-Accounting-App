@@ -4,19 +4,46 @@ import { Plus, FileMinus } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
+import { ListFilters } from "@/components/ui/ListFilters";
 
 export const dynamic = "force-dynamic";
 
-export default async function SupplierCreditsPage() {
-  const credits = await prisma.supplierCredit.findMany({
-    include: {
-      contact: true,
-      originalBill: true,
-      applications: true,
-      refundEntry: { include: { lines: true } },
-    },
-    orderBy: [{ creditDate: "desc" }, { creditNumber: "desc" }],
-  });
+export default async function SupplierCreditsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; status?: string; contact?: string; from?: string; to?: string }>;
+}) {
+  const sp = await searchParams;
+  const q = sp.q?.trim() || undefined;
+  const status = sp.status?.trim() || undefined;
+  const STORED_STATUSES = new Set(["DRAFT", "APPROVED", "APPLIED", "REFUNDED", "VOID"]);
+
+  function utcDate(v: string | undefined) {
+    if (!v) return undefined;
+    const d = new Date(v + "T00:00:00.000Z");
+    return Number.isNaN(d.getTime()) ? undefined : d;
+  }
+  const from = utcDate(sp.from);
+  const to = utcDate(sp.to);
+
+  const [credits, vendors] = await Promise.all([
+    prisma.supplierCredit.findMany({
+      where: {
+        ...(status && STORED_STATUSES.has(status) ? { status: status as any } : {}),
+        ...(sp.contact ? { contactId: sp.contact } : {}),
+        ...(from || to ? { creditDate: { ...(from ? { gte: from } : {}), ...(to ? { lte: to } : {}) } } : {}),
+        ...(q ? { supplierCreditNumber: { contains: q, mode: "insensitive" as const } } : {}),
+      },
+      include: {
+        contact: true,
+        originalBill: true,
+        applications: true,
+        refundEntry: { include: { lines: true } },
+      },
+      orderBy: [{ creditDate: "desc" }, { creditNumber: "desc" }],
+    }),
+    prisma.contact.findMany({ where: { isVendor: true }, orderBy: { name: "asc" } }),
+  ]);
 
   function remaining(c: (typeof credits)[number]) {
     const used = c.applications.reduce(
@@ -49,6 +76,20 @@ export default async function SupplierCreditsPage() {
           Record credit
         </Link>
       </div>
+
+      <ListFilters
+        basePath="/supplier-credits"
+        contactLabel="Vendor"
+        statuses={[
+          { value: "DRAFT", label: "Draft" },
+          { value: "APPROVED", label: "Approved" },
+          { value: "APPLIED", label: "Applied" },
+          { value: "REFUNDED", label: "Refunded" },
+          { value: "VOID", label: "Void" },
+        ]}
+        contacts={vendors.map((v) => ({ value: v.id, label: v.name }))}
+        current={{ q: sp.q, status: sp.status, contact: sp.contact, from: sp.from, to: sp.to }}
+      />
 
       {credits.length === 0 ? (
         <div className="card mt-7 flex flex-col items-center gap-3 px-6 py-14 text-center">
