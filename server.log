@@ -63,3 +63,106 @@
 ✓ Compiled in 56ms
 ✓ Compiled in 68ms
 ✓ Compiled in 261ms
+ GET / 200 in 357ms (next.js: 179ms, application-code: 178ms)
+ GET /projects 200 in 97ms (next.js: 65ms, application-code: 32ms)
+ GET /contacts 200 in 72ms (next.js: 53ms, application-code: 19ms)
+ GET /contacts/cmsqpcz3u0000kr8ove9lnmiw 200 in 85ms (next.js: 69ms, application-code: 16ms)
+ GET /contacts 200 in 29ms (next.js: 3ms, application-code: 25ms)
+ GET /contacts/cms92lkdw00005v8o3w7hsmyj 200 in 27ms (next.js: 4ms, application-code: 23ms)
+ GET /contacts 200 in 22ms (next.js: 2ms, application-code: 20ms)
+ GET /bills 200 in 109ms (next.js: 55ms, application-code: 55ms)
+ GET /invoices 200 in 84ms (next.js: 58ms, application-code: 26ms)
+ POST /api/chat 200 in 2.5s (next.js: 50ms, application-code: 2.4s)
+ GET /invoices/cmsqpydce000dkr8o499g4hl0 200 in 385ms (next.js: 258ms, application-code: 127ms)
+ GET /invoices 200 in 112ms (next.js: 4ms, application-code: 108ms)
+ GET /projects 200 in 117ms (next.js: 8ms, application-code: 109ms)
+ POST /api/chat 200 in 2.8s (next.js: 5ms, application-code: 2.8s)
+ GET /projects/new 200 in 229ms (next.js: 188ms, application-code: 41ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 368ms (next.js: 304ms, application-code: 65ms)
+ POST /projects/new 303 in 447ms (next.js: 3ms, application-code: 444ms)
+  └─ ƒ saveProject(null, {}) in 58ms app/(app)/projects/actions.ts
+✓ Compiled in 140ms
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 297ms (next.js: 183ms, application-code: 114ms)
+ GET / 200 in 153ms (next.js: 4ms, application-code: 149ms)
+ GET /projects 200 in 47ms (next.js: 7ms, application-code: 41ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 50ms (next.js: 6ms, application-code: 44ms)
+✓ Compiled in 211ms
+ GET / 200 in 226ms (next.js: 69ms, application-code: 156ms)
+ GET /projects 200 in 65ms (next.js: 25ms, application-code: 40ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 82ms (next.js: 42ms, application-code: 40ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 325ms (next.js: 286ms, application-code: 39ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 64ms (next.js: 2ms, application-code: 62ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 61ms (next.js: 2ms, application-code: 58ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 80ms (next.js: 8ms, application-code: 72ms)
+ POST /projects/cmsqq3wj0000ikr8o81crrkmp/edit 303 in 627ms (next.js: 6ms, application-code: 622ms)
+  └─ ƒ saveProject(null, {}) in 526ms app/(app)/projects/actions.ts
+ GET /projects 200 in 120ms (next.js: 19ms, application-code: 102ms)
+ GET /projects/new 200 in 51ms (next.js: 25ms, application-code: 26ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 94ms (next.js: 6ms, application-code: 88ms)
+ POST /projects/new 303 in 369ms (next.js: 2ms, application-code: 367ms)
+  └─ ƒ saveProject(null, {}) in 263ms app/(app)/projects/actions.ts
+ GET /projects 200 in 40ms (next.js: 3ms, application-code: 37ms)
+✓ Compiled in 83ms
+ GET / 200 in 244ms (next.js: 78ms, application-code: 166ms)
+ GET /projects 200 in 51ms (next.js: 15ms, application-code: 36ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 78ms (next.js: 34ms, application-code: 44ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit/edit 200 in 39ms (next.js: 15ms, application-code: 25ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 34ms (next.js: 1545µs, application-code: 32ms)
+ POST /projects/cmsqqhspo000jkr8o7bffeeit/edit 303 in 261ms (next.js: 3ms, application-code: 258ms)
+  └─ ƒ saveProject(null, {}) in 217ms app/(app)/projects/actions.ts
+ GET /projects 200 in 45ms (next.js: 2ms, application-code: 43ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 42ms (next.js: 6ms, application-code: 36ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 38ms (next.js: 5ms, application-code: 33ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 54ms (next.js: 1528µs, application-code: 53ms)
+ POST /projects/cmsqq3wj0000ikr8o81crrkmp/edit 303 in 252ms (next.js: 5ms, application-code: 247ms)
+  └─ ƒ saveProject(null, {}) in 184ms app/(app)/projects/actions.ts
+ GET /api/test-drive 404 in 173ms (next.js: 159ms, application-code: 14ms)
+ GET / 200 in 148ms (next.js: 5ms, application-code: 143ms)
+ GET /api/test-drive 404 in 28ms (next.js: 1810µs, application-code: 27ms)
+ GET / 200 in 147ms (next.js: 1970µs, application-code: 145ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 136ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET /api/test-drive 404 in 148ms (next.js: 88ms, application-code: 60ms)
+ GET /api/test-drive 404 in 51ms (next.js: 34ms, application-code: 17ms)
+ GET /api/test-drive 200 in 360ms (next.js: 91ms, application-code: 268ms)
+ GET /api/test-drive 200 in 389ms (next.js: 163ms, application-code: 227ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 114ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET /api/test-drive 200 in 368ms (next.js: 104ms, application-code: 264ms)
+ GET /api/test-drive 200 in 369ms (next.js: 6ms, application-code: 363ms)
+ GET /api/test-drive 200 in 2.2s (next.js: 21ms, application-code: 2.2s)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 142ms
+- Experiments (use with caution):
+  · serverActions
+

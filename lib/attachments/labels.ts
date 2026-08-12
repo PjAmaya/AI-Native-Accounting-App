@@ -15,7 +15,7 @@ export const PROJECT_KINDS: AttachmentKind[] = [
 ];
 
 export const DRIVE_SUBFOLDER: Partial<Record<AttachmentKind, string>> = {
-  SERVICE_AGREEMENT: "Service agreements",
+  SERVICE_AGREEMENT: "Agreements",
   MILESTONE: "Milestones",
-  SHARED_DOCUMENT: "Shared documents",
+  SHARED_DOCUMENT: "Documents shared",
 };

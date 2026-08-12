@@ -273,7 +273,6 @@ export default async function ProjectPage({
 
         <form
           action={uploadProjectAttachment.bind(null, project.id)}
-          encType="multipart/form-data"
           className="mt-4 border-t border-rule pt-4"
         >
           <div className="grid grid-cols-4 gap-3">

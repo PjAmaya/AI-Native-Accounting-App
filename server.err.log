@@ -85,3 +85,26 @@ Database error. Code: `XX000`. Message: `Postgres.app failed to verify "trust" a
 To help make Turbopack better, report this error by clicking here: https://bugs.nextjs.org/search?category=turbopack-error-report&title=Turbopack%20Error%3A%20%5Bproject%5D%2Fapp%2Fglobals.css%20%5Bapp-client%5D%20%28css%29&body=Turbopack%20version%3A%20%60v16.2.12%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0A%5Bproject%5D%2Fapp%2Fglobals.css%20%5Bapp-client%5D%20%28css%29%0A%0ACaused%20by%3A%0A-%20reading%20file%20%22%2FUsers%2Fpabloamaya%2FDocuments%2FAI-Apps%2Faccounting-app%2Flib%2Fgenerated%2Fprisma%2Fenums%202.ts%22%0A-%20Resource%20deadlock%20avoided%20%28os%20error%2011%29%0A%0ADebug%20info%3A%0A-%20Execution%20of%20subscribe_issues_and_diags_operation%20failed%0A-%20Execution%20of%20%3CAppEndpoint%20as%20Endpoint%3E%3A%3Aserver_changed%20failed%0A-%20Execution%20of%20%2AProject%3A%3Aserver_changed%20failed%0A-%20Execution%20of%20%2AAppEndpointOutput%3A%3Aserver_assets%20failed%0A-%20Execution%20of%20AppEndpoint%3A%3Aoutput%20failed%0A-%20Execution%20of%20AppProject%3A%3Aapp_module_graphs%20failed%0A-%20Execution%20of%20%2A%3CAppEndpoint%20as%20Endpoint%3E%3A%3Aadditional_entries%20failed%0A-%20Execution%20of%20ModuleGraph%3A%3Afrom_graphs%20failed%0A-%20Execution%20of%20ModuleGraph%3A%3Acreate%20failed%0A-%20Execution%20of%20SingleModuleGraph%3A%3Anew_with_entries_visited_intern%20failed%0A-%20%5Bproject%5D%2Fapp%2Fglobals.css%20%5Bapp-client%5D%20%28css%29%0A-%20Execution%20of%20primary_chunkable_referenced_modules%20failed%0A-%20Execution%20of%20%3CCssModule%20as%20Module%3E%3A%3Areferences%20failed%0A-%20Execution%20of%20parse_css%20failed%0A-%20Execution%20of%20%3CPostCssTransformedAsset%20as%20Asset%3E%3A%3Acontent%20failed%0A-%20Execution%20of%20PostCssTransformedAsset%3A%3Aprocess%20failed%0A-%20Execution%20of%20evaluate_webpack_loader%20failed%0A-%20Execution%20of%20%3CDiskFileSystem%20as%20FileSystem%3E%3A%3Aread%20failed%0A-%20reading%20file%20%22%2FUsers%2Fpabloamaya%2FDocuments%2FAI-Apps%2Faccounting-app%2Flib%2Fgenerated%2Fprisma%2Fenums%202.ts%22%0A-%20Resource%20deadlock%20avoided%20%28os%20error%2011%29%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
 -----
 
+[browser] Cannot specify a encType or method for a form that specifies a function as the action. React provides those automatically. They will get overridden. 
+Drive folder creation failed: Drive folder creation failed: 404 {
+  "error": {
+    "code": 404,
+    "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+    "errors": [
+      {
+        "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+        "domain": "global",
+        "reason": "notFound",
+        "location": "fileId",
+        "locat
+Drive folder creation failed: Drive folder creation failed: 404 {
+  "error": {
+    "code": 404,
+    "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+    "errors": [
+      {
+        "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+        "domain": "global",
+        "reason": "notFound",
+        "location": "fileId",
+        "locat

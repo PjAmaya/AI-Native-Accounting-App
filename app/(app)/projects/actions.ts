@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { storeAttachment, deleteAttachment } from "@/lib/attachments/store";
+import { createFolder, ensureFolder } from "@/lib/google/drive";
 import { syncAttachmentToDrive } from "@/lib/google/driveSync";
 import type { AttachmentKind } from "@/lib/generated/prisma/enums";
 
@@ -172,6 +173,30 @@ export async function saveProject(
 
     return project.id;
   });
+
+  const saved = await prisma.project.findUnique({ where: { id: projectId } });
+  if (saved && !saved.driveFolderId) {
+    const profile = await prisma.orgProfile.findUniqueOrThrow({ where: { id: "default" } });
+    if (profile.driveProjectsRootId && profile.googleRefreshToken) {
+      try {
+        const folder = await createFolder(
+          `${saved.code} — ${saved.name}`,
+          profile.driveProjectsRootId,
+        );
+        await Promise.all([
+          ensureFolder("Agreements", folder.id),
+          ensureFolder("Documents shared", folder.id),
+          ensureFolder("Milestones", folder.id),
+        ]);
+        await prisma.project.update({
+          where: { id: saved.id },
+          data: { driveFolderId: folder.id, driveFolderUrl: folder.webViewLink },
+        });
+      } catch (e) {
+        console.error("Drive folder creation failed:", (e as Error).message);
+      }
+    }
+  }
 
   revalidatePath("/projects");
   redirect(`/projects/${projectId}`);
