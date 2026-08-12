@@ -1,0 +1,80 @@
+⨯ Error [PrismaClientKnownRequestError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].invoice.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__0tj-5zp._.js:830:152
+
+  827     };
+  828 }
+  829 async function arAging(asOf) {
+→ 830     const invoices = await {imported module ./lib/db.ts}["prisma"].invoice.findMany(
+Database error. Code: `XX000`. Message: `Postgres.app failed to verify "trust" authentication`
+    at <unknown> (lib/reporting/aging.ts:127:41)
+    at async arAging (lib/reporting/aging.ts:127:20)
+    at async currentExceptions (lib/reporting/exceptions.ts:32:14)
+    at async ExceptionRail (components/rail/ExceptionRail.tsx:14:22)
+  125 |
+  126 | export async function arAging(asOf: Date): Promise<AgingReport> {
+> 127 |   const invoices = await prisma.invoice.findMany({
+      |                                         ^
+  128 |     where: {
+  129 |       status: { in: ["ISSUED", "PAID"] },
+  130 |       invoiceDate: { lte: asOf }, {
+  code: 'P2039',
+  meta: {
+    modelName: 'Invoice',
+    driverAdapterError: Error [DriverAdapterError]: Postgres.app failed to verify "trust" authentication
+        at async arAging (lib/reporting/aging.ts:127:20)
+        at async currentExceptions (lib/reporting/exceptions.ts:32:14)
+        at async ExceptionRail (components/rail/ExceptionRail.tsx:14:22)
+      125 |
+      126 | export async function arAging(asOf: Date): Promise<AgingReport> {
+    > 127 |   const invoices = await prisma.invoice.findMany({
+          |                    ^
+      128 |     where: {
+      129 |       status: { in: ["ISSUED", "PAID"] },
+      130 |       invoiceDate: { lte: asOf }, {
+      [cause]: [Object]
+    }
+  },
+  clientVersion: '7.9.1',
+  digest: '1977318582'
+}
+⨯ Error [PrismaClientKnownRequestError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].journalLine.groupBy()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__0tj-5zp._.js:980:155
+
+  977 ;
+  978 ;
+  979 async function accountActivity(window) {
+→ 980     const grouped = await {imported module ./lib/db.ts}["prisma"].journalLine.groupBy(
+Database error. Code: `XX000`. Message: `Postgres.app failed to verify "trust" authentication`
+    at <unknown> (lib/reporting/activity.ts:24:44)
+    at async accountActivity (lib/reporting/activity.ts:24:19)
+    at async profitAndLoss (lib/reporting/profitAndLoss.ts:46:16)
+    at async DashboardPage (app/(app)/page.tsx:19:29)
+  22 |
+  23 | export async function accountActivity(window: ActivityWindow): Promise<AccountActivity[]> {
+> 24 |   const grouped = await prisma.journalLine.groupBy({
+     |                                            ^
+  25 |     by: ["accountId"],
+  26 |     where: {
+  27 |       entry: { {
+  code: 'P2039',
+  meta: {
+    modelName: 'JournalLine',
+    driverAdapterError: Error [DriverAdapterError]: Postgres.app failed to verify "trust" authentication
+        at async accountActivity (lib/reporting/activity.ts:24:19)
+        at async profitAndLoss (lib/reporting/profitAndLoss.ts:46:16)
+        at async DashboardPage (app/(app)/page.tsx:19:29)
+      22 |
+      23 | export async function accountActivity(window: ActivityWindow): Promise<AccountActivity[]> {
+    > 24 |   const grouped = await prisma.journalLine.groupBy({
+         |                   ^
+      25 |     by: ["accountId"],
+      26 |     where: {
+      27 |       entry: { {
+      [cause]: [Object]
+    }
+  },
+  clientVersion: '7.9.1',
+  digest: '1101521463'
+}

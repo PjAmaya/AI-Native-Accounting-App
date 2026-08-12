@@ -18,6 +18,12 @@ const mono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Story Craft Studio — Books",
   description: "Accounting and invoicing",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "Books",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export default function RootLayout({

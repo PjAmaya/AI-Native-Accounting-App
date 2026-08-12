@@ -1,0 +1,14 @@
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 181ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 500 in 61s (next.js: 129ms, application-code: 61s)
+ GET / 200 in 3.4s (next.js: 8ms, application-code: 3.4s)
