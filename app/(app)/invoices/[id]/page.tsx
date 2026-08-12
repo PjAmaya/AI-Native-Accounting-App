@@ -47,7 +47,7 @@ export default async function InvoicePage({
   );
   const applied = paid.plus(credited);
   const outstanding =
-    invoice.status === "VOID"
+    invoice.status === "VOID" || invoice.status === "DRAFT"
       ? new Decimal(0)
       : new Decimal(invoice.total.toString()).minus(applied);
   const displayStatuses =

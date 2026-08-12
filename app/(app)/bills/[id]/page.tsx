@@ -43,7 +43,10 @@ export default async function BillPage({
     (sum, a) => sum.plus(a.amountApplied.toString()),
     new Decimal(0),
   );
-  const outstanding = new Decimal(bill.total.toString()).minus(applied);
+  const outstanding =
+    bill.status === "VOID" || bill.status === "DRAFT"
+      ? new Decimal(0)
+      : new Decimal(bill.total.toString()).minus(applied);
   const approve = approveBillAction.bind(null, bill.id);
   const remove = deleteBillAction.bind(null, bill.id);
 

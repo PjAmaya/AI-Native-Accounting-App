@@ -51,6 +51,7 @@ export type ContactValues = {
   name: string;
   isCustomer: boolean;
   isVendor: boolean;
+  isActive: boolean;
   email: string;
   phone: string;
   addressLine1: string;
@@ -89,6 +90,7 @@ export function ContactForm({
           <div className="mt-1.5 grid grid-cols-2 gap-3">
             <Check name="isCustomer" label="Customer" hint="You invoice them" defaultChecked={v?.isCustomer} />
             <Check name="isVendor" label="Vendor" hint="They invoice you" defaultChecked={v?.isVendor} />
+            <Check name="isActive" label="Active" hint="Inactive contacts leave all dropdowns" defaultChecked={v?.isActive ?? true} />
           </div>
           {err("roles") ? (
             <p className="mt-1 text-[12px] text-negative">{err("roles")}</p>

@@ -86,7 +86,9 @@ export default async function BillsPage({
       new Decimal(0),
     );
     const outstanding =
-      bill.status === "VOID" ? new Decimal(0) : new Decimal(bill.total.toString()).minus(applied);
+      bill.status === "VOID" || bill.status === "DRAFT"
+        ? new Decimal(0)
+        : new Decimal(bill.total.toString()).minus(applied);
     const overdue =
       bill.status === "APPROVED" && outstanding.greaterThan(0) && bill.dueDate < today;
     const partial =

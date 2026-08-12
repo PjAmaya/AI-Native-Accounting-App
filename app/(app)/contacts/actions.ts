@@ -32,6 +32,7 @@ export async function saveContact(
   const name = text(formData, "name");
   if (!name) errors.name = "Required.";
 
+  const isActive = checked(formData, "isActive");
   const isCustomer = checked(formData, "isCustomer");
   const isVendor = checked(formData, "isVendor");
   if (!isCustomer && !isVendor) {
@@ -89,6 +90,7 @@ export async function saveContact(
 
   const data = {
     name: name!,
+    isActive,
     isCustomer,
     isVendor,
     email: text(formData, "email"),

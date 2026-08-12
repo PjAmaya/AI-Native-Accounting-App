@@ -86,7 +86,7 @@ export default async function InvoicesPage({
       new Decimal(0),
     );
     const outstanding =
-      invoice.status === "VOID"
+      invoice.status === "VOID" || invoice.status === "DRAFT"
         ? new Decimal(0)
         : new Decimal(invoice.total.toString()).minus(applied);
     const overdue =
