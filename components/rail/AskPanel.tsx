@@ -22,6 +22,7 @@ const SUGGESTIONS = [
 
 export function AskPanel() {
   const [question, setQuestion] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const scroller = useRef<HTMLDivElement>(null);
@@ -35,10 +36,14 @@ export function AskPanel() {
     setTurns((prev) => [...prev, { question: trimmed, answer: null, steps: [], warnings: [], error: null }]);
 
     try {
+      const fd = new FormData();
+      fd.append("question", trimmed);
+      if (file) fd.append("file", file);
+      setFile(null);
+
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: trimmed }),
+        body: fd,
       });
       const data = await response.json();
 
@@ -177,6 +182,10 @@ export function AskPanel() {
             aria-label="Ask a question about the books"
             className="max-h-24 flex-1 resize-none rounded-lg border border-rule bg-surface px-3 py-2 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
           />
+          <label className="flex shrink-0 cursor-pointer items-center rounded-lg border border-rule px-2 py-1.5 text-faint transition-colors hover:bg-wash/60 hover:text-ink">
+            <input type="file" accept=".pdf" className="hidden" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+            {file ? <span className="max-w-20 truncate text-[11px] text-brand">{file.name}</span> : <span className="text-[11px]">PDF</span>}
+          </label>
           <button
             type="button"
             onClick={() => ask(question)}
