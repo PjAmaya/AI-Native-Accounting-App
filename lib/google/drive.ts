@@ -12,7 +12,7 @@ async function headers() {
 }
 
 export async function createFolder(name: string, parentId?: string): Promise<{ id: string; webViewLink: string }> {
-  const response = await fetch(`${API}/files?fields=id,webViewLink`, {
+  const response = await fetch(`${API}/files?fields=id,webViewLink&supportsAllDrives=true`, {
     method: "POST",
     headers: await headers(),
     body: JSON.stringify({
@@ -48,7 +48,7 @@ export async function uploadFile(
   ]);
 
   const token = await getAccessToken();
-  const response = await fetch(`${UPLOAD_API}/files?uploadType=multipart&fields=id,webViewLink`, {
+  const response = await fetch(`${UPLOAD_API}/files?uploadType=multipart&fields=id,webViewLink&supportsAllDrives=true`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ export async function ensureFolder(
   const q = `name='${name.replace(/'/g, "\\'")}' and '${parentId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`;
 
   const response = await fetch(
-    `${API}/files?q=${encodeURIComponent(q)}&fields=files(id,webViewLink)&pageSize=1`,
+    `${API}/files?q=${encodeURIComponent(q)}&fields=files(id,webViewLink)&pageSize=1&supportsAllDrives=true&includeItemsFromAllDrives=true`,
     { headers: { Authorization: `Bearer ${token}` } },
   );
 

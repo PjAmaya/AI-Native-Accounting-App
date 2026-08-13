@@ -166,3 +166,89 @@
 - Experiments (use with caution):
   · serverActions
 
+ GET / 200 in 707ms (next.js: 97ms, application-code: 610ms)
+ GET /projects 200 in 67ms (next.js: 20ms, application-code: 47ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 217ms (next.js: 191ms, application-code: 26ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 209ms (next.js: 193ms, application-code: 16ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 89ms (next.js: 5ms, application-code: 84ms)
+ POST /projects/cmsqq3wj0000ikr8o81crrkmp/edit 303 in 1140ms (next.js: 5ms, application-code: 1135ms)
+  └─ ƒ saveProject(null, {}) in 1030ms app/(app)/projects/actions.ts
+ GET /projects 200 in 42ms (next.js: 2ms, application-code: 39ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 45ms (next.js: 4ms, application-code: 41ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit/edit 200 in 35ms (next.js: 6ms, application-code: 29ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 67ms (next.js: 5ms, application-code: 61ms)
+ POST /projects/cmsqqhspo000jkr8o7bffeeit/edit 303 in 1021ms (next.js: 6ms, application-code: 1015ms)
+  └─ ƒ saveProject(null, {}) in 938ms app/(app)/projects/actions.ts
+ GET /projects 200 in 42ms (next.js: 3ms, application-code: 39ms)
+✓ Compiled in 26ms
+ GET /projects 200 in 201ms (next.js: 20ms, application-code: 181ms)
+ GET /projects 200 in 147ms (next.js: 567µs, application-code: 146ms)
+ GET /projects 200 in 166ms (next.js: 758µs, application-code: 165ms)
+ GET /projects 200 in 135ms (next.js: 7ms, application-code: 128ms)
+ GET /projects 200 in 166ms (next.js: 644µs, application-code: 165ms)
+ GET /projects 200 in 114ms (next.js: 4ms, application-code: 110ms)
+ GET /projects 200 in 32ms (next.js: 694µs, application-code: 31ms)
+ GET /settings 200 in 208ms (next.js: 124ms, application-code: 84ms)
+ GET /settings 200 in 176ms (next.js: 1821µs, application-code: 175ms)
+ GET /settings 200 in 212ms (next.js: 13ms, application-code: 199ms)
+ GET /settings 200 in 155ms (next.js: 4ms, application-code: 151ms)
+ GET /settings 200 in 129ms (next.js: 4ms, application-code: 125ms)
+ GET /settings 200 in 112ms (next.js: 4ms, application-code: 108ms)
+ GET /settings 200 in 76ms (next.js: 4ms, application-code: 72ms)
+ GET /settings 200 in 35ms (next.js: 1986µs, application-code: 33ms)
+ GET / 200 in 190ms (next.js: 12ms, application-code: 178ms)
+ GET /settings 200 in 26ms (next.js: 3ms, application-code: 23ms)
+ GET /api/auth/google/callback?iss=https://accounts.google.com&code=4/0AXEQxIApeNK-aCCwAsMHpZT3jTav6G6Gs-rsSP1nWeWGEexx0Rm0D9ZRJDTvTNorSSfcTg&scope=https://www.googleapis.com/auth/drive%20https://www.googleapis.com/auth/drive.file%20https://www.googleapis.com/auth/gmail.compose 307 in 272ms (next.js: 57ms, application-code: 216ms)
+ GET /settings?googleConnected=true 200 in 102ms (next.js: 3ms, application-code: 100ms)
+ GET /projects 200 in 62ms (next.js: 16ms, application-code: 46ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 83ms (next.js: 46ms, application-code: 38ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit/edit 200 in 59ms (next.js: 28ms, application-code: 31ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 53ms (next.js: 1574µs, application-code: 51ms)
+ POST /projects/cmsqqhspo000jkr8o7bffeeit/edit 303 in 273ms (next.js: 5ms, application-code: 268ms)
+  └─ ƒ saveProject(null, {}) in 206ms app/(app)/projects/actions.ts
+ GET /projects 200 in 41ms (next.js: 2ms, application-code: 38ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 98ms (next.js: 8ms, application-code: 90ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 39ms (next.js: 7ms, application-code: 32ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 57ms (next.js: 1482µs, application-code: 55ms)
+ POST /projects/cmsqq3wj0000ikr8o81crrkmp/edit 303 in 273ms (next.js: 6ms, application-code: 267ms)
+  └─ ƒ saveProject(null, {}) in 203ms app/(app)/projects/actions.ts
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 96ms (next.js: 7ms, application-code: 90ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 79ms (next.js: 723µs, application-code: 79ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 141ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 743ms (next.js: 217ms, application-code: 526ms)
+ GET / 200 in 194ms (next.js: 26ms, application-code: 168ms)
+ GET /reports 200 in 273ms (next.js: 250ms, application-code: 23ms)
+ GET /reports 200 in 128ms (next.js: 3ms, application-code: 125ms)
+ GET /reports 200 in 208ms (next.js: 15ms, application-code: 193ms)
+ GET /reports 200 in 114ms (next.js: 3ms, application-code: 110ms)
+ GET /reports 200 in 98ms (next.js: 5ms, application-code: 93ms)
+ GET /reports 200 in 72ms (next.js: 5ms, application-code: 67ms)
+ GET /projects 200 in 30ms (next.js: 9ms, application-code: 21ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 41ms (next.js: 12ms, application-code: 30ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 215ms (next.js: 199ms, application-code: 16ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 76ms (next.js: 4ms, application-code: 72ms)
+ POST /projects/cmsqq3wj0000ikr8o81crrkmp/edit 303 in 1420ms (next.js: 11ms, application-code: 1409ms)
+  └─ ƒ saveProject(null, {}) in 1310ms app/(app)/projects/actions.ts
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp/edit 200 in 100ms (next.js: 10ms, application-code: 90ms)
+ GET /projects/cmsqq3wj0000ikr8o81crrkmp 200 in 77ms (next.js: 5ms, application-code: 72ms)
+ POST /projects/cmsqq3wj0000ikr8o81crrkmp/edit 303 in 107ms (next.js: 6ms, application-code: 101ms)
+  └─ ƒ saveProject(null, {}) in 12ms app/(app)/projects/actions.ts
+ GET /projects 200 in 117ms (next.js: 5ms, application-code: 112ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 102ms (next.js: 5ms, application-code: 97ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit/edit 200 in 37ms (next.js: 6ms, application-code: 32ms)
+ GET /projects/cmsqqhspo000jkr8o7bffeeit 200 in 104ms (next.js: 5ms, application-code: 99ms)
+ POST /projects/cmsqqhspo000jkr8o7bffeeit/edit 303 in 1969ms (next.js: 5ms, application-code: 1964ms)
+  └─ ƒ saveProject(null, {}) in 1846ms app/(app)/projects/actions.ts
+ GET /projects 200 in 44ms (next.js: 4ms, application-code: 41ms)

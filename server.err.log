@@ -108,3 +108,25 @@ Drive folder creation failed: Drive folder creation failed: 404 {
         "reason": "notFound",
         "location": "fileId",
         "locat
+Drive folder creation failed: Drive folder creation failed: 404 {
+  "error": {
+    "code": 404,
+    "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+    "errors": [
+      {
+        "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+        "domain": "global",
+        "reason": "notFound",
+        "location": "fileId",
+        "locat
+Drive folder creation failed: Drive folder creation failed: 404 {
+  "error": {
+    "code": 404,
+    "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+    "errors": [
+      {
+        "message": "File not found: 1T1I04uusBiUWmv9w04Ut3lGNOxNsym24.",
+        "domain": "global",
+        "reason": "notFound",
+        "location": "fileId",
+        "locat
