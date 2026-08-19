@@ -28,6 +28,7 @@ export default async function EditContactPage({
     name: contact.name,
     isCustomer: contact.isCustomer,
     isActive: contact.isActive,
+    country: contact.country,
     isVendor: contact.isVendor,
     email: contact.email ?? "",
     phone: contact.phone ?? "",

@@ -57,6 +57,7 @@ export type ContactValues = {
   addressLine1: string;
   addressLine2: string;
   city: string;
+  country: string;
   province: string;
   postalCode: string;
   businessNumber: string;
@@ -121,8 +122,89 @@ export function ContactForm({
           <Field label="City" htmlFor="city" error={err("city")}>
             <input id="city" name="city" defaultValue={v?.city} className={inputClass} />
           </Field>
-          <Field label="Province" htmlFor="province">
-            <input id="province" name="province" defaultValue={v?.province ?? "ON"} className={inputClass} />
+          <Field label="Country" htmlFor="country">
+            <select id="country" name="country" defaultValue={v?.country ?? "CA"} className={inputClass}>
+              <option value="CA">Canada</option>
+              <option value="US">United States</option>
+              <option disabled>──────────</option>
+              <option value="AF">Afghanistan</option>
+              <option value="AL">Albania</option>
+              <option value="DZ">Algeria</option>
+              <option value="AR">Argentina</option>
+              <option value="AU">Australia</option>
+              <option value="AT">Austria</option>
+              <option value="BE">Belgium</option>
+              <option value="BR">Brazil</option>
+              <option value="BG">Bulgaria</option>
+              <option value="KH">Cambodia</option>
+              <option value="CM">Cameroon</option>
+              <option value="CL">Chile</option>
+              <option value="CN">China</option>
+              <option value="CO">Colombia</option>
+              <option value="CR">Costa Rica</option>
+              <option value="HR">Croatia</option>
+              <option value="CZ">Czech Republic</option>
+              <option value="DK">Denmark</option>
+              <option value="DO">Dominican Republic</option>
+              <option value="EC">Ecuador</option>
+              <option value="EG">Egypt</option>
+              <option value="SV">El Salvador</option>
+              <option value="EE">Estonia</option>
+              <option value="ET">Ethiopia</option>
+              <option value="FI">Finland</option>
+              <option value="FR">France</option>
+              <option value="DE">Germany</option>
+              <option value="GH">Ghana</option>
+              <option value="GR">Greece</option>
+              <option value="GT">Guatemala</option>
+              <option value="HN">Honduras</option>
+              <option value="HK">Hong Kong</option>
+              <option value="HU">Hungary</option>
+              <option value="IN">India</option>
+              <option value="ID">Indonesia</option>
+              <option value="IE">Ireland</option>
+              <option value="IL">Israel</option>
+              <option value="IT">Italy</option>
+              <option value="JM">Jamaica</option>
+              <option value="JP">Japan</option>
+              <option value="KE">Kenya</option>
+              <option value="KR">South Korea</option>
+              <option value="LV">Latvia</option>
+              <option value="LT">Lithuania</option>
+              <option value="MY">Malaysia</option>
+              <option value="MX">Mexico</option>
+              <option value="MA">Morocco</option>
+              <option value="NL">Netherlands</option>
+              <option value="NZ">New Zealand</option>
+              <option value="NG">Nigeria</option>
+              <option value="NO">Norway</option>
+              <option value="PK">Pakistan</option>
+              <option value="PA">Panama</option>
+              <option value="PE">Peru</option>
+              <option value="PH">Philippines</option>
+              <option value="PL">Poland</option>
+              <option value="PT">Portugal</option>
+              <option value="RO">Romania</option>
+              <option value="SA">Saudi Arabia</option>
+              <option value="SG">Singapore</option>
+              <option value="ZA">South Africa</option>
+              <option value="ES">Spain</option>
+              <option value="SE">Sweden</option>
+              <option value="CH">Switzerland</option>
+              <option value="TW">Taiwan</option>
+              <option value="TZ">Tanzania</option>
+              <option value="TH">Thailand</option>
+              <option value="TR">Turkey</option>
+              <option value="UA">Ukraine</option>
+              <option value="AE">United Arab Emirates</option>
+              <option value="GB">United Kingdom</option>
+              <option value="UY">Uruguay</option>
+              <option value="VE">Venezuela</option>
+              <option value="VN">Vietnam</option>
+            </select>
+          </Field>
+          <Field label="Province / State" htmlFor="province">
+            <input id="province" name="province" defaultValue={v?.province ?? ""} className={inputClass} />
           </Field>
           <Field label="Postal code" htmlFor="postalCode" error={err("postalCode")}>
             <input id="postalCode" name="postalCode" defaultValue={v?.postalCode} className={inputClass} />
