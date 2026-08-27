@@ -132,3 +132,641 @@ Drive folder creation failed: Drive folder creation failed: 404 {
         "locat
 (node:62333) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
+Drive folder creation failed: Token refresh failed: 400
+Drive folder creation failed: Token refresh failed: 400
+⨯ Error [PrismaClientValidationError]: 
+Invalid `prisma.project.findMany()` invocation:
+
+{
+  include: {
+    contact: true,
+    budgetLines: {
+      include: {
+        account: true
+      },
+      orderBy: [
+        {
+          account: {
+            code: "asc"
+          }
+        },
+        {
+          label: "asc"
+        }
+      ]
+    },
+    invoices: {
+      where: {
+        status: {
+          in: [
+            "ISSUED",
+            "PAID"
+          ]
+        }
+      },
+      include: {
+        applications: true,
+        creditApplications: true
+      }
+    }
+  },
+  orderBy: {
+    code: "asc"
+  }
+}
+
+Unknown argument `label`. Available options are marked with ?.
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                    ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '2037400519'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `prisma.project.findMany()` invocation:
+
+{
+  include: {
+    contact: true,
+    budgetLines: {
+      include: {
+        account: true
+      },
+      orderBy: [
+        {
+          account: {
+            code: "asc"
+          }
+        },
+        {
+          label: "asc"
+        }
+      ]
+    },
+    invoices: {
+      where: {
+        status: {
+          in: [
+            "ISSUED",
+            "PAID"
+          ]
+        }
+      },
+      include: {
+        applications: true,
+        creditApplications: true
+      }
+    }
+  },
+  orderBy: {
+    code: "asc"
+  }
+}
+
+Unknown argument `label`. Available options are marked with ?.
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                    ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '2037400519'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+⨯ Error [PrismaClientValidationError]: 
+Invalid `{imported module ./lib/db.ts}["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await {imported module ./lib/db.ts}["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at async projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at async ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {... {
+  clientVersion: '7.9.1',
+  digest: '1479939998'
+}
+[browser] Uncaught PrismaClientValidationError: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].project.findMany()` invocation in
+/Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/[root-of-the-server]__02oic67._.js:44:152
+
+  41 ;
+  42 ;
+  43 async function projectPerformance(from, to) {
+→ 44     const projects = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].project.findMany({
+           include: {
+             contact: true,
+             budgetLines: {
+               include: {
+                 account: true
+               },
+               orderBy: [
+                 {
+                   account: {
+                     code: "asc"
+                   }
+                 },
+                 {
+                   label: "asc"
+                 }
+               ]
+             },
+             invoices: {
+               where: {
+                 status: {
+                   in: [
+                     "ISSUED",
+                     "PAID"
+                   ]
+                 }
+               },
+               include: {
+                 applications: true,
+                 creditApplications: true
+               }
+             }
+           },
+           orderBy: {
+             code: "asc"
+           }
+         })
+
+Unknown argument `label`. Available options are marked with ?.
+    at <unknown> (lib/reporting/projectPerformance.ts:37:41)
+    at  projectPerformance (lib/reporting/projectPerformance.ts:37:20)
+    at  ProjectPage (app/(app)/projects/[id]/page.tsx:30:15)
+  35 |   to?: Date,
+  36 | ): Promise<ProjectPerformance[]> {
+> 37 |   const projects = await prisma.project.findMany({
+     |                                         ^
+  38 |     include: {
+  39 |       contact: true,
+  40 |       budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, {...

@@ -2592,6 +2592,7 @@ export const ProjectBudgetLineScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
   accountId: 'accountId',
+  label: 'label',
   amount: 'amount',
   notes: 'notes',
   createdAt: 'createdAt',

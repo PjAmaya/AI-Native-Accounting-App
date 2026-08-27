@@ -69,9 +69,10 @@ export async function saveProject(
 
   const budgetCodes = list(formData, "budgetAccount");
   const budgetAmounts = list(formData, "budgetAmount");
+  const budgetLabels = list(formData, "budgetLabel");
   const budgetNotes = list(formData, "budgetNote");
 
-  const budgets: { code: string; amount: string; note: string | null }[] = [];
+  const budgets: { code: string; label: string | null; amount: string; note: string | null }[] = [];
 
   budgetCodes.forEach((accountCode, i) => {
     const raw = budgetAmounts[i] || null;
@@ -98,13 +99,10 @@ export async function saveProject(
       return;
     }
 
-    budgets.push({ code: accountCode, amount: amount.toFixed(2), note: budgetNotes[i] || null });
+    budgets.push({ code: accountCode, label: budgetLabels[i] || null, amount: amount.toFixed(2), note: budgetNotes[i] || null });
   });
 
-  const seen = new Set(budgets.map((b) => b.code));
-  if (seen.size !== budgets.length) {
-    errors.budgets = "Each account can appear only once.";
-  }
+
 
   const accounts = await prisma.account.findMany({
     where: { code: { in: budgets.map((b) => b.code) } },
@@ -165,6 +163,7 @@ export async function saveProject(
         data: {
           projectId: project.id,
           accountId: accountByCode.get(budget.code)!.id,
+          label: budget.label,
           amount: budget.amount,
           notes: budget.note,
         },

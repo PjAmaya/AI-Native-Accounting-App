@@ -38,6 +38,7 @@ export type ProjectBudgetLineMinAggregateOutputType = {
   id: string | null
   projectId: string | null
   accountId: string | null
+  label: string | null
   amount: runtime.Decimal | null
   notes: string | null
   createdAt: Date | null
@@ -48,6 +49,7 @@ export type ProjectBudgetLineMaxAggregateOutputType = {
   id: string | null
   projectId: string | null
   accountId: string | null
+  label: string | null
   amount: runtime.Decimal | null
   notes: string | null
   createdAt: Date | null
@@ -58,6 +60,7 @@ export type ProjectBudgetLineCountAggregateOutputType = {
   id: number
   projectId: number
   accountId: number
+  label: number
   amount: number
   notes: number
   createdAt: number
@@ -78,6 +81,7 @@ export type ProjectBudgetLineMinAggregateInputType = {
   id?: true
   projectId?: true
   accountId?: true
+  label?: true
   amount?: true
   notes?: true
   createdAt?: true
@@ -88,6 +92,7 @@ export type ProjectBudgetLineMaxAggregateInputType = {
   id?: true
   projectId?: true
   accountId?: true
+  label?: true
   amount?: true
   notes?: true
   createdAt?: true
@@ -98,6 +103,7 @@ export type ProjectBudgetLineCountAggregateInputType = {
   id?: true
   projectId?: true
   accountId?: true
+  label?: true
   amount?: true
   notes?: true
   createdAt?: true
@@ -195,6 +201,7 @@ export type ProjectBudgetLineGroupByOutputType = {
   id: string
   projectId: string
   accountId: string
+  label: string | null
   amount: runtime.Decimal
   notes: string | null
   createdAt: Date
@@ -228,6 +235,7 @@ export type ProjectBudgetLineWhereInput = {
   id?: Prisma.StringFilter<"ProjectBudgetLine"> | string
   projectId?: Prisma.StringFilter<"ProjectBudgetLine"> | string
   accountId?: Prisma.StringFilter<"ProjectBudgetLine"> | string
+  label?: Prisma.StringNullableFilter<"ProjectBudgetLine"> | string | null
   amount?: Prisma.DecimalFilter<"ProjectBudgetLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"ProjectBudgetLine"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectBudgetLine"> | Date | string
@@ -240,6 +248,7 @@ export type ProjectBudgetLineOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   accountId?: Prisma.SortOrder
+  label?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -250,24 +259,25 @@ export type ProjectBudgetLineOrderByWithRelationInput = {
 
 export type ProjectBudgetLineWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  projectId_accountId?: Prisma.ProjectBudgetLineProjectIdAccountIdCompoundUniqueInput
   AND?: Prisma.ProjectBudgetLineWhereInput | Prisma.ProjectBudgetLineWhereInput[]
   OR?: Prisma.ProjectBudgetLineWhereInput[]
   NOT?: Prisma.ProjectBudgetLineWhereInput | Prisma.ProjectBudgetLineWhereInput[]
   projectId?: Prisma.StringFilter<"ProjectBudgetLine"> | string
   accountId?: Prisma.StringFilter<"ProjectBudgetLine"> | string
+  label?: Prisma.StringNullableFilter<"ProjectBudgetLine"> | string | null
   amount?: Prisma.DecimalFilter<"ProjectBudgetLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"ProjectBudgetLine"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectBudgetLine"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectBudgetLine"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
-}, "id" | "projectId_accountId">
+}, "id">
 
 export type ProjectBudgetLineOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   accountId?: Prisma.SortOrder
+  label?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -286,6 +296,7 @@ export type ProjectBudgetLineScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ProjectBudgetLine"> | string
   projectId?: Prisma.StringWithAggregatesFilter<"ProjectBudgetLine"> | string
   accountId?: Prisma.StringWithAggregatesFilter<"ProjectBudgetLine"> | string
+  label?: Prisma.StringNullableWithAggregatesFilter<"ProjectBudgetLine"> | string | null
   amount?: Prisma.DecimalWithAggregatesFilter<"ProjectBudgetLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"ProjectBudgetLine"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProjectBudgetLine"> | Date | string
@@ -294,6 +305,7 @@ export type ProjectBudgetLineScalarWhereWithAggregatesInput = {
 
 export type ProjectBudgetLineCreateInput = {
   id?: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -306,6 +318,7 @@ export type ProjectBudgetLineUncheckedCreateInput = {
   id?: string
   projectId: string
   accountId: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -314,6 +327,7 @@ export type ProjectBudgetLineUncheckedCreateInput = {
 
 export type ProjectBudgetLineUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -326,6 +340,7 @@ export type ProjectBudgetLineUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -336,6 +351,7 @@ export type ProjectBudgetLineCreateManyInput = {
   id?: string
   projectId: string
   accountId: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -344,6 +360,7 @@ export type ProjectBudgetLineCreateManyInput = {
 
 export type ProjectBudgetLineUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,6 +371,7 @@ export type ProjectBudgetLineUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -370,15 +388,11 @@ export type ProjectBudgetLineOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ProjectBudgetLineProjectIdAccountIdCompoundUniqueInput = {
-  projectId: string
-  accountId: string
-}
-
 export type ProjectBudgetLineCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   accountId?: Prisma.SortOrder
+  label?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -393,6 +407,7 @@ export type ProjectBudgetLineMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   accountId?: Prisma.SortOrder
+  label?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -403,6 +418,7 @@ export type ProjectBudgetLineMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
   accountId?: Prisma.SortOrder
+  label?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -499,6 +515,7 @@ export type ProjectBudgetLineUncheckedUpdateManyWithoutProjectNestedInput = {
 
 export type ProjectBudgetLineCreateWithoutAccountInput = {
   id?: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -509,6 +526,7 @@ export type ProjectBudgetLineCreateWithoutAccountInput = {
 export type ProjectBudgetLineUncheckedCreateWithoutAccountInput = {
   id?: string
   projectId: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -548,6 +566,7 @@ export type ProjectBudgetLineScalarWhereInput = {
   id?: Prisma.StringFilter<"ProjectBudgetLine"> | string
   projectId?: Prisma.StringFilter<"ProjectBudgetLine"> | string
   accountId?: Prisma.StringFilter<"ProjectBudgetLine"> | string
+  label?: Prisma.StringNullableFilter<"ProjectBudgetLine"> | string | null
   amount?: Prisma.DecimalFilter<"ProjectBudgetLine"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"ProjectBudgetLine"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectBudgetLine"> | Date | string
@@ -556,6 +575,7 @@ export type ProjectBudgetLineScalarWhereInput = {
 
 export type ProjectBudgetLineCreateWithoutProjectInput = {
   id?: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -566,6 +586,7 @@ export type ProjectBudgetLineCreateWithoutProjectInput = {
 export type ProjectBudgetLineUncheckedCreateWithoutProjectInput = {
   id?: string
   accountId: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -601,6 +622,7 @@ export type ProjectBudgetLineUpdateManyWithWhereWithoutProjectInput = {
 export type ProjectBudgetLineCreateManyAccountInput = {
   id?: string
   projectId: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -609,6 +631,7 @@ export type ProjectBudgetLineCreateManyAccountInput = {
 
 export type ProjectBudgetLineUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -619,6 +642,7 @@ export type ProjectBudgetLineUpdateWithoutAccountInput = {
 export type ProjectBudgetLineUncheckedUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -628,6 +652,7 @@ export type ProjectBudgetLineUncheckedUpdateWithoutAccountInput = {
 export type ProjectBudgetLineUncheckedUpdateManyWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -637,6 +662,7 @@ export type ProjectBudgetLineUncheckedUpdateManyWithoutAccountInput = {
 export type ProjectBudgetLineCreateManyProjectInput = {
   id?: string
   accountId: string
+  label?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
   createdAt?: Date | string
@@ -645,6 +671,7 @@ export type ProjectBudgetLineCreateManyProjectInput = {
 
 export type ProjectBudgetLineUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -655,6 +682,7 @@ export type ProjectBudgetLineUpdateWithoutProjectInput = {
 export type ProjectBudgetLineUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -664,6 +692,7 @@ export type ProjectBudgetLineUncheckedUpdateWithoutProjectInput = {
 export type ProjectBudgetLineUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -676,6 +705,7 @@ export type ProjectBudgetLineSelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   projectId?: boolean
   accountId?: boolean
+  label?: boolean
   amount?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -688,6 +718,7 @@ export type ProjectBudgetLineSelectCreateManyAndReturn<ExtArgs extends runtime.T
   id?: boolean
   projectId?: boolean
   accountId?: boolean
+  label?: boolean
   amount?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -700,6 +731,7 @@ export type ProjectBudgetLineSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   id?: boolean
   projectId?: boolean
   accountId?: boolean
+  label?: boolean
   amount?: boolean
   notes?: boolean
   createdAt?: boolean
@@ -712,13 +744,14 @@ export type ProjectBudgetLineSelectScalar = {
   id?: boolean
   projectId?: boolean
   accountId?: boolean
+  label?: boolean
   amount?: boolean
   notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProjectBudgetLineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "accountId" | "amount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["projectBudgetLine"]>
+export type ProjectBudgetLineOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "accountId" | "label" | "amount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["projectBudgetLine"]>
 export type ProjectBudgetLineInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
@@ -742,6 +775,7 @@ export type $ProjectBudgetLinePayload<ExtArgs extends runtime.Types.Extensions.I
     id: string
     projectId: string
     accountId: string
+    label: string | null
     amount: runtime.Decimal
     notes: string | null
     createdAt: Date
@@ -1174,6 +1208,7 @@ export interface ProjectBudgetLineFieldRefs {
   readonly id: Prisma.FieldRef<"ProjectBudgetLine", 'String'>
   readonly projectId: Prisma.FieldRef<"ProjectBudgetLine", 'String'>
   readonly accountId: Prisma.FieldRef<"ProjectBudgetLine", 'String'>
+  readonly label: Prisma.FieldRef<"ProjectBudgetLine", 'String'>
   readonly amount: Prisma.FieldRef<"ProjectBudgetLine", 'Decimal'>
   readonly notes: Prisma.FieldRef<"ProjectBudgetLine", 'String'>
   readonly createdAt: Prisma.FieldRef<"ProjectBudgetLine", 'DateTime'>

@@ -4,6 +4,7 @@ import { prisma } from "../db";
 export type BudgetLine = {
   code: string;
   name: string;
+  label: string | null;
   budget: Decimal;
   actual: Decimal;
   variance: Decimal;
@@ -37,7 +38,7 @@ export async function projectPerformance(
   const projects = await prisma.project.findMany({
     include: {
       contact: true,
-      budgetLines: { include: { account: true }, orderBy: { account: { code: "asc" } } },
+      budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, { label: "asc" }] },
       invoices: {
         where: { status: { in: ["ISSUED", "PAID"] } },
         include: { applications: true, creditApplications: true },
@@ -105,6 +106,7 @@ export async function projectPerformance(
         return {
           code,
           name: budgetLine?.account.name ?? actuals.get(code)?.name ?? code,
+          label: budgetLine?.label ?? null,
           budget,
           actual,
           variance,

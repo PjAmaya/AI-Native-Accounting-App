@@ -26,13 +26,13 @@ export type ProjectValues = {
   endDate: string;
   notes: string;
   contractValue: string;
-  budgets: { account: string; amount: string; note: string }[];
+  budgets: { account: string; label: string; amount: string; note: string }[];
 };
 
-type Row = { key: number; account: string; amount: string; note: string };
+type Row = { key: number; account: string; label: string; amount: string; note: string };
 
 let nextKey = 1;
-const blankRow = (): Row => ({ key: nextKey++, account: "", amount: "", note: "" });
+const blankRow = (): Row => ({ key: nextKey++, account: "", label: "", amount: "", note: "" });
 
 function dec(value: string) {
   try {
@@ -70,6 +70,8 @@ export function ProjectForm({
   const [state, action] = useActionState<ProjectFormState, FormData>(saveProject, null);
   const err = (key: string) => state?.errors?.[key];
 
+  const [code, setCode] = useState(values?.code ?? "");
+  const [projName, setProjName] = useState(values?.name ?? "");
   const [status, setStatus] = useState(values?.status ?? "ACTIVE");
   const [contractValue, setContractValue] = useState(values?.contractValue ?? "");
   const [rows, setRows] = useState<Row[]>(
@@ -98,14 +100,15 @@ export function ProjectForm({
             <input
               id="code"
               name="code"
-              defaultValue={values?.code}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
               className={`${inputClass} font-mono`}
               required
             />
           </Field>
           <div className="col-span-3">
             <Field label="Name" htmlFor="name" error={err("name")}>
-              <input id="name" name="name" defaultValue={values?.name} className={inputClass} required />
+              <input id="name" name="name" value={projName} onChange={(e) => setProjName(e.target.value)} className={inputClass} required />
             </Field>
           </div>
         </div>
@@ -227,6 +230,7 @@ export function ProjectForm({
             <thead>
               <tr className="border-b border-rule bg-wash/40">
                 <th className="px-3 py-2.5 text-left"><span className="eyebrow">Cost account</span></th>
+                <th className="px-2 py-2.5 text-left"><span className="eyebrow">Label</span></th>
                 <th className="px-2 py-2.5 text-left"><span className="eyebrow">Note</span></th>
                 <th className="w-32 px-2 py-2.5 text-right"><span className="eyebrow">Budget</span></th>
                 <th className="w-9" />
@@ -247,6 +251,15 @@ export function ProjectForm({
                         <option key={a.value} value={a.value}>{a.label}</option>
                       ))}
                     </select>
+                  </td>
+                  <td className="px-1 py-1.5">
+                    <input
+                      name="budgetLabel"
+                      value={row.label}
+                      onChange={(e) => set(row.key, "label", e.target.value)}
+                      placeholder="e.g. Subcontractor A"
+                      className={cell}
+                    />
                   </td>
                   <td className="px-1 py-1.5">
                     <input

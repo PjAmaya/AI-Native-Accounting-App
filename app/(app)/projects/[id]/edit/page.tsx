@@ -50,6 +50,7 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
     contractValue: project.contractValue?.toString() ?? "",
     budgets: project.budgetLines.map((b) => ({
       account: b.account.code,
+      label: b.label ?? "",
       amount: b.amount.toString(),
       note: b.notes ?? "",
     })),

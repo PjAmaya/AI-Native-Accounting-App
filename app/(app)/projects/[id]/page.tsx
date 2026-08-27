@@ -165,6 +165,7 @@ export default async function ProjectPage({
                 <tr key={line.code} className="hover:bg-wash/20">
                   <td className="px-5 py-2.5 text-[13px]">
                     <span className="font-mono text-[12px] text-muted">{line.code}</span> {line.name}
+                    {line.label ? <span className="ml-1.5 text-[12px] text-muted">— {line.label}</span> : null}
                     {line.budget.isZero() ? (
                       <span className="ml-2 rounded-full bg-tint-amber px-2 py-0.5 text-[10px] font-medium text-icon-amber">
                         unbudgeted
