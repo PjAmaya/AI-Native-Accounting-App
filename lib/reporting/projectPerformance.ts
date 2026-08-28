@@ -91,29 +91,48 @@ export async function projectPerformance(
     const invoiced = revenueByProject.get(project.id) ?? new Decimal(0);
     const actuals = costByProjectAccount.get(project.id) ?? new Map();
 
-    const codes = new Set<string>([
-      ...project.budgetLines.map((b) => b.account.code),
-      ...actuals.keys(),
-    ]);
+    const costLines: BudgetLine[] = [];
 
-    const costLines: BudgetLine[] = [...codes]
-      .sort()
-      .map((code) => {
-        const budgetLine = project.budgetLines.find((b) => b.account.code === code);
-        const actual = actuals.get(code)?.amount ?? new Decimal(0);
-        const budget = budgetLine ? new Decimal(budgetLine.amount.toString()) : new Decimal(0);
-        const variance = budget.minus(actual);
-        return {
+    // Add each budget line individually (same account can appear multiple times with different labels)
+    for (const bl of project.budgetLines) {
+      costLines.push({
+        code: bl.account.code,
+        name: bl.account.name,
+        label: bl.label ?? null,
+        budget: new Decimal(bl.amount.toString()),
+        actual: new Decimal(0),
+        variance: new Decimal(bl.amount.toString()),
+        overBudget: false,
+      });
+    }
+
+    // Add actuals from journal lines — distribute to matching budget lines or create unbudgeted entries
+    for (const [code, entry] of actuals.entries()) {
+      const matching = costLines.filter((l) => l.code === code);
+      if (matching.length === 0) {
+        // Unbudgeted cost
+        costLines.push({
           code,
-          name: budgetLine?.account.name ?? actuals.get(code)?.name ?? code,
-          label: budgetLine?.label ?? null,
-          budget,
-          actual,
-          variance,
-          overBudget: budget.greaterThan(0) && actual.greaterThan(budget),
-        };
-      })
-      .filter((l) => !l.budget.isZero() || !l.actual.isZero());
+          name: entry.name,
+          label: null,
+          budget: new Decimal(0),
+          actual: entry.amount,
+          variance: entry.amount.negated(),
+          overBudget: true,
+        });
+      } else if (matching.length === 1) {
+        // Single budget line for this account — all actuals go here
+        matching[0].actual = entry.amount;
+        matching[0].variance = matching[0].budget.minus(entry.amount);
+        matching[0].overBudget = matching[0].budget.greaterThan(0) && entry.amount.greaterThan(matching[0].budget);
+      } else {
+        // Multiple budget lines for same account — actuals show on the first, since
+        // the ledger doesn't distinguish subcontractor A from B at the GL level
+        matching[0].actual = entry.amount;
+        matching[0].variance = matching[0].budget.minus(entry.amount);
+        matching[0].overBudget = matching[0].budget.greaterThan(0) && entry.amount.greaterThan(matching[0].budget);
+      }
+    }
 
     const budgetedCost = costLines.reduce((sum, l) => sum.plus(l.budget), new Decimal(0));
     const actualCost = costLines.reduce((sum, l) => sum.plus(l.actual), new Decimal(0));

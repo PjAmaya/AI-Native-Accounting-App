@@ -776,3 +776,14 @@
 - Experiments (use with caution):
   · serverActions
 
+ GET / 200 in 673ms (next.js: 125ms, application-code: 548ms)
+ GET /settings 200 in 83ms (next.js: 58ms, application-code: 25ms)
+ GET /api/auth/google/callback?iss=https://accounts.google.com&code=4/0ATsMZqDAIpbtg8tUqTgjHf9gkttF9MtQu66djqmauHDdBhtesB1CH_HZeeoOxE1ouL1dRQ&scope=https://www.googleapis.com/auth/drive%20https://www.googleapis.com/auth/gmail.compose 307 in 297ms (next.js: 65ms, application-code: 232ms)
+ GET /settings?googleConnected=true 200 in 128ms (next.js: 5ms, application-code: 123ms)
+ GET /invoices 200 in 128ms (next.js: 40ms, application-code: 88ms)
+ GET /projects 200 in 71ms (next.js: 34ms, application-code: 37ms)
+ GET /projects/cmt1c4qa6001v3h8o7c1o5l7x 200 in 313ms (next.js: 283ms, application-code: 31ms)
+ GET /projects 200 in 88ms (next.js: 3ms, application-code: 85ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 51ms (next.js: 6ms, application-code: 45ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 368ms (next.js: 211ms, application-code: 157ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 129ms (next.js: 863µs, application-code: 129ms)

@@ -980,3 +980,4 @@ Unknown argument `label`. Available options are marked with ?.
   37 |     await page.setContent(html, { waitUntil: "load" });
 (node:23888) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
+[browser] Encountered two children with the same key, `5010`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
