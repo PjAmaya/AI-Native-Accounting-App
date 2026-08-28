@@ -787,3 +787,6 @@
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 51ms (next.js: 6ms, application-code: 45ms)
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 368ms (next.js: 211ms, application-code: 157ms)
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 129ms (next.js: 863µs, application-code: 129ms)
+ GET / 200 in 149ms (next.js: 3ms, application-code: 146ms)
+ GET /projects 200 in 49ms (next.js: 7ms, application-code: 42ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 53ms (next.js: 6ms, application-code: 47ms)

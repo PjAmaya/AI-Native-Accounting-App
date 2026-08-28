@@ -161,8 +161,8 @@ export default async function ProjectPage({
               </tr>
             </thead>
             <tbody className="divide-y divide-rule">
-              {perf.costLines.map((line) => (
-                <tr key={line.code} className="hover:bg-wash/20">
+              {perf.costLines.map((line, i) => (
+                <tr key={`${line.code}-${line.label ?? i}`} className="hover:bg-wash/20">
                   <td className="px-5 py-2.5 text-[13px]">
                     <span className="font-mono text-[12px] text-muted">{line.code}</span> {line.name}
                     {line.label ? <span className="ml-1.5 text-[12px] text-muted">— {line.label}</span> : null}
