@@ -97,7 +97,16 @@ export async function getAccessToken(): Promise<string> {
   });
 
   if (!response.ok) {
-    throw new Error(`Token refresh failed: ${response.status}`);
+    const detail = await response.text();
+    console.error("Token refresh failed:", response.status, detail);
+    if (response.status === 400 || response.status === 401) {
+      console.error(
+        "The refresh token may have been revoked. Go to Settings → Connect Google to re-authorize.",
+      );
+    }
+    throw new Error(
+      `Google token refresh failed (${response.status}). Reconnect in Settings if this persists.`,
+    );
   }
 
   const data = (await response.json()) as {

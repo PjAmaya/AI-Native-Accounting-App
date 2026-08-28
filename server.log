@@ -619,3 +619,160 @@
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 87ms (next.js: 4ms, application-code: 84ms)
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 49ms (next.js: 2ms, application-code: 47ms)
 ✓ Compiled in 10ms
+ GET / 200 in 450ms (next.js: 78ms, application-code: 372ms)
+ GET /projects 200 in 81ms (next.js: 23ms, application-code: 58ms)
+✓ Compiled in 8ms
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 144ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 666ms (next.js: 105ms, application-code: 561ms)
+ GET /projects 200 in 65ms (next.js: 19ms, application-code: 46ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 250ms (next.js: 218ms, application-code: 32ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i/edit 200 in 240ms (next.js: 220ms, application-code: 20ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 73ms (next.js: 3ms, application-code: 70ms)
+ POST /projects/cmtbnvfuy00016t8ogi94y81i/edit 303 in 150ms (next.js: 6ms, application-code: 144ms)
+  └─ ƒ saveProject(null, {}) in 54ms app/(app)/projects/actions.ts
+ GET /invoices 200 in 129ms (next.js: 35ms, application-code: 94ms)
+ GET /contacts 200 in 86ms (next.js: 28ms, application-code: 58ms)
+ GET /contacts/cmtbmz7w000006t8ojnliz2n1 200 in 308ms (next.js: 295ms, application-code: 13ms)
+ GET /contacts 200 in 49ms (next.js: 1253µs, application-code: 47ms)
+ POST /contacts/cmtbmz7w000006t8ojnliz2n1 303 in 96ms (next.js: 7ms, application-code: 89ms)
+  └─ ƒ saveContact(null, {}) in 31ms app/(app)/contacts/actions.ts
+ GET /contacts/cmt1c1ctr001u3h8onc91o51t 200 in 34ms (next.js: 6ms, application-code: 28ms)
+ GET /contacts 200 in 33ms (next.js: 2ms, application-code: 31ms)
+ GET /projects 200 in 75ms (next.js: 7ms, application-code: 68ms)
+ GET /invoices 200 in 43ms (next.js: 5ms, application-code: 38ms)
+ POST /api/chat 200 in 2.8s (next.js: 81ms, application-code: 2.7s)
+ GET /invoices/cmtbpvw5b0003768oh927yukr 200 in 388ms (next.js: 190ms, application-code: 198ms)
+ GET /invoices/cmtbpvw5b0003768oh927yukr/edit 200 in 213ms (next.js: 194ms, application-code: 19ms)
+ GET /invoices/cmtbpwv670008768oj26x65l2 200 in 59ms (next.js: 1912µs, application-code: 58ms)
+ POST /invoices/cmtbpvw5b0003768oh927yukr/edit 303 in 127ms (next.js: 6ms, application-code: 120ms)
+  └─ ƒ saveInvoiceAction(null, {}) in 51ms app/(app)/invoices/actions.ts
+ GET /payments 200 in 58ms (next.js: 29ms, application-code: 30ms)
+ GET /settings 200 in 58ms (next.js: 39ms, application-code: 19ms)
+ GET /bills 200 in 112ms (next.js: 32ms, application-code: 80ms)
+ GET /invoices 200 in 44ms (next.js: 3ms, application-code: 41ms)
+ GET /invoices/cmtbpwv670008768oj26x65l2 200 in 75ms (next.js: 6ms, application-code: 69ms)
+ GET /invoices/cmtbpwv670008768oj26x65l2/edit 200 in 42ms (next.js: 5ms, application-code: 37ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs 200 in 70ms (next.js: 3ms, application-code: 68ms)
+ POST /invoices/cmtbpwv670008768oj26x65l2/edit 303 in 131ms (next.js: 5ms, application-code: 126ms)
+  └─ ƒ saveInvoiceAction(null, {}) in 45ms app/(app)/invoices/actions.ts
+ POST /invoices/cmtbpydzd000d768ot967fgbs 500 in 184ms (next.js: 3ms, application-code: 181ms)
+  └─ ƒ issueInvoiceAction("cmtbpydzd000d768ot967fgbs") in 1ms app/(app)/invoices/actions.ts
+ POST /invoices/cmtbpydzd000d768ot967fgbs 200 in 4.1s (next.js: 5ms, application-code: 4.1s)
+  └─ ƒ issueInvoiceAction("cmtbpydzd000d768ot967fgbs") in 3833ms app/(app)/invoices/actions.ts
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 429ms (next.js: 423ms, application-code: 7ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 5ms (next.js: 3ms, application-code: 3ms)
+ GET / 200 in 139ms (next.js: 6ms, application-code: 133ms)
+ GET /invoices 200 in 19ms (next.js: 1678µs, application-code: 17ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs 200 in 39ms (next.js: 6ms, application-code: 34ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 11ms (next.js: 4ms, application-code: 7ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 6ms (next.js: 1651µs, application-code: 4ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 8ms (next.js: 3ms, application-code: 5ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 7ms (next.js: 2ms, application-code: 4ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 9ms (next.js: 5ms, application-code: 4ms)
+ GET /invoices/cmtbpydzd000d768ot967fgbs/pdf 200 in 4ms (next.js: 825µs, application-code: 3ms)
+ GET / 200 in 185ms (next.js: 50ms, application-code: 135ms)
+ POST /api/chat 200 in 4.5s (next.js: 3ms, application-code: 4.5s)
+ GET /invoices/cmtby8bb9000i768ozqviekjz 200 in 116ms (next.js: 6ms, application-code: 110ms)
+ GET /invoices/cmtby8bb9000i768ozqviekjz/edit 200 in 102ms (next.js: 6ms, application-code: 96ms)
+ GET /invoices/cmtby9kdj000o768owosg550v 200 in 58ms (next.js: 1683µs, application-code: 56ms)
+ POST /invoices/cmtby8bb9000i768ozqviekjz/edit 303 in 115ms (next.js: 5ms, application-code: 110ms)
+  └─ ƒ saveInvoiceAction(null, {}) in 42ms app/(app)/invoices/actions.ts
+ GET /invoices/cmtby9kdj000o768owosg550v/edit 200 in 89ms (next.js: 4ms, application-code: 85ms)
+ GET /invoices/cmtbyche8000u768odh07wdxq 200 in 51ms (next.js: 2ms, application-code: 49ms)
+ POST /invoices/cmtby9kdj000o768owosg550v/edit 303 in 94ms (next.js: 9ms, application-code: 85ms)
+  └─ ƒ saveInvoiceAction(null, {}) in 26ms app/(app)/invoices/actions.ts
+ POST /invoices/cmtbyche8000u768odh07wdxq 500 in 173ms (next.js: 5ms, application-code: 168ms)
+  └─ ƒ issueInvoiceAction("cmtbyche8000u768odh07wdxq") in 15ms app/(app)/invoices/actions.ts
+ GET /invoices/cmtbyche8000u768odh07wdxq? 200 in 89ms (next.js: 4ms, application-code: 85ms)
+ GET / 200 in 150ms (next.js: 7ms, application-code: 143ms)
+ GET /invoices 200 in 44ms (next.js: 6ms, application-code: 38ms)
+ GET /invoices/cmtbyche8000u768odh07wdxq 200 in 50ms (next.js: 7ms, application-code: 44ms)
+ GET /invoices/cmtbyche8000u768odh07wdxq/edit 200 in 103ms (next.js: 10ms, application-code: 93ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5 200 in 63ms (next.js: 1748µs, application-code: 61ms)
+ POST /invoices/cmtbyche8000u768odh07wdxq/edit 303 in 119ms (next.js: 4ms, application-code: 115ms)
+  └─ ƒ saveInvoiceAction(null, {}) in 42ms app/(app)/invoices/actions.ts
+ POST /invoices/cmtcbsk2m0010768on4abyfh5 500 in 196ms (next.js: 12ms, application-code: 183ms)
+  └─ ƒ issueInvoiceAction("cmtcbsk2m0010768on4abyfh5") in 46ms app/(app)/invoices/actions.ts
+ GET /invoices/cmtcbsk2m0010768on4abyfh5? 200 in 115ms (next.js: 4ms, application-code: 111ms)
+ GET /settings 200 in 70ms (next.js: 11ms, application-code: 58ms)
+ GET /api/auth/google/callback?iss=https://accounts.google.com&code=4/0ATsMZqBiiZOyvXcvYbkaL-E1XSGSW5uyKZiVaw5e_uka5OPFP8P0W4VZfpcK9XNyyZXtcw&scope=https://www.googleapis.com/auth/drive%20https://www.googleapis.com/auth/gmail.compose 307 in 243ms (next.js: 38ms, application-code: 205ms)
+ GET /settings?googleConnected=true 200 in 105ms (next.js: 3ms, application-code: 102ms)
+ GET /invoices 200 in 74ms (next.js: 8ms, application-code: 66ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5 200 in 65ms (next.js: 11ms, application-code: 54ms)
+ POST /invoices/cmtcbsk2m0010768on4abyfh5 500 in 183ms (next.js: 5ms, application-code: 177ms)
+  └─ ƒ issueInvoiceAction("cmtcbsk2m0010768on4abyfh5") in 15ms app/(app)/invoices/actions.ts
+ GET /invoices/cmtcbsk2m0010768on4abyfh5? 200 in 89ms (next.js: 6ms, application-code: 83ms)
+ GET /settings 200 in 25ms (next.js: 4ms, application-code: 20ms)
+✓ Compiled in 132ms
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 137ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 612ms (next.js: 89ms, application-code: 523ms)
+ GET /settings 200 in 59ms (next.js: 31ms, application-code: 27ms)
+ GET /api/auth/google/callback?iss=https://accounts.google.com&code=4/0ATsMZqCs372S_NRjZuD0RaPaJdSPI1mZVVQtUc2SQuHAsgxki49epdZNivZngidKCbTMMw&scope=https://www.googleapis.com/auth/drive%20https://www.googleapis.com/auth/gmail.compose 307 in 272ms (next.js: 54ms, application-code: 218ms)
+ GET /settings?googleConnected=true 200 in 133ms (next.js: 3ms, application-code: 130ms)
+ GET /invoices 200 in 111ms (next.js: 35ms, application-code: 75ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5 200 in 234ms (next.js: 200ms, application-code: 33ms)
+ POST /invoices/cmtcbsk2m0010768on4abyfh5 200 in 2.4s (next.js: 8ms, application-code: 2.4s)
+  └─ ƒ issueInvoiceAction("cmtcbsk2m0010768on4abyfh5") in 2205ms app/(app)/invoices/actions.ts
+ GET /invoices/cmtcbsk2m0010768on4abyfh5/pdf 200 in 436ms (next.js: 431ms, application-code: 5ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5/pdf 200 in 8ms (next.js: 4ms, application-code: 4ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5/pdf 200 in 34ms (next.js: 7ms, application-code: 28ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5/pdf 200 in 7ms (next.js: 2ms, application-code: 5ms)
+ GET / 200 in 144ms (next.js: 3ms, application-code: 141ms)
+ GET /bills 200 in 63ms (next.js: 36ms, application-code: 26ms)
+ GET /invoices 200 in 34ms (next.js: 5ms, application-code: 30ms)
+ GET /bills 200 in 34ms (next.js: 2ms, application-code: 32ms)
+ GET /projects 200 in 59ms (next.js: 26ms, application-code: 33ms)
+ GET /projects/cmt1c4qa6001v3h8o7c1o5l7x 200 in 230ms (next.js: 204ms, application-code: 26ms)
+ GET /invoices 200 in 85ms (next.js: 2ms, application-code: 83ms)
+ GET /bills 200 in 34ms (next.js: 4ms, application-code: 30ms)
+ GET /projects 200 in 39ms (next.js: 3ms, application-code: 36ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 44ms (next.js: 4ms, application-code: 39ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i/edit 200 in 203ms (next.js: 187ms, application-code: 16ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 63ms (next.js: 3ms, application-code: 60ms)
+ POST /projects/cmtbnvfuy00016t8ogi94y81i/edit 303 in 98ms (next.js: 4ms, application-code: 94ms)
+  └─ ƒ saveProject(null, {}) in 19ms app/(app)/projects/actions.ts
+ GET /projects/cmtbnvfuy00016t8ogi94y81i/edit 200 in 66ms (next.js: 4ms, application-code: 62ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 74ms (next.js: 3ms, application-code: 71ms)
+ POST /projects/cmtbnvfuy00016t8ogi94y81i/edit 303 in 103ms (next.js: 6ms, application-code: 97ms)
+  └─ ƒ saveProject(null, {}) in 10ms app/(app)/projects/actions.ts
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 154ms (next.js: 822µs, application-code: 153ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 143ms (next.js: 696µs, application-code: 142ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 187ms (next.js: 20ms, application-code: 167ms)
+ GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 103ms (next.js: 5ms, application-code: 98ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 139ms
+- Experiments (use with caution):
+  · serverActions
+

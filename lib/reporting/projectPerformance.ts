@@ -38,7 +38,7 @@ export async function projectPerformance(
   const projects = await prisma.project.findMany({
     include: {
       contact: true,
-      budgetLines: { include: { account: true }, orderBy: [{ account: { code: "asc" } }, { label: "asc" }] },
+      budgetLines: { include: { account: true }, orderBy: { account: { code: "asc" } } },
       invoices: {
         where: { status: { in: ["ISSUED", "PAID"] } },
         include: { applications: true, creditApplications: true },

@@ -10,15 +10,18 @@ export type RenderedPdf = {
 let browserPromise: Promise<Browser> | null = null;
 
 async function getBrowser() {
-  if (!browserPromise) {
-    browserPromise = (async () => {
-      const puppeteer = (await import("puppeteer")).default;
-      return puppeteer.launch({
-        headless: true,
-        args: ["--no-sandbox", "--disable-dev-shm-usage"],
-      });
-    })();
+  if (browserPromise) {
+    const existing = await browserPromise;
+    if (existing.connected) return existing;
+    browserPromise = null;
   }
+  browserPromise = (async () => {
+    const puppeteer = (await import("puppeteer")).default;
+    return puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-dev-shm-usage"],
+    });
+  })();
   return browserPromise;
 }
 
