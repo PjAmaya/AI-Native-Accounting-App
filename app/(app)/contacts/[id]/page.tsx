@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { ContactForm, type ContactValues } from "@/components/form/ContactForm";
+import { deleteContact } from "../actions";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +60,18 @@ export default async function EditContactPage({
           This contact has no postal code. Add one so duplicates can be detected.
         </p>
       ) : null}
-      <div className="mt-7">
+      <div className="mt-4 flex justify-end">
+        <form action={deleteContact.bind(null, contact.id)}>
+          <button
+            type="submit"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium text-negative transition-colors hover:bg-tint-amber/40"
+          >
+            <Trash2 size={14} strokeWidth={2} aria-hidden />
+            Delete contact
+          </button>
+        </form>
+      </div>
+      <div className="mt-4">
         <ContactForm
           values={values}
           receivableAccounts={receivables.map((a) => ({

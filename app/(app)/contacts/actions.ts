@@ -118,3 +118,40 @@ export async function saveContact(
   revalidatePath("/contacts");
   redirect("/contacts");
 }
+
+export async function deleteContact(contactId: string) {
+  const contact = await prisma.contact.findUnique({
+    where: { id: contactId },
+    include: {
+      _count: {
+        select: {
+          invoices: true,
+          bills: true,
+          creditNotes: true,
+          supplierCredits: true,
+        },
+      },
+    },
+  });
+
+  if (!contact) redirect("/contacts");
+
+  const c = contact._count;
+  const referenced = c.invoices + c.bills + c.creditNotes + c.supplierCredits;
+
+  if (referenced > 0) {
+    await prisma.contact.update({
+      where: { id: contactId },
+      data: { isActive: false },
+    });
+    redirect(
+      `/contacts?archived=${encodeURIComponent(
+        `${contact.name} has ${referenced} linked record${referenced === 1 ? "" : "s"} and cannot be deleted. It has been archived instead.`,
+      )}`,
+    );
+  }
+
+  await prisma.contact.delete({ where: { id: contactId } });
+  revalidatePath("/contacts");
+  redirect("/contacts");
+}
