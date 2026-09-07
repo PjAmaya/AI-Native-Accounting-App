@@ -916,3 +916,9 @@
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 171ms (next.js: 6ms, application-code: 165ms)
  GET /projects/cmtbnvfuy00016t8ogi94y81i 200 in 79ms (next.js: 5ms, application-code: 74ms)
 ✓ Compiled in 1185ms
+ GET / 200 in 212ms (next.js: 64ms, application-code: 148ms)
+ GET /contacts 200 in 55ms (next.js: 26ms, application-code: 29ms)
+ GET /contacts?q=&role=vendor 200 in 91ms (next.js: 3ms, application-code: 88ms)
+✓ Compiled in 12ms
+✓ Compiled in 6ms
+✓ Compiled in 11ms

@@ -16,7 +16,7 @@ function Pill({ children }: { children: React.ReactNode }) {
 export default async function ContactsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; role?: string; archived?: string }>;
+  searchParams: Promise<{ q?: string; role?: string; status?: string; archived?: string }>;
 }) {
   const sp = await searchParams;
   const q = sp.q?.trim() || undefined;
@@ -24,15 +24,16 @@ export default async function ContactsPage({
   const role = sp.role?.trim() || undefined;
   const contacts = await prisma.contact.findMany({
     where: {
-      isActive: true,
       ...(role === "customer" ? { isCustomer: true } : {}),
       ...(role === "vendor" ? { isVendor: true } : {}),
+      ...(sp.status === "active" ? { isActive: true } : {}),
+      ...(sp.status === "inactive" ? { isActive: false } : {}),
       ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}),
     },
-    orderBy: { name: "asc" },
+    orderBy: [{ isActive: "desc" }, { name: "asc" }],
   });
 
-  const filtered = Boolean(q || role);
+  const filtered = Boolean(q || role || sp.status);
 
   return (
     <div>
@@ -55,6 +56,14 @@ export default async function ContactsPage({
           <div>
             <label htmlFor="q" className="eyebrow">Search</label>
             <input id="q" name="q" defaultValue={sp.q ?? ""} placeholder="Name" className="mt-1 block w-44 rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15" />
+          </div>
+          <div>
+            <label htmlFor="status" className="eyebrow">Status</label>
+            <select id="status" name="status" defaultValue={sp.status ?? ""} className="mt-1 block rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15">
+              <option value="">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
           </div>
           <div>
             <label htmlFor="role" className="eyebrow">Role</label>
@@ -95,12 +104,19 @@ export default async function ContactsPage({
             </thead>
             <tbody className="divide-y divide-rule">
               {contacts.map((c) => (
-                <tr key={c.id} className="hover:bg-wash/30">
+                <tr key={c.id} className={`hover:bg-wash/30 ${c.isActive ? "" : "opacity-50"}`}>
                   <td className="px-5 py-3">
                     <Link href={`/contacts/${c.id}`} className="text-[13px] font-medium hover:text-brand">
                       {c.name}
                     </Link>
-                    {c.email ? <p className="text-[12px] text-faint">{c.email}</p> : null}
+                    <p className="text-[12px] text-faint">
+                      {c.email ?? ""}
+                      {!c.isActive ? (
+                        <span className="ml-1.5 rounded-full bg-wash px-2 py-0.5 text-[10px] font-medium text-faint">
+                          Inactive
+                        </span>
+                      ) : null}
+                    </p>
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex gap-1.5">
