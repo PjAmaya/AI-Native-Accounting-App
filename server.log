@@ -1110,3 +1110,10 @@
  GET /reports/profit-and-loss 200 in 28ms (next.js: 2ms, application-code: 25ms)
  GET /reports/account-activity?account=5020 200 in 31ms (next.js: 3ms, application-code: 28ms)
 ✓ Compiled in 6ms
+ GET / 200 in 139ms (next.js: 3ms, application-code: 136ms)
+ GET /reports 200 in 21ms (next.js: 4ms, application-code: 17ms)
+ GET /reports/profit-and-loss 200 in 28ms (next.js: 3ms, application-code: 25ms)
+ GET /reports/account-activity?account=5010 200 in 31ms (next.js: 5ms, application-code: 26ms)
+ GET /reports/profit-and-loss 200 in 25ms (next.js: 3ms, application-code: 23ms)
+ GET /reports/account-activity?account=5020 200 in 30ms (next.js: 3ms, application-code: 27ms)
+✓ Compiled in 11ms

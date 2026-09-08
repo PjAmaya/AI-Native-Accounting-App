@@ -103,17 +103,23 @@ export default async function AccountActivityPage({
         </div>
       ) : (
         <div className="card mt-7 overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full text-[12px]" style={{ tableLayout: "fixed" }}>
+            <colgroup>
+              <col style={{ width: "10%" }} />
+              <col style={{ width: "5%" }} />
+              <col style={{ width: "45%" }} />
+              <col style={{ width: "13%" }} />
+              <col style={{ width: "13%" }} />
+              <col style={{ width: "14%" }} />
+            </colgroup>
             <thead>
               <tr className="border-b border-rule bg-wash/40">
-                <th className="px-5 py-2.5 text-left"><span className="eyebrow">Date</span></th>
-                <th className="px-3 py-2.5 text-left"><span className="eyebrow">#</span></th>
-                <th className="min-w-48 px-3 py-2.5 text-left"><span className="eyebrow">Description</span></th>
-                <th className="px-3 py-2.5 text-left"><span className="eyebrow">Contact</span></th>
-                <th className="px-3 py-2.5 text-left"><span className="eyebrow">Project</span></th>
-                <th className="px-3 py-2.5 text-right"><span className="eyebrow">Debit</span></th>
-                <th className="px-3 py-2.5 text-right"><span className="eyebrow">Credit</span></th>
-                <th className="px-5 py-2.5 text-right"><span className="eyebrow">Balance</span></th>
+                <th className="px-2 py-2 text-left"><span className="eyebrow">Date</span></th>
+                <th className="px-2 py-2 text-left"><span className="eyebrow">#</span></th>
+                <th className="px-2 py-2 text-left"><span className="eyebrow">Description</span></th>
+                <th className="px-2 py-2 text-right"><span className="eyebrow">Debit</span></th>
+                <th className="px-2 py-2 text-right"><span className="eyebrow">Credit</span></th>
+                <th className="px-2 py-2 text-right"><span className="eyebrow">Balance</span></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-rule">
@@ -122,23 +128,28 @@ export default async function AccountActivityPage({
                   key={line.id}
                   className={`hover:bg-wash/20 ${line.entry.status === "REVERSED" ? "opacity-40 line-through" : ""}`}
                 >
-                  <td className="whitespace-nowrap px-3 py-2.5 text-[12px] text-muted">{shortDate(line.entry.entryDate)}</td>
-                  <td className="whitespace-nowrap px-2 py-2.5 font-mono text-[12px] text-muted">{line.entry.entryNumber}</td>
-                  <td className="min-w-48 max-w-64 truncate px-3 py-2.5 text-[13px]">{line.description}</td>
-                  <td className="px-3 py-2.5 text-[12px] text-muted">{line.contact?.name ?? ""}</td>
-                  <td className="px-3 py-2.5 font-mono text-[12px] text-muted">{line.project?.code ?? ""}</td>
-                  <td className="figure px-3 py-2.5">{debit.isZero() ? "" : money(debit)}</td>
-                  <td className="figure px-3 py-2.5">{credit.isZero() ? "" : money(credit)}</td>
-                  <td className="figure px-5 py-2.5 font-medium">{money(bal)}</td>
+                  <td className="whitespace-nowrap px-2 py-2 text-muted">{shortDate(line.entry.entryDate)}</td>
+                  <td className="px-2 py-2 font-mono text-muted">{line.entry.entryNumber}</td>
+                  <td className="overflow-hidden px-2 py-2">
+                    <p className="truncate">{line.description}</p>
+                    {line.contact || line.project ? (
+                      <p className="truncate text-[11px] text-faint">
+                        {line.contact?.name ?? ""}{line.contact && line.project ? " · " : ""}{line.project?.code ?? ""}
+                      </p>
+                    ) : null}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums">{debit.isZero() ? "" : money(debit)}</td>
+                  <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums">{credit.isZero() ? "" : money(credit)}</td>
+                  <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums font-medium">{money(bal)}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot className="border-t border-rule bg-wash/30">
               <tr>
-                <td colSpan={5} className="px-5 py-2.5 text-[13px] font-semibold">Total</td>
-                <td className="figure px-3 py-2.5 font-semibold">{money(totalDebit)}</td>
-                <td className="figure px-3 py-2.5 font-semibold">{money(totalCredit)}</td>
-                <td className="figure px-5 py-2.5 font-semibold">{money(running)}</td>
+                <td colSpan={3} className="px-2 py-2 font-semibold">Total</td>
+                <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums font-semibold">{money(totalDebit)}</td>
+                <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums font-semibold">{money(totalCredit)}</td>
+                <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums font-semibold">{money(running)}</td>
               </tr>
             </tfoot>
           </table>
