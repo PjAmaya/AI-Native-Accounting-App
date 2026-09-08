@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { directCashFlow } from "@/lib/reporting/cashFlow";
 import { indirectCashFlow } from "@/lib/reporting/indirectCashFlow";
 import type { Granularity } from "@/lib/reporting/periods";
@@ -23,6 +24,7 @@ export default async function CashFlowPage({
   const today = new Date();
   const from = utc(sp.from, new Date(Date.UTC(today.getUTCFullYear(), 0, 1)));
   const to = utc(sp.to, today);
+  const dateParams = `${sp.from ? `&from=${sp.from}` : ""}${sp.to ? `&to=${sp.to}` : ""}`;
   const by = (GRANULARITIES.includes(sp.by as Granularity) ? sp.by : "MONTH") as Granularity;
 
   const [direct, indirect] = await Promise.all([
@@ -81,7 +83,7 @@ export default async function CashFlowPage({
             {[...indirect.nonCashAdjustments, ...indirect.workingCapitalChanges].map((a) => (
               <tr key={a.code}>
                 <td className="py-1.5 text-[13px] text-muted">
-                  <span className="font-mono text-[12px] text-faint">{a.code}</span> {a.name}
+                  <Link href={`/reports/account-activity?account=${a.code}${dateParams}`} className="font-mono text-[12px] text-faint hover:text-brand">{a.code}</Link> {a.name}
                 </td>
                 <td className={`figure ${a.cashEffect.isNegative() ? "text-negative" : ""}`}>
                   {money(a.cashEffect)}

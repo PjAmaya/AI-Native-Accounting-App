@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Decimal from "decimal.js";
 import { balanceSheet, type BsSection } from "@/lib/reporting/balanceSheet";
 import { money, longDate } from "@/lib/format";
@@ -18,6 +19,7 @@ function Row({
   indent = 0,
   bold,
   rule,
+  dateParams,
 }: {
   label: string;
   code?: string;
@@ -25,14 +27,17 @@ function Row({
   indent?: number;
   bold?: boolean;
   rule?: boolean;
+  dateParams?: string;
 }) {
+  const activityHref = code ? `/reports/account-activity?account=${code}${dateParams ?? ""}` : undefined;
+
   return (
     <tr className={rule ? "border-t border-rule" : undefined}>
       <td
         className={`py-1.5 text-[13px] ${bold ? "font-semibold" : ""}`}
         style={{ paddingLeft: `${20 + indent * 16}px` }}
       >
-        {code ? <span className="font-mono text-[12px] text-faint">{code}</span> : null}
+        {code && activityHref ? <Link href={activityHref} className="font-mono text-[12px] text-faint hover:text-brand">{code}</Link> : code ? <span className="font-mono text-[12px] text-faint">{code}</span> : null}
         {code ? " " : null}
         {label}
       </td>
@@ -41,7 +46,7 @@ function Row({
   );
 }
 
-function SectionRows({ section }: { section: BsSection }) {
+function SectionRows({ section, dateParams = "" }: { section: BsSection; dateParams?: string }) {
   if (section.rows.length === 0) return null;
   return (
     <>
@@ -51,7 +56,7 @@ function SectionRows({ section }: { section: BsSection }) {
         </td>
       </tr>
       {section.rows.map((row) => (
-        <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} />
+        <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} dateParams={dateParams} />
       ))}
       <Row label={`Total ${section.title.toLowerCase()}`} value={section.total} indent={1} rule />
     </>
@@ -65,6 +70,7 @@ export default async function BalanceSheetPage({
 }) {
   const sp = await searchParams;
   const today = new Date();
+  const dateParams = sp.to ? `&to=${sp.to}` : "";
   const asOf = utc(sp.to, today);
   const fiscalYearStart = new Date(Date.UTC(asOf.getUTCFullYear(), 0, 1));
 
