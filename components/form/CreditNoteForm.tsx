@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Decimal from "decimal.js";
 import { Plus, Trash2, TriangleAlert } from "lucide-react";
-import { createCreditNoteAction, type CreditFormState } from "@/app/(app)/credit-notes/actions";
+import { saveCreditNoteAction, type CreditFormState } from "@/app/(app)/credit-notes/actions";
 import { inputClass } from "./fields";
 
 export type Option = { value: string; label: string };
@@ -47,7 +47,7 @@ function dec(value: string) {
   }
 }
 
-function SubmitButton() {
+function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
   return (
     <button
@@ -55,7 +55,7 @@ function SubmitButton() {
       disabled={pending}
       className="rounded-lg bg-brand px-4 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9] disabled:opacity-50"
     >
-      {pending ? "Saving..." : "Create draft"}
+      {pending ? "Saving..." : label}
     </button>
   );
 }
@@ -65,16 +65,36 @@ const cell =
   "focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15";
 const numCell = `${cell} text-right font-mono tabular-nums`;
 
-export function CreditNoteForm({ options }: { options: CreditNoteFormOptions }) {
-  const [state, action] = useActionState<CreditFormState, FormData>(createCreditNoteAction, null);
+export type CreditNoteValues = {
+  id: string;
+  contactId: string;
+  originalInvoiceId: string;
+  creditDate: string;
+  reason: string;
+  notes: string;
+  lines: { description: string; amount: string; revenueAccount: string; project: string; taxRate: string }[];
+};
+
+export function CreditNoteForm({
+  options,
+  values,
+}: {
+  options: CreditNoteFormOptions;
+  values?: CreditNoteValues;
+}) {
+  const [state, action] = useActionState<CreditFormState, FormData>(saveCreditNoteAction, null);
   const err = (key: string) => state?.errors?.[key];
 
-  const [contactId, setContactId] = useState(options.presetContactId ?? "");
-  const [originalInvoiceId, setOriginalInvoiceId] = useState(options.presetInvoiceId ?? "");
-  const [creditDate, setCreditDate] = useState(options.defaultDate);
-  const [reason, setReason] = useState("");
-  const [notes, setNotes] = useState("");
-  const [rows, setRows] = useState<Row[]>([blankRow()]);
+  const [contactId, setContactId] = useState(values?.contactId ?? options.presetContactId ?? "");
+  const [originalInvoiceId, setOriginalInvoiceId] = useState(values?.originalInvoiceId ?? options.presetInvoiceId ?? "");
+  const [creditDate, setCreditDate] = useState(values?.creditDate ?? options.defaultDate);
+  const [reason, setReason] = useState(values?.reason ?? "");
+  const [notes, setNotes] = useState(values?.notes ?? "");
+  const [rows, setRows] = useState<Row[]>(
+    values && values.lines.length > 0
+      ? values.lines.map((line) => ({ ...blankRow(), ...line }))
+      : [blankRow()],
+  );
 
   const set = (key: number, field: keyof Row, value: string) =>
     setRows((prev) => prev.map((r) => (r.key === key ? { ...r, [field]: value } : r)));
@@ -84,6 +104,7 @@ export function CreditNoteForm({ options }: { options: CreditNoteFormOptions }) 
 
   return (
     <form action={action} className="grid gap-5">
+      {values ? <input type="hidden" name="id" value={values.id} /> : null}
       <section className="card px-6 py-5">
         <div className="grid grid-cols-3 gap-4">
           <div>
@@ -291,7 +312,7 @@ export function CreditNoteForm({ options }: { options: CreditNoteFormOptions }) 
       ) : null}
 
       <div className="flex items-center gap-3">
-        <SubmitButton />
+        <SubmitButton label={values ? "Save draft" : "Create draft"} />
         {state && !state.ok ? (
           <p className="flex items-center gap-1.5 text-[13px] text-negative" role="status">
             <TriangleAlert size={14} strokeWidth={2.2} aria-hidden />

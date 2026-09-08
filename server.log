@@ -922,3 +922,54 @@
 ✓ Compiled in 12ms
 ✓ Compiled in 6ms
 ✓ Compiled in 11ms
+ GET / 200 in 129ms (next.js: 4ms, application-code: 125ms)
+ GET /contacts 200 in 39ms (next.js: 8ms, application-code: 30ms)
+ GET /contacts?q=&status=inactive&role= 200 in 93ms (next.js: 2ms, application-code: 90ms)
+ GET /contacts/cmtrg7nmi0016zd8ousbgm4hw 200 in 74ms (next.js: 54ms, application-code: 20ms)
+ GET /contacts 200 in 47ms (next.js: 2ms, application-code: 45ms)
+ POST /contacts/cmtrg7nmi0016zd8ousbgm4hw 303 in 76ms (next.js: 5ms, application-code: 71ms)
+  └─ ƒ deleteContact("cmtrg7nmi0016zd8ousbgm4hw") in 13ms app/(app)/contacts/actions.ts
+ GET /contacts?q=&status=inactive&role= 200 in 85ms (next.js: 3ms, application-code: 82ms)
+ GET /contacts?q=&status=&role= 200 in 82ms (next.js: 4ms, application-code: 78ms)
+ GET /invoices 200 in 114ms (next.js: 21ms, application-code: 93ms)
+ GET /invoices/cmtcbsk2m0010768on4abyfh5 200 in 103ms (next.js: 28ms, application-code: 75ms)
+ GET /supplier-credits 200 in 167ms (next.js: 102ms, application-code: 65ms)
+ GET /supplier-credits/new 200 in 568ms (next.js: 420ms, application-code: 148ms)
+ GET /supplier-credits/new 200 in 149ms (next.js: 3ms, application-code: 146ms)
+ GET /supplier-credits/new 200 in 237ms (next.js: 46ms, application-code: 191ms)
+ GET /supplier-credits/new 200 in 161ms (next.js: 5ms, application-code: 156ms)
+ GET /supplier-credits/new 200 in 134ms (next.js: 3ms, application-code: 131ms)
+ GET /supplier-credits/new 200 in 104ms (next.js: 4ms, application-code: 100ms)
+ GET /supplier-credits/new 200 in 68ms (next.js: 4ms, application-code: 64ms)
+ POST /api/chat 200 in 1692ms (next.js: 69ms, application-code: 1623ms)
+ POST /api/chat 200 in 1315ms (next.js: 3ms, application-code: 1312ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 887ms (next.js: 628ms, application-code: 259ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 249ms (next.js: 35ms, application-code: 214ms)
+ POST /supplier-credits/new 303 in 1002ms (next.js: 3ms, application-code: 1000ms)
+  └─ ƒ saveSupplierCreditAction(null, {}) in 62ms app/(app)/supplier-credits/actions.ts
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 155ms (next.js: 7ms, application-code: 147ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 136ms (next.js: 3ms, application-code: 133ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 128ms (next.js: 3ms, application-code: 125ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 107ms (next.js: 9ms, application-code: 98ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 64ms (next.js: 6ms, application-code: 58ms)
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 53ms (next.js: 2ms, application-code: 51ms)
+ POST /supplier-credits/cmtryx08o001pzd8oh5166rzx 303 in 82ms (next.js: 5ms, application-code: 77ms)
+  └─ ƒ approveSupplierCreditAction("cmtryx08o001pzd8oh5166rzx") in 15ms app/(app)/supplier-credits/actions.ts
+ GET /supplier-credits/cmtryx08o001pzd8oh5166rzx 200 in 70ms (next.js: 1333µs, application-code: 68ms)
+ POST /supplier-credits/cmtryx08o001pzd8oh5166rzx 303 in 128ms (next.js: 5ms, application-code: 122ms)
+  └─ ƒ refundSupplierCreditAction("cmtryx08o001pzd8oh5166rzx", {}) in 42ms app/(app)/supplier-credits/actions.ts
+ GET /supplier-credits 200 in 88ms (next.js: 11ms, application-code: 77ms)
+ GET /credit-notes 200 in 91ms (next.js: 20ms, application-code: 71ms)
+ GET /credit-notes/new 200 in 389ms (next.js: 357ms, application-code: 32ms)
+ GET /credit-notes/cmtryzgoy001xzd8ojurapouk 200 in 529ms (next.js: 454ms, application-code: 75ms)
+ POST /credit-notes/new 303 in 600ms (next.js: 1891µs, application-code: 598ms)
+  └─ ƒ createCreditNoteAction(null, {}) in 56ms app/(app)/credit-notes/actions.ts
+ GET /reports/cash-flow 200 in 367ms (next.js: 303ms, application-code: 64ms)
+ GET /credit-notes 200 in 70ms (next.js: 7ms, application-code: 63ms)
+ GET /credit-notes/cmtryzgoy001xzd8ojurapouk 200 in 73ms (next.js: 11ms, application-code: 62ms)
+ GET /credit-notes 200 in 75ms (next.js: 1389µs, application-code: 74ms)
+ GET /credit-notes/cmtryzgoy001xzd8ojurapouk 200 in 66ms (next.js: 6ms, application-code: 59ms)
+ GET /credit-notes 200 in 41ms (next.js: 4ms, application-code: 37ms)
+✓ Compiled in 133ms
+✓ Compiled in 123ms
+✓ Compiled in 61ms

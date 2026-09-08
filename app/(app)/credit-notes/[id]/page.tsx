@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, FileCheck } from "lucide-react";
+import { ArrowLeft, FileCheck, Pencil, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { issueCreditNoteAction, applyCreditAction, refundCreditNoteAction } from "../actions";
+import { issueCreditNoteAction, applyCreditAction, refundCreditNoteAction, deleteCreditNoteAction } from "../actions";
 
 export const dynamic = "force-dynamic";
 
@@ -73,6 +73,7 @@ export default async function CreditNotePage({
   const issue = issueCreditNoteAction.bind(null, note.id);
   const apply = applyCreditAction.bind(null, note.id);
   const refund = refundCreditNoteAction.bind(null, note.id);
+  const remove = deleteCreditNoteAction.bind(null, note.id);
 
   return (
     <div>
@@ -95,7 +96,24 @@ export default async function CreditNotePage({
         </div>
 
         {note.status === "DRAFT" ? (
-          <form action={issue} className="shrink-0">
+          <div className="flex shrink-0 items-center gap-2">
+            <Link
+              href={`/credit-notes/${note.id}/edit`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
+            >
+              <Pencil size={14} strokeWidth={2} aria-hidden />
+              Edit
+            </Link>
+            <form action={remove}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium text-negative transition-colors hover:bg-tint-amber/40"
+              >
+                <Trash2 size={14} strokeWidth={2} aria-hidden />
+                Delete
+              </button>
+            </form>
+            <form action={issue}>
             <button
               type="submit"
               className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]"
@@ -104,6 +122,7 @@ export default async function CreditNotePage({
               Issue credit note
             </button>
           </form>
+          </div>
         ) : null}
       </div>
 

@@ -4,6 +4,7 @@ import Decimal from "decimal.js";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createCreditNote, type CreditNoteDraftLine } from "@/lib/invoicing/createCreditNote";
+import { updateDraftCreditNote, deleteDraftCreditNote } from "@/lib/invoicing/updateCreditNote";
 import { issueCreditNote, applyCredit, refundCreditNote } from "@/lib/invoicing/creditNoteOps";
 
 export type CreditFormState = {
@@ -29,7 +30,7 @@ function list(formData: FormData, key: string) {
   return formData.getAll(key).map((v) => (typeof v === "string" ? v.trim() : ""));
 }
 
-export async function createCreditNoteAction(
+export async function saveCreditNoteAction(
   _previous: CreditFormState,
   formData: FormData,
 ): Promise<CreditFormState> {
@@ -93,17 +94,22 @@ export async function createCreditNoteAction(
     return { ok: false, message: "Check the highlighted fields.", errors };
   }
 
+  const id = text(formData, "id");
   let creditNoteId: string;
 
-  try {
-    const result = await createCreditNote({
+  const draft = {
       contactId: contactId!,
       originalInvoiceId: text(formData, "originalInvoiceId") ?? undefined,
       creditDate: creditDate!,
       reason: reason!,
       notes: text(formData, "notes") ?? undefined,
-      lines,
-    });
+    lines,
+  };
+
+  try {
+    const result = id
+      ? await updateDraftCreditNote(id, draft)
+      : await createCreditNote(draft);
     creditNoteId = result.creditNote.id;
   } catch (e) {
     return { ok: false, message: (e as Error).message, errors: {} };
@@ -111,6 +117,12 @@ export async function createCreditNoteAction(
 
   revalidatePath("/credit-notes");
   redirect(`/credit-notes/${creditNoteId}`);
+}
+
+export async function deleteCreditNoteAction(creditNoteId: string) {
+  await deleteDraftCreditNote(creditNoteId);
+  revalidatePath("/credit-notes");
+  redirect("/credit-notes");
 }
 
 export async function issueCreditNoteAction(creditNoteId: string) {

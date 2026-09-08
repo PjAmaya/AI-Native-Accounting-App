@@ -128,7 +128,11 @@ export default async function CreditNotesPage({
                   <tr key={note.id} className="hover:bg-wash/30">
                     <td className="px-5 py-3">
                       <Link
-                        href={`/credit-notes/${note.id}`}
+                        href={
+                          note.status === "DRAFT"
+                            ? `/credit-notes/${note.id}/edit`
+                            : `/credit-notes/${note.id}`
+                        }
                         className="font-mono text-[12px] font-medium hover:text-brand"
                       >
                         {note.creditNumber}
