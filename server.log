@@ -973,3 +973,28 @@
 ✓ Compiled in 133ms
 ✓ Compiled in 123ms
 ✓ Compiled in 61ms
+ GET / 200 in 343ms (next.js: 78ms, application-code: 265ms)
+ GET /credit-notes 200 in 51ms (next.js: 21ms, application-code: 30ms)
+ GET /credit-notes/cmtryzgoy001xzd8ojurapouk/edit 200 in 736ms (next.js: 713ms, application-code: 24ms)
+ GET /credit-notes/cmtrzc1xi0022zd8o0u0pysgl 200 in 94ms (next.js: 16ms, application-code: 78ms)
+ POST /credit-notes/cmtryzgoy001xzd8ojurapouk/edit 303 in 162ms (next.js: 5ms, application-code: 157ms)
+  └─ ƒ saveCreditNoteAction(null, {}) in 49ms app/(app)/credit-notes/actions.ts
+ GET /credit-notes 200 in 89ms (next.js: 2ms, application-code: 87ms)
+ GET /supplier-credits 200 in 94ms (next.js: 14ms, application-code: 80ms)
+ GET /bills 200 in 82ms (next.js: 20ms, application-code: 62ms)
+ GET /invoices 200 in 51ms (next.js: 20ms, application-code: 32ms)
+ GET /credit-notes 200 in 34ms (next.js: 3ms, application-code: 31ms)
+ GET / 200 in 137ms (next.js: 4ms, application-code: 133ms)
+ GET /credit-notes 200 in 37ms (next.js: 4ms, application-code: 33ms)
+ GET /credit-notes/cmtrzc1xi0022zd8o0u0pysgl/edit 200 in 47ms (next.js: 7ms, application-code: 39ms)
+ GET /credit-notes/cmtrzc1xi0022zd8o0u0pysgl 200 in 66ms (next.js: 7ms, application-code: 59ms)
+ GET /credit-notes/cmtrzc1xi0022zd8o0u0pysgl 200 in 60ms (next.js: 1361µs, application-code: 59ms)
+ POST /credit-notes/cmtrzc1xi0022zd8o0u0pysgl 303 in 98ms (next.js: 7ms, application-code: 91ms)
+  └─ ƒ issueCreditNoteAction("cmtrzc1xi0022zd8o0u0pysgl") in 21ms app/(app)/credit-notes/actions.ts
+ GET /credit-notes 200 in 83ms (next.js: 1917µs, application-code: 81ms)
+ GET /credit-notes/cmtrzc1xi0022zd8o0u0pysgl 200 in 69ms (next.js: 7ms, application-code: 62ms)
+✓ Compiled in 71ms
+✓ Compiled in 120ms
+ GET / 200 in 286ms (next.js: 84ms, application-code: 202ms)
+✓ Compiled in 152ms
+✓ Compiled in 9ms

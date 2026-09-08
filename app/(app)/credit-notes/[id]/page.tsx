@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, FileCheck, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, FileCheck, Pencil, Trash2, Download } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
@@ -125,6 +125,20 @@ export default async function CreditNotePage({
           </div>
         ) : null}
       </div>
+
+      {note.status !== "DRAFT" ? (
+        <div className="mt-3 flex gap-2">
+          <a
+            href={`/credit-notes/${note.id}/pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-wash/50"
+          >
+            <Download size={14} strokeWidth={2} aria-hidden />
+            PDF
+          </a>
+        </div>
+      ) : null}
 
       {error ? (
         <div className="card mt-5 border-negative bg-tint-amber/40 px-5 py-3.5">

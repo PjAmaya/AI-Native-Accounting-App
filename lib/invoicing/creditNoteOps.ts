@@ -1,6 +1,8 @@
 import Decimal from "decimal.js";
 import { prisma } from "../db";
 import { postDraftTx, createDraftEntryTx } from "../ledger/post";
+import { renderCreditNotePdf } from "./renderCreditNote";
+import { storeFile } from "../storage";
 import type { DraftLine } from "../ledger/balance";
 import { syncInvoiceStatusTx } from "./documentStatus";
 import { assertNotOverApplied } from "./applications";
@@ -31,9 +33,25 @@ export async function issueCreditNoteTx(tx: TxClient, creditNoteId: string) {
     );
   }
 
+  let pdfData: { path: string; sha256: string } | undefined;
+  try {
+    const rendered = await renderCreditNotePdf(note.id);
+    const year = note.creditDate.getUTCFullYear();
+    pdfData = await storeFile(
+      `credit-notes/${year}/${note.creditNumber}.pdf`,
+      rendered.bytes,
+    );
+  } catch {
+    // PDF generation is non-blocking
+  }
+
   return tx.creditNote.update({
     where: { id: note.id },
-    data: { status: "ISSUED", issuedAt: new Date() },
+    data: {
+      status: "ISSUED",
+      issuedAt: new Date(),
+      ...(pdfData ? { pdfPath: pdfData.path, pdfHash: pdfData.sha256 } : {}),
+    },
     include: { lines: true, contact: true, originalInvoice: true },
   });
 }
