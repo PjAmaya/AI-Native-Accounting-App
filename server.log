@@ -1078,3 +1078,22 @@
 ✓ Compiled in 15ms
 ✓ Compiled in 10ms
 ✓ Compiled in 28ms
+ GET / 200 in 163ms (next.js: 20ms, application-code: 143ms)
+ GET /reports 200 in 20ms (next.js: 5ms, application-code: 15ms)
+ GET /reports/profit-and-loss 200 in 36ms (next.js: 5ms, application-code: 31ms)
+ GET /reports/account-activity?account=4010 404 in 44ms (next.js: 30ms, application-code: 15ms)
+ GET /reports/account-activity?account=4010 404 in 15ms (next.js: 1125µs, application-code: 14ms)
+ GET / 200 in 141ms (next.js: 3ms, application-code: 138ms)
+ GET /projects 200 in 41ms (next.js: 8ms, application-code: 33ms)
+ GET /reports 200 in 23ms (next.js: 3ms, application-code: 21ms)
+ GET /reports/profit-and-loss 200 in 28ms (next.js: 2ms, application-code: 26ms)
+ GET /reports/account-activity?account=5010 404 in 13ms (next.js: 2ms, application-code: 11ms)
+ GET /reports/account-activity?account=5010 404 in 21ms (next.js: 3ms, application-code: 19ms)
+ GET /reports/account-activity?account=5010 200 in 281ms (next.js: 3ms, application-code: 279ms)
+ GET /reports/account-activity?account=5010 200 in 248ms (next.js: 46ms, application-code: 202ms)
+ GET /reports/account-activity?account=5010 200 in 256ms (next.js: 8ms, application-code: 248ms)
+ GET /reports/account-activity?account=5010 200 in 948ms (next.js: 602ms, application-code: 345ms)
+ GET /reports/account-activity?account=5010 200 in 132ms (next.js: 10ms, application-code: 122ms)
+ GET /reports/account-activity?account=5010 200 in 66ms (next.js: 10ms, application-code: 56ms)
+ GET /reports/account-activity?account=5010 200 in 37ms (next.js: 13ms, application-code: 25ms)
+ GET /reports/account-activity?account=5010 200 in 298ms (next.js: 9ms, application-code: 289ms)
