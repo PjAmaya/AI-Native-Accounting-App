@@ -102,13 +102,13 @@ export default async function AccountActivityPage({
           <p className="text-[14px] text-muted">No transactions in this period.</p>
         </div>
       ) : (
-        <div className="card mt-7 overflow-hidden">
+        <div className="card mt-7 overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-rule bg-wash/40">
                 <th className="px-5 py-2.5 text-left"><span className="eyebrow">Date</span></th>
                 <th className="px-3 py-2.5 text-left"><span className="eyebrow">#</span></th>
-                <th className="px-3 py-2.5 text-left"><span className="eyebrow">Description</span></th>
+                <th className="min-w-48 px-3 py-2.5 text-left"><span className="eyebrow">Description</span></th>
                 <th className="px-3 py-2.5 text-left"><span className="eyebrow">Contact</span></th>
                 <th className="px-3 py-2.5 text-left"><span className="eyebrow">Project</span></th>
                 <th className="px-3 py-2.5 text-right"><span className="eyebrow">Debit</span></th>
@@ -122,9 +122,9 @@ export default async function AccountActivityPage({
                   key={line.id}
                   className={`hover:bg-wash/20 ${line.entry.status === "REVERSED" ? "opacity-40 line-through" : ""}`}
                 >
-                  <td className="px-5 py-2.5 text-[12px] text-muted">{shortDate(line.entry.entryDate)}</td>
-                  <td className="px-3 py-2.5 font-mono text-[12px] text-muted">{line.entry.entryNumber}</td>
-                  <td className="max-w-64 truncate px-3 py-2.5 text-[13px]">{line.description}</td>
+                  <td className="whitespace-nowrap px-3 py-2.5 text-[12px] text-muted">{shortDate(line.entry.entryDate)}</td>
+                  <td className="whitespace-nowrap px-2 py-2.5 font-mono text-[12px] text-muted">{line.entry.entryNumber}</td>
+                  <td className="min-w-48 max-w-64 truncate px-3 py-2.5 text-[13px]">{line.description}</td>
                   <td className="px-3 py-2.5 text-[12px] text-muted">{line.contact?.name ?? ""}</td>
                   <td className="px-3 py-2.5 font-mono text-[12px] text-muted">{line.project?.code ?? ""}</td>
                   <td className="figure px-3 py-2.5">{debit.isZero() ? "" : money(debit)}</td>
