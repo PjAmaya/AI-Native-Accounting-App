@@ -103,8 +103,8 @@ export default async function BalanceSheetPage({
         <div className="card overflow-hidden">
           <table className="w-full">
             <tbody>
-              <SectionRows section={bs.currentAssets} />
-              <SectionRows section={bs.fixedAssets} />
+              <SectionRows section={bs.currentAssets} dateParams={dateParams} />
+              <SectionRows section={bs.fixedAssets} dateParams={dateParams} />
               <Row label="Total assets" value={bs.totalAssets} bold rule />
             </tbody>
           </table>
@@ -113,8 +113,8 @@ export default async function BalanceSheetPage({
         <div className="card overflow-hidden">
           <table className="w-full">
             <tbody>
-              <SectionRows section={bs.currentLiabilities} />
-              <SectionRows section={bs.longTermLiabilities} />
+              <SectionRows section={bs.currentLiabilities} dateParams={dateParams} />
+              <SectionRows section={bs.longTermLiabilities} dateParams={dateParams} />
               <Row label="Total liabilities" value={bs.totalLiabilities} rule />
 
               <tr>
@@ -123,7 +123,7 @@ export default async function BalanceSheetPage({
                 </td>
               </tr>
               {bs.ownersEquity.rows.map((row) => (
-                <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} />
+                <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} dateParams={dateParams} />
               ))}
               <Row label="Current period earnings" value={bs.currentPeriodEarnings} indent={1} />
               <Row label="Total equity" value={bs.totalEquity} indent={1} rule />
