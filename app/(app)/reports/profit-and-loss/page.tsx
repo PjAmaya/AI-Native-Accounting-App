@@ -74,7 +74,7 @@ export default async function ProfitAndLossPage({
   const to = utc(sp.to, today);
 
   const pnl = await profitAndLoss(from, to);
-  const dateParams = `${sp.from ? `&from=${sp.from}` : ""}${sp.to ? `&to=${sp.to}` : ""}`;
+  const dateParams = `${sp.from ? `&from=${sp.from}` : ""}${sp.to ? `&to=${sp.to}` : ""}&report=profit-and-loss`;
 
   const ratios = [
     { label: "Gross margin", value: pnl.ratios.grossMargin },

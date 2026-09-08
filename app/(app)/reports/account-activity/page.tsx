@@ -15,7 +15,7 @@ function utcDate(v: string | undefined) {
 export default async function AccountActivityPage({
   searchParams,
 }: {
-  searchParams: Promise<{ account?: string; from?: string; to?: string }>;
+  searchParams: Promise<{ account?: string; from?: string; to?: string; report?: string }>;
 }) {
   const sp = await searchParams;
   const code = sp.account?.trim();
@@ -83,7 +83,7 @@ export default async function AccountActivityPage({
   return (
     <div>
       <Link
-        href={`/reports/profit-and-loss${sp.from || sp.to ? `?from=${sp.from ?? ""}&to=${sp.to ?? ""}` : ""}`}
+        href={`/reports/${sp.report ?? "profit-and-loss"}${sp.from || sp.to ? `?from=${sp.from ?? ""}&to=${sp.to ?? ""}` : ""}`}
         className="inline-flex items-center gap-1.5 text-[13px] text-muted hover:text-ink"
       >
         <ArrowLeft size={14} strokeWidth={2} aria-hidden />

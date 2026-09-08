@@ -24,7 +24,7 @@ export default async function CashFlowPage({
   const today = new Date();
   const from = utc(sp.from, new Date(Date.UTC(today.getUTCFullYear(), 0, 1)));
   const to = utc(sp.to, today);
-  const dateParams = `${sp.from ? `&from=${sp.from}` : ""}${sp.to ? `&to=${sp.to}` : ""}`;
+  const dateParams = `${sp.from ? `&from=${sp.from}` : ""}${sp.to ? `&to=${sp.to}` : ""}&report=cash-flow`;
   const by = (GRANULARITIES.includes(sp.by as Granularity) ? sp.by : "MONTH") as Granularity;
 
   const [direct, indirect] = await Promise.all([

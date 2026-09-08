@@ -70,7 +70,7 @@ export default async function BalanceSheetPage({
 }) {
   const sp = await searchParams;
   const today = new Date();
-  const dateParams = sp.to ? `&to=${sp.to}` : "";
+  const dateParams = (sp.to ? `&to=${sp.to}` : "") + "&report=balance-sheet";
   const asOf = utc(sp.to, today);
   const fiscalYearStart = new Date(Date.UTC(asOf.getUTCFullYear(), 0, 1));
 
