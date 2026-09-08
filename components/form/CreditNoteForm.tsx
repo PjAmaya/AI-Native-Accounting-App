@@ -286,6 +286,12 @@ export function CreditNoteForm({
             <p className="mt-1 text-[11px] text-faint">
               Enter positive amounts. Tax is calculated on save.
             </p>
+            {rows.some((r) => r.revenueAccount && !r.revenueAccount.startsWith("4")) ? (
+              <p className="mt-2 text-[12px] text-icon-amber">
+                ⚠ One or more lines use an expense account. Credit notes normally reverse revenue (4xxx).
+                Use an expense account only for cost recovery reversals.
+              </p>
+            ) : null}
           </div>
         </div>
       </section>

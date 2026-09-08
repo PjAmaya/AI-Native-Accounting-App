@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Decimal from "decimal.js";
 import { profitAndLoss, type PnlSection } from "@/lib/reporting/profitAndLoss";
 import { money, longDate } from "@/lib/format";
@@ -18,6 +19,7 @@ function Row({
   indent = 0,
   bold,
   rule,
+  dateParams = "",
 }: {
   label: string;
   code?: string;
@@ -25,14 +27,17 @@ function Row({
   indent?: number;
   bold?: boolean;
   rule?: boolean;
+  dateParams?: string;
 }) {
+  const activityHref = code ? `/reports/account-activity?account=${code}${dateParams}` : undefined;
+
   return (
     <tr className={rule ? "border-t border-rule" : undefined}>
       <td
         className={`py-1.5 text-[13px] ${bold ? "font-semibold" : ""}`}
         style={{ paddingLeft: `${20 + indent * 16}px` }}
       >
-        {code ? <span className="font-mono text-[12px] text-faint">{code}</span> : null}
+        {code && activityHref ? <Link href={activityHref} className="font-mono text-[12px] text-faint hover:text-brand">{code}</Link> : code ? <span className="font-mono text-[12px] text-faint">{code}</span> : null}
         {code ? " " : null}
         {label}
       </td>
@@ -41,7 +46,7 @@ function Row({
   );
 }
 
-function SectionRows({ section }: { section: PnlSection }) {
+function SectionRows({ section, dateParams = "" }: { section: PnlSection; dateParams?: string }) {
   if (section.rows.length === 0) return null;
   return (
     <>
@@ -51,7 +56,7 @@ function SectionRows({ section }: { section: PnlSection }) {
         </td>
       </tr>
       {section.rows.map((row) => (
-        <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} />
+        <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} dateParams={dateParams} />
       ))}
       <Row label={`Total ${section.title.toLowerCase()}`} value={section.total} indent={1} rule />
     </>
@@ -69,6 +74,7 @@ export default async function ProfitAndLossPage({
   const to = utc(sp.to, today);
 
   const pnl = await profitAndLoss(from, to);
+  const dateParams = `${sp.from ? `&from=${sp.from}` : ""}${sp.to ? `&to=${sp.to}` : ""}`;
 
   const ratios = [
     { label: "Gross margin", value: pnl.ratios.grossMargin },
@@ -91,13 +97,13 @@ export default async function ProfitAndLossPage({
       <div className="card mt-6 overflow-hidden">
         <table className="w-full">
           <tbody>
-            <SectionRows section={pnl.revenue} />
-            <SectionRows section={pnl.costOfServices} />
+            <SectionRows section={pnl.revenue} dateParams={dateParams} />
+            <SectionRows section={pnl.costOfServices} dateParams={dateParams} />
             <Row label="Gross profit" value={pnl.grossProfit} bold rule />
-            <SectionRows section={pnl.operatingExpenses} />
+            <SectionRows section={pnl.operatingExpenses} dateParams={dateParams} />
             <Row label="Operating income" value={pnl.operatingIncome} bold rule />
-            <SectionRows section={pnl.otherIncome} />
-            <SectionRows section={pnl.otherExpenses} />
+            <SectionRows section={pnl.otherIncome} dateParams={dateParams} />
+            <SectionRows section={pnl.otherExpenses} dateParams={dateParams} />
             <Row label="Net income" value={pnl.netIncome} bold rule />
           </tbody>
         </table>
@@ -122,7 +128,7 @@ export default async function ProfitAndLossPage({
                 pnl.addBacks.map((item) => (
                   <tr key={item.code}>
                     <td className="py-1 text-[13px] text-muted">
-                      <span className="font-mono text-[12px] text-faint">{item.code}</span>{" "}
+                      <Link href={`/reports/account-activity?account=${item.code}${dateParams}`} className="font-mono text-[12px] text-faint hover:text-brand">{item.code}</Link>{" "}
                       {item.name}
                     </td>
                     <td className="figure">{money(item.amount)}</td>

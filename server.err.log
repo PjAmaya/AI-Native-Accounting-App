@@ -984,3 +984,86 @@ Unknown argument `label`. Available options are marked with ?.
 [browser] Encountered two children with the same key, `5010`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
 (node:25897) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
+⨯ ReferenceError: dateParams is not defined
+    at ProfitAndLossPage (app/(app)/reports/profit-and-loss/page.tsx:96:60)
+  94 |         <table className="w-full">
+  95 |           <tbody>
+> 96 |             <SectionRows section={pnl.revenue} dateParams={dateParams} />
+     |                                                            ^
+  97 |             <SectionRows section={pnl.costOfServices} dateParams={dateParams} />
+  98 |             <Row label="Gross profit" value={pnl.grossProfit} bold rule />
+  99 |             <SectionRows section={pnl.operatingExpenses} dateParams={dateParams} /> {
+  digest: '1968926311'
+}
+[browser] Uncaught ReferenceError: dateParams is not defined
+    at ProfitAndLossPage (app/(app)/reports/profit-and-loss/page.tsx:96:60)
+  94 |         <table className="w-full">
+  95 |           <tbody>
+> 96 |             <SectionRows section={pnl.revenue} dateParams={dateParams} />
+     |                                                            ^
+  97 |             <SectionRows section={pnl.costOfServices} dateParams={dateParams} />
+  98 |             <Row label="Gross profit" value={pnl.grossProfit} bold rule />
+  99 |             <SectionRows section={pnl.operatingExpenses} dateParams={dateParams} />
+⨯ ReferenceError: dateParams is not defined
+    at ProfitAndLossPage (app/(app)/reports/profit-and-loss/page.tsx:95:60)
+  93 |         <table className="w-full">
+  94 |           <tbody>
+> 95 |             <SectionRows section={pnl.revenue} dateParams={dateParams} />
+     |                                                            ^
+  96 |             <SectionRows section={pnl.costOfServices} dateParams={dateParams} />
+  97 |             <Row label="Gross profit" value={pnl.grossProfit} bold rule />
+  98 |             <SectionRows section={pnl.operatingExpenses} dateParams={dateParams} /> {
+  digest: '2131795334'
+}
+[browser] Uncaught ReferenceError: dateParams is not defined
+    at ProfitAndLossPage (app/(app)/reports/profit-and-loss/page.tsx:95:60)
+  93 |         <table className="w-full">
+  94 |           <tbody>
+> 95 |             <SectionRows section={pnl.revenue} dateParams={dateParams} />
+     |                                                            ^
+  96 |             <SectionRows section={pnl.costOfServices} dateParams={dateParams} />
+  97 |             <Row label="Gross profit" value={pnl.grossProfit} bold rule />
+  98 |             <SectionRows section={pnl.operatingExpenses} dateParams={dateParams} />
+⨯ ReferenceError: activityHref is not defined
+    at Row (app/(app)/reports/profit-and-loss/page.tsx:36:18)
+  34 |         style={{ paddingLeft: `${20 + indent * 16}px` }}
+  35 |       >
+> 36 |         {code && activityHref ? <Link href={activityHref} className="font-mono text-[12px]...
+     |                  ^
+  37 |         {code ? " " : null}
+  38 |         {label}
+  39 |       </td> {
+  digest: '2968607560'
+}
+⨯ ReferenceError: activityHref is not defined
+    at Row (app/(app)/reports/profit-and-loss/page.tsx:36:18)
+  34 |         style={{ paddingLeft: `${20 + indent * 16}px` }}
+  35 |       >
+> 36 |         {code && activityHref ? <Link href={activityHref} className="font-mono text-[12px]...
+     |                  ^
+  37 |         {code ? " " : null}
+  38 |         {label}
+  39 |       </td> {
+  digest: '2968607560'
+}
+⨯ ReferenceError: activityHref is not defined
+    at Row (app/(app)/reports/profit-and-loss/page.tsx:36:18)
+  34 |         style={{ paddingLeft: `${20 + indent * 16}px` }}
+  35 |       >
+> 36 |         {code && activityHref ? <Link href={activityHref} className="font-mono text-[12px]...
+     |                  ^
+  37 |         {code ? " " : null}
+  38 |         {label}
+  39 |       </td> {
+  digest: '2968607560'
+}
+[browser] Uncaught ReferenceError: activityHref is not defined
+    at Row (app/(app)/reports/profit-and-loss/page.tsx:36:18)
+    at ProfitAndLossPage (about://React/Server/file:///Users/pabloamaya/Documents/AI-Apps/accounting-app/.next/dev/server/chunks/ssr/%255Broot-of-the-server%255D__03n6-it._.js?id=%255Bproject%255D%252Fapp%252F%2528app%2529%252Freports%252Fprofit-and-loss%252Fpage.tsx+%255Bapp-rsc%255D+%2528ecmascript%2529?114:173:282)
+  34 |         style={{ paddingLeft: `${20 + indent * 16}px` }}
+  35 |       >
+> 36 |         {code && activityHref ? <Link href={activityHref} className="font-mono text-[12px]...
+     |                  ^
+  37 |         {code ? " " : null}
+  38 |         {label}
+  39 |       </td>
