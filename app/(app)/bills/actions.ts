@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createBill, type BillDraft, type BillDraftLine } from "@/lib/invoicing/createBill";
 import { approveBill } from "@/lib/invoicing/approveBill";
+import { storeAttachment } from "@/lib/attachments/store";
+import { syncAttachmentToDrive } from "@/lib/google/driveSync";
 import { extractBillFromPdf } from "@/lib/ai/extractBill";
 import { updateDraftBill, deleteDraftBill } from "@/lib/invoicing/updateDraftBill";
 import { voidBill } from "@/lib/invoicing/voidBill";
@@ -220,4 +222,30 @@ export async function extractBillAction(
   } catch (e) {
     return { ok: false, message: (e as Error).message };
   }
+}
+
+export async function uploadBillAttachment(billId: string, formData: FormData) {
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    redirect(`/bills/${billId}`);
+  }
+
+  const attachment = await storeAttachment({
+    file,
+    kind: "SUPPORTING",
+    description: null,
+    documentDate: new Date(),
+    contactName: null,
+    documentLabel: "Bill supporting document",
+    billId,
+  });
+
+  try {
+    await syncAttachmentToDrive(attachment.id);
+  } catch {
+    // Local file saved; Drive sync is non-blocking
+  }
+
+  revalidatePath(`/bills/${billId}`);
+  redirect(`/bills/${billId}`);
 }

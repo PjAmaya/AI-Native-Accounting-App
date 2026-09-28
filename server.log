@@ -1481,3 +1481,55 @@ Model gemini-3.5-flash-lite unavailable, trying next fallback...
 - Experiments (use with caution):
   · serverActions
 
+ GET / 200 in 653ms (next.js: 92ms, application-code: 561ms)
+Model gemini-3.5-flash-lite unavailable, trying next fallback...
+Model gemini-3.8-flash unavailable, trying next fallback...
+ POST /api/chat 500 in 5.5s (next.js: 59ms, application-code: 5.4s)
+Model gemini-3.5-flash-lite unavailable, trying next fallback...
+Model gemini-3.8-flash unavailable, trying next fallback...
+ POST /api/chat 500 in 5.9s (next.js: 3ms, application-code: 5.9s)
+ GET /bills 200 in 111ms (next.js: 25ms, application-code: 87ms)
+ GET /bills/new 200 in 166ms (next.js: 134ms, application-code: 32ms)
+ GET /bills/new 200 in 166ms (next.js: 18ms, application-code: 148ms)
+ GET /bills/new 200 in 140ms (next.js: 3ms, application-code: 137ms)
+ GET /bills/new 200 in 126ms (next.js: 2ms, application-code: 124ms)
+ GET /bills/new 200 in 98ms (next.js: 11ms, application-code: 88ms)
+ GET /bills/new 200 in 64ms (next.js: 5ms, application-code: 59ms)
+ POST /bills/new 200 in 1196ms (next.js: 3ms, application-code: 1193ms)
+  └─ ƒ extractBillAction({}) in 1177ms app/(app)/bills/actions.ts
+ GET /bills/cmulcpwuc0000u38oebu44htp 200 in 323ms (next.js: 252ms, application-code: 71ms)
+ POST /bills/new 303 in 421ms (next.js: 5ms, application-code: 416ms)
+  └─ ƒ saveBillAction(null, {}) in 80ms app/(app)/bills/actions.ts
+ GET /bills 200 in 54ms (next.js: 11ms, application-code: 43ms)
+ GET /bills/cmtpugk3j000pzd8o1zk8xrfq 200 in 38ms (next.js: 5ms, application-code: 33ms)
+ GET /bills 200 in 34ms (next.js: 2ms, application-code: 32ms)
+ GET /bills/cmulcpwuc0000u38oebu44htp/edit 200 in 200ms (next.js: 184ms, application-code: 16ms)
+ GET /bills/cmulcqihp0005u38ofire7181 200 in 54ms (next.js: 2ms, application-code: 52ms)
+ POST /bills/cmulcpwuc0000u38oebu44htp/edit 303 in 95ms (next.js: 3ms, application-code: 92ms)
+  └─ ƒ saveBillAction(null, {}) in 30ms app/(app)/bills/actions.ts
+ GET /invoices 200 in 100ms (next.js: 32ms, application-code: 68ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 311ms (next.js: 269ms, application-code: 42ms)
+ GET /payments/new?invoice=cmulb5isc004mzd8o8hicybdg 200 in 54ms (next.js: 27ms, application-code: 26ms)
+ GET /payments 200 in 96ms (next.js: 22ms, application-code: 74ms)
+ POST /payments/new?invoice=cmulb5isc004mzd8o8hicybdg 303 in 179ms (next.js: 3ms, application-code: 176ms)
+  └─ ƒ savePaymentAction(null, {}) in 70ms app/(app)/payments/actions.ts
+ GET /bills 200 in 39ms (next.js: 5ms, application-code: 34ms)
+ GET /bills/cmulcqihp0005u38ofire7181/edit 200 in 39ms (next.js: 6ms, application-code: 34ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 73ms (next.js: 3ms, application-code: 70ms)
+ POST /bills/cmulcqihp0005u38ofire7181/edit 303 in 111ms (next.js: 5ms, application-code: 107ms)
+  └─ ƒ saveBillAction(null, {}) in 25ms app/(app)/bills/actions.ts
+ POST /bills/cmulctu4l000fu38oqqetg7eg 200 in 74ms (next.js: 5ms, application-code: 69ms)
+  └─ ƒ approveBillAction("cmulctu4l000fu38oqqetg7eg") in 17ms app/(app)/bills/actions.ts
+ GET /payments/new?bill=cmulctu4l000fu38oqqetg7eg 200 in 72ms (next.js: 4ms, application-code: 68ms)
+ GET /payments 200 in 89ms (next.js: 1959µs, application-code: 87ms)
+ POST /payments/new?bill=cmulctu4l000fu38oqqetg7eg 303 in 162ms (next.js: 3ms, application-code: 158ms)
+  └─ ƒ savePaymentAction(null, {}) in 60ms app/(app)/payments/actions.ts
+ GET /bills 200 in 41ms (next.js: 4ms, application-code: 37ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 81ms (next.js: 6ms, application-code: 75ms)
+ GET /bills 200 in 40ms (next.js: 4ms, application-code: 36ms)
+ GET /bills/cmtrgdy9b001czd8oaik5k5zh 200 in 58ms (next.js: 4ms, application-code: 54ms)
+ GET /bills 200 in 33ms (next.js: 3ms, application-code: 30ms)
+ GET /bills 200 in 63ms (next.js: 1625µs, application-code: 62ms)
+✓ Compiled in 177ms
+✓ Compiled in 731ms
+✓ Compiled in 172ms

@@ -23,6 +23,7 @@ export default async function BillPage({
   const bill = await prisma.bill.findUnique({
     where: { id },
     include: {
+      attachments: { orderBy: { createdAt: "desc" } },
       contact: true,
       lines: {
         include: { expenseAccount: true, project: true, taxRate: true },
