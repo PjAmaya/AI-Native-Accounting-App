@@ -1442,3 +1442,26 @@
  GET /invoices/cmulb5isc004mzd8o8hicybdg/view-pdf 200 in 71ms (next.js: 4ms, application-code: 67ms)
  GET /invoices/cmulb5isc004mzd8o8hicybdg/pdf 200 in 308ms (next.js: 6ms, application-code: 301ms)
 ✓ Compiled in 7ms
+ GET / 200 in 136ms (next.js: 3ms, application-code: 132ms)
+ GET /invoices 200 in 51ms (next.js: 6ms, application-code: 45ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 52ms (next.js: 16ms, application-code: 35ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/view-pdf 200 in 78ms (next.js: 6ms, application-code: 72ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/pdf?download=1 200 in 292ms (next.js: 7ms, application-code: 285ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 93ms (next.js: 8ms, application-code: 85ms)
+ GET /invoices 200 in 93ms (next.js: 5ms, application-code: 88ms)
+ GET / 200 in 144ms (next.js: 3ms, application-code: 141ms)
+Model gemini-3.5-flash-lite unavailable, trying next fallback...
+ POST /api/chat 500 in 4.9s (next.js: 44ms, application-code: 4.9s)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 200ms
+- Experiments (use with caution):
+  · serverActions
+
