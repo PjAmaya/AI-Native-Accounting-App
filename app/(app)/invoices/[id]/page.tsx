@@ -5,7 +5,7 @@ import { ArrowLeft, Download, FileCheck, Pencil, Trash2, FileMinus, Wallet, Mail
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { issueInvoiceAction, deleteInvoiceAction, emailInvoiceAction } from "../actions";
+import { issueInvoiceAction, deleteInvoiceAction, emailInvoiceAction, updateInvoiceNotesAction } from "../actions";
 import { VoidInvoice } from "@/components/ui/VoidInvoice";
 
 export const dynamic = "force-dynamic";
@@ -90,7 +90,7 @@ export default async function InvoicePage({
         <div className="flex shrink-0 items-center gap-2">
           {invoice.pdfPath ? (
             <a
-              href={`/invoices/${invoice.id}/pdf`}
+              href={`/invoices/${invoice.id}/view-pdf`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
             >
               <Download size={14} strokeWidth={2} aria-hidden />
@@ -247,6 +247,28 @@ export default async function InvoicePage({
             </tr>
           </tfoot>
         </table>
+      </div>
+
+      <div className="card mt-5 px-5 py-4">
+        <form action={updateInvoiceNotesAction.bind(null, invoice.id)}>
+          <label className="eyebrow" htmlFor="notes">Notes</label>
+          <textarea
+            id="notes"
+            name="notes"
+            defaultValue={invoice.notes ?? ""}
+            rows={3}
+            placeholder="Internal notes — not visible on the invoice PDF"
+            className="mt-2 block w-full rounded-lg border border-rule bg-surface px-3 py-2 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
+          />
+          <div className="mt-2 flex justify-end">
+            <button
+              type="submit"
+              className="rounded-lg bg-brand px-3.5 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-[#1731c9]"
+            >
+              Save notes
+            </button>
+          </div>
+        </form>
       </div>
 
       {invoice.creditNotes.length > 0 ? (

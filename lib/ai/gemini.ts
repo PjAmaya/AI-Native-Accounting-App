@@ -1,6 +1,7 @@
 import type { ChatProvider, ChatRequest, ChatResult, ToolCall } from "./provider";
 
 const DEFAULT_MODEL = "gemini-2.5-flash";
+const FALLBACK_MODELS = ["gemini-2.5-flash-lite", "gemini-2.0-flash"];
 const BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 type GeminiPart = {
@@ -63,6 +64,8 @@ export function createGeminiProvider(): ChatProvider {
         throw new Error("GEMINI_API_KEY is not set. Add it to .env and restart the server.");
       }
 
+      const modelsToTry = [model, ...FALLBACK_MODELS.filter((m) => m !== model)];
+
       const body = {
         systemInstruction: { parts: [{ text: request.system }] },
         contents: toContents(request.messages),
@@ -82,24 +85,39 @@ export function createGeminiProvider(): ChatProvider {
       };
 
       const RETRYABLE = new Set([429, 500, 502, 503, 504]);
-      const MAX_ATTEMPTS = 4;
       let response: Response | null = null;
+      let usedModel = model;
 
-      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-        response = await fetch(`${BASE}/${model}:generateContent`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": apiKey,
-          },
-          body: JSON.stringify(body),
-        });
+      for (const tryModel of modelsToTry) {
+        let attempts = 0;
+        const MAX_ATTEMPTS = 2;
 
-        if (response.ok || !RETRYABLE.has(response.status)) break;
-        if (attempt === MAX_ATTEMPTS - 1) break;
+        while (attempts < MAX_ATTEMPTS) {
+          response = await fetch(`${BASE}/${tryModel}:generateContent`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey,
+            },
+            body: JSON.stringify(body),
+          });
 
-        const backoff = 500 * 2 ** attempt + Math.floor(Math.random() * 400);
-        await new Promise((resolve) => setTimeout(resolve, backoff));
+          if (response.ok) {
+            usedModel = tryModel;
+            break;
+          }
+          if (!RETRYABLE.has(response.status)) break;
+
+          attempts++;
+          if (attempts < MAX_ATTEMPTS) {
+            const backoff = 500 * 2 ** attempts + Math.floor(Math.random() * 400);
+            await new Promise((resolve) => setTimeout(resolve, backoff));
+          }
+        }
+
+        if (response?.ok) break;
+        if (response && !RETRYABLE.has(response.status)) break;
+        console.log(`Model ${tryModel} unavailable, trying next fallback...`);
       }
 
       if (!response || !response.ok) {
@@ -107,9 +125,9 @@ export function createGeminiProvider(): ChatProvider {
         const status = response?.status ?? 0;
         const hint =
           status === 429
-            ? " You have hit the free-tier rate limit. Wait a minute and try again."
+            ? " Rate limited on all models. Wait a minute and try again."
             : status === 503
-              ? " The model is busy. This usually clears in a few seconds."
+              ? " All models are busy. Try again in a few seconds."
               : "";
         throw new Error(`Gemini returned ${status}.${hint} ${detail.slice(0, 300)}`);
       }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { readStoredFile } from "@/lib/storage";
+import { renderInvoicePdf } from "@/lib/invoicing/renderInvoicePdf";
 
 export const dynamic = "force-dynamic";
 
@@ -12,28 +12,26 @@ export async function GET(
 
   const invoice = await prisma.invoice.findUnique({
     where: { id },
-    select: { invoiceNumber: true, pdfPath: true },
+    select: { invoiceNumber: true, status: true },
   });
 
   if (!invoice) {
     return new NextResponse("Invoice not found.", { status: 404 });
   }
-  if (!invoice.pdfPath) {
-    return new NextResponse("This invoice has not been issued, so no PDF exists.", {
-      status: 404,
-    });
+  if (invoice.status === "DRAFT") {
+    return new NextResponse("This invoice has not been issued, so no PDF exists.", { status: 404 });
   }
 
   try {
-    const bytes = await readStoredFile(invoice.pdfPath);
-    return new NextResponse(new Uint8Array(bytes), {
+    const pdf = await renderInvoicePdf(id);
+    return new NextResponse(new Uint8Array(pdf.bytes), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `inline; filename="${invoice.invoiceNumber}.pdf"`,
         "Cache-Control": "private, no-store",
       },
     });
-  } catch {
-    return new NextResponse("The stored PDF is missing.", { status: 410 });
+  } catch (e) {
+    return new NextResponse("PDF generation failed: " + (e as Error).message, { status: 500 });
   }
 }

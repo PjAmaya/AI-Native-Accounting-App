@@ -36,8 +36,14 @@ export function AskPanel() {
     setTurns((prev) => [...prev, { question: trimmed, answer: null, steps: [], warnings: [], error: null }]);
 
     try {
+      const history = turns.flatMap((t) => [
+        ...(t.question ? [{ role: "user" as const, text: t.question }] : []),
+        ...(t.answer ? [{ role: "assistant" as const, text: t.answer }] : []),
+      ]);
+
       const fd = new FormData();
       fd.append("question", trimmed);
+      fd.append("history", JSON.stringify(history));
       if (file) fd.append("file", file);
       setFile(null);
 

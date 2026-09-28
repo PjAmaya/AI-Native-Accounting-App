@@ -14,6 +14,13 @@ export async function POST(request: Request) {
   if (contentType.includes("multipart/form-data")) {
     const fd = await request.formData();
     question = ((fd.get("question") as string) ?? "").trim();
+    const historyJson = fd.get("history") as string;
+    if (historyJson) {
+      try {
+        const parsed = JSON.parse(historyJson) as ChatMessage[];
+        if (Array.isArray(parsed)) history.push(...parsed);
+      } catch { /* ignore bad JSON */ }
+    }
     const file = fd.get("file");
     if (file instanceof File && file.size > 0 && file.type === "application/pdf") {
       const { extractBillFromPdf } = await import("@/lib/ai/extractBill");

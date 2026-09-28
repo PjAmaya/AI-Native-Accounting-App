@@ -3,6 +3,7 @@
 import Decimal from "decimal.js";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { prisma } from "@/lib/db";
 import { createInvoice, type InvoiceDraft, type InvoiceDraftLine } from "@/lib/invoicing/createInvoice";
 import { updateDraftInvoice, deleteDraftInvoice } from "@/lib/invoicing/updateDraftInvoice";
 import { issueInvoice } from "@/lib/invoicing/issueInvoice";
@@ -183,4 +184,14 @@ export async function emailInvoiceAction(invoiceId: string) {
 
   revalidatePath("/invoices");
   redirect(`/invoices/${invoiceId}?emailSent=true`);
+}
+
+export async function updateInvoiceNotesAction(invoiceId: string, formData: FormData) {
+  const notes = (formData.get("notes") as string)?.trim() || null;
+  await prisma.invoice.update({
+    where: { id: invoiceId },
+    data: { notes },
+  });
+  revalidatePath(`/invoices/${invoiceId}`);
+  redirect(`/invoices/${invoiceId}`);
 }
