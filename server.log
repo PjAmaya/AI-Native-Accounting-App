@@ -1465,3 +1465,19 @@ Model gemini-3.5-flash-lite unavailable, trying next fallback...
 - Experiments (use with caution):
   · serverActions
 
+ GET / 200 in 674ms (next.js: 99ms, application-code: 575ms)
+Model gemini-3.5-flash-lite unavailable, trying next fallback...
+ POST /api/chat 500 in 5.2s (next.js: 73ms, application-code: 5.2s)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 140ms
+- Experiments (use with caution):
+  · serverActions
+

@@ -1,7 +1,7 @@
 import type { ChatProvider, ChatRequest, ChatResult, ToolCall } from "./provider";
 
 const DEFAULT_MODEL = "gemini-3.5-flash";
-const FALLBACK_MODELS = ["gemini-3.5-flash-lite", "gemini-2.5-flash"];
+const FALLBACK_MODELS = ["gemini-3.5-flash-lite", "gemini-3.8-flash"];
 const BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 type GeminiPart = {
