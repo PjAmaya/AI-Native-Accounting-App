@@ -18,7 +18,7 @@ export default async function ViewCreditNotePdfPage({
   if (!note || note.status === "DRAFT") notFound();
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] flex-col">
+    <div className="fixed inset-0 z-50 flex flex-col bg-surface">
       <div className="flex items-center gap-3 border-b border-rule bg-surface px-5 py-3">
         <Link
           href={`/credit-notes/${id}`}
@@ -36,7 +36,7 @@ export default async function ViewCreditNotePdfPage({
         </a>
       </div>
       <iframe
-        src={`/credit-notes/${id}/pdf`}
+        src={`/credit-notes/${id}/pdf?download=1`}
         className="flex-1 w-full border-0"
         title={`${note.creditNumber} PDF`}
       />

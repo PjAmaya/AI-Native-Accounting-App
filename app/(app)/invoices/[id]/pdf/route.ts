@@ -5,9 +5,10 @@ import { renderInvoicePdf } from "@/lib/invoicing/renderInvoicePdf";
 export const dynamic = "force-dynamic";
 
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const dl = new URL(request.url).searchParams.get("download") === "1";
   const { id } = await params;
 
   const invoice = await prisma.invoice.findUnique({
@@ -27,7 +28,7 @@ export async function GET(
     return new NextResponse(new Uint8Array(pdf.bytes), {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="${invoice.invoiceNumber}.pdf"`,
+        "Content-Disposition": `${dl ? "attachment" : "inline"}; filename="${invoice.invoiceNumber}.pdf"`,
         "Cache-Control": "private, no-store",
       },
     });

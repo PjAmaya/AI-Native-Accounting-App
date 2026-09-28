@@ -1430,3 +1430,15 @@
  GET /invoices/cmulb5isc004mzd8o8hicybdg/pdf 200 in 9ms (next.js: 4ms, application-code: 6ms)
 ✓ Compiled in 12ms
 ✓ Compiled in 13ms
+ GET / 200 in 296ms (next.js: 131ms, application-code: 164ms)
+ GET /invoices 200 in 48ms (next.js: 18ms, application-code: 30ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 88ms (next.js: 45ms, application-code: 43ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 73ms (next.js: 2ms, application-code: 70ms)
+ POST /invoices/cmulb5isc004mzd8o8hicybdg 303 in 92ms (next.js: 4ms, application-code: 89ms)
+  └─ ƒ updateInvoiceNotesAction("cmulb5isc004mzd8o8hicybdg", {}) in 6ms app/(app)/invoices/actions.ts
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/view-pdf 200 in 580ms (next.js: 483ms, application-code: 96ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/pdf 200 in 1164ms (next.js: 31ms, application-code: 1133ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 66ms (next.js: 5ms, application-code: 61ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/view-pdf 200 in 71ms (next.js: 4ms, application-code: 67ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/pdf 200 in 308ms (next.js: 6ms, application-code: 301ms)
+✓ Compiled in 7ms
