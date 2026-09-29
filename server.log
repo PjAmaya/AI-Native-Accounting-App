@@ -1533,3 +1533,11 @@ Model gemini-3.8-flash unavailable, trying next fallback...
 ✓ Compiled in 177ms
 ✓ Compiled in 731ms
 ✓ Compiled in 172ms
+ GET / 200 in 244ms (next.js: 83ms, application-code: 161ms)
+ GET /bills 200 in 53ms (next.js: 17ms, application-code: 36ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 84ms (next.js: 36ms, application-code: 49ms)
+ GET /bills 200 in 32ms (next.js: 3ms, application-code: 29ms)
+ GET /bills/cmtpugk3j000pzd8o1zk8xrfq 200 in 42ms (next.js: 5ms, application-code: 37ms)
+ GET /bills 200 in 31ms (next.js: 2ms, application-code: 29ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 80ms (next.js: 5ms, application-code: 75ms)
+✓ Compiled in 748ms

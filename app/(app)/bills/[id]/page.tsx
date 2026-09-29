@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
-import { ArrowLeft, CheckCircle2, TriangleAlert, Wallet, Pencil, Trash2, FileMinus } from "lucide-react";
+import { ArrowLeft, Paperclip, CheckCircle2, TriangleAlert, Wallet, Pencil, Trash2, FileMinus } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, longDate, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { approveBillAction, deleteBillAction } from "../actions";
+import { approveBillAction, uploadBillAttachment, deleteBillAction } from "../actions";
 import { VoidBill } from "@/components/ui/VoidBill";
 
 export const dynamic = "force-dynamic";
@@ -303,6 +303,28 @@ export default async function BillPage({
           </table>
         </div>
       ) : null}
+
+      <div className="card mt-4 px-5 py-4">
+        <p className="eyebrow">Attachments</p>
+        {bill.attachments.length > 0 ? (
+          <ul className="mt-3 divide-y divide-rule">
+            {bill.attachments.map((att) => (
+              <li key={att.id} className="flex items-center gap-3 py-2">
+                <Paperclip size={14} className="shrink-0 text-muted" />
+                <a href={`/attachments/${att.id}`} target="_blank" rel="noopener noreferrer" className="truncate text-[13px] text-brand hover:underline">{att.fileName}</a>
+                <span className="ml-auto whitespace-nowrap text-[11px] text-faint">{(att.byteSize / 1024).toFixed(0)} KB</span>
+                {att.driveWebLink ? <a href={att.driveWebLink} target="_blank" rel="noopener noreferrer" className="text-[11px] text-muted hover:text-brand">Drive</a> : null}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-2 text-[13px] text-muted">No files attached.</p>
+        )}
+        <form action={uploadBillAttachment.bind(null, bill.id)} className="mt-3 flex items-end gap-3 border-t border-rule pt-3">
+          <input name="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" required className="text-[13px] file:mr-3 file:rounded-lg file:border file:border-rule file:bg-surface file:px-3 file:py-1.5 file:text-[13px] file:font-medium file:transition-colors hover:file:bg-wash/60" />
+          <button type="submit" className="rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]">Upload</button>
+        </form>
+      </div>
     </div>
   );
 }
