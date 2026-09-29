@@ -1604,3 +1604,48 @@ Attachment read: {
  GET / 200 in 722ms (next.js: 125ms, application-code: 596ms)
  GET /bills 200 in 76ms (next.js: 33ms, application-code: 43ms)
  GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 308ms (next.js: 279ms, application-code: 29ms)
+ GET / 200 in 187ms (next.js: 45ms, application-code: 142ms)
+ GET /bills 200 in 43ms (next.js: 9ms, application-code: 34ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 54ms (next.js: 17ms, application-code: 37ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 174ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 670ms (next.js: 96ms, application-code: 574ms)
+ GET /bills 200 in 57ms (next.js: 21ms, application-code: 36ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 274ms (next.js: 247ms, application-code: 27ms)
+ GET / 200 in 101ms (next.js: 3ms, application-code: 98ms)
+✓ Compiled in 109ms
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 144ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 662ms (next.js: 94ms, application-code: 568ms)
+ GET /bills 200 in 56ms (next.js: 15ms, application-code: 40ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 229ms (next.js: 203ms, application-code: 26ms)
+ GET /bills/BILL_ID 404 in 130ms (next.js: 6ms, application-code: 124ms)
+ GET /bills 200 in 60ms (next.js: 3ms, application-code: 57ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 66ms (next.js: 10ms, application-code: 56ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 200 in 462ms (next.js: 451ms, application-code: 11ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 128ms (next.js: 4ms, application-code: 124ms)
+ GET /bills 200 in 31ms (next.js: 3ms, application-code: 28ms)
+ GET /bills/BILL_ID 404 in 87ms (next.js: 4ms, application-code: 82ms)
+✓ Compiled in 484ms
