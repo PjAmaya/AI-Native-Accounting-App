@@ -19,7 +19,7 @@ function Row({
   indent = 0,
   bold,
   rule,
-  dateParams,
+  dateParams = "",
 }: {
   label: string;
   code?: string;

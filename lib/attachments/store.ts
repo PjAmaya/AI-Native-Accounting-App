@@ -69,8 +69,8 @@ export async function storeAttachment(input: StoreAttachmentInput) {
     originalFileName: file.name,
   });
 
-  const storagePath = `attachments/${sha256.slice(0, 2)}/${sha256}${extension ? `.${extension}` : ""}`;
-  await storeFile(storagePath, bytes);
+  const relativePath = `attachments/${sha256.slice(0, 2)}/${sha256}${extension ? `.${extension}` : ""}`;
+  const stored = await storeFile(relativePath, bytes);
 
   return prisma.attachment.create({
     data: {
@@ -78,7 +78,7 @@ export async function storeAttachment(input: StoreAttachmentInput) {
       fileName,
       mimeType: file.type,
       byteSize: file.size,
-      storagePath,
+      storagePath: stored.path,
       sha256,
       description: input.description ?? null,
       uploadedBy: input.uploadedBy ?? null,

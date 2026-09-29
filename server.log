@@ -1541,3 +1541,66 @@ Model gemini-3.8-flash unavailable, trying next fallback...
  GET /bills 200 in 31ms (next.js: 2ms, application-code: 29ms)
  GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 80ms (next.js: 5ms, application-code: 75ms)
 ✓ Compiled in 748ms
+ GET / 200 in 272ms (next.js: 71ms, application-code: 201ms)
+ GET /bills 200 in 53ms (next.js: 19ms, application-code: 34ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 71ms (next.js: 35ms, application-code: 36ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 53ms (next.js: 884µs, application-code: 52ms)
+ POST /bills/cmulctu4l000fu38oqqetg7eg 303 in 118ms (next.js: 4ms, application-code: 114ms)
+  └─ ƒ uploadBillAttachment("cmulctu4l000fu38oqqetg7eg", {}) in 50ms app/(app)/bills/actions.ts
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 410 in 959ms (next.js: 949ms, application-code: 10ms)
+ GET / 200 in 203ms (next.js: 11ms, application-code: 192ms)
+ GET /bills 200 in 36ms (next.js: 4ms, application-code: 32ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 31ms (next.js: 5ms, application-code: 26ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 114ms (next.js: 1036µs, application-code: 113ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 153ms (next.js: 6ms, application-code: 147ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 131ms (next.js: 1994µs, application-code: 129ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 183ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 841ms (next.js: 186ms, application-code: 655ms)
+ GET /bills 200 in 57ms (next.js: 24ms, application-code: 33ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 304ms (next.js: 269ms, application-code: 35ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 212ms
+- Experiments (use with caution):
+  · serverActions
+
+Attachment read: {
+  storagePath: 'storage/attachments/c1/c1fd3229f1b12043589c6b38e0281ba33db40ed0873c63f003300c32bd5ea452.pdf',
+  cwd: '/Users/pabloamaya/Documents/AI-Apps/accounting-app'
+}
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 200 in 654ms (next.js: 568ms, application-code: 86ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 147ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 722ms (next.js: 125ms, application-code: 596ms)
+ GET /bills 200 in 76ms (next.js: 33ms, application-code: 43ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 308ms (next.js: 279ms, application-code: 29ms)
