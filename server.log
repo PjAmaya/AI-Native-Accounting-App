@@ -1649,3 +1649,110 @@ Attachment read: {
  GET /bills 200 in 31ms (next.js: 3ms, application-code: 28ms)
  GET /bills/BILL_ID 404 in 87ms (next.js: 4ms, application-code: 82ms)
 ✓ Compiled in 484ms
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 207ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 695ms (next.js: 106ms, application-code: 589ms)
+ GET /bills 200 in 60ms (next.js: 20ms, application-code: 40ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 251ms (next.js: 222ms, application-code: 29ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 200 in 592ms (next.js: 535ms, application-code: 57ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 200 in 480ms (next.js: 442ms, application-code: 38ms)
+✓ Compiled in 93ms
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 141ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 786ms (next.js: 98ms, application-code: 688ms)
+ GET /bills 200 in 59ms (next.js: 20ms, application-code: 39ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 216ms (next.js: 192ms, application-code: 24ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 200 in 237ms (next.js: 188ms, application-code: 50ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 200 in 456ms (next.js: 428ms, application-code: 28ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 404 in 304ms (next.js: 267ms, application-code: 37ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 404 in 107ms (next.js: 8ms, application-code: 99ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 404 in 47ms (next.js: 19ms, application-code: 28ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 404 in 128ms (next.js: 18ms, application-code: 110ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 404 in 14ms (next.js: 3ms, application-code: 11ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0/view 404 in 18ms (next.js: 3ms, application-code: 15ms)
+✓ Compiled in 65ms
+ GET / 200 in 172ms (next.js: 32ms, application-code: 140ms)
+ GET /bills 200 in 43ms (next.js: 13ms, application-code: 30ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 61ms (next.js: 25ms, application-code: 36ms)
+ GET /view/attachment/cmulz81rc000pu38ouhc0q2p0 200 in 767ms (next.js: 688ms, application-code: 79ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 200 in 48ms (next.js: 36ms, application-code: 12ms)
+ GET /view/attachment/cmulz81rc000pu38ouhc0q2p0 200 in 99ms (next.js: 33ms, application-code: 65ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 155ms
+- Experiments (use with caution):
+  · serverActions
+
+ GET / 200 in 736ms (next.js: 93ms, application-code: 643ms)
+ GET /bills 200 in 45ms (next.js: 15ms, application-code: 29ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 208ms (next.js: 184ms, application-code: 24ms)
+ GET /view/attachment/cmulz81rc000pu38ouhc0q2p0 200 in 261ms (next.js: 183ms, application-code: 78ms)
+ GET /attachments/cmulz81rc000pu38ouhc0q2p0 200 in 442ms (next.js: 433ms, application-code: 9ms)
+ GET /bills/cmulctu4l000fu38oqqetg7eg 200 in 63ms (next.js: 4ms, application-code: 59ms)
+ GET /invoices 200 in 119ms (next.js: 38ms, application-code: 82ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 228ms (next.js: 190ms, application-code: 38ms)
+ GET /view/invoice/cmulb5isc004mzd8o8hicybdg 200 in 428ms (next.js: 371ms, application-code: 57ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg/pdf?download=1 200 in 1524ms (next.js: 454ms, application-code: 1070ms)
+ GET /invoices/cmulb5isc004mzd8o8hicybdg 200 in 86ms (next.js: 6ms, application-code: 80ms)
+ GET /invoices 200 in 47ms (next.js: 4ms, application-code: 43ms)
+ GET /invoices/cmue9cmbu004ezd8oinj1cj5e 200 in 81ms (next.js: 6ms, application-code: 75ms)
+ GET /view/invoice/cmue9cmbu004ezd8oinj1cj5e 200 in 51ms (next.js: 4ms, application-code: 47ms)
+ GET /invoices/cmue9cmbu004ezd8oinj1cj5e/pdf?download=1 200 in 301ms (next.js: 22ms, application-code: 278ms)
+ GET /invoices/cmue9cmbu004ezd8oinj1cj5e 200 in 71ms (next.js: 5ms, application-code: 66ms)
+✓ Compiled in 6ms
+ GET /invoices/cmue9cmbu004ezd8oinj1cj5e 200 in 98ms (next.js: 4ms, application-code: 94ms)
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 137ms
+- Experiments (use with caution):
+  · serverActions
+
+[?25h
+
+> accounting-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.48:3000
+- Environments: .env
+✓ Ready in 139ms
+- Experiments (use with caution):
+  · serverActions
+

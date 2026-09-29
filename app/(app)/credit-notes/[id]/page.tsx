@@ -129,7 +129,7 @@ export default async function CreditNotePage({
       {note.status !== "DRAFT" ? (
         <div className="mt-3 flex gap-2">
           <a
-            href={`/credit-notes/${note.id}/view-pdf`}
+            href={`/view/credit-note/${note.id}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-wash/50"

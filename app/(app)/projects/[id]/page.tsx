@@ -241,7 +241,7 @@ export default async function ProjectPage({
                   </span>
                   <div>
                     <a
-                      href={`/attachments/${att.id}`}
+                      href={`/view/attachment/${att.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[13px] font-medium hover:text-brand"

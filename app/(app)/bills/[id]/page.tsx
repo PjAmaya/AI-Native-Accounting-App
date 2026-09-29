@@ -311,7 +311,7 @@ export default async function BillPage({
             {bill.attachments.map((att) => (
               <li key={att.id} className="flex items-center gap-3 py-2">
                 <Paperclip size={14} className="shrink-0 text-muted" />
-                <a href={`/attachments/${att.id}/view`} className="truncate text-[13px] text-brand hover:underline">{att.fileName}</a>
+                <a href={`/view/attachment/${att.id}`} className="truncate text-[13px] text-brand hover:underline">{att.fileName}</a>
                 <span className="ml-auto whitespace-nowrap text-[11px] text-faint">{(att.byteSize / 1024).toFixed(0)} KB</span>
                 {att.driveWebLink ? <a href={att.driveWebLink} target="_blank" rel="noopener noreferrer" className="text-[11px] text-muted hover:text-brand">Drive</a> : null}
               </li>

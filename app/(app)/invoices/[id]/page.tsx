@@ -90,7 +90,7 @@ export default async function InvoicePage({
         <div className="flex shrink-0 items-center gap-2">
           {invoice.pdfPath ? (
             <a
-              href={`/invoices/${invoice.id}/view-pdf`}
+              href={`/view/invoice/${invoice.id}`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-rule px-3.5 py-2 text-[13px] font-medium transition-colors hover:bg-wash/50"
             >
               <Download size={14} strokeWidth={2} aria-hidden />
