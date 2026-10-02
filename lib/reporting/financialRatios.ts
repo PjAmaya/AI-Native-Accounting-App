@@ -50,7 +50,18 @@ function pct(numerator: Decimal, denominator: Decimal): Decimal | null {
   return numerator.dividedBy(denominator).times(100).toDecimalPlaces(1);
 }
 
-async function positionAt(date: Date) {
+// Invoices post to sub-accounts of 1200 (e.g. 1210), so receivables include the children.
+async function receivableAccountIds() {
+  const parent = await prisma.account.findUnique({ where: { code: AR_CODE } });
+  if (!parent) throw new Error(`Account ${AR_CODE} does not exist.`);
+  const children = await prisma.account.findMany({
+    where: { parentId: parent.id },
+    select: { id: true },
+  });
+  return new Set([parent.id, ...children.map((c) => c.id)]);
+}
+
+async function positionAt(date: Date, receivableIds: Set<string>) {
   const rows = await accountActivity({ to: date });
   const assets = sumBalances(rows.filter((r) => r.type === "ASSET"));
   const liabilities = sumBalances(rows.filter((r) => r.type === "LIABILITY"));
@@ -59,7 +70,7 @@ async function positionAt(date: Date) {
     sumBalances(rows.filter((r) => r.type === "EXPENSE")),
   );
   const debt = sumBalances(rows.filter((r) => DEBT_CODES.includes(r.code)));
-  const receivables = sumBalances(rows.filter((r) => r.code === AR_CODE));
+  const receivables = sumBalances(rows.filter((r) => receivableIds.has(r.id)));
 
   return {
     assets,
@@ -73,8 +84,9 @@ async function positionAt(date: Date) {
 export async function financialRatios(from: Date, to: Date): Promise<FinancialRatios> {
   if (to < from) throw new Error("Period end cannot be before period start.");
 
-  const opening = await positionAt(dayBefore(from));
-  const closing = await positionAt(to);
+  const receivableIds = await receivableAccountIds();
+  const opening = await positionAt(dayBefore(from), receivableIds);
+  const closing = await positionAt(to, receivableIds);
 
   const periodRows = await accountActivity({ from, to });
   const revenue = sumBalances(periodRows.filter((r) => r.type === "REVENUE"));

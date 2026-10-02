@@ -177,6 +177,7 @@ export const TOOLS: ToolDefinition[] = [
           Object.entries(report.byBucket).map(([k, v]) => [k, num(v)]),
         ),
         documents: report.rows.map((r) => ({
+          kind: r.kind === "CREDIT" ? "unapplied credit" : "document",
           document: r.documentNumber,
           contact: r.contactName,
           dueDate: iso(r.dueDate),

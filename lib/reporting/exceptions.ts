@@ -92,7 +92,9 @@ export async function currentExceptions(asOf: Date): Promise<Exception[]> {
     });
   }
 
-  const dueSoon = ap.rows.filter((r) => r.daysPastDue <= 0 && r.dueDate <= addDays(asOf, 7));
+  const dueSoon = ap.rows.filter(
+    (r) => r.kind === "DOCUMENT" && r.daysPastDue <= 0 && r.dueDate <= addDays(asOf, 7),
+  );
   if (dueSoon.length > 0) {
     out.push({
       id: "ap-due-soon",

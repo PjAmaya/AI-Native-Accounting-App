@@ -17,6 +17,7 @@ export const AGING_LABELS: Record<AgingBucket, string> = {
 };
 
 export type AgingRow = {
+  kind: "DOCUMENT" | "CREDIT";
   documentNumber: string;
   contactName: string;
   documentDate: Date;
@@ -58,6 +59,49 @@ function sumApplied(applications: { amountApplied: unknown }[]) {
     (sum, a) => sum.plus(new Decimal(String(a.amountApplied))),
     new Decimal(0),
   );
+}
+
+const POSTED_ENTRY = { status: { in: ["POSTED" as const, "REVERSED" as const] } };
+
+// Refund entries are two balanced lines, so the debit total is the refund amount.
+function refundedAsOf(
+  refundEntry: { entryDate: Date; status: string; lines: { debit: unknown }[] } | null,
+  asOf: Date,
+) {
+  if (!refundEntry || refundEntry.entryDate > asOf || refundEntry.status === "DRAFT") {
+    return new Decimal(0);
+  }
+  return refundEntry.lines.reduce((sum, l) => sum.plus(new Decimal(String(l.debit))), new Decimal(0));
+}
+
+// A credit hits the GL in full when issued; applying it posts nothing. Whatever
+// has not been applied or refunded by the as-of date stays in the subledger as a
+// negative row so the aging ties to the control account.
+function unappliedCreditRow(
+  documentNumber: string,
+  contactName: string,
+  creditDate: Date,
+  totalValue: unknown,
+  applications: { amountApplied: unknown }[],
+  refunded: Decimal,
+): AgingRow | null {
+  const total = new Decimal(String(totalValue)).negated();
+  const applied = sumApplied(applications).plus(refunded).negated();
+  const outstanding = total.minus(applied);
+  if (outstanding.greaterThanOrEqualTo(0)) return null;
+
+  return {
+    kind: "CREDIT",
+    documentNumber,
+    contactName,
+    documentDate: creditDate,
+    dueDate: creditDate,
+    total,
+    applied,
+    outstanding,
+    daysPastDue: 0,
+    bucket: "CURRENT",
+  };
 }
 
 async function glBalanceOf(code: string, asOf: Date) {
@@ -150,7 +194,34 @@ export async function arAging(asOf: Date): Promise<AgingReport> {
     },
   });
 
+  const creditNotes = await prisma.creditNote.findMany({
+    where: {
+      status: { in: ["ISSUED", "APPLIED", "REFUNDED"] },
+      creditDate: { lte: asOf },
+      journalEntry: POSTED_ENTRY,
+    },
+    include: {
+      contact: true,
+      applications: {
+        where: { invoice: { status: { in: ["ISSUED", "PAID"] }, invoiceDate: { lte: asOf } } },
+      },
+      refundEntry: { include: { lines: true } },
+    },
+  });
+
   const rows: AgingRow[] = [];
+
+  for (const note of creditNotes) {
+    const row = unappliedCreditRow(
+      note.creditNumber,
+      note.contact.name,
+      note.creditDate,
+      note.total,
+      note.applications,
+      refundedAsOf(note.refundEntry, asOf),
+    );
+    if (row) rows.push(row);
+  }
 
   for (const invoice of invoices) {
     const total = new Decimal(invoice.total.toString());
@@ -160,6 +231,7 @@ export async function arAging(asOf: Date): Promise<AgingReport> {
 
     const days = daysPastDue(invoice.dueDate, asOf);
     rows.push({
+      kind: "DOCUMENT",
       documentNumber: invoice.invoiceNumber,
       contactName: invoice.contact.name,
       documentDate: invoice.invoiceDate,
@@ -191,19 +263,55 @@ export async function apAging(asOf: Date): Promise<AgingReport> {
           },
         },
       },
+      supplierCreditApplications: {
+        where: {
+          supplierCredit: {
+            creditDate: { lte: asOf },
+            journalEntry: POSTED_ENTRY,
+          },
+        },
+      },
+    },
+  });
+
+  const supplierCredits = await prisma.supplierCredit.findMany({
+    where: {
+      status: { in: ["APPROVED", "APPLIED", "REFUNDED"] },
+      creditDate: { lte: asOf },
+      journalEntry: POSTED_ENTRY,
+    },
+    include: {
+      contact: true,
+      applications: {
+        where: { bill: { status: { in: ["APPROVED", "PAID"] }, billDate: { lte: asOf } } },
+      },
+      refundEntry: { include: { lines: true } },
     },
   });
 
   const rows: AgingRow[] = [];
 
+  for (const credit of supplierCredits) {
+    const row = unappliedCreditRow(
+      `Supplier credit #${credit.creditNumber} (${credit.supplierCreditNumber})`,
+      credit.contact.name,
+      credit.creditDate,
+      credit.total,
+      credit.applications,
+      refundedAsOf(credit.refundEntry, asOf),
+    );
+    if (row) rows.push(row);
+  }
+
   for (const bill of bills) {
     const total = new Decimal(bill.total.toString());
-    const applied = sumApplied(bill.applications);
+    const applied = sumApplied(bill.applications).plus(sumApplied(bill.supplierCreditApplications));
     const outstanding = total.minus(applied);
     if (outstanding.lessThanOrEqualTo(0)) continue;
 
     const days = daysPastDue(bill.dueDate, asOf);
     rows.push({
+      kind: "DOCUMENT",
       documentNumber: `Bill #${bill.billNumber} (${bill.supplierInvoiceNumber})`,
       contactName: bill.contact.name,
       documentDate: bill.billDate,

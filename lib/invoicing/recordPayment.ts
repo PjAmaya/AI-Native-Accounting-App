@@ -78,7 +78,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
   }
   const invoices = await tx.invoice.findMany({
     where: { invoiceNumber: { in: invoiceNumbers } },
-    include: { applications: true, receivableAccount: true },
+    include: { applications: true, creditApplications: true, receivableAccount: true },
   });
   const invoiceByNumber = new Map(invoices.map((i) => [i.invoiceNumber, i]));
 
@@ -98,7 +98,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     assertNotOverApplied({
       label: invoice.invoiceNumber,
       total: new Decimal(invoice.total.toString()),
-      alreadyApplied: sumApplied(invoice.applications),
+      alreadyApplied: sumApplied(invoice.applications).plus(sumApplied(invoice.creditApplications)),
       requested: new Decimal(application.amount),
     });
 
@@ -117,7 +117,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
   }
   const bills = await tx.bill.findMany({
     where: { billNumber: { in: billNumbers } },
-    include: { applications: true },
+    include: { applications: true, supplierCreditApplications: true },
   });
   const billByNumber = new Map(bills.map((b) => [b.billNumber, b]));
 
@@ -137,7 +137,7 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     assertNotOverApplied({
       label: `bill #${bill.billNumber}`,
       total: new Decimal(bill.total.toString()),
-      alreadyApplied: sumApplied(bill.applications),
+      alreadyApplied: sumApplied(bill.applications).plus(sumApplied(bill.supplierCreditApplications)),
       requested: new Decimal(application.amount),
     });
 

@@ -47,7 +47,7 @@ export default async function DashboardPage() {
     {
       label: "Payable",
       value: money(ap.glBalance),
-      note: `${ap.rows.length} open`,
+      note: `${ap.rows.filter((r) => r.kind === "DOCUMENT").length} open`,
       icon: Receipt,
       tint: TINTS.violet,
     },

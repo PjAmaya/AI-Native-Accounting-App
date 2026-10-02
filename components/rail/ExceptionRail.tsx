@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { AlertTriangle, CircleAlert, Info, Check } from "lucide-react";
 import { currentExceptions, type Severity } from "@/lib/reporting/exceptions";
@@ -10,11 +11,47 @@ const STYLES: Record<Severity, { icon: typeof Info; dot: string; label: string }
   INFO: { icon: Info, dot: "bg-faint", label: "For information" },
 };
 
-export async function ExceptionRail() {
+// The rail shell and Ask panel render immediately; only the exception list waits
+// on the aging and P&L queries, so it never blocks the page it sits beside.
+export function ExceptionRail() {
+  return (
+    <aside className="hidden w-80 shrink-0 border-l border-rule bg-surface xl:flex xl:flex-col">
+      <Suspense fallback={<ExceptionListSkeleton />}>
+        <ExceptionList />
+      </Suspense>
+
+      <AskPanel />
+    </aside>
+  );
+}
+
+function ExceptionListSkeleton() {
+  return (
+    <div className="flex min-h-0 flex-1 flex-col" aria-busy="true">
+      <div className="border-b border-rule px-5 py-4">
+        <p className="eyebrow">Needs attention</p>
+        <p className="mt-1 text-[13px] text-muted">Checking…</p>
+      </div>
+      <ul className="flex-1 divide-y divide-rule">
+        {[0, 1, 2].map((i) => (
+          <li key={i} className="flex gap-3 px-5 py-3.5">
+            <span className="mt-0.5 size-[15px] shrink-0 animate-pulse rounded-full bg-wash" />
+            <div className="flex-1 space-y-1.5">
+              <div className="h-3 w-3/4 animate-pulse rounded bg-wash" />
+              <div className="h-2.5 w-1/2 animate-pulse rounded bg-wash" />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+async function ExceptionList() {
   const exceptions = await currentExceptions(new Date());
 
   return (
-    <aside className="hidden w-80 shrink-0 border-l border-rule bg-surface xl:flex xl:flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <div className="border-b border-rule px-5 py-4">
         <p className="eyebrow">Needs attention</p>
         <p className="mt-1 text-[13px] text-muted">
@@ -77,8 +114,6 @@ export async function ExceptionRail() {
           </ul>
         )}
       </div>
-
-      <AskPanel />
-    </aside>
+    </div>
   );
 }
