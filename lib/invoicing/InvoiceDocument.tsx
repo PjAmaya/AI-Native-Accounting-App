@@ -103,7 +103,9 @@ body {
 .payment-box { background: #f1f5f9; border-left: 4px solid #1e3a8a; padding: 12px 15px; border-radius: 0 6px 6px 0; font-size: 8.5pt; }
 .payment-title { font-weight: 700; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-size: 9pt; }
 .payment-text { color: #334155; line-height: 1.5; white-space: pre-line; }
-.notes-block { margin-top: 12px; font-size: 8.5pt; color: #475569; white-space: pre-line; }
+.notes-block { background: #fefce8; border-left: 4px solid #ca8a04; padding: 12px 15px; border-radius: 0 6px 6px 0; font-size: 8.5pt; margin-top: 12px; }
+.notes-title { font-weight: 700; color: #ca8a04; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; font-size: 9pt; }
+.notes-text { color: #334155; line-height: 1.5; white-space: pre-line; }
 .footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 8pt; color: #64748b; }
 `;
 
@@ -302,7 +304,12 @@ export function InvoiceDocument({ data }: { data: InvoiceDocumentData }) {
                       <div className="payment-text">{org.paymentInstructions}</div>
                     </div>
                   ) : null}
-                  {invoice.notes ? <div className="notes-block">{invoice.notes}</div> : null}
+                  {invoice.notes ? (
+                    <div className="notes-block">
+                      <div className="notes-title">Notes</div>
+                      <div className="notes-text">{invoice.notes}</div>
+                    </div>
+                  ) : null}
                 </td>
                 <td className="totals-cell">
                   <table className="totals-table">

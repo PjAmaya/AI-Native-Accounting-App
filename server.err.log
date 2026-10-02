@@ -1123,3 +1123,29 @@ Unknown argument `label`. Available options are marked with ?.
   34 | ...er-t border-rule" : undefined}>
 (node:61995) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:90369) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+⨯ Error: That exact file is already attached as "2026-10-02_No client_Bill supporting document.pdf".
+    at storeAttachment (lib/attachments/store.ts:62:11)
+    at async uploadBillAttachment (app/(app)/bills/actions.ts:233:22)
+  60 |   });
+  61 |   if (existing) {
+> 62 |     throw new Error(`That exact file is already attached as "${existing.fileName}".`);
+     |           ^
+  63 |   }
+  64 |
+  65 |   const fileName = buildFileName({ {
+  digest: '4058942183'
+}
+[browser] Uncaught Error: That exact file is already attached as "2026-10-02_No client_Bill supporting document.pdf".
+    at storeAttachment (lib/attachments/store.ts:62:11)
+    at  uploadBillAttachment (app/(app)/bills/actions.ts:233:22)
+    at form (<anonymous>)
+    at BillPage (app/(app)/bills/[id]/page.tsx:323:9)
+  60 |   });
+  61 |   if (existing) {
+> 62 |     throw new Error(`That exact file is already attached as "${existing.fileName}".`);
+     |           ^
+  63 |   }
+  64 |
+  65 |   const fileName = buildFileName({
