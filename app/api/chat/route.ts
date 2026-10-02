@@ -25,6 +25,7 @@ export async function POST(request: Request) {
     if (file instanceof File && file.size > 0 && file.type === "application/pdf") {
       const { extractBillFromPdf } = await import("@/lib/ai/extractBill");
       const bytes = Buffer.from(await file.arrayBuffer());
+      (globalThis as any).__chatPdfBytes = bytes;
       try {
         const extracted = await extractBillFromPdf(bytes);
         pdfContext = "\nThe user uploaded a PDF. Extracted data:\n" +
@@ -41,7 +42,8 @@ export async function POST(request: Request) {
     try {
       body = await request.json();
     } catch {
-      return NextResponse.json({ error: "Expected JSON or FormData." }, { status: 400 });
+      delete (globalThis as any).__chatPdfBytes;
+    return NextResponse.json({ error: "Expected JSON or FormData." }, { status: 400 });
     }
     question = typeof body.question === "string" ? body.question.trim() : "";
     if (Array.isArray(body.history)) history.push(...(body.history as ChatMessage[]));

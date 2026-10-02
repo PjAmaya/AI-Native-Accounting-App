@@ -1907,3 +1907,8 @@ Attachment read: {
   · serverActions
 
  GET /bills 200 in 805ms (next.js: 165ms, application-code: 640ms)
+ GET /bills 200 in 129ms (next.js: 33ms, application-code: 96ms)
+ GET /bills 200 in 131ms (next.js: 953µs, application-code: 130ms)
+ GET /bills 200 in 177ms (next.js: 19ms, application-code: 157ms)
+ GET /bills 200 in 125ms (next.js: 2ms, application-code: 123ms)
+ GET /bills 200 in 127ms (next.js: 35ms, application-code: 92ms)

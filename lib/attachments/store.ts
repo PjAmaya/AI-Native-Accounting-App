@@ -59,7 +59,7 @@ export async function storeAttachment(input: StoreAttachmentInput) {
     },
   });
   if (existing) {
-    throw new Error(`That exact file is already attached as "${existing.fileName}".`);
+    return existing;
   }
 
   const fileName = buildFileName({

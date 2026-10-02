@@ -2,6 +2,8 @@ import Decimal from "decimal.js";
 import { prisma } from "../db";
 import { createInvoice, type InvoiceDraftLine } from "../invoicing/createInvoice";
 import { createBill, type BillDraftLine } from "../invoicing/createBill";
+import { storeAttachment } from "../attachments/store";
+import { syncAttachmentToDrive } from "../google/driveSync";
 import { buildDedupeKey } from "../dedupe";
 import type { ToolDefinition } from "./tools";
 
@@ -261,6 +263,24 @@ export const WRITE_TOOLS: ToolDefinition[] = [
         notes: str(args, "notes") ?? undefined,
         lines,
       });
+
+      const pdfBytes = (globalThis as any).__chatPdfBytes as Buffer | undefined;
+      if (pdfBytes) {
+        try {
+          const att = await storeAttachment({
+            file: new File([new Uint8Array(pdfBytes)], "vendor-invoice.pdf", { type: "application/pdf" }),
+            kind: "SUPPORTING",
+            description: "Source PDF uploaded via chat",
+            documentDate: new Date(),
+            contactName: contact.name,
+            documentLabel: `Bill ${result.bill.billNumber} source`,
+            billId: result.bill.id,
+          });
+          await syncAttachmentToDrive(att.id).catch(() => {});
+        } catch {
+          // Attachment is non-blocking
+        }
+      }
 
       return {
         created: "bill draft",
