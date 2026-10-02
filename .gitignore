@@ -49,3 +49,4 @@ storage/
 # local server logs
 server.log
 server.err.log
+.nosync
