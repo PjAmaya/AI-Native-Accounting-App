@@ -100,6 +100,8 @@ model JournalEntry {
   refundForSupplierCredit SupplierCredit? @relation("SupplierCreditRefund")
   creditNote   CreditNote?
   refundForCredit CreditNote? @relation("CreditNoteRefund")
+  paymentApplication PaymentApplication? @relation("PaymentApplicationEntry")
+  billApplication BillApplication? @relation("BillApplicationEntry")
 
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -473,6 +475,11 @@ model PaymentApplication {
   invoiceId     String
   invoice       Invoice  @relation(fields: [invoiceId], references: [id])
 
+  // Set when the application was made after the payment posted: the entry that
+  // moved the amount out of 2060 Customer Overpayments / 1300 Prepaid Expenses.
+  journalEntryId String?      @unique
+  journalEntry   JournalEntry? @relation("PaymentApplicationEntry", fields: [journalEntryId], references: [id])
+
   amountApplied Decimal  @db.Decimal(12, 2)
   appliedAt     DateTime @default(now())
 
@@ -572,6 +579,11 @@ model BillApplication {
 
   billId        String
   bill          Bill     @relation(fields: [billId], references: [id])
+
+  // Set when the application was made after the payment posted: the entry that
+  // moved the amount out of 2060 Customer Overpayments / 1300 Prepaid Expenses.
+  journalEntryId String?      @unique
+  journalEntry   JournalEntry? @relation("BillApplicationEntry", fields: [journalEntryId], references: [id])
 
   amountApplied Decimal  @db.Decimal(12, 2)
   appliedAt     DateTime @default(now())

@@ -38,6 +38,7 @@ export type BillApplicationMinAggregateOutputType = {
   id: string | null
   paymentId: string | null
   billId: string | null
+  journalEntryId: string | null
   amountApplied: runtime.Decimal | null
   appliedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type BillApplicationMaxAggregateOutputType = {
   id: string | null
   paymentId: string | null
   billId: string | null
+  journalEntryId: string | null
   amountApplied: runtime.Decimal | null
   appliedAt: Date | null
 }
@@ -54,6 +56,7 @@ export type BillApplicationCountAggregateOutputType = {
   id: number
   paymentId: number
   billId: number
+  journalEntryId: number
   amountApplied: number
   appliedAt: number
   _all: number
@@ -72,6 +75,7 @@ export type BillApplicationMinAggregateInputType = {
   id?: true
   paymentId?: true
   billId?: true
+  journalEntryId?: true
   amountApplied?: true
   appliedAt?: true
 }
@@ -80,6 +84,7 @@ export type BillApplicationMaxAggregateInputType = {
   id?: true
   paymentId?: true
   billId?: true
+  journalEntryId?: true
   amountApplied?: true
   appliedAt?: true
 }
@@ -88,6 +93,7 @@ export type BillApplicationCountAggregateInputType = {
   id?: true
   paymentId?: true
   billId?: true
+  journalEntryId?: true
   amountApplied?: true
   appliedAt?: true
   _all?: true
@@ -183,6 +189,7 @@ export type BillApplicationGroupByOutputType = {
   id: string
   paymentId: string
   billId: string
+  journalEntryId: string | null
   amountApplied: runtime.Decimal
   appliedAt: Date
   _count: BillApplicationCountAggregateOutputType | null
@@ -214,24 +221,29 @@ export type BillApplicationWhereInput = {
   id?: Prisma.StringFilter<"BillApplication"> | string
   paymentId?: Prisma.StringFilter<"BillApplication"> | string
   billId?: Prisma.StringFilter<"BillApplication"> | string
+  journalEntryId?: Prisma.StringNullableFilter<"BillApplication"> | string | null
   amountApplied?: Prisma.DecimalFilter<"BillApplication"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFilter<"BillApplication"> | Date | string
   payment?: Prisma.XOR<Prisma.PaymentScalarRelationFilter, Prisma.PaymentWhereInput>
   bill?: Prisma.XOR<Prisma.BillScalarRelationFilter, Prisma.BillWhereInput>
+  journalEntry?: Prisma.XOR<Prisma.JournalEntryNullableScalarRelationFilter, Prisma.JournalEntryWhereInput> | null
 }
 
 export type BillApplicationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   billId?: Prisma.SortOrder
+  journalEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   amountApplied?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   payment?: Prisma.PaymentOrderByWithRelationInput
   bill?: Prisma.BillOrderByWithRelationInput
+  journalEntry?: Prisma.JournalEntryOrderByWithRelationInput
 }
 
 export type BillApplicationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  journalEntryId?: string
   paymentId_billId?: Prisma.BillApplicationPaymentIdBillIdCompoundUniqueInput
   AND?: Prisma.BillApplicationWhereInput | Prisma.BillApplicationWhereInput[]
   OR?: Prisma.BillApplicationWhereInput[]
@@ -242,12 +254,14 @@ export type BillApplicationWhereUniqueInput = Prisma.AtLeast<{
   appliedAt?: Prisma.DateTimeFilter<"BillApplication"> | Date | string
   payment?: Prisma.XOR<Prisma.PaymentScalarRelationFilter, Prisma.PaymentWhereInput>
   bill?: Prisma.XOR<Prisma.BillScalarRelationFilter, Prisma.BillWhereInput>
-}, "id" | "paymentId_billId">
+  journalEntry?: Prisma.XOR<Prisma.JournalEntryNullableScalarRelationFilter, Prisma.JournalEntryWhereInput> | null
+}, "id" | "journalEntryId" | "paymentId_billId">
 
 export type BillApplicationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   billId?: Prisma.SortOrder
+  journalEntryId?: Prisma.SortOrderInput | Prisma.SortOrder
   amountApplied?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   _count?: Prisma.BillApplicationCountOrderByAggregateInput
@@ -264,6 +278,7 @@ export type BillApplicationScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"BillApplication"> | string
   paymentId?: Prisma.StringWithAggregatesFilter<"BillApplication"> | string
   billId?: Prisma.StringWithAggregatesFilter<"BillApplication"> | string
+  journalEntryId?: Prisma.StringNullableWithAggregatesFilter<"BillApplication"> | string | null
   amountApplied?: Prisma.DecimalWithAggregatesFilter<"BillApplication"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeWithAggregatesFilter<"BillApplication"> | Date | string
 }
@@ -274,12 +289,14 @@ export type BillApplicationCreateInput = {
   appliedAt?: Date | string
   payment: Prisma.PaymentCreateNestedOneWithoutBillApplicationsInput
   bill: Prisma.BillCreateNestedOneWithoutApplicationsInput
+  journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillApplicationInput
 }
 
 export type BillApplicationUncheckedCreateInput = {
   id?: string
   paymentId: string
   billId: string
+  journalEntryId?: string | null
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
 }
@@ -290,12 +307,14 @@ export type BillApplicationUpdateInput = {
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payment?: Prisma.PaymentUpdateOneRequiredWithoutBillApplicationsNestedInput
   bill?: Prisma.BillUpdateOneRequiredWithoutApplicationsNestedInput
+  journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillApplicationNestedInput
 }
 
 export type BillApplicationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   paymentId?: Prisma.StringFieldUpdateOperationsInput | string
   billId?: Prisma.StringFieldUpdateOperationsInput | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -304,6 +323,7 @@ export type BillApplicationCreateManyInput = {
   id?: string
   paymentId: string
   billId: string
+  journalEntryId?: string | null
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
 }
@@ -318,8 +338,14 @@ export type BillApplicationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   paymentId?: Prisma.StringFieldUpdateOperationsInput | string
   billId?: Prisma.StringFieldUpdateOperationsInput | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BillApplicationNullableScalarRelationFilter = {
+  is?: Prisma.BillApplicationWhereInput | null
+  isNot?: Prisma.BillApplicationWhereInput | null
 }
 
 export type BillApplicationListRelationFilter = {
@@ -341,6 +367,7 @@ export type BillApplicationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   billId?: Prisma.SortOrder
+  journalEntryId?: Prisma.SortOrder
   amountApplied?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
 }
@@ -353,6 +380,7 @@ export type BillApplicationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   billId?: Prisma.SortOrder
+  journalEntryId?: Prisma.SortOrder
   amountApplied?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
 }
@@ -361,12 +389,45 @@ export type BillApplicationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   billId?: Prisma.SortOrder
+  journalEntryId?: Prisma.SortOrder
   amountApplied?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
 }
 
 export type BillApplicationSumOrderByAggregateInput = {
   amountApplied?: Prisma.SortOrder
+}
+
+export type BillApplicationCreateNestedOneWithoutJournalEntryInput = {
+  create?: Prisma.XOR<Prisma.BillApplicationCreateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedCreateWithoutJournalEntryInput>
+  connectOrCreate?: Prisma.BillApplicationCreateOrConnectWithoutJournalEntryInput
+  connect?: Prisma.BillApplicationWhereUniqueInput
+}
+
+export type BillApplicationUncheckedCreateNestedOneWithoutJournalEntryInput = {
+  create?: Prisma.XOR<Prisma.BillApplicationCreateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedCreateWithoutJournalEntryInput>
+  connectOrCreate?: Prisma.BillApplicationCreateOrConnectWithoutJournalEntryInput
+  connect?: Prisma.BillApplicationWhereUniqueInput
+}
+
+export type BillApplicationUpdateOneWithoutJournalEntryNestedInput = {
+  create?: Prisma.XOR<Prisma.BillApplicationCreateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedCreateWithoutJournalEntryInput>
+  connectOrCreate?: Prisma.BillApplicationCreateOrConnectWithoutJournalEntryInput
+  upsert?: Prisma.BillApplicationUpsertWithoutJournalEntryInput
+  disconnect?: Prisma.BillApplicationWhereInput | boolean
+  delete?: Prisma.BillApplicationWhereInput | boolean
+  connect?: Prisma.BillApplicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BillApplicationUpdateToOneWithWhereWithoutJournalEntryInput, Prisma.BillApplicationUpdateWithoutJournalEntryInput>, Prisma.BillApplicationUncheckedUpdateWithoutJournalEntryInput>
+}
+
+export type BillApplicationUncheckedUpdateOneWithoutJournalEntryNestedInput = {
+  create?: Prisma.XOR<Prisma.BillApplicationCreateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedCreateWithoutJournalEntryInput>
+  connectOrCreate?: Prisma.BillApplicationCreateOrConnectWithoutJournalEntryInput
+  upsert?: Prisma.BillApplicationUpsertWithoutJournalEntryInput
+  disconnect?: Prisma.BillApplicationWhereInput | boolean
+  delete?: Prisma.BillApplicationWhereInput | boolean
+  connect?: Prisma.BillApplicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BillApplicationUpdateToOneWithWhereWithoutJournalEntryInput, Prisma.BillApplicationUpdateWithoutJournalEntryInput>, Prisma.BillApplicationUncheckedUpdateWithoutJournalEntryInput>
 }
 
 export type BillApplicationCreateNestedManyWithoutPaymentInput = {
@@ -453,16 +514,66 @@ export type BillApplicationUncheckedUpdateManyWithoutBillNestedInput = {
   deleteMany?: Prisma.BillApplicationScalarWhereInput | Prisma.BillApplicationScalarWhereInput[]
 }
 
+export type BillApplicationCreateWithoutJournalEntryInput = {
+  id?: string
+  amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedAt?: Date | string
+  payment: Prisma.PaymentCreateNestedOneWithoutBillApplicationsInput
+  bill: Prisma.BillCreateNestedOneWithoutApplicationsInput
+}
+
+export type BillApplicationUncheckedCreateWithoutJournalEntryInput = {
+  id?: string
+  paymentId: string
+  billId: string
+  amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedAt?: Date | string
+}
+
+export type BillApplicationCreateOrConnectWithoutJournalEntryInput = {
+  where: Prisma.BillApplicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.BillApplicationCreateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedCreateWithoutJournalEntryInput>
+}
+
+export type BillApplicationUpsertWithoutJournalEntryInput = {
+  update: Prisma.XOR<Prisma.BillApplicationUpdateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedUpdateWithoutJournalEntryInput>
+  create: Prisma.XOR<Prisma.BillApplicationCreateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedCreateWithoutJournalEntryInput>
+  where?: Prisma.BillApplicationWhereInput
+}
+
+export type BillApplicationUpdateToOneWithWhereWithoutJournalEntryInput = {
+  where?: Prisma.BillApplicationWhereInput
+  data: Prisma.XOR<Prisma.BillApplicationUpdateWithoutJournalEntryInput, Prisma.BillApplicationUncheckedUpdateWithoutJournalEntryInput>
+}
+
+export type BillApplicationUpdateWithoutJournalEntryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  payment?: Prisma.PaymentUpdateOneRequiredWithoutBillApplicationsNestedInput
+  bill?: Prisma.BillUpdateOneRequiredWithoutApplicationsNestedInput
+}
+
+export type BillApplicationUncheckedUpdateWithoutJournalEntryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentId?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.StringFieldUpdateOperationsInput | string
+  amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BillApplicationCreateWithoutPaymentInput = {
   id?: string
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
   bill: Prisma.BillCreateNestedOneWithoutApplicationsInput
+  journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillApplicationInput
 }
 
 export type BillApplicationUncheckedCreateWithoutPaymentInput = {
   id?: string
   billId: string
+  journalEntryId?: string | null
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
 }
@@ -500,6 +611,7 @@ export type BillApplicationScalarWhereInput = {
   id?: Prisma.StringFilter<"BillApplication"> | string
   paymentId?: Prisma.StringFilter<"BillApplication"> | string
   billId?: Prisma.StringFilter<"BillApplication"> | string
+  journalEntryId?: Prisma.StringNullableFilter<"BillApplication"> | string | null
   amountApplied?: Prisma.DecimalFilter<"BillApplication"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFilter<"BillApplication"> | Date | string
 }
@@ -509,11 +621,13 @@ export type BillApplicationCreateWithoutBillInput = {
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
   payment: Prisma.PaymentCreateNestedOneWithoutBillApplicationsInput
+  journalEntry?: Prisma.JournalEntryCreateNestedOneWithoutBillApplicationInput
 }
 
 export type BillApplicationUncheckedCreateWithoutBillInput = {
   id?: string
   paymentId: string
+  journalEntryId?: string | null
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
 }
@@ -547,6 +661,7 @@ export type BillApplicationUpdateManyWithWhereWithoutBillInput = {
 export type BillApplicationCreateManyPaymentInput = {
   id?: string
   billId: string
+  journalEntryId?: string | null
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
 }
@@ -556,11 +671,13 @@ export type BillApplicationUpdateWithoutPaymentInput = {
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bill?: Prisma.BillUpdateOneRequiredWithoutApplicationsNestedInput
+  journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillApplicationNestedInput
 }
 
 export type BillApplicationUncheckedUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   billId?: Prisma.StringFieldUpdateOperationsInput | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -568,6 +685,7 @@ export type BillApplicationUncheckedUpdateWithoutPaymentInput = {
 export type BillApplicationUncheckedUpdateManyWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   billId?: Prisma.StringFieldUpdateOperationsInput | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -575,6 +693,7 @@ export type BillApplicationUncheckedUpdateManyWithoutPaymentInput = {
 export type BillApplicationCreateManyBillInput = {
   id?: string
   paymentId: string
+  journalEntryId?: string | null
   amountApplied: runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Date | string
 }
@@ -584,11 +703,13 @@ export type BillApplicationUpdateWithoutBillInput = {
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payment?: Prisma.PaymentUpdateOneRequiredWithoutBillApplicationsNestedInput
+  journalEntry?: Prisma.JournalEntryUpdateOneWithoutBillApplicationNestedInput
 }
 
 export type BillApplicationUncheckedUpdateWithoutBillInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   paymentId?: Prisma.StringFieldUpdateOperationsInput | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -596,6 +717,7 @@ export type BillApplicationUncheckedUpdateWithoutBillInput = {
 export type BillApplicationUncheckedUpdateManyWithoutBillInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   paymentId?: Prisma.StringFieldUpdateOperationsInput | string
+  journalEntryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amountApplied?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -606,52 +728,62 @@ export type BillApplicationSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   paymentId?: boolean
   billId?: boolean
+  journalEntryId?: boolean
   amountApplied?: boolean
   appliedAt?: boolean
   payment?: boolean | Prisma.PaymentDefaultArgs<ExtArgs>
   bill?: boolean | Prisma.BillDefaultArgs<ExtArgs>
+  journalEntry?: boolean | Prisma.BillApplication$journalEntryArgs<ExtArgs>
 }, ExtArgs["result"]["billApplication"]>
 
 export type BillApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   paymentId?: boolean
   billId?: boolean
+  journalEntryId?: boolean
   amountApplied?: boolean
   appliedAt?: boolean
   payment?: boolean | Prisma.PaymentDefaultArgs<ExtArgs>
   bill?: boolean | Prisma.BillDefaultArgs<ExtArgs>
+  journalEntry?: boolean | Prisma.BillApplication$journalEntryArgs<ExtArgs>
 }, ExtArgs["result"]["billApplication"]>
 
 export type BillApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   paymentId?: boolean
   billId?: boolean
+  journalEntryId?: boolean
   amountApplied?: boolean
   appliedAt?: boolean
   payment?: boolean | Prisma.PaymentDefaultArgs<ExtArgs>
   bill?: boolean | Prisma.BillDefaultArgs<ExtArgs>
+  journalEntry?: boolean | Prisma.BillApplication$journalEntryArgs<ExtArgs>
 }, ExtArgs["result"]["billApplication"]>
 
 export type BillApplicationSelectScalar = {
   id?: boolean
   paymentId?: boolean
   billId?: boolean
+  journalEntryId?: boolean
   amountApplied?: boolean
   appliedAt?: boolean
 }
 
-export type BillApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "paymentId" | "billId" | "amountApplied" | "appliedAt", ExtArgs["result"]["billApplication"]>
+export type BillApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "paymentId" | "billId" | "journalEntryId" | "amountApplied" | "appliedAt", ExtArgs["result"]["billApplication"]>
 export type BillApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payment?: boolean | Prisma.PaymentDefaultArgs<ExtArgs>
   bill?: boolean | Prisma.BillDefaultArgs<ExtArgs>
+  journalEntry?: boolean | Prisma.BillApplication$journalEntryArgs<ExtArgs>
 }
 export type BillApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payment?: boolean | Prisma.PaymentDefaultArgs<ExtArgs>
   bill?: boolean | Prisma.BillDefaultArgs<ExtArgs>
+  journalEntry?: boolean | Prisma.BillApplication$journalEntryArgs<ExtArgs>
 }
 export type BillApplicationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   payment?: boolean | Prisma.PaymentDefaultArgs<ExtArgs>
   bill?: boolean | Prisma.BillDefaultArgs<ExtArgs>
+  journalEntry?: boolean | Prisma.BillApplication$journalEntryArgs<ExtArgs>
 }
 
 export type $BillApplicationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -659,11 +791,13 @@ export type $BillApplicationPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     payment: Prisma.$PaymentPayload<ExtArgs>
     bill: Prisma.$BillPayload<ExtArgs>
+    journalEntry: Prisma.$JournalEntryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     paymentId: string
     billId: string
+    journalEntryId: string | null
     amountApplied: runtime.Decimal
     appliedAt: Date
   }, ExtArgs["result"]["billApplication"]>
@@ -1062,6 +1196,7 @@ export interface Prisma__BillApplicationClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   payment<T extends Prisma.PaymentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PaymentDefaultArgs<ExtArgs>>): Prisma.Prisma__PaymentClient<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bill<T extends Prisma.BillDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BillDefaultArgs<ExtArgs>>): Prisma.Prisma__BillClient<runtime.Types.Result.GetResult<Prisma.$BillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  journalEntry<T extends Prisma.BillApplication$journalEntryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BillApplication$journalEntryArgs<ExtArgs>>): Prisma.Prisma__JournalEntryClient<runtime.Types.Result.GetResult<Prisma.$JournalEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1094,6 +1229,7 @@ export interface BillApplicationFieldRefs {
   readonly id: Prisma.FieldRef<"BillApplication", 'String'>
   readonly paymentId: Prisma.FieldRef<"BillApplication", 'String'>
   readonly billId: Prisma.FieldRef<"BillApplication", 'String'>
+  readonly journalEntryId: Prisma.FieldRef<"BillApplication", 'String'>
   readonly amountApplied: Prisma.FieldRef<"BillApplication", 'Decimal'>
   readonly appliedAt: Prisma.FieldRef<"BillApplication", 'DateTime'>
 }
@@ -1494,6 +1630,25 @@ export type BillApplicationDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many BillApplications to delete.
    */
   limit?: number
+}
+
+/**
+ * BillApplication.journalEntry
+ */
+export type BillApplication$journalEntryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JournalEntry
+   */
+  select?: Prisma.JournalEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JournalEntry
+   */
+  omit?: Prisma.JournalEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JournalEntryInclude<ExtArgs> | null
+  where?: Prisma.JournalEntryWhereInput
 }
 
 /**

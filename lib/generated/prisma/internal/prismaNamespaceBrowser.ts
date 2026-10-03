@@ -334,6 +334,7 @@ export const PaymentApplicationScalarFieldEnum = {
   id: 'id',
   paymentId: 'paymentId',
   invoiceId: 'invoiceId',
+  journalEntryId: 'journalEntryId',
   amountApplied: 'amountApplied',
   appliedAt: 'appliedAt'
 } as const
@@ -391,6 +392,7 @@ export const BillApplicationScalarFieldEnum = {
   id: 'id',
   paymentId: 'paymentId',
   billId: 'billId',
+  journalEntryId: 'journalEntryId',
   amountApplied: 'amountApplied',
   appliedAt: 'appliedAt'
 } as const

@@ -63,6 +63,17 @@ function sumApplied(applications: { amountApplied: unknown }[]) {
 
 const POSTED_ENTRY = { status: { in: ["POSTED" as const, "REVERSED" as const] } };
 
+// An application made when the payment was recorded counts from the payment date.
+// One made later counts from its own entry, which is when it left 2060 / 1300.
+function paymentApplicationsAsOf(asOf: Date) {
+  return {
+    OR: [
+      { journalEntryId: null, payment: { paymentDate: { lte: asOf }, journalEntry: POSTED_ENTRY } },
+      { journalEntry: { entryDate: { lte: asOf }, ...POSTED_ENTRY } },
+    ],
+  };
+}
+
 // Refund entries are two balanced lines, so the debit total is the refund amount.
 function refundedAsOf(
   refundEntry: { entryDate: Date; status: string; lines: { debit: unknown }[] } | null,
@@ -175,14 +186,7 @@ export async function arAging(asOf: Date): Promise<AgingReport> {
     },
     include: {
       contact: true,
-      applications: {
-        where: {
-          payment: {
-            paymentDate: { lte: asOf },
-            journalEntry: { status: { in: ["POSTED", "REVERSED"] } },
-          },
-        },
-      },
+      applications: { where: paymentApplicationsAsOf(asOf) },
       creditApplications: {
         where: {
           creditNote: {
@@ -255,14 +259,7 @@ export async function apAging(asOf: Date): Promise<AgingReport> {
     },
     include: {
       contact: true,
-      applications: {
-        where: {
-          payment: {
-            paymentDate: { lte: asOf },
-            journalEntry: { status: { in: ["POSTED", "REVERSED"] } },
-          },
-        },
-      },
+      applications: { where: paymentApplicationsAsOf(asOf) },
       supplierCreditApplications: {
         where: {
           supplierCredit: {

@@ -106,7 +106,10 @@ export function PaymentForm({
   const unapplied = paymentAmount.minus(totalApplied);
   const over = totalApplied.greaterThan(paymentAmount);
 
+  // Re-clicking the selected tile must not clear the client and applied amounts:
+  // that silently turned a payment into an unapplied one (payment #9).
   function switchDirection(next: "RECEIVED" | "SENT") {
+    if (next === direction) return;
     setDirection(next);
     setContactId("");
     setApplied({});
@@ -176,8 +179,18 @@ export function PaymentForm({
               name="contactId"
               value={contactId}
               onChange={(e) => {
-                setContactId(e.target.value);
-                setApplied({});
+                const next = e.target.value;
+                setContactId(next);
+                // One open document for exactly the payment amount: apply it up front.
+                const open = options.openDocs.filter(
+                  (d) => d.kind === wantedKind && d.contactId === next,
+                );
+                const only = open.length === 1 ? open[0] : undefined;
+                setApplied(
+                  only && paymentAmount.greaterThan(0) && dec(only.outstanding).equals(paymentAmount)
+                    ? { [only.key]: dec(only.outstanding).toFixed(2) }
+                    : {},
+                );
               }}
               className={`${inputClass} mt-1.5`}
               required
@@ -303,19 +316,29 @@ export function PaymentForm({
                   <td className="figure px-3 py-2.5">{dec(doc.total).toFixed(2)}</td>
                   <td className="figure px-3 py-2.5">{dec(doc.outstanding).toFixed(2)}</td>
                   <td className="px-5 py-2 text-right">
-                    <input
-                      name={`${doc.kind === "INVOICE" ? "applyInvoice" : "applyBill"}:${doc.key}`}
-                      value={applied[doc.key] ?? ""}
-                      onChange={(e) =>
-                        setApplied((prev) => ({ ...prev, [doc.key]: e.target.value }))
-                      }
-                      onFocus={(e) => {
-                        if (!applied[doc.key]) e.target.value = "";
-                      }}
-                      placeholder={dec(doc.outstanding).toFixed(2)}
-                      inputMode="decimal"
-                      className={numInput}
-                    />
+                    <span className="inline-flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setApplied((prev) => ({ ...prev, [doc.key]: dec(doc.outstanding).toFixed(2) }))
+                        }
+                        className="rounded-md px-2 py-1 text-[12px] font-medium text-brand hover:bg-brand-soft"
+                        aria-label={`Apply the full ${dec(doc.outstanding).toFixed(2)} to ${doc.label}`}
+                      >
+                        Full
+                      </button>
+                      {/* No placeholder: a greyed-out amount here looked applied when it was not. */}
+                      <input
+                        name={`${doc.kind === "INVOICE" ? "applyInvoice" : "applyBill"}:${doc.key}`}
+                        value={applied[doc.key] ?? ""}
+                        onChange={(e) =>
+                          setApplied((prev) => ({ ...prev, [doc.key]: e.target.value }))
+                        }
+                        inputMode="decimal"
+                        aria-label={`Amount to apply to ${doc.label}`}
+                        className={numInput}
+                      />
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -350,7 +373,21 @@ export function PaymentForm({
                 ${unapplied.abs().toFixed(2)}
               </span>
             </div>
-            {unapplied.greaterThan(0) ? (
+            {unapplied.greaterThan(0) && docs.length > 0 ? (
+              <label className="mt-2 flex cursor-pointer items-start gap-2 rounded-md bg-tint-amber/40 px-2.5 py-2 text-[12px]">
+                <input
+                  type="checkbox"
+                  name="confirmUnapplied"
+                  required
+                  className="mt-0.5 h-3.5 w-3.5 accent-[#1b3be8]"
+                />
+                <span>
+                  Leave ${unapplied.toFixed(2)} unapplied in{" "}
+                  {direction === "RECEIVED" ? "2060 Customer Overpayments" : "1300 Prepaid Expenses"}{" "}
+                  even though {docs.length === 1 ? "a document is" : "documents are"} open.
+                </span>
+              </label>
+            ) : unapplied.greaterThan(0) ? (
               <p className="mt-1 text-[11px] text-faint">
                 Goes to {direction === "RECEIVED" ? "2060 Customer Overpayments" : "1300 Prepaid Expenses"}.
               </p>

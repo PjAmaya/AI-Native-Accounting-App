@@ -4,6 +4,7 @@ import { Plus, Wallet, ArrowDownLeft, ArrowUpRight } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { money, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
+import { unappliedOf } from "@/lib/invoicing/applyPayment";
 
 export const dynamic = "force-dynamic";
 
@@ -130,6 +131,7 @@ export default async function PaymentsPage({
                 const inbound = p.direction === "RECEIVED";
                 const Icon = inbound ? ArrowDownLeft : ArrowUpRight;
                 const editable = !p.journalEntry || p.journalEntry.status === "DRAFT";
+                const unapplied = unappliedOf(p);
 
                 const identity = (
                   <span className="flex items-center gap-1.5 font-mono text-[12px] font-medium">
@@ -157,11 +159,22 @@ export default async function PaymentsPage({
                     </td>
                     <td className="px-3 py-3 text-[13px]">{p.contact.name}</td>
                     <td className="px-3 py-3 font-mono text-[12px] text-muted">
-                      {docs.length === 0 ? (
-                        <span className="text-warn">Unapplied</span>
-                      ) : (
-                        docs.join(", ")
-                      )}
+                      {docs.length > 0 ? <span className="block">{docs.join(", ")}</span> : null}
+                      {unapplied.greaterThan(0) ? (
+                        <span className="flex items-center gap-2">
+                          <span className="text-warn">
+                            {docs.length === 0 ? "Unapplied" : `${money(unapplied)} unapplied`}
+                          </span>
+                          {p.journalEntry?.status === "POSTED" ? (
+                            <Link
+                              href={`/payments/${p.id}/apply`}
+                              className="font-sans text-[12px] font-medium text-brand hover:underline"
+                            >
+                              Apply
+                            </Link>
+                          ) : null}
+                        </span>
+                      ) : null}
                     </td>
                     <td className="px-3 py-3 font-mono text-[12px] text-muted">
                       {p.bankAccount.code}
