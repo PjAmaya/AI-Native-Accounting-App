@@ -6,6 +6,7 @@ const TOOLS = [...ALL_TOOLS, ...WRITE_TOOLS];
 const TOOLS_BY_NAME = new Map(TOOLS.map((t) => [t.name, t]));
 const WRITE_TOOL_NAMES = new Set(WRITE_TOOLS.filter((t) => t.name.startsWith("create_")).map((t) => t.name));
 import type { ChatMessage, ChatProvider, ToolCall } from "./provider";
+import { todayIso } from "../format";
 
 const MAX_ROUNDS = 5;
 
@@ -25,7 +26,7 @@ export type ChatAnswer = {
 };
 
 function systemPrompt() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayIso();
 
   return [
     "You are an experienced Canadian accountant advising the owner of Story Craft Studio, a small consulting business in Ontario. He has a strong finance background but no CPA and no external accountant, so be direct and technical rather than simplified.",

@@ -1,7 +1,7 @@
 import { Lock, LockOpen, ShieldCheck, History } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { lockHistory } from "@/lib/ledger/periodLock";
-import { longDate, shortDate } from "@/lib/format";
+import { longDate, shortDate, todayIso } from "@/lib/format";
 import { setSoftLockAction, releaseSoftLockAction, setHardLockAction } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -31,7 +31,7 @@ export default async function PeriodsPage({
 
   const soft = profile.softLockThrough;
   const hard = profile.hardLockThrough;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayIso();
 
   return (
     <div>

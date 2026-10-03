@@ -3,6 +3,7 @@ import Decimal from "decimal.js";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { PaymentForm, type PaymentFormOptions, type OpenDoc } from "@/components/form/PaymentForm";
+import { todayIso } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -93,7 +94,7 @@ export default async function NewPaymentPage({
     vendors: vendors.map((v) => ({ value: v.id, label: v.name })),
     bankAccounts: bankAccounts.map((a) => ({ value: a.code, label: `${a.code} ${a.name}` })),
     openDocs,
-    defaultDate: new Date().toISOString().slice(0, 10),
+    defaultDate: todayIso(),
   };
 
   return (

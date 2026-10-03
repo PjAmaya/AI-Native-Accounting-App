@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { BillForm, type BillFormOptions, type BillValues } from "@/components/form/BillForm";
+import { todayIso } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -45,7 +46,7 @@ export default async function EditBillPage({
     projects: projects.map((p) => ({ value: p.code, label: `${p.code} — ${p.name}` })),
     expenseAccounts: accounts.map((a) => ({ value: a.code, label: `${a.code} ${a.name}` })),
     taxRates: taxRates.map((t) => ({ value: t.code, label: t.name })),
-    defaultDate: new Date().toISOString().slice(0, 10),
+    defaultDate: todayIso(),
   };
 
   const values: BillValues = {

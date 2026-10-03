@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { CreditNoteForm, type CreditNoteFormOptions } from "@/components/form/CreditNoteForm";
+import { todayIso } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -45,7 +46,7 @@ export default async function NewCreditNotePage({
       label: a.type === "EXPENSE" ? `${a.code} ${a.name} (recovery)` : `${a.code} ${a.name}`,
     })),
     taxRates: taxRates.map((t) => ({ value: t.code, label: t.name })),
-    defaultDate: new Date().toISOString().slice(0, 10),
+    defaultDate: todayIso(),
     presetContactId: preset?.contactId,
     presetInvoiceId: preset?.id,
   };

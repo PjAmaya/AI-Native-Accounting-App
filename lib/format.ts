@@ -30,3 +30,18 @@ export function longDate(date: Date) {
     timeZone: "UTC",
   }).format(date);
 }
+
+// Dates are stored as UTC midnight, but "today" is the business's calendar day.
+// Taking the UTC date instead rolled forms over to tomorrow on Toronto evenings.
+const BUSINESS_TIME_ZONE = process.env.BUSINESS_TIME_ZONE ?? "America/Toronto";
+
+export function todayIso(now: Date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: BUSINESS_TIME_ZONE,
+  }).formatToParts(now);
+  const get = (type: string) => parts.find((p) => p.type === type)!.value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
+}

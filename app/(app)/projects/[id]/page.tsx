@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Pencil, Trash2, Upload, FileText, X } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { projectPerformance } from "@/lib/reporting/projectPerformance";
-import { money, shortDate } from "@/lib/format";
+import { money, shortDate, todayIso } from "@/lib/format";
 import { uploadProjectAttachment, removeProjectAttachment } from "../actions";
 import { KIND_LABEL, PROJECT_KINDS } from "@/lib/attachments/labels";
 import { deleteProject } from "../actions";
@@ -306,7 +306,7 @@ export default async function ProjectPage({
                 id="att-date"
                 name="documentDate"
                 type="date"
-                defaultValue={new Date().toISOString().slice(0, 10)}
+                defaultValue={todayIso()}
                 className="mt-1 block w-full rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
               />
             </div>

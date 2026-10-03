@@ -7,6 +7,7 @@ import { syncAttachmentToDrive } from "../google/driveSync";
 import { buildDedupeKey } from "../dedupe";
 import type { ToolDefinition } from "./tools";
 import { chatContext } from "./chatContext";
+import { todayIso } from "../format";
 
 function str(args: Record<string, unknown>, key: string) {
   const value = args[key];
@@ -18,7 +19,7 @@ function bool(args: Record<string, unknown>, key: string) {
 }
 
 function utcDate(value: string | null) {
-  if (!value) return new Date(new Date().toISOString().slice(0, 10) + "T00:00:00.000Z");
+  if (!value) return new Date(todayIso() + "T00:00:00.000Z");
   const parsed = new Date(`${value.slice(0, 10)}T00:00:00.000Z`);
   return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { InvoiceForm, type InvoiceFormOptions } from "@/components/form/InvoiceForm";
+import { todayIso } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -37,7 +38,7 @@ export default async function NewInvoicePage() {
     taxRatePercents: Object.fromEntries(
       taxRates.map((t) => [t.code, t.ratePercent.toString()]),
     ),
-    defaultDate: new Date().toISOString().slice(0, 10),
+    defaultDate: todayIso(),
   };
 
   return (

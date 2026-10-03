@@ -5,6 +5,7 @@ import {
   SupplierCreditForm,
   type SupplierCreditFormOptions,
 } from "@/components/form/SupplierCreditForm";
+import { todayIso } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +42,7 @@ export default async function NewSupplierCreditPage({
     projects: projects.map((p) => ({ value: p.code, label: `${p.code} — ${p.name}` })),
     expenseAccounts: accounts.map((a) => ({ value: a.code, label: `${a.code} ${a.name}` })),
     taxRates: taxRates.map((t) => ({ value: t.code, label: t.name })),
-    defaultDate: new Date().toISOString().slice(0, 10),
+    defaultDate: todayIso(),
     presetContactId: preset?.contactId,
     presetBillId: preset?.id,
   };

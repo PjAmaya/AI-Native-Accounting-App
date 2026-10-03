@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Decimal from "decimal.js";
 import { ArrowLeft, FileCheck, Pencil, Trash2, Download } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { money, longDate, shortDate } from "@/lib/format";
+import { money, longDate, shortDate, todayIso } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
 import { issueCreditNoteAction, applyCreditAction, refundCreditNoteAction, deleteCreditNoteAction } from "../actions";
 
@@ -310,7 +310,7 @@ export default async function CreditNotePage({
                 <input
                   name="refundDate"
                   type="date"
-                  defaultValue={new Date().toISOString().slice(0, 10)}
+                  defaultValue={todayIso()}
                   aria-label="Refund date"
                   className="rounded-lg border border-rule bg-surface px-2.5 py-1.5 text-[13px] focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
                 />
