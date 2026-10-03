@@ -92,6 +92,21 @@ export async function currentExceptions(asOf: Date): Promise<Exception[]> {
     });
   }
 
+  const draftPayments = await prisma.payment.findMany({
+    where: { journalEntry: { status: "DRAFT" } },
+    select: { amount: true },
+  });
+  if (draftPayments.length > 0) {
+    out.push({
+      id: "payment-drafts",
+      severity: "ATTENTION",
+      title: `${draftPayments.length} payment${draftPayments.length === 1 ? "" : "s"} not posted`,
+      detail: "Applied invoices and bills show as paid, but the bank and ledger are unchanged",
+      amount: draftPayments.reduce((sum, p) => sum.plus(p.amount.toString()), new Decimal(0)),
+      href: "/payments",
+    });
+  }
+
   const dueSoon = ap.rows.filter(
     (r) => r.kind === "DOCUMENT" && r.daysPastDue <= 0 && r.dueDate <= addDays(asOf, 7),
   );
