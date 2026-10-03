@@ -144,7 +144,7 @@ export async function createCreditNoteTx(tx: TxClient, draft: CreditNoteDraft) {
   });
 
   const revenueGroups = new Map<string, { code: string; projectId: string | null; amount: Decimal }>();
-  draft.lines.forEach((line, index) => {
+  draft.lines.forEach((line) => {
     const projectId = line.projectCode ? projectByCode.get(line.projectCode)!.id : null;
     const key = `${line.revenueAccountCode}|${projectId ?? ""}`;
     const existing = revenueGroups.get(key);

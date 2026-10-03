@@ -6,6 +6,7 @@ import { storeAttachment } from "../attachments/store";
 import { syncAttachmentToDrive } from "../google/driveSync";
 import { buildDedupeKey } from "../dedupe";
 import type { ToolDefinition } from "./tools";
+import { chatContext } from "./chatContext";
 
 function str(args: Record<string, unknown>, key: string) {
   const value = args[key];
@@ -264,7 +265,7 @@ export const WRITE_TOOLS: ToolDefinition[] = [
         lines,
       });
 
-      const pdfBytes = (globalThis as any).__chatPdfBytes as Buffer | undefined;
+      const pdfBytes = chatContext.getStore()?.pdfBytes;
       if (pdfBytes) {
         try {
           const att = await storeAttachment({

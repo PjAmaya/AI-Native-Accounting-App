@@ -70,7 +70,7 @@ export async function applySupplierCreditTx(
   creditId: string,
   applications: SupplierCreditApplicationDraft[],
 ) {
-  const { credit, available } = await supplierCreditBalanceTx(tx, creditId);
+  const { credit, total, refunded } = await supplierCreditBalanceTx(tx, creditId);
 
   if (credit.status === "DRAFT") {
     throw new Error(`Supplier credit #${credit.creditNumber} must be approved before it can be applied.`);
@@ -88,6 +88,14 @@ export async function applySupplierCreditTx(
   });
   const byNumber = new Map(bills.map((b) => [b.billNumber, b]));
 
+  // Each submitted amount replaces this credit's existing application to that
+  // bill, so only applications to other bills count against the credit.
+  const submittedIds = new Set(bills.map((b) => b.id));
+  const usedElsewhere = credit.applications
+    .filter((a) => !submittedIds.has(a.billId))
+    .reduce((sum, a) => sum.plus(a.amountApplied.toString()), new Decimal(0));
+  const available = total.minus(refunded).minus(usedElsewhere);
+
   let totalApplied = new Decimal(0);
 
   for (const application of applications) {
@@ -100,7 +108,10 @@ export async function applySupplierCreditTx(
       throw new Error(`Bill #${bill.billNumber} is ${bill.status.toLowerCase()}.`);
     }
 
-    const settled = [...bill.applications, ...bill.supplierCreditApplications].reduce(
+    const otherCredits = bill.supplierCreditApplications.filter(
+      (a) => a.supplierCreditId !== credit.id,
+    );
+    const settled = [...bill.applications, ...otherCredits].reduce(
       (sum, a) => sum.plus(a.amountApplied.toString()),
       new Decimal(0),
     );

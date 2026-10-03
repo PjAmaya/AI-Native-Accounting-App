@@ -75,7 +75,7 @@ export default async function ProjectsPage({
           <span className="tile bg-tint-blue text-icon-blue">
             <FolderKanban size={17} strokeWidth={1.9} aria-hidden />
           </span>
-          <p className="text-[14px] text-muted">No projects yet.</p>
+          <p className="text-[14px] text-muted">{filtered ? "No projects match these filters." : "No projects yet."}</p>
         </div>
       ) : (
         <div className="card mt-7 overflow-hidden">

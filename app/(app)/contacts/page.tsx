@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Plus, Users } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { ListFilters } from "@/components/ui/ListFilters";
 
 export const dynamic = "force-dynamic";
 
@@ -74,7 +73,7 @@ export default async function ContactsPage({
             </select>
           </div>
           <button type="submit" className="rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]">Filter</button>
-          {filtered ? <a href="/contacts" className="px-2 py-2 text-[13px] text-muted hover:text-ink">Clear</a> : null}
+          {filtered ? <Link href="/contacts" className="px-2 py-2 text-[13px] text-muted hover:text-ink">Clear</Link> : null}
         </div>
       </form>
 

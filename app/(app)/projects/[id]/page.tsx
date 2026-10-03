@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Decimal from "decimal.js";
 import { ArrowLeft, Pencil, Trash2, Upload, FileText, X } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { projectPerformance } from "@/lib/reporting/projectPerformance";

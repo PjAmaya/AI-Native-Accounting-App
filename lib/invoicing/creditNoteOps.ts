@@ -70,23 +70,12 @@ export async function applyCreditTx(
   creditNoteId: string,
   applications: CreditApplicationDraft[],
 ) {
-  const note = await tx.creditNote.findUnique({
-    where: { id: creditNoteId },
-    include: { applications: true },
-  });
+  const { note, total, refunded } = await creditNoteBalanceTx(tx, creditNoteId);
 
-  if (!note) throw new Error(`Credit note ${creditNoteId} does not exist.`);
   if (note.status === "DRAFT") {
     throw new Error(`Credit note ${note.creditNumber} must be issued before it can be applied.`);
   }
   if (note.status === "VOID") throw new Error(`Credit note ${note.creditNumber} is void.`);
-
-  const alreadyUsed = note.applications.reduce(
-    (sum, a) => sum.plus(a.amountApplied.toString()),
-    new Decimal(0),
-  );
-  const available = new Decimal(note.total.toString()).minus(alreadyUsed);
-  void available;
 
   const numbers = applications.map((a) => a.invoiceNumber);
   if (new Set(numbers).size !== numbers.length) {
@@ -98,6 +87,14 @@ export async function applyCreditTx(
     include: { applications: true, creditApplications: true },
   });
   const byNumber = new Map(invoices.map((i) => [i.invoiceNumber, i]));
+
+  // Each submitted amount replaces this note's existing application to that
+  // invoice, so only applications to other invoices count against the note.
+  const submittedIds = new Set(invoices.map((i) => i.id));
+  const usedElsewhere = note.applications
+    .filter((a) => !submittedIds.has(a.invoiceId))
+    .reduce((sum, a) => sum.plus(a.amountApplied.toString()), new Decimal(0));
+  const available = total.minus(refunded).minus(usedElsewhere);
 
   let totalApplied = new Decimal(0);
 
@@ -114,10 +111,9 @@ export async function applyCreditTx(
     const settled = invoice.applications
       .reduce((sum, a) => sum.plus(a.amountApplied.toString()), new Decimal(0))
       .plus(
-        invoice.creditApplications.reduce(
-          (sum, a) => sum.plus(a.amountApplied.toString()),
-          new Decimal(0),
-        ),
+        invoice.creditApplications
+          .filter((a) => a.creditNoteId !== note.id)
+          .reduce((sum, a) => sum.plus(a.amountApplied.toString()), new Decimal(0)),
       );
 
     assertNotOverApplied({
@@ -155,20 +151,11 @@ export async function applyCreditTx(
 
   await syncInvoiceStatusTx(tx, applications.map((a) => byNumber.get(a.invoiceNumber)!.id));
 
-  const refundedSoFar = note.refundEntryId
-    ? (await tx.journalEntry.findUnique({
-        where: { id: note.refundEntryId },
-        include: { lines: true },
-      }))?.lines.reduce((sum, l) => sum.plus(l.debit.toString()), new Decimal(0)) ??
-      new Decimal(0)
-    : new Decimal(0);
-
-  const usedNow = alreadyUsed.plus(totalApplied).plus(refundedSoFar);
-  const fullyUsed = usedNow.greaterThanOrEqualTo(new Decimal(note.total.toString()));
+  const after = await creditNoteBalanceTx(tx, creditNoteId);
 
   return tx.creditNote.update({
     where: { id: note.id },
-    data: { status: fullyUsed ? "APPLIED" : "ISSUED" },
+    data: { status: after.available.lessThanOrEqualTo(0) ? "APPLIED" : "ISSUED" },
     include: { applications: { include: { invoice: true } }, contact: true },
   });
 }
@@ -204,7 +191,7 @@ export async function refundCreditNoteTx(
   creditNoteId: string,
   input: { amount: string; bankAccountCode: string; refundDate: Date; reference?: string },
 ) {
-  const { note, applied, refunded, available } = await creditNoteBalanceTx(tx, creditNoteId);
+  const { note, applied, available } = await creditNoteBalanceTx(tx, creditNoteId);
 
   if (note.status === "DRAFT") {
     throw new Error(`Credit note ${note.creditNumber} must be issued before it can be refunded.`);

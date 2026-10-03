@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { money, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
 import { ListFilters } from "@/components/ui/ListFilters";
+import type { SupplierCreditStatus } from "@/lib/generated/prisma/enums";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,7 @@ export default async function SupplierCreditsPage({
   const [credits, vendors] = await Promise.all([
     prisma.supplierCredit.findMany({
       where: {
-        ...(status && STORED_STATUSES.has(status) ? { status: status as any } : {}),
+        ...(status && STORED_STATUSES.has(status) ? { status: status as SupplierCreditStatus } : {}),
         ...(sp.contact ? { contactId: sp.contact } : {}),
         ...(from || to ? { creditDate: { ...(from ? { gte: from } : {}), ...(to ? { lte: to } : {}) } } : {}),
         ...(q ? { supplierCreditNumber: { contains: q, mode: "insensitive" as const } } : {}),

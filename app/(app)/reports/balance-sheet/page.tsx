@@ -125,6 +125,9 @@ export default async function BalanceSheetPage({
               {bs.ownersEquity.rows.map((row) => (
                 <Row key={row.code} code={row.code} label={row.name} value={row.balance} indent={1} dateParams={dateParams} />
               ))}
+              {!bs.retainedEarnings.isZero() ? (
+                <Row label="Retained earnings (prior years)" value={bs.retainedEarnings} indent={1} />
+              ) : null}
               <Row label="Current period earnings" value={bs.currentPeriodEarnings} indent={1} />
               <Row label="Total equity" value={bs.totalEquity} indent={1} rule />
               <Row label="Liabilities and equity" value={bs.totalLiabilitiesAndEquity} bold rule />

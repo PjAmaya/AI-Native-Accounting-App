@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import { prisma } from "../db";
 import { postDraftTx, type TxClient } from "../ledger/post";
 import { renderInvoicePdf } from "./renderInvoicePdf";
@@ -36,11 +37,15 @@ export async function issueInvoiceTx(
 
   const entry = await postDraftTx(tx, invoice.journalEntryId!);
 
-  const arDebit = entry.lines.reduce(
-    (sum, line) => sum.plus(line.debit),
-    entry.lines[0].debit.minus(entry.lines[0].debit),
-  );
-  if (!arDebit.equals(invoice.total)) {
+  // Discount lines on their own account post as debits too, so compare the
+  // receivable line alone. It is line 1 for invoices created before
+  // receivableAccountId was recorded.
+  const receivableId =
+    invoice.receivableAccountId ?? entry.lines.find((l) => l.lineNumber === 1)?.accountId;
+  const arDebit = entry.lines
+    .filter((line) => line.accountId === receivableId)
+    .reduce((sum, line) => sum.plus(line.debit).minus(line.credit), new Decimal(0));
+  if (!arDebit.equals(invoice.total.toString())) {
     throw new Error(
       `Invoice ${invoice.invoiceNumber} total ${invoice.total.toString()} does not match its journal entry total ${arDebit.toString()}.`,
     );

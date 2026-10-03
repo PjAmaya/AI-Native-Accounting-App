@@ -62,16 +62,35 @@ export default async function AccountActivityPage({
     orderBy: [{ entry: { entryDate: "asc" } }, { entry: { entryNumber: "asc" } }, { lineNumber: "asc" }],
   });
 
-  let running = new Decimal(0);
-  const rows = lines.map((line) => {
+  const signed = (debit: Decimal, credit: Decimal) =>
+    account.normalBalance === "DEBIT" ? debit.minus(credit) : credit.minus(debit);
+
+  // Balance-sheet accounts carry a balance forward; revenue and expense
+  // accounts show period activity only, so the total matches the P&L.
+  const carriesBalance = account.type === "ASSET" || account.type === "LIABILITY" || account.type === "EQUITY";
+  let opening = new Decimal(0);
+  if (from && carriesBalance) {
+    const prior = await prisma.journalLine.aggregate({
+      where: {
+        accountId: account.id,
+        entry: { status: { in: ["POSTED", "REVERSED"] }, entryDate: { lt: from } },
+      },
+      _sum: { debit: true, credit: true },
+    });
+    opening = signed(
+      new Decimal(prior._sum.debit?.toString() ?? "0"),
+      new Decimal(prior._sum.credit?.toString() ?? "0"),
+    );
+  }
+
+  const rows: { line: (typeof lines)[number]; debit: Decimal; credit: Decimal; running: Decimal }[] = [];
+  for (const line of lines) {
     const debit = new Decimal(line.debit.toString());
     const credit = new Decimal(line.credit.toString());
-    const movement = account.normalBalance === "DEBIT"
-      ? debit.minus(credit)
-      : credit.minus(debit);
-    running = running.plus(movement);
-    return { line, debit, credit, running: new Decimal(running) };
-  });
+    const previous = rows.length > 0 ? rows[rows.length - 1].running : opening;
+    rows.push({ line, debit, credit, running: previous.plus(signed(debit, credit)) });
+  }
+  const running = rows.length > 0 ? rows[rows.length - 1].running : opening;
 
   const totalDebit = rows.reduce((sum, r) => sum.plus(r.debit), new Decimal(0));
   const totalCredit = rows.reduce((sum, r) => sum.plus(r.credit), new Decimal(0));
@@ -123,6 +142,12 @@ export default async function AccountActivityPage({
               </tr>
             </thead>
             <tbody className="divide-y divide-rule">
+              {!opening.isZero() ? (
+                <tr className="text-muted">
+                  <td colSpan={5} className="px-2 py-2">Opening balance</td>
+                  <td className="whitespace-nowrap px-2 py-2 text-right font-mono tabular-nums font-medium">{money(opening)}</td>
+                </tr>
+              ) : null}
               {rows.map(({ line, debit, credit, running: bal }) => (
                 <tr
                   key={line.id}

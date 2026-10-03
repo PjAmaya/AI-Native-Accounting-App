@@ -1,5 +1,6 @@
 import { prisma } from "../db";
 import { reverseEntryTx } from "../ledger/post";
+import { creditNoteBalanceTx } from "./creditNoteOps";
 import type { TxClient } from "../ledger/txClient";
 import type { LockOverride } from "../ledger/periodLock";
 
@@ -20,7 +21,7 @@ export async function voidInvoiceTx(
 
   const invoice = await tx.invoice.findUnique({
     where: { id: invoiceId },
-    include: { applications: true, journalEntry: true },
+    include: { applications: true, creditApplications: true, journalEntry: true },
   });
 
   if (!invoice) throw new Error(`Invoice ${invoiceId} does not exist.`);
@@ -47,6 +48,17 @@ export async function voidInvoiceTx(
     `void: ${options.reason.trim()}`,
     { reversalDate: options.reversalDate, lockOverride: options.lockOverride },
   );
+
+  // Release any applied credit back to its credit note so it can be reused.
+  if (invoice.creditApplications.length > 0) {
+    await tx.creditApplication.deleteMany({ where: { invoiceId: invoice.id } });
+    for (const creditNoteId of new Set(invoice.creditApplications.map((a) => a.creditNoteId))) {
+      const { available } = await creditNoteBalanceTx(tx, creditNoteId);
+      if (available.greaterThan(0)) {
+        await tx.creditNote.update({ where: { id: creditNoteId }, data: { status: "ISSUED" } });
+      }
+    }
+  }
 
   const voided = await tx.invoice.update({
     where: { id: invoice.id },

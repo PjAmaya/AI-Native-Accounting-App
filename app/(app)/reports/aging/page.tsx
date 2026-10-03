@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { arAging, apAging, AGING_BUCKETS, AGING_LABELS, type AgingReport } from "@/lib/reporting/aging";
 import { money, longDate, shortDate } from "@/lib/format";
 import { ReportHeader, PeriodForm, TiesBadge } from "@/components/report/ReportShell";

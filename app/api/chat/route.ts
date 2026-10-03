@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { runChat } from "@/lib/ai/chat";
 import type { ChatMessage } from "@/lib/ai/provider";
+import { chatContext } from "@/lib/ai/chatContext";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -9,6 +10,7 @@ export async function POST(request: Request) {
   const contentType = request.headers.get("content-type") ?? "";
   let question = "";
   let pdfContext = "";
+  let pdfBytes: Buffer | undefined;
   const history: ChatMessage[] = [];
 
   if (contentType.includes("multipart/form-data")) {
@@ -24,10 +26,9 @@ export async function POST(request: Request) {
     const file = fd.get("file");
     if (file instanceof File && file.size > 0 && file.type === "application/pdf") {
       const { extractBillFromPdf } = await import("@/lib/ai/extractBill");
-      const bytes = Buffer.from(await file.arrayBuffer());
-      (globalThis as any).__chatPdfBytes = bytes;
+      pdfBytes = Buffer.from(await file.arrayBuffer());
       try {
-        const extracted = await extractBillFromPdf(bytes);
+        const extracted = await extractBillFromPdf(pdfBytes);
         pdfContext = "\nThe user uploaded a PDF. Extracted data:\n" +
           JSON.stringify(extracted, null, 2) +
           "\nUse create_bill_draft if asked. Vendor: " +
@@ -42,8 +43,7 @@ export async function POST(request: Request) {
     try {
       body = await request.json();
     } catch {
-      delete (globalThis as any).__chatPdfBytes;
-    return NextResponse.json({ error: "Expected JSON or FormData." }, { status: 400 });
+      return NextResponse.json({ error: "Expected JSON or FormData." }, { status: 400 });
     }
     question = typeof body.question === "string" ? body.question.trim() : "";
     if (Array.isArray(body.history)) history.push(...(body.history as ChatMessage[]));
@@ -56,9 +56,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "That question is too long." }, { status: 400 });
   }
 
-
   try {
-    const result = await runChat(question + pdfContext, history.slice(-12));
+    const result = await chatContext.run({ pdfBytes }, () =>
+      runChat(question + pdfContext, history.slice(-12)),
+    );
     return NextResponse.json(result);
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 500 });

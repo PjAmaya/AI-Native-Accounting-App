@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, type FormEvent } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Decimal from "decimal.js";
 import { Plus, Trash2, TriangleAlert } from "lucide-react";

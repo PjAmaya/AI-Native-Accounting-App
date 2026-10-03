@@ -1,5 +1,6 @@
 import { prisma } from "../db";
 import { reverseEntryTx } from "../ledger/post";
+import { supplierCreditBalanceTx } from "./supplierCreditOps";
 import type { TxClient } from "../ledger/txClient";
 import type { LockOverride } from "../ledger/periodLock";
 
@@ -16,7 +17,7 @@ export async function voidBillTx(tx: TxClient, billId: string, options: VoidBill
 
   const bill = await tx.bill.findUnique({
     where: { id: billId },
-    include: { applications: true, journalEntry: true },
+    include: { applications: true, supplierCreditApplications: true, journalEntry: true },
   });
 
   if (!bill) throw new Error(`Bill ${billId} does not exist.`);
@@ -43,6 +44,17 @@ export async function voidBillTx(tx: TxClient, billId: string, options: VoidBill
     `void: ${options.reason.trim()}`,
     { reversalDate: options.reversalDate, lockOverride: options.lockOverride },
   );
+
+  // Release any applied credit back to its supplier credit so it can be reused.
+  if (bill.supplierCreditApplications.length > 0) {
+    await tx.supplierCreditApplication.deleteMany({ where: { billId: bill.id } });
+    for (const creditId of new Set(bill.supplierCreditApplications.map((a) => a.supplierCreditId))) {
+      const { available } = await supplierCreditBalanceTx(tx, creditId);
+      if (available.greaterThan(0)) {
+        await tx.supplierCredit.update({ where: { id: creditId }, data: { status: "APPROVED" } });
+      }
+    }
+  }
 
   const voided = await tx.bill.update({
     where: { id: bill.id },

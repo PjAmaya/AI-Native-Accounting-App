@@ -2,7 +2,6 @@ import Link from "next/link";
 import Decimal from "decimal.js";
 import { Plus, Wallet, ArrowDownLeft, ArrowUpRight } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { ListFilters } from "@/components/ui/ListFilters";
 import { money, shortDate } from "@/lib/format";
 import { StatusPill } from "@/components/ui/StatusPill";
 
@@ -27,7 +26,7 @@ export default async function PaymentsPage({
 
   const payments = await prisma.payment.findMany({
     where: {
-      ...(direction === "RECEIVED" || direction === "SENT" ? { direction: direction as any } : {}),
+      ...(direction === "RECEIVED" || direction === "SENT" ? { direction } : {}),
       ...(sp.contact ? { contactId: sp.contact } : {}),
       ...(from || to ? { paymentDate: { ...(from ? { gte: from } : {}), ...(to ? { lte: to } : {}) } } : {}),
     },

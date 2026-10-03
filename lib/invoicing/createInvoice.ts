@@ -162,6 +162,7 @@ export async function createInvoiceTx(tx: TxClient, draft: InvoiceDraft) {
       status: "DRAFT",
       contactId: contact.id,
       projectId: invoiceProjectId,
+      receivableAccountId: receivable.id,
       invoiceDate,
       dueDate,
       servicePeriodStart: draft.servicePeriodStart ?? null,

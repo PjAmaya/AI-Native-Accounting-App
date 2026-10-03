@@ -2,7 +2,7 @@ import Link from "next/link";
 import Decimal from "decimal.js";
 import { Plus, Lock } from "lucide-react";
 import { prisma } from "@/lib/db";
-import { ListFilters } from "@/components/ui/ListFilters";
+import { AccountType } from "@/lib/generated/prisma/enums";
 import { accountActivity } from "@/lib/reporting/activity";
 import { money } from "@/lib/format";
 
@@ -29,7 +29,7 @@ export default async function AccountsPage({
   const [accounts, activity] = await Promise.all([
     prisma.account.findMany({
       where: {
-        ...(acctType ? { type: acctType as any } : {}),
+        ...(acctType && acctType in AccountType ? { type: acctType as AccountType } : {}),
         ...(q ? { OR: [
           { code: { contains: q, mode: "insensitive" as const } },
           { name: { contains: q, mode: "insensitive" as const } },
@@ -86,7 +86,7 @@ export default async function AccountsPage({
             </select>
           </div>
           <button type="submit" className="rounded-lg bg-brand px-3.5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-[#1731c9]">Filter</button>
-          {filtered ? <a href="/accounts" className="px-2 py-2 text-[13px] text-muted hover:text-ink">Clear</a> : null}
+          {filtered ? <Link href="/accounts" className="px-2 py-2 text-[13px] text-muted hover:text-ink">Clear</Link> : null}
         </div>
       </form>
 

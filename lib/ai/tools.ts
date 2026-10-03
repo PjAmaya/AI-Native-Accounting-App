@@ -99,6 +99,7 @@ export const TOOLS: ToolDefinition[] = [
         currentLiabilities: bs.currentLiabilities.rows.map((r) => ({ code: r.code, name: r.name, amount: num(r.balance) })),
         totalLiabilities: num(bs.totalLiabilities),
         equity: bs.ownersEquity.rows.map((r) => ({ code: r.code, name: r.name, amount: num(r.balance) })),
+        retainedEarnings: num(bs.retainedEarnings),
         currentPeriodEarnings: num(bs.currentPeriodEarnings),
         totalEquity: num(bs.totalEquity),
         balanced: bs.balanced,

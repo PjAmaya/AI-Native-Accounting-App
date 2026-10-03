@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 import { prisma } from "../db";
-import { createDraftEntryTx, type TxClient } from "../ledger/post";
+import { createDraftEntryTx, postDraftTx, type TxClient } from "../ledger/post";
 import type { DraftLine } from "../ledger/balance";
 import { assertNotOverApplied, sumApplied } from "./applications";
 import { syncInvoiceStatusTx, syncBillStatusTx } from "./documentStatus";
@@ -33,6 +33,7 @@ export type PaymentDraft = {
   applications?: InvoiceApplicationDraft[];
   billApplications?: BillApplicationDraft[];
   forcePaymentNumber?: number;
+  postImmediately?: boolean;
 };
 
 export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
@@ -247,11 +248,12 @@ export async function recordPaymentTx(tx: TxClient, draft: PaymentDraft) {
     });
   }
 
-  const entry = await createDraftEntryTx(tx, {
+  const draftEntry = await createDraftEntryTx(tx, {
     entryDate: draft.paymentDate,
     description: label,
     lines,
   });
+  const entry = draft.postImmediately ? await postDraftTx(tx, draftEntry.id) : draftEntry;
 
   const linked = await tx.payment.update({
     where: { id: payment.id },

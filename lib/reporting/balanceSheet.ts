@@ -17,6 +17,7 @@ export type BalanceSheet = {
   longTermLiabilities: BsSection;
   totalLiabilities: Decimal;
   ownersEquity: BsSection;
+  retainedEarnings: Decimal;
   currentPeriodEarnings: Decimal;
   totalEquity: Decimal;
   totalLiabilitiesAndEquity: Decimal;
@@ -62,7 +63,14 @@ export async function balanceSheet(asOf: Date, fiscalYearStart: Date): Promise<B
   );
   const currentPeriodEarnings = periodRevenue.minus(periodExpenses);
 
-  const totalEquity = ownersEquity.total.plus(currentPeriodEarnings);
+  // There are no year-end closing entries, so earnings from before this fiscal
+  // year still sit in revenue and expense accounts. Carry them into equity here.
+  const lifetimeEarnings = sumBalances(inceptionToDate.filter((r) => r.type === "REVENUE")).minus(
+    sumBalances(inceptionToDate.filter((r) => r.type === "EXPENSE")),
+  );
+  const retainedEarnings = lifetimeEarnings.minus(currentPeriodEarnings);
+
+  const totalEquity = ownersEquity.total.plus(retainedEarnings).plus(currentPeriodEarnings);
   const totalLiabilitiesAndEquity = totalLiabilities.plus(totalEquity);
   const difference = totalAssets.minus(totalLiabilitiesAndEquity);
 
@@ -81,6 +89,7 @@ export async function balanceSheet(asOf: Date, fiscalYearStart: Date): Promise<B
     longTermLiabilities,
     totalLiabilities,
     ownersEquity,
+    retainedEarnings,
     currentPeriodEarnings,
     totalEquity,
     totalLiabilitiesAndEquity,

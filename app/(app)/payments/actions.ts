@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { recordPayment, type PaymentDraft } from "@/lib/invoicing/recordPayment";
 import { updateDraftPayment, deleteDraftPayment } from "@/lib/invoicing/updateDraftPayment";
-import { postDraft } from "@/lib/ledger/post";
 
 export type PaymentFormState = {
   ok: boolean;
@@ -118,15 +117,11 @@ export async function savePaymentAction(
   }
 
   const id = text(formData, "id");
+  const draft = { ...parsed.draft, postImmediately: formData.get("postImmediately") === "on" };
 
   try {
-    const result = id
-      ? await updateDraftPayment(id, parsed.draft)
-      : await recordPayment(parsed.draft);
-
-    if (formData.get("postImmediately") === "on") {
-      await postDraft(result.entry.id);
-    }
+    if (id) await updateDraftPayment(id, draft);
+    else await recordPayment(draft);
   } catch (e) {
     return { ok: false, message: (e as Error).message, errors: {} };
   }
